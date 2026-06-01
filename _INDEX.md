@@ -21,6 +21,7 @@
 | Client / Project | Status | Folder |
 |------------------|--------|--------|
 | Transcend Counseling & Wellness — IntakeSystem | 🔄 In Progress (Phase 1) | `Projects/Transcend_IntakeSystem/` |
+| BLR World — Orbit | 🔄 In Progress (Phase 1) | `Projects/Orbit/` |
 
 ## 🧠 Self-Learning Protocol
 After every project session, Antigravity must:
