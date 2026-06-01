@@ -34,6 +34,12 @@
 > Only note project-specific deviations here.
 
 **AppUser deviations**: *(none)*
+
+**AppUser Actions**:
+| Action | Type | Condition |
+|--------|------|-----------|
+| `Trigger_Employee_Update_AppUserID` | Execute `Update_AppUserID` on `LIST([Employee])` | `ISNOTBLANK([Employee])` |
+
 **AppAccess Modules**: System, Employee, Attendance, Review, Finance
 **AppAccess Levels**: SuperAdmin, HRManager, HRStaff, LineManager, Employee, FinanceAdmin
 
@@ -106,6 +112,7 @@
 | `Sync_Employee` | Set LastEditOn = UTCNOW() | TRUE |
 | `Approved_Confirm` | Set Status = "Confirmed", DateOfConfirmation = TODAY() | `[Status] = "Probation"` |
 | `Terminated_Employee` | Set Status = "Terminated", DateOfTermination = TODAY() | `[Status] <> "Terminated"` |
+| `Update_AppUserID` | Set AppUserID = ANY(SELECT(AppUser[ID], [Employee] = [_THISROW].[ID])) | TRUE |
 
 ---
 
@@ -432,3 +439,13 @@
 | Attendance_LineManager | Attendance | LineManager |
 | Review_Employee | Review | Employee |
 | Finance_FinanceAdmin | Finance | FinanceAdmin |
+
+---
+
+## AppSheet Automations (Bots)
+
+### Bot: Sync AppUser to Employee
+* **Trigger Event**: `ADDS_ONLY` on `AppUser` table
+* **Trigger Condition**: `ISNOTBLANK([Employee])`
+* **Run Step**: Run Action `Trigger_Employee_Update_AppUserID` on the current `AppUser` record.
+* **Purpose**: Automatically write the newly created `AppUser.ID` back to the corresponding `Employee` record's `AppUserID` column to establish the two-way relationship.

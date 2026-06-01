@@ -47,3 +47,10 @@
 **Reason**: Clean, AI-ready relational data models.
 **Impact**: Unified schema layout.
 **Pattern**: SP-001 / FP-001
+
+### 2026-06-01 Two-Way AppUser to Employee Link Automation
+**Context**: When an administrator creates a user profile (`AppUser`), the corresponding `Employee.AppUserID` must be updated automatically to maintain reference integrity.
+**Decision**: Created a two-way sync automation. An AppSheet bot triggers on `ADDS_ONLY` to the `AppUser` table, calling a trigger action on the related `Employee` row which updates its `AppUserID` column via `ANY(SELECT(AppUser[ID], [Employee] = [_THISROW].[ID]))`.
+**Reason**: Avoids requiring manual selection of the `AppUser` on the Employee profile, simplifying the onboarding workflow.
+**Impact**: `Employee.AppUserID` is auto-populated upon user creation.
+**Pattern**: Reusable (Cross-Table Reference Sync Pattern)

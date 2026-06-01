@@ -11,6 +11,7 @@
 |---|---------|---------|-----------|
 | 1 | Geofencing | GPS check-in offset validation using HERE() against AppSetting coordinates | No |
 | 2 | Performance Reviews | Weighted multi-cycle performance scoring on employee profile | No |
+| 3 | Automations | Cross-Table Reference Sync Pattern (AppUser.ID sync to Employee) | No |
 
 ---
 
@@ -50,5 +51,26 @@
   - Formula: `ANY(SELECT(ManagerEvaluation[FinalRating], AND([EmployeeID] = [_THISROW].[ID], [ReviewCycleID].[Type] = "Annual", [ReviewCycleID].[Status] = "Closed")))`
 - Column: `ReviewOverallScore` (Virtual Decimal)
   - Formula: `IFS(AND(ISNOTBLANK([ReviewMidYearScore]), ISNOTBLANK([ReviewAnnualScore])), ([ReviewMidYearScore] * 0.3) + ([ReviewAnnualScore] * 0.7), ISNOTBLANK([ReviewAnnualScore]), [ReviewAnnualScore], ISNOTBLANK([ReviewMidYearScore]), [ReviewMidYearScore])`
+**Tested**: Yes
+**Reusable**: Yes
+
+---
+
+### Automations: Cross-Table Reference Sync Pattern
+**Problem**: Writing a child or related record's ID back to the parent table automatically upon creation to establish a two-way reference (e.g., auto-filling `Employee.AppUserID` when `AppUser` is created).
+**Solution**: Create a field-update action on the parent table (e.g. `Employee`) to pull the related ID using a `SELECT` formula. Create a trigger action on the child table (e.g. `AppUser`) that executes the parent action on `LIST([ParentRef])`. Create a bot on the child table that runs the trigger action on `ADDS_ONLY`.
+**AppSheet Config**:
+- Parent Action (`Employee.Update_AppUserID`):
+  - Do this: Set the values of some columns in this row
+  - Column: `AppUserID` = `ANY(SELECT(AppUser[ID], [Employee] = [_THISROW].[ID]))`
+- Child Action (`AppUser.Trigger_Employee_Update_AppUserID`):
+  - Do this: Execute an action on a set of rows
+  - Referenced Table: `Employee`
+  - Referenced Rows: `LIST([Employee])`
+  - Action to Execute: `Update_AppUserID`
+- Bot:
+  - Event: `ADDS_ONLY` on `AppUser`
+  - Condition: `ISNOTBLANK([Employee])`
+  - Action: Run Child Action `Trigger_Employee_Update_AppUserID`
 **Tested**: Yes
 **Reusable**: Yes
