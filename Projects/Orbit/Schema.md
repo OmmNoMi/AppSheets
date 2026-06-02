@@ -25,6 +25,7 @@
 | AttendanceDaily | AttendanceDaily | Operational | GPS check-in/out attendance logs |
 | LeaveAllocation | LeaveAllocation | Operational | Leave ledger (accrued vs used days) |
 | ExpenseClaim | ExpenseClaim | Operational | AED financial claims & receipt attachments |
+| AttendanceRequest | AttendanceRequest | Operational | Time Off in Lieu (TOIL) & Regularization |
 | Approval | Approval | Operational | Generic audit logs of approvals |
 
 ---
@@ -61,6 +62,22 @@
 | GeofenceLatitude | 25.2048 | Corporate office latitude (Dubai location) |
 | GeofenceLongitude | 55.2708 | Corporate office longitude (Dubai location) |
 | GeofenceRadiusMeters | 150.0 | Allowed check-in radius from corporate office |
+
+**AppVariable Initial Values (Leave Types)**:
+| ID (Key) | Group | Type | Label | Value (Category) |
+|---------|-------|------|-------|------------------|
+| Leave_Type | Leave_Type | Enum | | LT_Sick, LT_Anul, LT_Stdy, LT_TOIL, LT_Ernd, LT_Pater, LT_Mater, LT_Comp, LT_LOP, LT_Unpaid |
+| LT_Sick | Leave_Type | Enum | Sick Leave | Att_PL |
+| LT_Anul | Leave_Type | Enum | Annual Leave | Att_PL |
+| LT_Stdy | Leave_Type | Enum | Study Leave | Att_PL |
+| LT_TOIL | Leave_Type | Enum | TOIL (Time Off In Lieu) | Att_PL |
+| LT_Ernd | Leave_Type | Enum | Earned Leave | Att_PL |
+| LT_Pater | Leave_Type | Enum | Paternity Leave | Att_PL |
+| LT_Mater | Leave_Type | Enum | Maternity Leave | Att_PL |
+| LT_Comp | Leave_Type | Enum | Compensatory Leave | Att_PL |
+| LT_Compe | Leave_Type | Enum | Compassionate Leave | Att_PL |
+| LT_LOP | Leave_Type | Enum | LOP (Loss of Pay) | Att_UL |
+| LT_Unpaid | Leave_Type | Enum | Unpaid | Att_UL |
 
 ---
 
@@ -325,6 +342,42 @@
 
 ---
 
+### AttendanceRequest
+**Purpose**: Time Off in Lieu (TOIL) and Attendance Regularization requests.
+**Parent Table**: Employee (One-to-Many)
+
+| Column | Type | Initial Value / App Formula | Editable_If | Reset on Edit | Notes |
+|--------|------|----------------------------|-------------|---------------|-------|
+| ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | — | Plain text UUID |
+| RequestType | Enum | — | `ISBLANK([_THIS])` | — | "Time Off in Lieu (TOIL)", "Attendance Regularization", "Work From Home", "Leave Application", etc. |
+| Leave | Enum | `"Full Day"` | — | — | Half Day or Full Day |
+| LeaveSession | Enum | — | — | — | e.g. Morning, Afternoon (if Half Day) |
+| Employee | Enum Ref → Employee | — | `ISBLANK([_THIS])` | — | Cannot be changed after creation. |
+| StartDate | Date | `[AttendanceDaily].[Date]` | `OR(ISBLANK([AttendanceDaily]), IN([RequestType], {"Work From Home", "Leave Application", "Remote Work"}))` | `ISNOTBLANK([AttendanceDaily])` | Show_If: `OR(CONTEXT("ViewType") <> "Form", IN([RequestType], {"Work From Home", "Leave Application", "Remote Work"}))` |
+| EndDate | Date | `[AttendanceDaily].[Date]` | `OR(ISBLANK([AttendanceDaily]), IN([RequestType], {"Work From Home", "Leave Application", "Remote Work"}))` | `ISNOTBLANK([AttendanceDaily])` | Show_If: `OR(CONTEXT("ViewType") <> "Form", IN([RequestType], {"Work From Home", "Leave Application", "Remote Work"}))` |
+| LeaveType | Enum | — | — | — | |
+| LeaveAllocation | Ref → LeaveAllocation | — | — | — | |
+| LeaveUsed | Decimal | — | — | — | |
+| Remarks | Text | — | — | — | Reason or context |
+| PendingRow | Text/Number | — | — | — | |
+| AttendanceDaily | Enum Ref → AttendanceDaily | — | — | — | Required_If: `IN([RequestType], {"Time Off in Lieu (TOIL)", "Attendance Regularization"})` |
+| Description (VC) | Virtual (Text) | `IFS([RequestType]="Time Off in Lieu (TOIL)", CONCATENATE("Worked on: ",TEXT([AttendanceDaily].[Date],"DD MMM YYYY")," | Check-In: ",TEXT([AttendanceDaily].[Office_Check_In],"HH:MM")," | Check-Out: ",TEXT([AttendanceDaily].[Office_Check_Out],"HH:MM")," | Status: ",[AttendanceDaily].[Status]), [RequestType]="Attendance Regularization", CONCATENATE("Recorded Check-In: ",TEXT([AttendanceDaily].[Office_Check_In],"HH:MM")," | Recorded Check-Out: ",TEXT([AttendanceDaily].[Office_Check_Out],"HH:MM")," | Please enter the correct times below."), TRUE, CONCATENATE("Date: ",TEXT([AttendanceDaily].[Date],"DD MMM YYYY")))` | — | — | Show_If: `ISNOTBLANK([AttendanceDaily])`. Uses `Office_Check_In` / `Office_Check_Out` (timezone-corrected VCs on AttendanceDaily) |
+| CorrectCheckIn | DateTime | — | — | — | For regularization |
+| CorrectCheckOut | DateTime | — | — | — | For regularization |
+| Status | Enum | `"Requested"` | — | — | Requested, Approved, Rejected |
+| CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | FALSE | |
+| CreatedOn | DateTime | `UTCNOW()` | OFF | FALSE | |
+| LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | TRUE | |
+| LastEditOn | DateTime | `UTCNOW()` | OFF | TRUE | |
+| Label (VC) | Virtual | `CONCATENATE([Employee].[Label], " - ", [RequestType], " (", [Status], ")")` | — | — | |
+
+**Actions**:
+| Action | Type | Condition | Set Columns |
+|--------|------|-----------|-------------|
+| `Create_TOIL_Allocation` | Add new row to `LeaveAllocation` | `TRUE` (Triggered by Bot) | `ID`=`TEXT(UNIQUEID())`, `Date`=`TODAY()`, `Employee`=`[Employee]`, `LeaveType`=`"LT_TOIL"`, `Quantity`=`IF([Leave]="Half Day", 0.5, 1.0)`, `StartDate`=`[StartDate]`, `EndDate`=`EDATE([StartDate], 3)` |
+
+---
+
 ### LeaveAllocation
 **Purpose**: Ledger entries for leaves accrued and taken (ledger balance sheet model).
 **Parent Table**: Employee (One-to-Many)
@@ -332,19 +385,20 @@
 | Column | Type | Initial Value / App Formula | Editable_If | Reset on Edit | Notes |
 |--------|------|----------------------------|-------------|---------------|-------|
 | ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | — | |
-| EmployeeID | Enum Ref → Employee | — | `ISBLANK([_THIS])` | — | |
-| Type | Enum | `"Usage"` | — | — | Accrual, Usage |
-| LeaveType | Enum | — | — | — | Annual Leave, Sick Leave, Maternity Leave, Paternity Leave, Unpaid Leave |
-| DateStart | Date | — | — | — | Start date of leave |
-| DateEnd | Date | — | — | — | End date of leave |
-| LeaveAllocationDays | Decimal | — | — | — | Entitled (+) or Deducted (-) number of days |
-| Status | Enum | `"Draft"` | — | — | Draft, Pending Approval, Approved, Rejected |
-| Notes | Text | — | — | — | Reason for request |
+| Date | Date | `TODAY()` | — | — | Date of allocation entry |
+| Employee | Enum Ref → Employee | — | `ISBLANK([_THIS])` | — | |
+| LeaveType | Enum (Ref → AppVariable) | — | — | — | Pulls from AppVariable `Leave_Type` (e.g. LT_Anul, LT_Sick) |
+| OfficeLeave | Text | — | — | — | |
+| Quantity | Decimal | — | — | — | Total allocated days |
+| StartDate | Date | — | — | — | Validity start date |
+| EndDate | Date | — | — | — | Validity end date |
+| Used | Decimal (VC) | `SUM(SELECT(AttendanceRequest[LeaveUsed], AND([LeaveAllocation] = [_THISROW].[ID], [Status] = "Approved")))` | — | — | Virtual: sum of all approved usage rows for this allocation |
+| Available | Decimal (VC) | `[Quantity] - [Used]` | — | — | Virtual: remaining balance |
 | CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | FALSE | |
 | CreatedOn | DateTime | `UTCNOW()` | OFF | FALSE | |
 | LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | TRUE | |
 | LastEditOn | DateTime | `UTCNOW()` | OFF | TRUE | |
-| Label (VC) | Virtual | `CONCATENATE([EmployeeID].[Label], " - ", [LeaveType], " (", [LeaveAllocationDays], " Days)")` | — | — | |
+| Label (VC) | Virtual | `CONCATENATE([Employee].[Label], " - ", [LeaveType], " (", [Quantity], " Days)")` | — | — | |
 
 ---
 
@@ -411,9 +465,11 @@
 | AttendanceDaily.CheckInStatus | On-Time, Late, Invalid GPS |
 | AttendanceDaily.CheckOutStatus | Completed, Early, Invalid GPS |
 | AttendanceDaily.Status | Present, Absent, Half-Day, On Leave, Auto-Completed |
-| LeaveAllocation.Type | Accrual, Usage |
-| LeaveAllocation.LeaveType | Annual Leave, Sick Leave, Maternity Leave, Paternity Leave, Unpaid Leave |
-| LeaveAllocation.Status | Draft, Pending Approval, Approved, Rejected |
+| AttendanceRequest.RequestType | Time Off in Lieu (TOIL), Attendance Regularization, Work From Home, Leave Application, Remote Work |
+| AttendanceRequest.Leave | Half Day, Full Day |
+| AttendanceRequest.LeaveSession | Morning, Afternoon |
+| AttendanceRequest.Status | Requested, Approved, Rejected |
+| LeaveAllocation.LeaveType | LT_Sick, LT_Anul, LT_Stdy, LT_TOIL, LT_Ernd, LT_Pater, LT_Mater, LT_Comp, LT_Compe, LT_LOP, LT_Unpaid |
 | ExpenseClaim.Category | Travel, Meals & Entertainment, Office Supplies, Training, Other |
 | ExpenseClaim.Status | Draft, Pending Manager Approval, Pending Finance Approval, Approved, Rejected |
 | Approval.Status | Pending, Approved, Rejected |
@@ -449,3 +505,9 @@
 * **Trigger Condition**: `ISNOTBLANK([Employee])`
 * **Run Step**: Run Action `Trigger_Employee_Update_AppUserID` on the current `AppUser` record.
 * **Purpose**: Automatically write the newly created `AppUser.ID` back to the corresponding `Employee` record's `AppUserID` column to establish the two-way relationship.
+
+### Bot: Auto-Allocate TOIL on Approval
+* **Trigger Event**: `UPDATES_ONLY` on `AttendanceRequest` table
+* **Trigger Condition**: `AND([RequestType] = "Time Off in Lieu (TOIL)", [Status] = "Approved", [_THISROW_BEFORE].[Status] <> "Approved")`
+* **Run Step**: Run Action `Create_TOIL_Allocation` on the current `AttendanceRequest` record.
+* **Purpose**: When an admin approves a TOIL request, immediately generate a leave allocation bucket for the employee valid for exactly 3 months from the day the extra work was performed. Amount is based on whether the original shift was Full or Half-Day.

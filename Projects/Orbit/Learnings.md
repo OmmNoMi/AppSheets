@@ -20,7 +20,8 @@
 
 | Pattern ID | Summary | Date Promoted |
 |-----------|---------|--------------|
-| | | |
+| FP-003 | Creation-only editability for pre-filled columns | 2026-06-02 |
+| UX-004 | Dependent field auto-compute with conditional override | 2026-06-02 |
 
 ---
 

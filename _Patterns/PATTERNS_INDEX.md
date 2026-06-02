@@ -25,6 +25,7 @@
 |----|-------------------|-------------|--------|
 | FP-001 | Audit stamp full setup | `_SOP/Formulas.md §I` | SOP |
 | FP-002 | *(Add new patterns here)* | | |
+| FP-003 | Creation-only editability for pre-filled columns | Inline below | Orbit |
 
 ## Action Patterns
 | ID | Problem / Use Case | Pattern File | Source |
@@ -32,6 +33,13 @@
 | AP-001 | Prevent filter inheritance on Add | `_SOP/Actions.md §Custom Add` | SOP |
 | AP-002 | Force row recalculation | `_SOP/Actions.md §Sync_` | SOP |
 | AP-003 | *(Add new patterns here)* | | |
+
+### FP-003 Inline: Creation-Only Editability for Pre-Filled Columns
+**Problem**: `ISBLANK([_THIS])` fails to restrict edits to "creation only" if the field has an Initial Value (e.g., logged-in user).
+**Solution**: Check if the record is brand new by verifying its ID doesn't exist in the table yet.
+**AppSheet Config**:
+`Editable_If`: `AND(NOT(IN([_THISROW].[ID], TableName[ID])), [Condition])`
+**Source**: Orbit | 2026-06-02
 
 ## Bug Fixes & Gotchas
 | ID | Symptom | Fix | Source |
@@ -49,12 +57,24 @@
 | UX-001 | Module dashboard layout | `_SOP/UX.md §Dashboard` | SOP |
 | UX-002 | Status format rules | `_SOP/UX.md §Format Rules` | SOP |
 | UX-003 | *(Add new patterns here)* | | |
+| UX-004 | Dependent field auto-compute with conditional override | Inline below | Orbit |
 
 ## Automation Patterns
 | ID | Use Case | Pattern File | Source |
 |----|---------|-------------|--------|
 | AU-001 | Nightly overdue bot | `_SOP/Automations.md §Overdue Bot` | SOP |
 | AU-002 | ADDS_ONLY notification | `_SOP/Automations.md §Notification` | SOP |
+| AU-003 | Conditional document versioning (consent flags → doc version) | Inline below | Transcend |
+| AU-004 | Hourly App Script bot for Google Form auto-processing | `Automations/HourlyFormProcessingBot.md` | Transcend |
+
+### UX-004 Inline: Dependent Field Auto-Compute with Conditional Override
+**Problem**: A field must dynamically pull a value from a dropdown selection, but must be manually editable if specific exceptions are chosen (e.g. "Work From Home").
+**Solution**: 
+1. **Initial Value**: `[DropdownCol].[Value]` (Do not use App Formula)
+2. **Reset on edit?**: `ISNOTBLANK([DropdownCol])` (Forces Initial Value to refresh on dropdown change)
+3. **Editable_If**: `OR(ISBLANK([DropdownCol]), IN([Type], {"Exception"}))`
+4. **Show_If**: `OR(CONTEXT("ViewType") <> "Form", IN([Type], {"Exception"}))` (Hides the field on forms for non-exceptions to prevent manual tampering, but background math still runs).
+**Source**: Orbit | 2026-06-02
 | AU-003 | Conditional document versioning (consent flags → doc version) | Inline below | Transcend |
 | AU-004 | Hourly App Script bot for Google Form auto-processing | `Automations/HourlyFormProcessingBot.md` | Transcend |
 

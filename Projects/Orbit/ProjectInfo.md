@@ -46,6 +46,7 @@
 - [ ] **Automated Work Calendars & Leaves**: Automatically apply calendars based on location and Iso-Weekday. Dynamically deduct approved leaves from `LeaveAllocation` (Accrued vs Used).
 - [ ] **Hourly Present-Marker Bot**: Identify employee shift check-in logs and automatically set status to "Present" if they forget to check out.
 - [ ] **Digital Claims**: Submission of AED expense claims requiring digital receipt capture and manager/finance sign-off.
+- [ ] **Attendance Requests**: Processing of Time Off in Lieu (TOIL) and Attendance Regularization requests, linked to specific daily attendance logs.
 
 ---
 
@@ -64,6 +65,7 @@
 | SelfEvaluation | Operational | Employees, ReviewCycles | Many-to-One |
 | ManagerEvaluation | Operational | Employees, ReviewCycles | Many-to-One |
 | AttendanceDaily | Operational | Employees | Many-to-One (Child) |
+| AttendanceRequest | Operational | Employees, AttendanceDaily | Many-to-One (Child) |
 | LeaveAllocation | Operational | Employees | Many-to-One (Child) |
 | ExpenseClaims | Operational | Employees | Many-to-One (Child) |
 | Approvals | Operational | Employees, HR/Manager | Many-to-One |

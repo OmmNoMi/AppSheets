@@ -54,3 +54,10 @@
 **Reason**: Avoids requiring manual selection of the `AppUser` on the Employee profile, simplifying the onboarding workflow.
 **Impact**: `Employee.AppUserID` is auto-populated upon user creation.
 **Pattern**: Reusable (Cross-Table Reference Sync Pattern)
+
+### 2026-06-02 AttendanceRequest Table & Employee Immutability
+**Context**: Required a way to handle Time Off in Lieu (TOIL) and Attendance Regularization requests, explicitly linking them to employees and optionally daily logs.
+**Decision**: Added `AttendanceRequest` table to the schema. Set the `Editable_If` rule for the `EmployeeID` column strictly to `ISBLANK([_THIS])`.
+**Reason**: To ensure that the requested employee is immutable once the request is created. Even if a People Admin makes the request on behalf of an employee, the employee target cannot be swapped out afterwards.
+**Impact**: `AttendanceRequest` table introduced; `EmployeeID` field locks after creation for all users.
+**Pattern**: Reusable (Creation-Only Column Restriction)
