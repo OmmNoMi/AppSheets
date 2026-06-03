@@ -45,10 +45,10 @@ This triggers "Reset on Edit" on other columns, refreshing all computed values.
 |---------|-------|
 | Name | `Sync_[TableName]` |
 | Type | Data: set the values of some columns in this row |
-| Set Column | `LastEditOn` = `UTCNOW()` |
+| Set Column | `LastEditOn` = `NOW()` |
 | Prominence | Display Overlay OR Primary |
 | Icon | ↻ (Refresh) |
-| Condition | `TRUE` or `IN("Admin", ANY(Me[Roles]))` |
+| Condition | `TRUE` or `ISNOTBLANK(INTERSECT({"U_System_Admin"},SPLIT(ANY(Me[Roles]),",")))` |
 
 ---
 
@@ -70,10 +70,16 @@ This triggers "Reset on Edit" on other columns, refreshing all computed values.
 ## Action Gating (Only If Conditions)
 ```
 // Approve button — only Managers on pending records
-AND(ANY(Me[Roles]) = "Manager", [Status] = "Pending Review")
+AND(
+  ISNOTBLANK(INTERSECT({"U_System_Manager","U_System_Admin"}, SPLIT(ANY(Me[Roles]),","))),
+  [Status] = "Pending Review"
+)
 
 // Delete — only Admins when no related records exist
-AND(ISBLANK([RelatedTasks]), IN("Admin", ANY(Me[Roles])))
+AND(
+  ISBLANK([RelatedTasks]),
+  ISNOTBLANK(INTERSECT({"U_System_Admin"}, SPLIT(ANY(Me[Roles]),",")))
+)
 
 // Check-In — only owner, today, not yet checked in
 AND([Date] = TODAY(), ISBLANK([CheckInTime]), [AppUser] = ANY(Me[ID]))
@@ -81,8 +87,8 @@ AND([Date] = TODAY(), ISBLANK([CheckInTime]), [AppUser] = ANY(Me[ID]))
 // Edit — only record creator
 [CreatedBy] = ANY(Me[ID])
 
-// Sync — admin maintenance only
-IN("Admin", ANY(Me[Roles]))
+// Admin only
+ISNOTBLANK(INTERSECT({"U_System_Admin"}, SPLIT(ANY(Me[Roles]),",")))
 ```
 
 ---

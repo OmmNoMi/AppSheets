@@ -1,49 +1,54 @@
-# Schema — Transcend IntakeSystem
+# Schema — Transcend Counseling & Wellness
 > Always reflects CURRENT state. Update in place. History → Decisions.md.
 > Compliance: HIPAA. Google Workspace with BAA required.
+> Last updated: 2026-06-04 (reflects Jun 3 scope expansion to full business solution)
 
 ---
 
 ## Google Sheets Structure
 | Tab Name | AppSheet Table | Type | Source |
 |----------|---------------|------|--------|
-| AppUser | AppUser | System | New sheet |
-| AppAccess | AppAccess | System | New sheet |
-| AppView | AppView | System | New sheet |
-| AppSetting | AppSetting | System | New sheet |
-| AppVariable | AppVariable | System | New sheet |
-| AppTrigger | AppTrigger | System | New sheet |
+| AppUser | AppUser | System | Base App |
+| AppViews | AppViews | System | Base App |
+| AppVariables | AppVariables | System | Base App |
+| AppSettings | AppSettings | System | Base App |
+| AppTimeline | AppTimeline | System | Base App |
+| AppTriggers | AppTriggers | System | Base App |
 | Form Responses 1 | IntakeForm | Operational | Existing (Google Form output) |
 | Client | Client | Operational | New sheet |
 | ClientInsurance | ClientInsurance | Operational | New sheet |
 | ClientPayment | ClientPayment | Operational | New sheet |
 | ClientMedication | ClientMedication | Operational | New sheet |
 | ClientDocument | ClientDocument | Operational | New sheet |
+| Session | Session | Operational | New sheet — added Jun 3 |
+| SessionNotes | SessionNotes | Operational | New sheet — added Jun 3 |
 
 ---
 
 ## System Tables
-> Standard config — see `_Patterns/Schema/SystemTables.md`
+> Full config in `_Patterns/Schema/SystemTables.md`
 
-**AppAccess Modules**: System, Operations, Therapy
-**AppAccess Levels**: Admin, Manager, View
+### AppVariables — Project Roles Added
+| ID | Tags | Title | Notes |
+|----|------|-------|-------|
+| U_Operations_Manager | ID Connected to Variable | Operations Manager | Admin Assistant role |
 
-**Initial AppAccess rows**:
-| ID | Module | AccessLevel |
-|----|--------|------------|
-| System_Admin | System | Admin |
-| Operations_Manager | Operations | Manager |
-| Therapist_View | Therapy | View |
+> Add `U_Operations_Manager` to `AppUserRoles.VariableList` alongside base roles.
 
-**AppSetting Initial Values**:
-| ID | Value | Description |
-|----|-------|-------------|
-| CompanyName | Transcend Counseling & Wellness | Practice name |
-| IntakeFormURL | https://forms.google.com/... | Link sent to clients via SMS |
-| DriveFolderID | *(Shared Drive root folder ID)* | HIPAA-compliant Shared Drive |
-| DocuSignEnabled | FALSE | Toggle when DocuSign is set up |
-| BotProcessingEnabled | TRUE | Enable/disable hourly intake bot |
-| SMTPFromEmail | *(admin email)* | Sender email for notifications |
+### AppSettings — Project Settings
+| ID | Title | Description | Tags |
+|----|-------|-------------|------|
+| CompanyName | Company Name | Transcend Counseling & Wellness | — |
+| IntakeFormURL | Intake Form URL | Link sent to clients via SMS | ID is used in Code |
+| DriveFolderID | Drive Folder ID | HIPAA Shared Drive root folder ID | ID is used in Code |
+| DocuSignEnabled | DocuSign Enabled | FALSE — toggle when DocuSign account set up | ID is used in Code |
+| BotProcessingEnabled | Bot Processing Enabled | TRUE — enable/disable hourly intake bot | ID is used in Code |
+
+### AppUser — Project Roles
+| Persona | Role | Notes |
+|---------|------|-------|
+| David Phelan LPC | U_System_Admin | Full access |
+| Admin Assistant | U_Operations_Manager | Client pipeline, no session notes |
 
 ---
 
@@ -143,7 +148,7 @@
 
 | Column | Type | Initial Value / App Formula | Editable_If | Reset on Edit | Notes |
 |--------|------|----------------------------|-------------|---------------|-------|
-| ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | — | |
+| ID | Text (Key) | `UNIQUEID()` | `ISBLANK([_THIS])` | — | |
 | FirstName | Text | — | — | — | |
 | MiddleName | Text | — | — | — | |
 | LastName | Text | — | — | — | |
@@ -179,9 +184,9 @@
 | DriveFolderURL | URL | — | `ISBLANK([_THIS])` | — | |
 | Notes | LongText | — | — | — | Internal only |
 | CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | FALSE | |
-| CreatedOn | DateTime | `UTCNOW()` | OFF | FALSE | |
+| CreatedOn | DateTime | `NOW()` | OFF | FALSE | |
 | LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | TRUE | |
-| LastEditOn | DateTime | `UTCNOW()` | OFF | TRUE | |
+| LastEditOn | DateTime | `NOW()` | OFF | TRUE | |
 | Label (VC) | Virtual | `CONCATENATE([FirstName], " ", [LastName])` | — | — | |
 
 **Slices**:
@@ -195,7 +200,7 @@
 **Actions**:
 | Action | Type | Condition |
 |--------|------|-----------|
-| `Sync_Client` | Set `LastEditOn` = `UTCNOW()` | TRUE |
+| `Sync_Client` | Set `LastEditOn` = `NOW()` | TRUE |
 | `Add_NewClient` | LINKTOFORM("Client_Form", "Status", "New") | `IN("Admin", ANY(Me[Roles]))` |
 | `Approved_IntakeReceived` | Set `Status` = "IntakeReceived" | `[Status] = "New"` |
 | `Send_IntakeLink` | AppSheet SMS to `[Mobile]` with IntakeFormURL | `ISBLANK([IntakeFormTimestamp])` |
@@ -209,7 +214,7 @@
 
 | Column | Type | Initial Value | Editable_If | Notes |
 |--------|------|--------------|-------------|-------|
-| ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | |
+| ID | Text (Key) | `UNIQUEID()` | `ISBLANK([_THIS])` | |
 | ClientID | Enum Ref → Client | — | `ISBLANK([_THIS])` | |
 | Priority | Enum | `"Primary"` | — | Primary / Secondary |
 | InsuranceCompany | Text | — | — | |
@@ -234,9 +239,9 @@
 | VerificationNotes | Text | — | — | |
 | VerifiedOn | DateTime | — | — | |
 | CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | FALSE | |
-| CreatedOn | DateTime | `UTCNOW()` | OFF | FALSE | |
+| CreatedOn | DateTime | `NOW()` | OFF | FALSE | |
 | LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | TRUE | |
-| LastEditOn | DateTime | `UTCNOW()` | OFF | TRUE | |
+| LastEditOn | DateTime | `NOW()` | OFF | TRUE | |
 | Label (VC) | Virtual | `CONCATENATE([ClientID].[Label], " — ", [InsuranceCompany], " (", [Priority], ")")` | — | |
 
 ---
@@ -247,7 +252,7 @@
 
 | Column | Type | Initial Value | Editable_If | Notes |
 |--------|------|--------------|-------------|-------|
-| ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | |
+| ID | Text (Key) | `UNIQUEID()` | `ISBLANK([_THIS])` | |
 | ClientID | Enum Ref → Client | — | `ISBLANK([_THIS])` | |
 | NameOnCard | Text | — | — | |
 | CardType | Enum | — | — | Visa / Mastercard |
@@ -258,9 +263,9 @@
 | BillingCity | Text | — | — | |
 | BillingZip | Text | — | — | |
 | CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | FALSE | |
-| CreatedOn | DateTime | `UTCNOW()` | OFF | FALSE | |
+| CreatedOn | DateTime | `NOW()` | OFF | FALSE | |
 | LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | TRUE | |
-| LastEditOn | DateTime | `UTCNOW()` | OFF | TRUE | |
+| LastEditOn | DateTime | `NOW()` | OFF | TRUE | |
 | Label (VC) | Virtual | `CONCATENATE([ClientID].[Label], " — ", [CardType], " ****", [CardLast4])` | — | |
 
 > ⚠️ **PCI/HIPAA**: Full card number and CVV from Google Form are NEVER copied to AppSheet. App Script reads form sheet, extracts last 4, writes only that to ClientPayment. Raw form sheet access is restricted to admin only.
@@ -273,7 +278,7 @@
 
 | Column | Type | Initial Value | Editable_If | Notes |
 |--------|------|--------------|-------------|-------|
-| ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | |
+| ID | Text (Key) | `UNIQUEID()` | `ISBLANK([_THIS])` | |
 | ClientID | Enum Ref → Client | — | `ISBLANK([_THIS])` | |
 | SortOrder | Number | — | — | 1, 2, 3… for ordering |
 | MedicationName | Text | — | — | |
@@ -284,9 +289,9 @@
 | SymptomsBeingTreated | Text | — | — | |
 | PrescribedBy | Text | — | — | |
 | CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | FALSE | |
-| CreatedOn | DateTime | `UTCNOW()` | OFF | FALSE | |
+| CreatedOn | DateTime | `NOW()` | OFF | FALSE | |
 | LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | TRUE | |
-| LastEditOn | DateTime | `UTCNOW()` | OFF | TRUE | |
+| LastEditOn | DateTime | `NOW()` | OFF | TRUE | |
 | Label (VC) | Virtual | `CONCATENATE([ClientID].[Label], " — ", [MedicationName])` | — | |
 
 ---
@@ -297,7 +302,7 @@
 
 | Column | Type | Initial Value | Editable_If | Notes |
 |--------|------|--------------|-------------|-------|
-| ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | |
+| ID | Text (Key) | `UNIQUEID()` | `ISBLANK([_THIS])` | |
 | ClientID | Enum Ref → Client | — | `ISBLANK([_THIS])` | |
 | Status | Enum | `"Pending"` | — | Pending / Generating / Generated / SentForSignature / Signed / UploadedToEMR |
 | ConsentEmailVersion | Enum | — | `ISBLANK([_THIS])` | Yes / No — which version was baked in |
@@ -312,19 +317,19 @@
 | UploadedToEMROn | DateTime | — | — | When admin uploaded to EMR portal |
 | Notes | Text | — | — | |
 | CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | FALSE | |
-| CreatedOn | DateTime | `UTCNOW()` | OFF | FALSE | |
+| CreatedOn | DateTime | `NOW()` | OFF | FALSE | |
 | LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | TRUE | |
-| LastEditOn | DateTime | `UTCNOW()` | OFF | TRUE | |
+| LastEditOn | DateTime | `NOW()` | OFF | TRUE | |
 | Label (VC) | Virtual | `CONCATENATE([ClientID].[Label], " — ", [Status], " — ", TEXT([CreatedOn], "MM/DD/YYYY"))` | — | |
 
 **Actions**:
 | Action | Type | Condition |
 |--------|------|-----------|
-| `Sync_ClientDocument` | Set `LastEditOn` = `UTCNOW()` | TRUE |
+| `Sync_ClientDocument` | Set `LastEditOn` = `NOW()` | TRUE |
 | `View_GoogleDoc` | Navigate to `[GoogleDocURL]` | `NOT(ISBLANK([GoogleDocURL]))` |
 | `View_SignedPDF` | Navigate to `[SignedPDFURL]` | `NOT(ISBLANK([SignedPDFURL]))` |
-| `Approved_Signed` | Set `Status` = "Signed", `SignedOn` = `UTCNOW()` | `[Status] = "SentForSignature"` |
-| `Approved_UploadedToEMR` | Set `Status` = "UploadedToEMR", `UploadedToEMROn` = `UTCNOW()` | `[Status] = "Signed"` |
+| `Approved_Signed` | Set `Status` = "Signed", `SignedOn` = `NOW()` | `[Status] = "SentForSignature"` |
+| `Approved_UploadedToEMR` | Set `Status` = "UploadedToEMR", `UploadedToEMROn` = `NOW()` | `[Status] = "Signed"` |
 
 ---
 
@@ -341,6 +346,80 @@
 | ClientInsurance.ClientRelationToHolder | Self, Spouse, Child, Other |
 | ClientDocument.Status | Pending, Generating, Generated, SentForSignature, Signed, UploadedToEMR |
 | IntakeForm.ProcessedStatus | New, Processing, Processed, Failed |
+
+---
+
+## Session
+**Purpose**: One record per scheduled appointment. Links a client to a date/time.
+**Parent**: Client (one client → many sessions)
+
+| Column | Type | Initial Value / App Formula | Editable_If | Reset on Edit | Notes |
+|--------|------|----------------------------|-------------|---------------|-------|
+| ID | Text (Key) | `UNIQUEID()` | `ISBLANK([_THIS])` | — | |
+| ClientID | Enum Ref → Client | — | `ISBLANK([_THIS])` | — | |
+| SessionDate | Date | — | — | — | Date of appointment |
+| SessionTime | Time | — | — | — | Scheduled start time |
+| Status | Enum | `"Scheduled"` | — | — | Scheduled / Completed / Cancelled / NoShow |
+| Notes | LongText | — | — | — | Admin notes about this session (not clinical) |
+| CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | `ISBLANK([_THIS])` | No | |
+| CreatedOn | DateTime | `NOW()` | `ISBLANK([_THIS])` | No | |
+| LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | `ISBLANK([_THIS])` | Yes | |
+| LastEditOn | DateTime | `NOW()` | `ISBLANK([_THIS])` | Yes | |
+| Label (VC) | Virtual | `CONCATENATE([ClientID].[Label], " — ", TEXT([SessionDate], "MM/DD/YYYY"))` | — | — | |
+
+> Therapist is assigned at the Client level (`Client.AssignedTherapist`) — NOT per session.
+> Session scheduling happens in Therapy Notes EHR (exports to Google Calendar). Admin manually creates the Session row in AppSheet to track it.
+
+**Actions**:
+| Action | Type | Condition |
+|--------|------|-----------|
+| `Sync_Session` | Set `LastEditOn = NOW()` | TRUE |
+| `Approved_SessionCompleted` | Set `Status = "Completed"` | `[Status] = "Scheduled"` |
+
+---
+
+## SessionNotes
+**Purpose**: Clinical notes per session. One session can have multiple note entries.
+**Parent**: Session (one session → many notes)
+
+| Column | Type | Initial Value / App Formula | Editable_If | Reset on Edit | Notes |
+|--------|------|----------------------------|-------------|---------------|-------|
+| ID | Text (Key) | `UNIQUEID()` | `ISBLANK([_THIS])` | — | |
+| SessionID | Enum Ref → Session | — | `ISBLANK([_THIS])` | — | |
+| NoteDate | Date | `TODAY()` | — | — | When note was written |
+| NoteText | LongText | — | — | — | Clinical note content |
+| CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | `ISBLANK([_THIS])` | No | |
+| CreatedOn | DateTime | `NOW()` | `ISBLANK([_THIS])` | No | |
+| LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | `ISBLANK([_THIS])` | Yes | |
+| LastEditOn | DateTime | `NOW()` | `ISBLANK([_THIS])` | Yes | |
+| Label (VC) | Virtual | `CONCATENATE([SessionID].[ClientID].[Label], " — Note — ", TEXT([NoteDate], "MM/DD/YYYY"))` | — | — | |
+
+> **Permission restriction**: `U_Operations_Manager` role cannot see SessionNotes. David (`U_System_Admin`) has full access.
+> Implement via Security Filter on SessionNotes table: `ISNOTBLANK(INTERSECT({"U_System_Admin"}, SPLIT(ANY(Me[Roles]),",")))`
+
+---
+
+## Enum Values
+| Table.Column | Values |
+|-------------|--------|
+| Client.Status | New, ClientInfoReceived, DocsGenerated, AwaitingSignature, Signed, InsuranceVerifying, AwaitingIntakeSession, IntakeComplete, Active, NotProceeding, Archived |
+| Client.ConsentEmail | Yes, No |
+| Client.ConsentTelehealth | Yes, No |
+| Client.PreferredContact | Email, Phone, Text |
+| Client.TimeZone | America/Phoenix, America/New_York, America/Chicago, America/Denver, America/Los_Angeles |
+| ClientInsurance.Priority | Primary, Secondary |
+| ClientInsurance.VerificationStatus | Pending, Verified, Failed, NotApplicable |
+| ClientInsurance.ClientRelationToHolder | Self, Spouse, Child, Other |
+| ClientDocument.Status | Pending, Generating, Generated, SentForSignature, Signed, UploadedToEMR |
+| IntakeForm.ProcessedStatus | New, Processing, Processed, Failed |
+| Session.Status | Scheduled, Completed, Cancelled, NoShow |
+
+**Client.Status pipeline colour mapping (David's system):**
+| Status | Colour | Meaning |
+|--------|--------|---------|
+| NotProceeding | 🔴 Red | Client decided not to proceed (insurance, etc.) |
+| AwaitingIntakeSession | 🟡 Yellow | Docs signed; waiting to schedule/confirm first appointment |
+| IntakeComplete | 🟢 Green | First appointment has occurred |
 
 ---
 

@@ -89,6 +89,7 @@ IFS(
 | AU-002 | ADDS_ONLY notification | `_SOP/Automations.md §Notification` | SOP |
 | AU-003 | Conditional document versioning (consent flags → doc version) | Inline below | Transcend |
 | AU-004 | Hourly App Script bot for Google Form auto-processing | `Automations/HourlyFormProcessingBot.md` | Transcend |
+| AU-005 | AppTimeline daily calendar bot — claim a date row, log execution | `_SOP/Automations.md §AppTimeline` | Base App |
 
 ### UX-004 Inline: Dependent Field Auto-Compute with Conditional Override
 **Problem**: A field must dynamically pull a value from a dropdown selection, but must be manually editable if specific exceptions are chosen (e.g. "Work From Home").
@@ -98,8 +99,6 @@ IFS(
 3. **Editable_If**: `OR(ISBLANK([DropdownCol]), IN([Type], {"Exception"}))`
 4. **Show_If**: `OR(CONTEXT("ViewType") <> "Form", IN([Type], {"Exception"}))` (Hides the field on forms for non-exceptions to prevent manual tampering, but background math still runs).
 **Source**: Orbit | 2026-06-02
-| AU-003 | Conditional document versioning (consent flags → doc version) | Inline below | Transcend |
-| AU-004 | Hourly App Script bot for Google Form auto-processing | `Automations/HourlyFormProcessingBot.md` | Transcend |
 
 ### AU-003 Inline: Consent-Driven Document Versioning
 **Problem**: Document has conditional sections based on client preferences. Free-text in e-sign is confusing.

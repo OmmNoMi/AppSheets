@@ -7,23 +7,34 @@
 ## Google Sheets Structure
 | Tab Name | AppSheet Table | Type | Notes |
 |----------|---------------|------|-------|
-| AppUser | AppUser | System | |
-| AppAccess | AppAccess | System | |
-| AppView | AppView | System | |
-| AppSetting | AppSetting | System | |
-| AppVariable | AppVariable | System | |
-| AppTrigger | AppTrigger | System | |
-| | | Operational | |
+| AppUser | AppUser | System | Pre-seeded with OmmNoMi dev accounts |
+| AppViews | AppViews | System | Pre-seeded with 11 base entries |
+| AppVariables | AppVariables | System | Pre-seeded with 6 base rows (roles) |
+| AppSettings | AppSettings | System | Empty — add project settings as needed |
+| AppTimeline | AppTimeline | System | Pre-seeded with 365 date rows for current year |
+| AppTriggers | AppTriggers | System | Empty — populated at runtime |
+| | | Operational | *(add project tables below)* |
 
 ---
 
 ## System Tables
-> Standard columns — see `_Patterns/Schema/SystemTables.md` for full config.
-> Only note project-specific deviations here.
+> Full config in `_SOP/OmmNoMi_Standard.md §3`. Only note project-specific additions here.
 
-**AppUser deviations**: *(none / list if any)*
-**AppAccess Modules**: *(list modules for this project)*
-**AppAccess Levels**: *(list levels for this project)*
+### AppVariables — Project Roles Added
+| ID | Title | Notes |
+|----|-------|-------|
+| *(base roles pre-seeded — add project-specific roles here)* | | |
+| | | |
+
+### AppSettings — Project Settings
+| ID | Title | Description | Tags |
+|----|-------|-------------|------|
+| *(empty in base — add as needed)* | | | |
+
+### AppViews — Project Views Added
+| ID | Category | Name | Notes |
+|----|----------|------|-------|
+| *(base entries pre-seeded — add project-specific nav entries here)* | | | |
 
 ---
 
@@ -36,12 +47,12 @@
 
 | Column | Type | Initial Value / App Formula | Editable_If | Reset on Edit | Notes |
 |--------|------|----------------------------|-------------|---------------|-------|
-| ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | — | |
+| ID | Text (Key) | `UNIQUEID()` | `ISBLANK([_THIS])` | — | |
 | | | | | | |
-| CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | FALSE | |
-| CreatedOn | DateTime | `UTCNOW()` | OFF | FALSE | |
-| LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | OFF | TRUE | |
-| LastEditOn | DateTime | `UTCNOW()` | OFF | TRUE | |
+| CreatedBy | Enum Ref → AppUser | `ANY(Me[ID])` | `ISBLANK([_THIS])` | No | |
+| CreatedOn | DateTime | `NOW()` | `ISBLANK([_THIS])` | No | |
+| LastEditBy | Enum Ref → AppUser | `ANY(Me[ID])` | `ISBLANK([_THIS])` | Yes | |
+| LastEditOn | DateTime | `NOW()` | `ISBLANK([_THIS])` | Yes | |
 | Label | Virtual | | — | — | |
 
 **Slices**:
@@ -52,7 +63,7 @@
 **Actions**:
 | Action | Type | Condition |
 |--------|------|-----------|
-| `Sync_[TableName]` | Set LastEditOn = UTCNOW() | TRUE |
+| `Sync_[TableName]` | Set LastEditOn = NOW() | TRUE |
 | | | |
 
 ---
@@ -65,16 +76,14 @@
 
 ---
 
-## AppSetting Initial Values
-| ID (Key) | Value | Description |
-|---------|-------|-------------|
-| CompanyName | | |
-| | | |
+## AppSettings Initial Values
+| ID | Title | Description | Tags |
+|----|-------|-------------|------|
+| *(add project-specific settings — starts empty)* | | | |
 
 ---
 
-## AppAccess Initial Values
-| ID | Module | AccessLevel |
-|----|--------|------------|
-| System_Admin | System | Admin |
-| | | |
+## Client Roles (added to AppVariables)
+| ID | Title | Access Level |
+|----|-------|-------------|
+| *(add project roles beyond the 5 base roles)* | | |

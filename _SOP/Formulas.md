@@ -3,33 +3,44 @@
 ## I. Audit Stamp Formulas
 | Column | Formula | Notes |
 |--------|---------|-------|
-| ID | `TEXT(UNIQUEID())` | Initial Value only |
-| CreatedBy | `ANY(Me[ID])` | Reset on Edit: FALSE |
-| CreatedOn | `UTCNOW()` | Reset on Edit: FALSE |
-| LastEditBy | `ANY(Me[ID])` | Reset on Edit: TRUE |
-| LastEditOn | `UTCNOW()` | Reset on Edit: TRUE |
+| ID (operational tables) | `UNIQUEID()` | Initial Value. Editable_If: `ISBLANK([_THIS])` |
+| ID (AppUser only) | `=UPPER(TEXT(LEFT(UNIQUEID(), 4)))` | Short 4-char uppercase human-readable ID |
+| CreatedBy | `ANY(Me[ID])` | Editable_If: `ISBLANK([_THIS])`. Reset on Edit: No |
+| CreatedOn | `NOW()` | Editable_If: `ISBLANK([_THIS])`. Reset on Edit: No |
+| LastEditBy | `ANY(Me[ID])` | Editable_If: `ISBLANK([_THIS])`. Reset on Edit: **Yes** |
+| LastEditOn | `NOW()` | Editable_If: `ISBLANK([_THIS])`. Reset on Edit: **Yes** |
 | Label (VC) | `CONCATENATE([Code], " - ", [Name])` | Adjust per table |
 
-**Rule**: Always UTCNOW(), never NOW(). AppSheet auto-translates UTC to local time in the UI.
+**Timestamp rule**: Use `NOW()` in Initial Value and Reset fields. Use `UTCNOW()` in App Formulas for computed/calculated fields that need strict UTC (e.g., overdue calculations, cross-timezone logic). The template uses `NOW()` throughout audit columns.
 
 ---
 
 ## II. Security & Identity
+
+**Me Slice Filter** (exact formula used in Base App — always name this slice `Me`):
 ```
-// Check if current user is Admin
-IN("Admin", ANY(Me[Roles]))
+AND(
+  [Email] = USEREMAIL(),
+  OR([AccessKey] = "Not in Use", USERSETTINGS("AccessKey") = [AccessKey]),
+  [Status] = "Active"
+)
+```
 
-// Check if user has any of multiple roles
-COUNT(INTERSECT(ANY(Me[Roles]), LIST("Manager", "Director"))) > 0
+```
+// Role check — preferred pattern (handles comma-separated EnumList roles)
+ISNOTBLANK(INTERSECT({"U_System_Admin"}, SPLIT(ANY(Me[Roles]), ",")))
 
-// Filter data to current user's department
-[Department] = ANY(Me[Department])
+// Multi-role check
+ISNOTBLANK(INTERSECT({"U_System_Admin","U_People_Admin"}, SPLIT(ANY(Me[Roles]), ",")))
 
-// Restrict view to record owner
+// Filter data to current user's record
 [CreatedBy] = ANY(Me[ID])
 
 // Is current user the assigned person?
 [AssignedTo] = ANY(Me[ID])
+
+// Restrict a view to current user only
+[Email] = USEREMAIL()
 ```
 
 ---
@@ -99,13 +110,28 @@ LINKTOFILTEREDVIEW("Tasks_Pending", "AssignedTo", ANY(Me[ID]))
 
 ---
 
-## VII. AppSetting / AppVariable Lookup
-```
-// Read a setting value
-LOOKUP("SettingName", "AppSetting", "ID", "Value")
+## VII. AppSettings / AppVariables Lookup
 
-// Read a variable value
-LOOKUP("VarName", "AppVariable", "ID", "Value")
+AppSettings and AppVariables are NOT simple key-value tables. Each has typed value columns. Read the correct column for each use case.
+
+```
+// Read a numeric setting
+LOOKUP("SettingID", "AppSettings", "ID", "Decimal")
+
+// Read allowed values for a trigger input
+SPLIT(TEXT(LOOKUP("SettingID", "AppSettings", "ID", "AllowedValues")), ",")
+
+// Read an enum variable value
+LOOKUP("VarID", "AppVariables", "ID", "EnumValue")
+
+// Read a comma-separated role list for SPLIT() (from AppUserRoles variable)
+SPLIT(TEXT(LOOKUP("AppUserRoles", "AppVariables", "ID", "VariableList")), " , ")
+
+// Check if current user's roles include a variable-driven role list
+ISNOTBLANK(INTERSECT(
+  SPLIT(ANY(Me[Roles]), ","),
+  SPLIT(TEXT(LOOKUP("AppUserRoles", "AppVariables", "ID", "EnumList")), " , ")
+))
 ```
 
 ---

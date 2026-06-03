@@ -56,26 +56,40 @@
 | Event | `ADDS_AND_UPDATES` |
 | Condition | `[Status] = "Completed"` |
 | Action | Create a new file (PDF template) |
-| File Path | `CONCATENATE("OmmNoMi_Reports/", [Department], "/", [ID], "_", TEXT(UTCNOW(), "YYYYMMDD_HHMM"))` |
+| File Path | `CONCATENATE("OmmNoMi_Reports/", [Department], "/", [ID], "_", TEXT(NOW(), "YYYYMMDD_HHMM"))` |
 
 ---
 
-## Standard Bot: External Webhook (AppTrigger)
-**Purpose**: Push critical business event data to external service
+## Standard Bot: AppTimeline-Based Daily Automation
+**Purpose**: Process work for each calendar date using the pre-seeded AppTimeline table
 
 | Setting | Value |
 |---------|-------|
-| Event | `ADDS_AND_UPDATES` |
-| Condition | `[Status] = "Approved"` |
-| Action | Call webhook URL |
-| Tracking | Log trigger event in AppTrigger table with Status |
+| Event | Scheduled (daily) |
+| Table | AppTimeline |
+| Row Filter | `AND([Date] = TODAY(), ISBLANK([AppTrigger]))` |
+| Action | Set `AppTrigger` = relevant AppSettings ID, `TriggerValue` = record ID, `TriggeredOn` = `NOW()` |
 
-AppTrigger record: set Status = "Sent" on success, "Failed" on error.
+> AppTimeline has one row per calendar day (pre-seeded for the full year). Bots claim a date row by writing to it. A blank `AppTrigger` column means that date is unprocessed.
+
+---
+
+## Standard Bot: AppTriggers Queue Processing
+**Purpose**: Process queued trigger rows created by user actions or other bots
+
+| Setting | Value |
+|---------|-------|
+| Event | Scheduled OR `ADDS_ONLY` on AppTriggers |
+| Row Filter | `[Bot] = TRUE` |
+| Action | Execute logic based on `[AppTrigger].[Title]`, then delete or archive the row |
+
+> AppTriggers is a **runtime inbox** — rows are created by actions and consumed by bots. It starts empty and is fully transient.
 
 ---
 
 ## Automation Rules
 - All file paths use the standard pattern: `OmmNoMi_Reports/[Department]/[ID]_[Timestamp]`
-- All multi-step automations must have their state tracked in AppTrigger table
+- Multi-step automations track state via **AppTriggers** (queued inputs) and **AppTimeline** (date-based execution log)
 - Scheduled bots run at 12:00 AM UTC (consistent across timezones)
 - Never trigger on `ADDS_AND_UPDATES` for notification bots — always `ADDS_ONLY`
+- AppTimeline rows must be seeded for the next year before December 31

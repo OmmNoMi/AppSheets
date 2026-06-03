@@ -15,12 +15,13 @@
 | Reusable cross-project patterns (SEARCH HERE FIRST) | `_Patterns/PATTERNS_INDEX.md` |
 | Start a new project | `_Templates/ProjectInfo.md` |
 | Schema design template | `_Templates/Schema.md` |
+| Base App Google Sheet data (copy for each project) | `_Templates/Base Template Core.xlsx` |
 
 ## 📁 Active Projects
 
 | Client / Project | Status | Folder |
 |------------------|--------|--------|
-| Transcend Counseling & Wellness — IntakeSystem | 🔄 In Progress (Phase 1) | `Projects/Transcend_IntakeSystem/` |
+| Transcend Counseling & Wellness | 🔄 In Progress (Phase 1) | `Projects/Transcend/` |
 | BLR World — Orbit | 🔄 In Progress (Phase 1) | `Projects/Orbit/` |
 
 ## 🧠 Self-Learning Protocol

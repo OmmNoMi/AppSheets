@@ -84,4 +84,76 @@
 
 ---
 
+### 2026-06-03 — Scope Expanded: Intake System → Full Business Solution
+**Context**: Jun 3 meeting revealed David's needs extend well beyond intake processing. Session management, clinical notes, and role-based access are required now.
+**Decision**: Project renamed from "Transcend IntakeSystem" to "Transcend" to reflect full business solution scope.
+**Reason**: David uses multiple fragmented spreadsheets (session notes, history, income tracking, billing checklist). A unified AppSheet solution replaces all of them progressively.
+**Impact**: Feature Matrix updated. Phase 2 now includes Session, SessionNotes, and future billing/income modules. Project folder renamed to `Projects/Transcend/`.
+**Pattern**: Not reusable
+
+---
+
+### 2026-06-03 — Terminology Fix: "Intake" Redefined
+**Context**: Discovered during Jun 3 meeting that David uses "intake" to mean the first appointment/session, not the data collection form.
+**Decision**: Google Form = "Client Information Form". First appointment = "Intake Session". Reflected in UI labels, status values, and all documentation.
+**Reason**: Shared vocabulary prevents miscommunication during build and client reviews.
+**Impact**: `Client.Status` value updated from `IntakeReceived` to `ClientInfoReceived`. Status `Scheduled` renamed to `AwaitingIntakeSession`. `IntakeComplete` = first appointment done.
+**Pattern**: Not reusable
+
+---
+
+### 2026-06-03 — Session + SessionNotes Tables Added to Schema
+**Context**: David tracks session dates and notes separately per client. Currently via Google Sheets template (one doc per client). Redesigning natively in AppSheet.
+**Decision**: Add `Session` table (date, time, client ref) and `SessionNotes` child table (multiple notes per session). Therapist assigned at Client level — not per Session.
+**Reason**: Relational structure is cleaner, queryable, and supports future features (billing checklist, feedback form) without rework. Per-client therapist assignment reflects actual practice workflow.
+**Impact**: Two new tables added to schema. `Client` table gets `TherapistName` field. `Session` does NOT have a therapist column.
+**Pattern**: SP-004 (to add) — "Session + SessionNotes child table pattern for clinical apps"
+
+---
+
+### 2026-06-03 — Other Therapists Excluded from AppSheet (Phase 1)
+**Context**: David has two other therapists at the practice. Their notes are kept privately in Therapy Notes EHR, not shared with David's system.
+**Decision**: No `Therapist` table in Phase 1. No AppSheet access granted to other therapists. Therapist name stored as a simple Enum or Text field on the Client record.
+**Reason**: Other therapists use personal emails and maintain fully independent records. No workflow overlap with David's system. Adding them adds complexity with zero benefit in Phase 1.
+**Impact**: `Therapist` table removed from ERD. Client table gets `AssignedTherapist` Enum field (values: David + 2 therapist names).
+**Pattern**: Not reusable
+
+---
+
+### 2026-06-03 — Assistant Permission Scope Finalized
+**Context**: Admin Assistant (Philippines) needs to manage client pipeline but must not see clinical data.
+**Decision**: `Operations_Manager` role can see all Client records (any time range) and Session dates/times. Cannot see `SessionNotes` or clinical history documents. No row-level time restriction.
+**Reason**: Assistant needs full visibility of client pipeline for scheduling and admin tasks. Clinical notes are confidential. Time restriction (originally considered: 6-month cap) was dropped — David confirmed no restriction needed on record history.
+**Impact**: Slice or security filter on `SessionNotes` table: `USEREMAIL() = [Admin Email]` or role-based filter. `ClientDocument` table: assistant can see file metadata but not clinical history doc category.
+**Pattern**: Not reusable (case-specific permissions)
+
+---
+
+### 2026-06-03 — Client Status Simplified for Pipeline Tracking
+**Context**: David's current spreadsheet uses three color codes to track where new clients are.
+**Decision**: `Client.Status` includes three pipeline-stage values mapping to David's colors: `Not Proceeding` (Red), `Awaiting Intake Session` (Yellow), `Intake Complete` (Green). These sit within the broader status lifecycle.
+**Reason**: Replicates existing mental model so adoption is frictionless. Color formatting in AppSheet can mirror the spreadsheet exactly.
+**Impact**: `Client.Status` Enum extended. Dashboard view uses conditional formatting: Red/Yellow/Green per status.
+**Pattern**: Not reusable (client-specific terminology)
+
+---
+
+### 2026-06-03 — App Ownership Retained During Development (David Unavailable)
+**Context**: David is unavailable week of Jun 9, 2026. Planned to transfer app ownership to his account this session.
+**Decision**: OmmNoMi retains AppSheet app ownership. Transfer to David's account only when app is fully complete and ready for handover.
+**Reason**: Owner account access is needed for certain AppSheet configurations during build. Remote handoffs mid-build are disruptive.
+**Impact**: App remains in OmmNoMi AppSheet account. No action needed until handover milestone.
+**Pattern**: Not reusable
+
+---
+
+### 2026-06-03 — Post-Session Client Feedback Form — Architecture Reserved
+**Context**: David confirmed interest in a post-session feedback form for clients. Not urgent but a clear future need.
+**Decision**: Architecture must support it. A `SessionFeedback` child table or linked Google Form response per Session will be added in Phase 2. No build in Phase 1.
+**Reason**: Designing the foundation correctly now avoids rework. Session table already has a one-to-many relationship — adding a feedback child table later is straightforward.
+**Impact**: No schema change now. Note added to Phase 2 feature matrix.
+**Pattern**: Not reusable
+
+---
+
 *(Append new entries below this line)*
