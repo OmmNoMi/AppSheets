@@ -13,7 +13,8 @@
 - [ ] Virtual Column collision check completed — no physical column shares a name with a VC
 
 ### System Tables
-- [ ] All 7 Base App system tables present: `AppUser`, `AppViews`, `AppVariables`, `AppSettings`, `AppTimeline`, `AppTriggers`, `_Per User Settings`
+- [ ] All 8 Base App system tables present: `AppUser`, `AppViews`, `AppVariables`, `AppSettings`, `AppTimeline`, `AppTriggers`, `AppResources`, `_Per User Settings`
+- [ ] AppResources seeded with `Standard = TRUE` guides for every shipped module
 - [ ] 3 OmmNoMi dev accounts present in AppUser: `DevNomi`, `DevHardi`, `OmmNoMi`
 - [ ] 11 pre-seeded AppViews entries present (including 4 OmmNoMi-branded entries)
 - [ ] 6 AppVariables base rows present (`AppUserRoles` + 5 role rows)

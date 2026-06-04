@@ -48,7 +48,7 @@ Draft → Pending Review → Approved → In Progress → Completed → Archived
 ### Table Naming
 - Singular PascalCase nouns: `Employee`, `InventoryItem`
 - Parent/child relationship preserved in name: `Sales` → `SalesItem`
-- System tables: `AppUser`, `AppViews`, `AppSettings`, `AppVariables`, `AppTriggers`, `AppTimeline`
+- System tables: `AppUser`, `AppViews`, `AppSettings`, `AppVariables`, `AppTriggers`, `AppTimeline`, `AppResources`
   - Note: system tables (except AppUser) use **plural form** — match exactly as shown
 
 ### Column Naming
@@ -96,7 +96,7 @@ When a column in Table A aggregates/references data from Table B, prefix the col
 
 ## §3 Base App — System Tables (Foundation Architecture)
 
-**Every new AppSheet project starts by copying the Base App.** The following 7 tables are pre-built and must not be removed or renamed. Add operational tables on top of these.
+**Every new AppSheet project starts by copying the Base App.** The following 8 tables are pre-built and must not be removed or renamed. Add operational tables on top of these.
 
 ---
 
@@ -374,6 +374,89 @@ SPLIT(TEXT(LOOKUP("AppUserRoles", "AppVariables", "ID", "VariableList")), " , ")
 
 ---
 
+### Table 8: `AppResources`
+**Purpose**: In-app documentation library — searchable how-to guides, training videos, reference photos, and downloadable files delivered alongside every app. This is how end users self-serve answers (e.g., "How to Use the Candidate Submission Form", "How to Activate an Employee Profile") without leaving the app or contacting support. Every client delivery ships with a baseline set of standard guides for the modules in scope.
+
+| Column | Type | Initial Value / Formula | Notes |
+|--------|------|------------------------|-------|
+| `ID` | Text (Key) | `UNIQUEID()` | Editable_If: `ISBLANK([_THIS])`. Shown as short hex (e.g., `c3cfe2c8`). |
+| `Category` | EnumList | — | High-level grouping. Examples: `Onboarding`, `Candidate`, `Employee User Guide`, `Attendance`, `Payroll`. Multi-select — a guide can belong to several categories. |
+| `Tags` | EnumList | — | Free-form search keywords. Drives full-text discovery (e.g., `new hire form, banking details, g-form`). Suggested_Values pulled from existing rows to encourage reuse. |
+| `Title` | Text (Label) | — | Display name of the guide. Label column. Searchable. |
+| `Description` | LongText | — | 1–2 sentence summary shown in card/list views before the user opens the full guide. Plain text only. |
+| `Instruction` | LongText (Rich Text / HTML) | — | The full step-by-step body. Supports HTML (`<h2>`, `<ol>`, `<b>`, `<hr>`). Rendered in the detail view. This is the primary content. |
+| `Photo` | Image | — | Hero/thumbnail image. Folder: `Resources_Images/`. |
+| `Link` | URL | — | External link OR AppSheet `gettablefileurl` link to a streamable copy of the `File` (used so videos play inline instead of forcing a download). |
+| `File` | File | — | Downloadable attachment (PDF, MP4, DOCX, etc.). Folder: `Resources_Files_/`. |
+| `Video` | URL | — | Optional external video URL (YouTube, Vimeo, Loom). Use `Link` instead when the video is the uploaded `File`. |
+| `Roles` | EnumList (Ref → AppVariables) | — | Which roles can see this resource. Suggested_Values: `SPLIT(LOOKUP("AppUserRoles","AppVariables","ID","VariableList")," , ")`. |
+| `Standard` | Yes/No | `=TRUE` | `TRUE` = ships as part of the standard OmmNoMi delivery (locked from client edits). `FALSE` = client-authored guide. |
+| `LastEditBy` | Enum Ref → AppUser | `=ANY(Me[ID])` | Editable_If: `ISBLANK([_THIS])`. Reset on Edit: Yes. |
+| `LastEditOn` | DateTime | `=NOW()` | Editable_If: `ISBLANK([_THIS])`. Reset on Edit: Yes. |
+
+**Visibility / Security Slice — `MyResources`:**
+```
+Filter: ISNOTBLANK(INTERSECT([Roles], SPLIT(ANY(Me[Roles]), ",")))
+Update mode: READ_ONLY (for non-admins)
+```
+Only resources whose `Roles` intersect the current user's roles are visible.
+
+**Views:**
+| View Name | Type | Notes |
+|-----------|------|-------|
+| `Resources` | Gallery / Card | Browseable library grouped by `Category`, sorted by `Title`. Search bar enabled (matches `Title`, `Tags`, `Description`). |
+| `Resource_Detail` | Detail | Full `Instruction` render with embedded `Photo`, `Video`/`Link` player, and `File` download. Ref position. |
+| `Admin_Resources` | Table | Admin-only CRUD. Show_If: `U_System_Admin`. |
+
+**Add/Edit/Delete rules:**
+- Add/Edit allowed only for `U_System_Admin` (OmmNoMi) on rows where `[Standard] = TRUE`.
+- Client admins can Add/Edit rows where `[Standard] = FALSE`.
+- Delete restricted to `U_System_Admin` AND `[Standard] = FALSE` — standard OmmNoMi-shipped guides cannot be deleted by clients.
+
+**Pre-seeded default row (ships with every Base App copy — `Standard = TRUE`, do not delete):**
+
+| Field | Value |
+|-------|-------|
+| `ID` | `6d281705` |
+| `Category` | `System Configuration` |
+| `Tags` | `admin guide, html formatting, resource management, long text setup, content editor, code snippets, system maintenance, How to add and Manage resources in HTML` |
+| `Title` | `How to add and Manage resources in HTML` |
+| `Description` | *(blank)* |
+| `Instruction` | The canonical HTML-authoring prompt (below) — given to any LLM that drafts new Resource rows so output renders cleanly in AppSheet's Long Text (Display as HTML) field. |
+| `Photo` | `Resources_Images/6d281705.Photo.052117.png` |
+| `Link` / `File` / `Video` | *(blank)* |
+| `Roles` | `U_System_Admin` |
+| `Standard` | `TRUE` |
+| `LastEditBy` | `OmmNoMi` |
+
+**Canonical Instruction body** (the HTML-authoring prompt every project ships with):
+
+```
+Please write HTML for an AppSheet Long Text column (Display as HTML enabled).
+The content is:
+
+[Paste your new text here]
+
+Strict Technical Requirements:
+- No <div> tags: Use only standard tags like <h2>, <h3>, <ol>, <li>, <p>, <hr>, and <b>.
+- No style attributes: AppSheet ignores inline CSS. Use headers (<h2>) for hierarchy instead.
+- Minified Formatting: Remove all line breaks, tabs, and extra whitespace between the HTML tags. The entire output must be on one single line to prevent AppSheet from rendering unwanted vertical space.
+- Hierarchy: Use an ordered list (<ol>) for steps and a horizontal rule (<hr>) to separate the "What happens next" section.
+```
+
+> **Why this is the default delivery row:** every additional `Standard = TRUE` guide added to a client app (e.g., "How to Use the Candidate Submission Form", "How to Activate an Employee Profile") is authored against this prompt to guarantee consistent rendering. Treat row `6d281705` as the source-of-truth style guide for all in-app documentation.
+
+**Additional baseline rows** (added per project scope as `Standard = TRUE`):
+| Category | Example Title |
+|----------|---------------|
+| `Onboarding` | How to Activate an Employee Profile |
+| `Employee User Guide` | How to Use the Candidate Submission Form |
+| `System` | How to Reset Your Password / Switch Roles |
+
+> **AppResources is the canonical documentation channel for every OmmNoMi delivery.** Authoring guides here (instead of external PDFs or email) keeps documentation versioned with the app, role-gated, and discoverable in-context. Every new module shipped to a client must include a corresponding `Standard = TRUE` row.
+
+---
+
 ## §4 AppSheet Editor Configuration
 
 ### Editable_If Rules
@@ -423,7 +506,7 @@ Never use standard Ref for simple selections.
 ```
 System: You are an Expert AppSheet Architect operating under the OmmNoMi Standard SOP.
 
-The Base App already contains 7 system tables: _Per User Settings, AppUser, AppViews, AppSettings, AppVariables, AppTriggers, AppTimeline. Do NOT re-generate these.
+The Base App already contains 8 system tables: _Per User Settings, AppUser, AppViews, AppSettings, AppVariables, AppTriggers, AppTimeline, AppResources. Do NOT re-generate these.
 
 Based on the following Project Info, generate ONLY the operational tables needed. Use PascalCase for both columns and tables. No spaces. Every operational table must include: ID (Text, Key, UNIQUEID(), Editable_If: ISBLANK([_THIS])), CreatedBy (Enum Ref → AppUser, ANY(Me[ID]), write-once), CreatedOn (DateTime, NOW(), write-once), LastEditBy (Enum Ref → AppUser, ANY(Me[ID]), Reset on Edit: Yes), LastEditOn (DateTime, NOW(), Reset on Edit: Yes). Use Mobile and Email as generic contact columns. Suggest the 3 primary role values to add to AppVariables[AppUserRoles]. Output a Markdown table per sheet: Column | Type | Initial Value / App Formula | Notes.
 
