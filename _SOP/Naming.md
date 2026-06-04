@@ -5,7 +5,7 @@
 |------|---------|
 | Singular PascalCase | `Employee` not `Employees` |
 | Parent-child naming | `Sales` → `SalesItem` |
-| System tables (exact names) | `AppUser`, `AppViews`, `AppSettings`, `AppVariables`, `AppTriggers`, `AppTimeline` |
+| System tables (exact names) | `AppUser`, `AppViews`, `AppSettings`, `AppVariables`, `AppTriggers`, `AppTimeline`, `AppResources` |
 | Note | System tables use **plural** form except `AppUser`. There is no `AppAccess` table — roles live in `AppVariables`. |
 | No spaces, no hyphens | `InventoryItem` not `Inventory Item` |
 

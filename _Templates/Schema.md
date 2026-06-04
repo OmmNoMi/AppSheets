@@ -13,6 +13,7 @@
 | AppSettings | AppSettings | System | Empty — add project settings as needed |
 | AppTimeline | AppTimeline | System | Pre-seeded with 365 date rows for current year |
 | AppTriggers | AppTriggers | System | Empty — populated at runtime |
+| AppResources | AppResources | System | Pre-seeded with standard delivery guides for in-app documentation |
 | | | Operational | *(add project tables below)* |
 
 ---

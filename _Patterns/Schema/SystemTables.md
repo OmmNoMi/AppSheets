@@ -162,3 +162,31 @@ Seed next year's rows before Jan 1 to ensure uninterrupted bot operation.
 | Date (VC) | Text | `TEXT([CreatedOn],"DD/MM/YYYY")` — used for grouping |
 
 **Starts empty in Base App.** Rows created at runtime by action buttons or bots.
+
+---
+
+## AppResources
+In-app documentation library — searchable how-to guides, training videos, and reference files delivered alongside every app.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| ID | Text (Key) | `UNIQUEID()` |
+| Category | EnumList | High-level grouping (`Onboarding`, `Candidate`, `Employee User Guide`, etc.) |
+| Tags | EnumList | Free-form search keywords |
+| Title | Text (Label) | Guide name |
+| Description | LongText | 1–2 sentence summary for list/card views |
+| Instruction | LongText (Rich Text / HTML) | Full step-by-step body — supports `<h2>`, `<ol>`, `<b>`, `<hr>` |
+| Photo | Image | Hero/thumbnail. Folder: `Resources_Images/` |
+| Link | URL | External link, or AppSheet `gettablefileurl` for streamable copy of `File` |
+| File | File | Downloadable attachment (PDF, MP4, DOCX). Folder: `Resources_Files_/` |
+| Video | URL | Optional external video URL (YouTube/Vimeo/Loom) |
+| Roles | EnumList (Ref → AppVariables) | Which roles can see this resource |
+| Standard | Yes/No | `TRUE` = OmmNoMi-shipped (locked); `FALSE` = client-authored |
+| LastEditBy | Enum Ref → AppUser | Reset on Edit: Yes |
+| LastEditOn | DateTime | Reset on Edit: Yes |
+
+**Visibility slice `MyResources`:** filter by `ISNOTBLANK(INTERSECT([Roles], SPLIT(ANY(Me[Roles]), ",")))`.
+
+**Delete protection:** rows with `[Standard] = TRUE` cannot be deleted by clients — only by `U_System_Admin`.
+
+Pre-seed every shipped module with at least one `Standard = TRUE` guide.
