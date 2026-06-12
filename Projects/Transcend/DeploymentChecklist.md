@@ -9,13 +9,13 @@
 - [ ] No table uses `_RowNumber` as key — every table has `ID` with `TEXT(UNIQUEID())`
 - [ ] All ID columns in Google Sheets formatted as **Plain Text**
 - [ ] No spreadsheet formulas in any sheet tab
-- [ ] All tab names match AppSheet table names exactly: `AppUser`, `AppAccess`, `AppView`, `AppSetting`, `AppVariable`, `AppTrigger`, `Client`, `ClientInsurance`, `ClientPayment`, `ClientMedication`, `ClientDocument`
-- [ ] `Form Responses 1` tab: admin columns added at END only — no form columns renamed or reordered
+- [ ] All tab names match exactly: `AppUser`, `AppViews`, `AppVariables`, `AppResources`, `AppSettings`, `AppTimeline`, `AppTriggers`, `Client`, `Insurance`, `Payment`, `Medication`, `Document`, `Session`, `SessionNotes`
+- [ ] `FormIntake` tab: admin columns added at END only — no form columns renamed or reordered
 - [ ] Virtual Column collision check completed on all tables
 
 ### System Columns
 - [ ] All 7 tables have: `ID`, `CreatedBy`, `CreatedOn`, `LastEditBy`, `LastEditOn`, `Label` (VC)
-- [ ] IntakeForm has: `ProcessedStatus`, `ClientID`, `ProcessedOn`, `ProcessedBy` added at right
+- [ ] FormIntake has: `ProcessedStatus`, `ClientID`, `ProcessedOn`, `ProcessedBy` added at right
 - [ ] `CreatedBy` / `CreatedOn`: Reset on Edit = FALSE on all tables
 - [ ] `LastEditBy` / `LastEditOn`: Reset on Edit = TRUE on all tables
 - [ ] `Label` VC generates meaningful string on all tables
@@ -23,7 +23,7 @@
 ### HIPAA / PCI Compliance ⚕️
 - [ ] Google Workspace BAA (Business Associate Agreement) confirmed active with David's Google account
 - [ ] Google Shared Drive "Transcend_Clients" created — owned by practice org account
-- [ ] `Form Responses 1` sheet access restricted to admin only (no therapist or external access)
+- [ ] `FormIntake` sheet access restricted to admin only (no therapist or external access)
 - [ ] `ClientPayment` table: confirm `CardLast4` only — no full card number column exists in AppSheet
 - [ ] Security Code (CVV): confirm NOT imported into any AppSheet table
 - [ ] App Script `extractLast4()` tested: inputs "4111111111111111" → outputs "1111"
@@ -42,7 +42,7 @@
 
 ### AppSetting Values Confirmed
 - [ ] `CompanyName` = "Transcend Counseling & Wellness"
-- [ ] `IntakeFormURL` = actual Google Form share URL (not edit URL)
+- [ ] `FormIntakeURL` = actual Google Form share URL (not edit URL)
 - [ ] `DriveFolderID` = actual Shared Drive root folder ID
 - [ ] `DocuSignEnabled` = "FALSE" (Phase 1 — Google e-Sign manual)
 - [ ] `BotProcessingEnabled` = "TRUE"
@@ -88,7 +88,7 @@
 - [ ] `ClientPayment` columns hidden from non-admin roles via Show_If
 - [ ] System audit columns hidden from all form views
 - [ ] Display Names set (e.g., `Mobile` → "Primary Phone", `Email` → "Client Email")
-- [ ] IntakeForm `ProcessedStatus` shows color: New=Gray, Processing=Blue, Processed=Green, Failed=Red
+- [ ] FormIntake `ProcessedStatus` shows color: New=Gray, Processing=Blue, Processed=Green, Failed=Red
 
 ### E-Signature Workflow (Manual — Phase 1)
 - [ ] David and admin walkthrough tested: open Google Doc → Google e-Sign → enter client email → send

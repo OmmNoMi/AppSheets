@@ -14,12 +14,12 @@
 | AppSettings | AppSettings | System | Base App |
 | AppTimeline | AppTimeline | System | Base App |
 | AppTriggers | AppTriggers | System | Base App |
-| Form Responses 1 | IntakeForm | Operational | Existing (Google Form output) |
+| FormIntake | FormIntake | Operational | Existing (Google Form output) |
 | Client | Client | Operational | New sheet |
-| ClientInsurance | ClientInsurance | Operational | New sheet |
-| ClientPayment | ClientPayment | Operational | New sheet |
-| ClientMedication | ClientMedication | Operational | New sheet |
-| ClientDocument | ClientDocument | Operational | New sheet |
+| Insurance | ClientInsurance | Operational | New sheet |
+| Payment | ClientPayment | Operational | New sheet |
+| Medication | ClientMedication | Operational | New sheet |
+| Document | ClientDocument | Operational | New sheet |
 | Session | Session | Operational | New sheet — added Jun 3 |
 | SessionNotes | SessionNotes | Operational | New sheet — added Jun 3 |
 
@@ -39,7 +39,7 @@
 | ID | Title | Description | Tags |
 |----|-------|-------------|------|
 | CompanyName | Company Name | Transcend Counseling & Wellness | — |
-| IntakeFormURL | Intake Form URL | Link sent to clients via SMS | ID is used in Code |
+| FormIntakeURL | Intake Form URL | Link sent to clients via SMS | ID is used in Code |
 | DriveFolderID | Drive Folder ID | HIPAA Shared Drive root folder ID | ID is used in Code |
 | DocuSignEnabled | DocuSign Enabled | FALSE — toggle when DocuSign account set up | ID is used in Code |
 | BotProcessingEnabled | Bot Processing Enabled | TRUE — enable/disable hourly intake bot | ID is used in Code |
@@ -52,7 +52,7 @@
 
 ---
 
-## IntakeForm
+## FormIntake
 > Connected to existing Google Form responses sheet. Do NOT modify existing column order.
 > Add admin columns at the END only (right side of sheet).
 
@@ -143,7 +143,7 @@
 ---
 
 ## Client
-**Purpose**: Structured client record, created from IntakeForm processing.
+**Purpose**: Structured client record, created from FormIntake processing.
 **Parent**: None (core entity)
 
 | Column | Type | Initial Value / App Formula | Editable_If | Reset on Edit | Notes |
@@ -179,7 +179,7 @@
 | **ConsentTelehealth** | Enum | — | — | — | **Yes / No** — drives doc version |
 | Status | Enum | `"New"` | — | — | See lifecycle in ProjectInfo |
 | AssignedTherapist | Enum Ref → AppUser | — | — | — | |
-| IntakeFormTimestamp | DateTime | — | `ISBLANK([_THIS])` | — | Links back to IntakeForm row |
+| FormIntakeTimestamp | DateTime | — | `ISBLANK([_THIS])` | — | Links back to FormIntake row |
 | DriveFolderID | Text | — | `ISBLANK([_THIS])` | — | Google Drive folder ID for this client |
 | DriveFolderURL | URL | — | `ISBLANK([_THIS])` | — | |
 | Notes | LongText | — | — | — | Internal only |
@@ -203,7 +203,7 @@
 | `Sync_Client` | Set `LastEditOn` = `NOW()` | TRUE |
 | `Add_NewClient` | LINKTOFORM("Client_Form", "Status", "New") | `IN("Admin", ANY(Me[Roles]))` |
 | `Approved_IntakeReceived` | Set `Status` = "IntakeReceived" | `[Status] = "New"` |
-| `Send_IntakeLink` | AppSheet SMS to `[Mobile]` with IntakeFormURL | `ISBLANK([IntakeFormTimestamp])` |
+| `Send_IntakeLink` | AppSheet SMS to `[Mobile]` with FormIntakeURL | `ISBLANK([FormIntakeTimestamp])` |
 | `View_ClientDrive` | Navigate to `[DriveFolderURL]` | `NOT(ISBLANK([DriveFolderURL]))` |
 
 ---
@@ -345,7 +345,7 @@
 | ClientInsurance.VerificationStatus | Pending, Verified, Failed, NotApplicable |
 | ClientInsurance.ClientRelationToHolder | Self, Spouse, Child, Other |
 | ClientDocument.Status | Pending, Generating, Generated, SentForSignature, Signed, UploadedToEMR |
-| IntakeForm.ProcessedStatus | New, Processing, Processed, Failed |
+| FormIntake.ProcessedStatus | New, Processing, Processed, Failed |
 
 ---
 
@@ -411,7 +411,7 @@
 | ClientInsurance.VerificationStatus | Pending, Verified, Failed, NotApplicable |
 | ClientInsurance.ClientRelationToHolder | Self, Spouse, Child, Other |
 | ClientDocument.Status | Pending, Generating, Generated, SentForSignature, Signed, UploadedToEMR |
-| IntakeForm.ProcessedStatus | New, Processing, Processed, Failed |
+| FormIntake.ProcessedStatus | New, Processing, Processed, Failed |
 | Session.Status | Scheduled, Completed, Cancelled, NoShow |
 
 **Client.Status pipeline colour mapping (David's system):**

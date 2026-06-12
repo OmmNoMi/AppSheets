@@ -1,0 +1,97 @@
+# Project Info — Gaonhae Taekwondo App
+> This is a **living document**. Update in place — do not create duplicates.
+> History of WHY decisions changed belongs in `Decisions.md`.
+
+---
+
+## Project Overview
+| Field | Value |
+|-------|-------|
+| Client | Gaonhae Taekwondo |
+| App Name | GaonhaeTaekwondo-165590497 |
+| Phase | Phase 1 |
+| Start Date | 2026-06-12 |
+| Antigravity Conversation | ca610d36-581c-4536-8748-2ea95b26b125 |
+| AppSheet App URL | https://www.appsheet.com/template/appdoc?appId=e9b03572-313c-4a85-91c3-a430eb2c98bd |
+| Google Sheet URL | TBD |
+
+---
+
+## User Stories (Personas)
+| Persona | Role (AppAccess) | Key Need |
+|---------|-----------------|----------|
+| | | |
+| | | |
+
+```
+Template:
+As a [Role], I need to [action] so that [outcome].
+```
+
+---
+
+## Feature Matrix
+### Painkillers (Must-have — Phase 1)
+- [ ] 
+- [ ] 
+
+### Vitamins (Nice-to-have — later phases)
+- [ ] 
+- [ ] 
+
+---
+
+## Core Entities & ERD
+*(List tables and their relationships)*
+
+| Table | Type | Relates To | Relationship |
+|-------|------|-----------|-------------|
+| AppUser | System | AppAccess | One-to-Many (Roles) |
+| | | | |
+
+**Many-to-Many Tables** (Join tables):
+- *(list any)*
+
+---
+
+## Status Lifecycles
+*(Define the state machine for each main operational table)*
+
+### [TableName]
+```
+[Status A] → [Status B] → [Status C] → [Final Status]
+```
+Triggered by: *(Action buttons / Automation)*
+
+---
+
+## Modules & Access Levels
+| Module | Access Level | Who |
+|--------|-------------|-----|
+| System | Admin | |
+| | Manager | |
+| | Field | |
+
+---
+
+## Current Scope (Always Current)
+> Update this when scope changes. Do not keep old scope here — that goes in Decisions.md.
+
+**In Scope**:
+- 
+
+**Out of Scope** (explicitly excluded):
+- 
+
+---
+
+## Deployment Status
+| Milestone | Status | Date |
+|-----------|--------|------|
+| Schema designed | | |
+| System tables set up | | |
+| Operational tables built | | |
+| Actions configured | | |
+| Automations live | | |
+| Deployed to client | | |
+| Client signed off | | |

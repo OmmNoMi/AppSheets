@@ -13,8 +13,8 @@
 | Phase | Phase 1 |
 | Last Meeting | 2026-06-03 |
 | Compliance | **HIPAA** — Google Workspace BAA required |
-| AppSheet App URL | *(to be added)* |
-| Google Sheet URL | https://docs.google.com/spreadsheets/d/1SF8eqy9Ye7U15K--ZpXpKXkAAGhaKWutkJvhvdIBunw/ |
+| AppSheet App URL | https://www.appsheet.com/template/appdef?appId=Transcend-259840489&isCopiedApp=true&appName=Transcend-259840489#Home |
+| Google Sheet URL | https://docs.google.com/spreadsheets/d/1a-Cw-BPJNVzETqNnn2G81AycyCLxvDphjMbVwMhtbxQ/edit?resourcekey=&gid=1211808327#gid=1211808327 |
 | App Ownership | OmmNoMi (during build) → Transfer to David on completion |
 | Antigravity Conversation | 66b44410-0436-4611-b5b3-47a9d5f42539 |
 
@@ -78,7 +78,7 @@
 | Table | Type | Relates To | Relationship |
 |-------|------|-----------|-------------|
 | AppUser | System | AppVariables (roles) | Roles → EnumList Ref |
-| IntakeForm | Operational | Client | One-to-One (raw → processed) |
+| FormIntake | Operational | Client | One-to-One (raw → processed) |
 | Client | Operational (Core) | AppUser (therapist) | Many-to-One |
 | ClientInsurance | Operational | Client | Many-to-One (child) |
 | ClientPayment | Operational | Client | One-to-One (child) |
