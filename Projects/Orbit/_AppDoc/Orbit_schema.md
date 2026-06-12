@@ -199,111 +199,9 @@
 
 ## Columns
 ### Employee (72 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID() { EditIf: `=1=2` }
-  Code: Text = =IF(
-   ISNOTBLANK(
-    [Candidate].[EmployeeCode]),
-     [Candidate].[EmployeeCode],
-     [Project].[Code] & RIGHT("000" & COUNT(Employee[ID]) + 1,
-     3
-  )
-) { ValidIf: `=ISBLANK(FILTER(
-  "Employee",
-  [Code]=[_THISROW].[Code])-list([_THISROW].[ID]))` | EditIf: `=1=2` }
-  Candidate: Ref { ShowIf: `=ISBLANK( [_THIS] )` | EditIf: `=ISBLANK( [_THIS] )` }
-  FirstName: Name = =[Candidate].[First Name]
-  LastName: Name = =[Candidate].[Last Name]
-  FullName: Name = =[Candidate].[Full Name as per Passport]
-  PreferredName: Name = =[Candidate].[Full Name as per Passport]
-  AppUser: Enum
-  PersonalEmail: Email = =[Candidate].[Personal Email]
-  WorkEmail: Email
-  Mobile: Phone = =[Candidate].[Mobile Number]
-  DateOfBirth: Date
-  Nationality: Enum = =[Candidate].[Nationality]
-  Gender: Enum [Values: 'Male', 'Female', 'Prefer not to say']
-  JoiningDate: Date
-  Position: Text (→"="Position/Title"")
-  VisaStatus: Enum [Values: 'BLR Work-Permit', 'BLR Sponsored Visa', 'NA']
-  OfficeLocation: Enum = =IF(
-   ISNOTBLANK(
-    [Candidate].[OfficeLocation]),
-     [Candidate].[OfficeLocation],
-     "Dubai"
-  )
-  OfficeCalendar: Enum = =IF(
-   ISNOTBLANK(
-    [Candidate].[OfficeCalendar]),
-     [Candidate].[OfficeCalendar],
-     "04edbb51"
-  ) { ValidIf: `=FILTER(
-  "OfficeCalendar",
-  AND(
-    [Status]="Active",
-    [OfficeLocation]=[_THISROW].[OfficeLocation]))` }
-  ReportingOfficer: Enum (→"="Line Manager"")
-  TeamEmail: Enum [HIDDEN] (→"=LineManagerEmail")
-  Department: Enum
-  Project: Ref = =IF(
-  ISNOTBLANK(
-    [Candidate].[Project]),
-    [Candidate].[Project],
-    "Core_Team"
-  )
-  EmploymentType: Enum [Values: 'Full-time', 'Part-time', 'Contract', 'Intern']
-  Communication: Enum
-  Probation: Number
-  GrossMonthlySalary: Decimal
-  SalaryPaidOn: Number
-  BasicSalary: Decimal = =[GrossMonthlySalary]*0.5
-  HousingAllowance: Decimal = =[GrossMonthlySalary]*0.25
-  TransportAllowance: Decimal = =[GrossMonthlySalary]*0.25
-  StartDate: DateTime
-  EndDate: DateTime
-  Status: Enum [Values: 'Pending Validation', 'Pending Review', 'Approved for Offer', 'Offer Sent', 'Onboarding', 'Probation', 'Confirmed', 'Resigned', ... +1 more] = ="Pending Validation"
-  Address: Address = =[Candidate].[Current Location (City, Country)]
-  EmergencyContactName: Name = =[Candidate].[Emergency Contact Name]
-  EmergencyContactPhone: Phone = =[Candidate].[Emergency Contact Number]
-  BankAccountName: Text = =[Candidate].[Bank Name]
-  BankAccountNumber: Text = =[Candidate].[Account Number]
-  BankName: Enum = =[Candidate].[Branch Name]
-  IBAN: Text = =[Candidate].[IBAN]
-  SwiftCode: Text = =[Candidate].[SWIFT Code]
-  Allergies: Text = =[Candidate].[Allergies (If Any)]
-  MedicalCondition: Text = =[Candidate].[Medical Condition (If Any)]
-  Notes: LongText
-  ProfilePicture: Image
-  FolderID: Text
-  Input_Cycle: Enum
-  ConfirmedOn: Date = =IF(
-   [Status] = "Confirmed",
-   TODAY(
-), "" )
-  CreatedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  CreatedOn: DateTime = NOW() { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_this])` }
-  LastEditedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_this])` }
-  AppTrigger: Enum [HIDDEN]
-  TriggerValue: Text [HIDDEN]
-  TriggeredOn: DateTime [HIDDEN]
-  Tab_Basic: Show [RO]
-  Tab_Bank: Show [RO]
-  Tab_Other: Show [RO]
-  Tab_Contact: Show [RO]
-  _ComputedName: Name [RO,VC]
-  Related Documents: List [RO,VC]
-  Related CheckLists: List [RO,VC]
-  Related TaskList: List [RO,VC]
-  Related TaskLists: List [HIDDEN,RO,VC]
-  Related CandidateDatas: List [RO,VC]
-  Related Communications: List [RO,VC]
-  Related AttendanceMonthlys: List [RO,VC]
-  Related ReviewEvaluations: List [RO,VC]
-  Related AttendanceRequests: List [HIDDEN,RO,VC]
-  AttendanceToday: Enum [RO]
-```
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### _Per User Settings (15 cols)
 ```
@@ -325,26 +223,9 @@
 ```
 
 ### Documents (18 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID() { EditIf: `=ISBLANK([_this])` }
-  Employee: Ref { EditIf: `=ISBLANK([_THIS])` }
-  DocumentType: Enum
-  DocumentName: Text = =[DocumentType].[Name]
-  DocumentNumber: Text
-  IssueDate: Date
-  ExpiryDate: Date
-  FileAttachment: File
-  FileURL: Url
-  DriveFileID: Text [HIDDEN] { EditIf: `=1=2` }
-  DriveFileURL: Url { EditIf: `=1=2` }
-  SubStatus: Enum [Values: 'Pending', 'Verified', 'Rejected', 'Archived'] = ="Pending"
-  Notes: LongText
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_this])` }
-  LastEditedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_this])` }
-  Status: Enum [RO]
-  EmployeeStatus: Enum [RO]
-```
+[Inherits all 18 columns from Table: Update File ID and URL Output]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### Project (14 cols)
 ```
@@ -358,8 +239,8 @@
   EndDate: Date = TODAY()
   FolderID: Text
   Status: Enum [Values: 'Active', 'Planning', 'Completed', 'On Hold'] = ="Active"
-  LastEditedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_this])` }
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_this])` }
+  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_this])" }
+  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
   Related Employees: List [RO,VC]
   Related CandidateDatas: List [RO,VC]
 ```
@@ -375,8 +256,8 @@
   Description: LongText
   Version: Number
   Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_this])` }
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_this])` }
+  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_this])" }
+  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
 ```
 
 ### AppUser (14 cols)
@@ -384,16 +265,16 @@
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
   ID: Text = =IFS(
    ISNOTBLANK(
-    [Employee].[WorkEmail]),
-     INDEX(
-      SPLIT([Employee].[WorkEmail],
-       "-world"
-    ),
+    [Employee].[WorkEmail]
+  ),
+   INDEX(
+    SPLIT([Employee].[WorkEmail],
+     "-world"),
      1
   ),
    TRUE,
-   UNIQUEID(
-) )
+   UNIQUEID()
+)
   Photo: Image
   Employee: Enum
   Email: Email
@@ -401,8 +282,8 @@
   Roles: EnumList = ="U_Employee"
   AccessKey: Text [HIDDEN]
   Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_this])` }
-  LastEditedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_this])` }
+  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_this])" }
   AllowedRoles: List [RO]
   Related TaskLists: List [RO,VC]
   Related AttendanceRequests: List [RO,VC]
@@ -424,16 +305,16 @@
   EmployeeActionRequired: Yes/No [HIDDEN] = =FALSE
   Notes: LongText
   CheckList: Enum [HIDDEN]
-  CreatedBy: Enum [RO] = =ANY(Me[ID])
+  CreatedBy: Enum [RO] = =ANY(Me[ID]) { Slices Cross-Ref: Me -> AppUser }
   CreatedOn: DateTime [RO] = NOW()
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedOn: DateTime = NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditedOn: DateTime = NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### CheckList (17 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID() { EditIf: `=ISBLANK([_THIS])` }
+  ID: Text = UNIQUEID() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Type: Enum [Values: 'Verification', 'Job Offer', 'Onboarding']
   TaskName: Name
   TaskDescription: LongText
@@ -446,8 +327,8 @@
   URL: Url
   Notes: LongText
   Input_Employee: Ref
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Label: Text [RO]
 ```
 
@@ -495,57 +376,22 @@
   Project: Ref
   EmployeeCode: Text (→"="Employee Code"")
   OfficeLocation: Ref
-  OfficeCalendar: Ref { ValidIf: `=FILTER(
+  OfficeCalendar: Ref { Logic: [ValidIf]="=FILTER(
   "OfficeCalendar",
   AND(
     [Status]="Active",
-    [OfficeLocation]=[_THISROW].[OfficeLocation]))` }
+    [OfficeLocation]=[_THISROW].[OfficeLocation]
+  )
+)" }
+  Employee: Ref [RO]
   _ComputedName: Name [RO,VC]
   Related Employees: List [HIDDEN,RO,VC]
-  Employee: Ref [RO]
 ```
 
 ### Communication (16 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Template: Enum = =[Template]
-  Employee: Ref
-  Date: Date = TODAY()
-  Subject: Enum [Values: 'Performance Review'] = =[Template].[TemplateName]
-  To: EnumList = =ifs(
-   CONTAINS(
-    [Template].[To],
-    "ProjectTeamEmail"
-  ),
-   [Employee].[Project].[TeamEmail],
-   CONTAINS(
-    [Template].[To],
-    "EmployeeEmail"
-  ),
-   list(if(
-    ISNOTBLANK(
-      [Employee].[WorkEmail]),
-      [Employee].[WorkEmail],
-      [Employee].[PersonalEmail])),
-       CONTAINS(
-        [Template].[To],
-        "LineManagerEmail"
-      ),
-       list([Employee].[TeamEmail]),
-       1=1,
-       [Template].[To]
-    )
-  CC: EnumList
-  BCC: EnumList = ="people@blr-world.com"
-  ReplayTo: Enum [HIDDEN] = ="people@blr-world.com"
-  Sender: Text [HIDDEN] = ="BLR WORLD HRMS"
-  Status: Enum [Values: 'Draft', 'Send', 'Sent'] = ="Draft"
-  CreatedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  CreatedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-```
+[Inherits all 16 columns from Table: SetTheStatusAsSent Output]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### DocType (9 cols)
 ```
@@ -556,8 +402,8 @@
   RedAlert: Number
   OrangeAlert: Number
   YellowAlert: Number
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### AppViews (21 cols)
@@ -580,54 +426,15 @@
   MaxQty: Decimal
   MinAmount: Number
   MaxAmount: Number
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   AppLink: App [RO]
 ```
 
 ### AppSettings (17 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Level: Enum [Values: 'System', 'Code']
-  Table: Enum
-  Trigger: Enum
-  View: Enum
-  Column: Enum
-  Title: Text
-  Description: LongText
-  Role: EnumList = =Any(Me[Roles]) { ValidIf: `=sort(
-  split(lookup(
-    "AppUserRoles ",
-    "AppVariables",
-    "ID",
-    "MultiValues"
-  ),
-  ","
-),false)` | EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  Email: Enum = =any(Me[Email]) { EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  User: Enum = =Any(me[ID]) { EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  Decimal: Number (→"="Days"")
-  Date: Date = TODAY()
-  AllowedValues: EnumList
-  LastEditBy: Enum = =Any(Me[ID]) { EditIf: `=isblank([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=isblank([_THIS])` }
-```
+[Inherits all 17 columns from Table: Sync LeaveAllocation Output 2]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### AppVariables (19 cols)
 ```
@@ -638,235 +445,66 @@
   ValueControl: EnumList [Values: 'Date', 'Decimal', 'Enum', 'File', 'Multi', 'Photo', 'URL']
   Title: Text
   UsedFor: Text
-  Decimal: Decimal { EditIf: `=in("Decimal",[ValueControl])` }
-  EnumValue: Enum { EditIf: `=in("Enum",[ValueControl])` }
-  MultiValues: EnumList { EditIf: `=in("Multi",[ValueControl])` }
-  DateValue: Date = TODAY() { EditIf: `=in("Date",[ValueControl])` }
-  Photo: Image { EditIf: `=in("Photo",[ValueControl])` }
-  URL: Url { EditIf: `=in("URL",[ValueControl])` }
-  File: File { EditIf: `=in("File",[ValueControl])` }
+  Decimal: Decimal { Logic: [EditIf]="=in("Decimal",[ValueControl])" }
+  EnumValue: Enum { Logic: [EditIf]="=in("Enum",[ValueControl])" }
+  MultiValues: EnumList { Logic: [EditIf]="=in("Multi",[ValueControl])" }
+  DateValue: Date = TODAY() { Logic: [EditIf]="=in("Date",[ValueControl])" }
+  Photo: Image { Logic: [EditIf]="=in("Photo",[ValueControl])" }
+  URL: Url { Logic: [EditIf]="=in("URL",[ValueControl])" }
+  File: File { Logic: [EditIf]="=in("File",[ValueControl])" }
   Description: LongText
   EnumList: EnumList
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=isblank([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=isblank([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=isblank([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=isblank([_THIS])" }
   Related AttendanceDailys: List [RO,VC]
 ```
 
 ### AppTriggers (16 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID() { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No = =if(ISBLANK([_THIS]),TRUE,FALSE)
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date = TODAY()
-  PickDateTime: DateTime = =NOW()
-  ValueText: Text = =[PickEmployee].[PersonalEmail]
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum = =ANY(Me[ID]) { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime = =NOW() { EditIf: `=isblank([_THIS])` }
-  Date: Text [RO]
-```
+[Inherits all 16 columns from Table: Delete the AttendnaceDaily not relate to the same day Output]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### ReviewCycles (26 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = =[Year]&""
-  Year: Number
-  Title: Text = ="Performance Evaluation "&[Year]
-  Start_Date: Date = =[LastCycle].[Start_Date]+365
-  End_Date: Date = =[LastCycle].[End_Date]+365
-  ObjSettingStart: Date = =[LastCycle].[ObjSettingStart]+365
-  ObjSettingEnd: Date = =[LastCycle].[ObjSettingEnd]+365
-  SelfMidReviewStart: Date = =[LastCycle].[SelfMidReviewStart]+365
-  SelfMidReviewEnd: Date = =[LastCycle].[SelfMidReviewEnd]+365
-  MgrMidReviewStart: Date = =[LastCycle].[MgrMidReviewStart]+365
-  MgrMidReviewEnd: Date = =[LastCycle].[MgrMidReviewEnd]+365
-  SelfReviewStart: Date = =[LastCycle].[SelfReviewStart]+365
-  SelfReviewEnd: Date = =[LastCycle].[SelfReviewEnd]+365
-  AppraisalStart: Date = =[LastCycle].[AppraisalStart]+365
-  AppraisalEnd: Date = =[LastCycle].[AppraisalEnd]+365
-  Status: Enum = ="Open"
-  Input_Project: Enum
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-  LastCycle: Enum [RO]
-  Related ReviewObjectives: List [HIDDEN,RO,VC]
-  Related ReviewEvaluations: List [HIDDEN,RO,VC]
-  Total_Employee: Number [RO] (→"=IF(
-  CONTEXT("View") = "ReviewCycle",
-  "Employee",
-  "Total_Employee"
-)")
-  Pending_Manager_Review: Number [RO]
-  Pending_Self_Review: Number [RO]
-```
+[Inherits all 26 columns from Table: InputValue Output]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### ReviewEmployee (20 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Cycle: Enum { EditIf: `=ISBLANK([_THIS])` }
-  Employee: Enum
-  Status: Enum = ="Pending Obj Setting"
-  Last_Review_ID: Enum [HIDDEN] = =ANY(
-   ORDERBY(
-     FILTER(
-       "ReviewEmployee",
-       AND(
-         [Employee] = [_THISROW].[Employee],
-         [Cycle].[Start_Date] < [_THISROW].[Cycle].[Start_Date] ) ),
-        [EvaluationDate],
-        FALSE
-      )
-    )
-  SelfReview: Decimal
-  ManagerReview: Decimal
-  FinalReview: Decimal
-  FinalReport: File [HIDDEN]
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-  EvaluationDate: Date [HIDDEN,RO]
-  ReviewObjectives: List [HIDDEN,RO]
-  Count_Obj_Individual: Number [HIDDEN,RO]
-  Obj_Individual: List [RO] { ShowIf: `=ISNOTBLANK(
-   SELECT(
-     ReviewObjective[ID],
-     AND(
-       [Cycle] = [_THISROW].[Cycle],
-       [EmployeeReview] = [_THISROW].[ID],
-       [Type] = "Obj_Individual" ) ) )` }
-  Related ReviewEvaluations: List [RO,VC] { ShowIf: `=ISNOTBLANK([_THIS])` }
-  Count_Self_Review: Number [RO]
-  Count_Manager_Review: Number [RO]
-  Count_ReviewObjective: Number [RO] (→"="Objectives"")
-```
+[Inherits all 20 columns from Table: InputReviewEvaluationBySelf Output]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### ReviewObjective (22 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Type: Enum = =IFS(
-  ISNOTBLANK(
-    [Input_Objective]
-  ),
-   [Input_Objective].[Type],
-   ISNOTBLANK(
-    [EmployeeReview]
-  ),
-  "Obj_Individual"
-) { ValidIf: `=IF(
-   ISNOTBLANK(
-     INTERSECT( LIST( "U_System_Admin",
-     "U_System_Manager",
-     "U_System_User",
-     "U_System_Viewer",
-     "U_People_Admin",
-     "U_People_Manager",
-     "U_People_User",
-     "U_People_Viewer",
-     "U_Project_Admin",
-     "U_Project_Manager",
-     "U_Project_User",
-     "U_Project_Viewer",
-     "U_Finance_Admin",
-     "U_Finance_Manager",
-     "U_Finance_User",
-     "U_Finance_Viewer",
-     "SuperAdmin",
-     "Admin",
-     "User"
-  ),
-   SPLIT(TEXT(ANY(
-    Me[Roles]
-  )
-), ",") ) ), SPLIT(LOOKUP(
-  "Emp_ReviewObjective_Type",
-   "AppVariables",
-   "ID",
-   "EnumValue"
-), " , "), LIST("Obj_Individual") )` | EditIf: `=ISBLANK([_THIS])` }
-  Cycle: Enum = =IF(
-   ISNOTBLANK(
-    [Input_Objective]
-  ),
-   [Input_Objective].[Cycle],
-   ANY(
-    SELECT(
-      ReviewCycles[ID],
-       [Year] = YEAR(TODAY()))) ) { ValidIf: `=ReviewCycles[ID]` | EditIf: `=ISBLANK([_this])` }
-  EmployeeReview: Enum { ShowIf: `=[Type] = "Obj_Individual"` | ReqIf: `=[Type] = "Obj_Individual"` | EditIf: `=ISBLANK([_THIS])` }
-  Title: Text = =[Input_Objective].[Title]
-  SubTitle: Text = =[Input_Objective].[SubTitle]
-  Description: LongText = =[Input_Objective].[Description]
-  FillingInstructions: LongText = =[Input_Objective].[FillingInstructions]
-  VideoGuide: File [RO] = =[Input_Objective].[VideoGuide]
-  EvidenceRequirement: Enum = =IFS(
-   ISBLANK([Input_Objective]),
-   LOOKUP(
-    "Emp_ReviewObjective_EvidenceRequirement",
-     "AppVariables",
-     "ID",
-     "Title"
-  ),
-   ISNOTBLANK(
-    [Input_Objective]
-  ),
-   [Input_Objective].[EvidenceRequirement] ) { ValidIf: `=SPLIT( LOOKUP(
-  "Emp_ReviewObjective_EvidenceRequirement",
-   "AppVariables",
-   "ID",
-   "EnumValue"
-) , ", " )` }
-  Weight: Percent [HIDDEN] = =[Input_Objective].[Weight]
-  Index: Decimal [HIDDEN] = =[Input_Objective].[Index]
-  Status: Enum = =Proposed
-  Is_Repeating: Yes/No = =IF([Type]="Obj_Individual",FALSE,TRUE)
-  HRApproval: Yes/No { EditIf: `=ISNOTBLANK(
-   INTERSECT( LIST("U_People_Admin",
-   "U_People_Manager"
-), SPLIT(TEXT(ANY(
-  Me[Roles]
-)), ",") ) )` }
-  Input_Cycle: Ref
-  Input_Type: Text
-  Input_Objective: Enum
-  Input_Evaluations: Enum
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-```
+[Inherits all 22 columns from Table: InputReviewEvaluationBySelf Output 2]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### ReviewEvaluations (22 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
   ID: Text = UNIQUEID()
-  EmployeeReview: Ref { EditIf: `=ISBLANK([_THIS])` }
-  Objective: Enum { EditIf: `=ISBLANK([_THIS])` }
-  Type: Enum { ValidIf: `=SPLIT( LOOKUP(
+  EmployeeReview: Ref { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  Objective: Enum { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  Type: Enum { Logic: [ValidIf]="=SPLIT( LOOKUP(
   "Emp_ReviewCycles_Type",
    "AppVariables",
    "ID",
    "EnumValue"
-) , ", " )` | EditIf: `=AND(
-   ISBLANK([_THIS]
-), OR(
-   AND(
-     [Type] = "Cycle_Annual",
-     TODAY(
-  ) >= [EmployeeReview].[Cycle].[AppraisalStart],
-   TODAY(
-) <= [EmployeeReview].[Cycle].[AppraisalEnd] ), AND(
-   [Type] = "Cycle_Mid",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[SelfMidReviewStart], TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd] ) ) )` }
+) , ", " )" | [EditIf]="=AND(
+   ISBLANK([_THIS]),
+   OR(
+     AND(
+       [Type] = "Cycle_Annual",
+       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Mid",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
+    )
+  )
+)" }
   SelfRating: Number (→"=SWITCH(
   [SelfRating],
   "1","Rating = 1 ; Does Not Meet Expectations",
@@ -875,54 +513,72 @@
   "4","Rating = 4 ; Meets Expectations",
   "5","Rating = 5 ; Exceeds Expectations",
   "Rating"
-)") { EditIf: `=AND(
-   ISBLANK([_THIS]
-), ANY(
-  Me[Employee]
-) = [EmployeeReview].[Employee], OR(
-  AND(
-     TODAY(
-  ) >= [EmployeeReview].[Cycle].[SelfReviewStart],
-   TODAY(
-) <= [EmployeeReview].[Cycle].[SelfReviewEnd] ), AND(
-   [Type] = "Cycle_Annual",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[SelfReviewStart], TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd] ), AND(
-   [Type] = "Cycle_Mid",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[SelfMidReviewStart], TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd] ) ) )` }
-  SelfRemarks: LongText { EditIf: `=AND(
-   ISBLANK([_THIS]
-), ANY(
-  Me[Employee]
-) = [EmployeeReview].[Employee], OR(
-  AND(
-     TODAY(
-  ) >= [EmployeeReview].[Cycle].[SelfReviewStart],
-   TODAY(
-) <= [EmployeeReview].[Cycle].[SelfReviewEnd] ), AND(
-   [Type] = "Cycle_Annual",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[SelfReviewStart], TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd] ), AND(
-   [Type] = "Cycle_Mid",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[SelfMidReviewStart], TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd] ) ) )` }
-  ManagerRemarks: LongText { EditIf: `=AND(
-   ISBLANK([_THIS]
-), ANY(
-  Me[ID]
-) = [EmployeeReview].[Employee].[ReportingOfficer], OR(
-   AND(
-     TODAY(
-  ) >= [EmployeeReview].[Cycle].[AppraisalStart],
-   TODAY(
-) <= [EmployeeReview].[Cycle].[AppraisalEnd] ), AND(
-   [Type] = "Cycle_Annual",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[AppraisalStart], TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd] ), AND(
-   [Type] = "Cycle_Mid",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[SelfMidReviewStart], TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd] ) ) )` }
+)") { Logic: [EditIf]="=AND(
+   ISBLANK([_THIS]),
+   ANY(
+    Me[Employee]
+  ) = [EmployeeReview].[Employee],
+   OR(
+    AND(
+       TODAY() >= [EmployeeReview].[Cycle].[SelfReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Annual",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Mid",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
+    )
+  )
+)" } { Slices Cross-Ref: Me -> AppUser }
+  SelfRemarks: LongText { Logic: [EditIf]="=AND(
+   ISBLANK([_THIS]),
+   ANY(
+    Me[Employee]
+  ) = [EmployeeReview].[Employee],
+   OR(
+    AND(
+       TODAY() >= [EmployeeReview].[Cycle].[SelfReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Annual",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Mid",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
+    )
+  )
+)" } { Slices Cross-Ref: Me -> AppUser }
+  ManagerRemarks: LongText { Logic: [EditIf]="=AND(
+   ISBLANK([_THIS]),
+   ANY(
+    Me[ID]
+  ) = [EmployeeReview].[Employee].[ReportingOfficer],
+   OR(
+     AND(
+       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Annual",
+       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Mid",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
+    )
+  )
+)" } { Slices Cross-Ref: Me -> AppUser }
   ManagerRating: Number (→"=SWITCH(
   [ManagerRating],
   1,"Rating = 1 ; Does Not Meet Expectations",
@@ -931,23 +587,29 @@
   4,"Rating = 4 ; Meets Expectations",
   5,"Rating = 5 ; Exceeds Expectations",
   "ManagerRating"
-)") { EditIf: `=AND(
-   ISBLANK([_THIS]
-), ANY(
-  Me[ID]
-) = [EmployeeReview].[Employee].[ReportingOfficer], OR(
-   AND(
-     TODAY(
-  ) >= [EmployeeReview].[Cycle].[AppraisalStart],
-   TODAY(
-) <= [EmployeeReview].[Cycle].[AppraisalEnd] ), AND(
-   [Type] = "Cycle_Annual",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[AppraisalStart], TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd] ), AND(
-   [Type] = "Cycle_Mid",
-   TODAY(
-) >= [EmployeeReview].[Cycle].[SelfMidReviewStart], TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd] ) ) )` }
-  Evidence_File: File { ShowIf: `=[Objective].[EvidenceRequirement] <> "Not Applicable"` | ReqIf: `=IF(
+)") { Logic: [EditIf]="=AND(
+   ISBLANK([_THIS]),
+   ANY(
+    Me[ID]
+  ) = [EmployeeReview].[Employee].[ReportingOfficer],
+   OR(
+     AND(
+       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Annual",
+       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Mid",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
+    )
+  )
+)" } { Slices Cross-Ref: Me -> AppUser }
+  Evidence_File: File { Logic: [ShowIf]="=[Objective].[EvidenceRequirement] <> "Not Applicable"" | [ReqIf]="=IF(
    [Objective].[EvidenceRequirement] = "Mandatory",
    AND(
     ISNOTBLANK(
@@ -958,29 +620,30 @@
     )
   ),
    FALSE
-)` | EditIf: `=AND(
-   ISBLANK([_THIS]
-), OR(
-   ANY(
-    Me[ID]
-  ) = [EmployeeReview].[Employee].[ID],
-   ANY(
-    Me[ID]
-  ) = [EmployeeReview].[Employee].[ReportingOfficer] ),
+)" | [EditIf]="=AND(
+   ISBLANK([_THIS]),
+   OR(
+     ANY(
+      Me[ID]
+    ) = [EmployeeReview].[Employee].[ID],
+     ANY(
+      Me[ID]
+    ) = [EmployeeReview].[Employee].[ReportingOfficer]
+  ),
    OR(
      AND(
        [Type] = "Cycle_Annual",
-       TODAY(
-    ) >= [EmployeeReview].[Cycle].[AppraisalStart],
-     TODAY(
-  ) <= [EmployeeReview].[Cycle].[AppraisalEnd] ),
-   AND(
-     [Type] = "Cycle_Mid",
-     TODAY(
-  ) >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
-   TODAY(
-) <= [EmployeeReview].[Cycle].[SelfMidReviewEnd] ) ) )` }
-  Evidence_URL: Url { ShowIf: `=[Objective].[EvidenceRequirement] <> "Not Applicable"` | ReqIf: `=IF(
+       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Mid",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
+    )
+  )
+)" } { Slices Cross-Ref: Me -> AppUser }
+  Evidence_URL: Url { Logic: [ShowIf]="=[Objective].[EvidenceRequirement] <> "Not Applicable"" | [ReqIf]="=IF(
    [Objective].[EvidenceRequirement] = "Mandatory",
    AND(
     ISNOTBLANK(
@@ -991,173 +654,46 @@
     )
   ),
    FALSE
-)` | EditIf: `=AND(
-   ISBLANK([_THIS]
-), OR(
-   ANY(
-    Me[ID]
-  ) = [EmployeeReview].[Employee].[ID],
-   ANY(
-    Me[ID]
-  ) = [EmployeeReview].[Employee].[ReportingOfficer] ),
+)" | [EditIf]="=AND(
+   ISBLANK([_THIS]),
+   OR(
+     ANY(
+      Me[ID]
+    ) = [EmployeeReview].[Employee].[ID],
+     ANY(
+      Me[ID]
+    ) = [EmployeeReview].[Employee].[ReportingOfficer]
+  ),
    OR(
      AND(
        [Type] = "Cycle_Annual",
-       TODAY(
-    ) >= [EmployeeReview].[Cycle].[AppraisalStart],
-     TODAY(
-  ) <= [EmployeeReview].[Cycle].[AppraisalEnd] ),
-   AND(
-     [Type] = "Cycle_Mid",
-     TODAY(
-  ) >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
-   TODAY(
-) <= [EmployeeReview].[Cycle].[SelfMidReviewEnd] ) ) )` }
+       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
+    ),
+     AND(
+       [Type] = "Cycle_Mid",
+       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
+    )
+  )
+)" } { Slices Cross-Ref: Me -> AppUser }
   Status: Enum
   Timestamp: DateTime = NOW()
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Question: Show [RO]
   Description: Show [RO]
   Instructions: Show [RO]
-  HelpVideo: Show [RO] { ShowIf: `=ISNOTBLANK([Objective].[VideoGuide])` }
+  HelpVideo: Show [RO] { Logic: [ShowIf]="=ISNOTBLANK([Objective].[VideoGuide])" }
   Head: Show [RO]
   Cycle: Ref [RO]
   Lable: Ref [RO]
 ```
 
 ### AttendanceDaily (32 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = =text([Date],"dd/mm/yyyy")&"-"&[Employee] { ShowIf: `=USEREMAIL()="nomeshwer@ommnomi.in"` }
-  Date: Date = TODAY() { EditIf: `=ISBLANK([_THIS])` }
-  Employee: Enum = =IFS(
-   ISNOTBLANK(
-    ANY(
-      Me[ID]
-    )
-  ),
-   ANY(
-    Me[Employee]
-  )
-) { EditIf: `=OR(
-  ISBLANK([_THIS]
-), ISNOTBLANK(
-  INTERSECT({"U_People_Admin",
-  "U_People_Manager",
-  "U_People_User",
-  "U_People_Viewer"},
-  SPLIT(ANY(
-    Me[Roles]
-  ),
-  ","
-))))` }
-  Office_Location: Enum [HIDDEN] = =[Employee].[OfficeLocation]
-  Office_Calendar: Enum = =[Employee].[OfficeCalendar]
-  Office_Shift: Enum = =INDEX(
-   FILTER(
-    "OfficeShift",
-     AND(
-       [ISO_WeekDay] = WEEKDAY([_THISROW].[Date]),
-       IN(
-        [_THISROW].[Office_Calendar],
-         [Applicable_Calendars]) ) ),
-         1
-      ) (→"="Scheduled Shift"")
-  Shift_In: Time = =[Office_Shift].[StartTime] { EditIf: `=ISBLANK([_THIS])` }
-  Shift_Out: Time = =[Office_Shift].[EndTime] { ValidIf: `=[Shift_Out]>=[Shift_In]` | EditIf: `=ISBLANK([_THIS])` }
-  Check_In: DateTime (→"="Check_In"")
-  Check_Out: DateTime (→"="Check_Out"") { ValidIf: `=[Check_Out]>[Check_In]` }
-  Status: Enum = =IFS(
-   AND(
-    [AttendanceRequest].[Status] = "Approved",
-     1 = 1
-  ),
-   [AttendanceRequest].[AttendanceStatus],
-   AND(
-    ISBLANK([Check_In]
-  ),
-   ISBLANK([Check_Out]),
-   [Office_Shift].[Type] <> "Day Off"),
-   "Att_U",
-   AND(
-    ISBLANK([Check_In]
-  ),
-   ISBLANK([Check_Out]),
-   [Office_Shift].[Type] = "Day Off"),
-   "Att_WO"
-)
-  SubStatus: Enum { ShowIf: `=[Status]<>[SubStatus]` }
-  Attendance: Enum = =IFS(
-   AND(
-    ISNOTBLANK(
-      [AttendanceRequest]
-    ),
-     [AttendanceRequest].[Status] = "Approved"),
-     [AttendanceRequest].[AttendanceStatus],
-     ISNOTBLANK(
-      [Check_In]
-    ),
-     IFS(
-       ISBLANK([Check_Out]),
-       "AA_MCO",
-       ( HOUR([Check_Out] - [Check_In]) >= [Office_Shift].[FullDayHours] ),
-       "AA_FD",
-       ( HOUR([Check_Out] - [Check_In]) >= [Office_Shift].[HalfDayHours] ),
-       "AA_HD",
-       TRUE,
-       "AA_SH"
-    ),
-     ISBLANK([Check_In]
-  ),
-   IFS(
-     ISNOTBLANK(
-      [Office_Holiday]
-    ),
-     "Holiday",
-     ( [Office_Shift].[Type] = "Day Off" ),
-     "Att_WO",
-     TRUE,
-     "Att_U"
-  )
-) { ShowIf: `=[Status]<>[Attendance]` }
-  Location: LatLong { ValidIf: `=[_THIS]<>"0.000000, 0.000000"` }
-  Remarks: LongText
-  Office_Holiday: Enum = =INDEX(
-   FILTER(
-    "OfficeHoliday",
-     AND(
-       [Date] = [_THISROW].[Date],
-       IN(
-        [_THISROW].[Office_Calendar],
-         [Applicable_Calendars]) ) ),
-         1
-      )
-  AttendanceRequest: Ref = =INDEX(
-   FILTER(
-     "AttendanceRequest",
-     AND(
-       [Status] = "Approved",
-       [Employee] = [_THISROW].[Employee],
-       [StartDate] <= [_THISROW].[Date],
-       [EndDate] >= [_THISROW].[Date] ) ),
-       1
-    )
-  LastEditBy: Enum [HIDDEN] = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime [HIDDEN] = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-  MonthYear: Enum [RO]
-  Office_Check_In: Time [RO] (→"="Actual Check In"")
-  Office_Check_Out: Time [RO] (→"="Actual Check Out"")
-  Label: Text [RO]
-  Details: Text [RO]
-  Attendance_Status: Ref [HIDDEN,RO]
-  Day_Value: Decimal [RO]
-  AttendanceREquestStatus: Text [RO]
-  CheckInLateBy: Decimal [RO]
-  IsWorking: Yes/No [RO]
-  Related AttendanceRequests: List [RO,VC]
-  CheckOutLateBy: Number [RO]
-```
+[Inherits all 34 columns from Table: Process for Check In-Out Reminder Text Process Table]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### AttendanceMonthly (48 cols)
 ```
@@ -1205,124 +741,26 @@
   Total_Holiday: Number
   Total_WeekOff: Number
   Status: Enum [Values: 'Open', 'Finalized', 'Archived']
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Year: Text [RO]
   Month: Text [RO]
 ```
 
 ### OfficeCalendar (18 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  CalendarName: Name
-  Employee_Type: EnumList [Values: 'Full-time', 'Project-based', 'Consultant']
-  OfficeLocation: Enum
-  Description: LongText
-  Leave: EnumList (→"="Office Leave"")
-  OfficeShift: EnumList (→"="Office Shift"") { ValidIf: `=COUNT([_THISROW].[OfficeShift]) = COUNT( UNIQUE( SELECT(
-  OfficeShift[WeekDay],
-   IN(
-    [ID],
-     [_THISROW].[OfficeShift])) ) )` }
-  OfficeHoliday: EnumList = =FILTER(
-  OfficeHoliday,
-   IN(
-    [_THISROW].[ID],
-     [Applicable_Calendars])) (→"="Office Holiday"")
-  Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =UTCNOW() { EditIf: `=ISBLANK([_THIS])` }
-  Holidays: List [RO]
-  Shifts: List [RO]
-  OfficeLeave: List [RO]
-  Label: Text [RO]
-  LocationName: Name [RO]
-  Related CandidateDatas: List [RO,VC]
-```
+[Inherits all 18 columns from Table: Execute_Sync_on_Holidays Output]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### ExpenseClaims (18 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Employee: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-     INTERSECT( {"U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), Employee[ID], LIST(ANY(
-  Me[Employee]
-)) )` | EditIf: `=ISBLANK([_THIS])` }
-  Date: Date = TODAY()
-  Project: Enum [HIDDEN] = =[Employee].[Project] { ValidIf: `=Project[ID]` }
-  Claim_Project: Enum
-  Claim_Type: Enum
-  Description: LongText
-  Currency: Enum [Values: 'GBP', 'AED', 'SAR', 'QAR', 'MUR', 'LBP', 'JPY', 'USD'] = =AED
-  Amount: Decimal (→"="Amount ("&[Currency]&")"")
-  Receipt_Files: File
-  Status: Enum = ="Pending" { ValidIf: `=IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Employee"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Pending"}, { ""} ) + IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Reporting_Officer"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Approved", "Rejected"}, { ""} ) + IF(
-   ISNOTBLANK(
-     INTERSECT( { "U_Finance_User",
-     "U_Finance_Manager",
-     "U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), { "Processed", "Rejected"}, { ""} )` }
-  Manager_Ref: Enum = =[Employee].[ReportingOfficer] { EditIf: `=ISBLANK([_THIS])` }
-  FolderID: Text
-  FolderURL: Url
-  FinalReceiptURL: Url
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-```
+[Inherits all 18 columns from Table: AppFile URL Output]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### OfficeHoliday (11 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Date: Date = TODAY() { ValidIf: `=ISBLANK( FILTER(
-   "OfficeHoliday",
-   AND(
-     [_THISROW].[Date] = [Date],
-     [_THISROW].[Title] = [Title],
-     [_THISROW].[ID] <> [ID] ) ) )` }
-  Title: Text { ValidIf: `=ISBLANK( FILTER(
-   "OfficeHoliday",
-   AND(
-     [_THISROW].[Date] = [Date],
-     [_THISROW].[Title] = [Title],
-     [_THISROW].[ID] <> [ID] ) ) )` }
-  Description: LongText
-  Applicable_Calendars: EnumList
-  Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-  Year: Enum [RO]
-  Label: Text [RO]
-```
+[Inherits all 11 columns from Table: Trigger Calendar Sync Output]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### OfficeLeave (10 cols)
 ```
@@ -1333,8 +771,8 @@
   LeaveCount: Number
   Applicable_Calendars: EnumList
   Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Lable: Text [RO]
 ```
 
@@ -1352,8 +790,8 @@
   EndDate: Date = =EOMONTH(DATE(YEAR(TODAY()) & "-12-01"), 0)
   Used: Decimal
   Available: Decimal
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Label: Text [RO]
   LeaveApplications: List [RO]
 ```
@@ -1371,8 +809,8 @@
   WeekDays: EnumList [Values: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   LabourCompliance: EnumList
   PayrollCompliance: EnumList
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### Resources (15 cols)
@@ -1388,15 +826,15 @@
   Link: Url
   File: File
   Video: Video
-  Roles: EnumList { ValidIf: `=SPLIT( LOOKUP(
+  Roles: EnumList { Logic: [ValidIf]="=SPLIT( LOOKUP(
   "AppUserRoles",
    "AppVariables",
    "ID",
    "EnumValue"
-), ", " )` }
-  Standard: Yes/No [HIDDEN] = =IF(ANY(Me[ID])="OmmNoMi",TRUE,FALSE)
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+), ", " )" }
+  Standard: Yes/No [HIDDEN] = =IF(ANY(Me[ID])="OmmNoMi",TRUE,FALSE) { Slices Cross-Ref: Me -> AppUser }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### OfficeLocation (12 cols)
@@ -1410,8 +848,8 @@
   UTC_Offset: Enum [Values: '000:00:00', '004:00:00'] (→"=Time Zone")
   Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
   LatLong: LatLong
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Related CandidateDatas: List [RO,VC]
 ```
 
@@ -1419,233 +857,24 @@
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
   ID: Text = UNIQUEID()
-  Type: Enum [Values: 'Fixed', 'Flexible', 'Day Off'] { EditIf: `=ISBLANK([_THIS])` }
+  Type: Enum [Values: 'Fixed', 'Flexible', 'Day Off'] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   ISO_WeekDay: Number
-  WeekDay: Enum { EditIf: `=Not(IN([ID], OfficeShift[ID]))` }
-  StartTime: Time { EditIf: `=Not(IN([ID], OfficeShift[ID]))` }
-  EndTime: Time { EditIf: `=Not(IN([ID], OfficeShift[ID]))` }
-  FullDayHours: Number { EditIf: `=ISBLANK([_THIS])` }
-  HalfDayHours: Number { EditIf: `=ISBLANK([_THIS])` }
+  WeekDay: Enum { Logic: [EditIf]="=Not(IN([ID], OfficeShift[ID]))" }
+  StartTime: Time { Logic: [EditIf]="=Not(IN([ID], OfficeShift[ID]))" }
+  EndTime: Time { Logic: [EditIf]="=Not(IN([ID], OfficeShift[ID]))" }
+  FullDayHours: Number { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  HalfDayHours: Number { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Applicable_Calendars: EnumList
   Status: Enum [Values: 'Active'] = ="Active"
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Label: Name [RO]
 ```
 
 ### AttendanceRequest (31 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID() { ShowIf: `=USEREMAIL()="nomeshwer@ommnomi.in"` }
-  RequestType: Enum [Values: 'Leave Application', 'Work From Home', 'Remote Work', 'Time Off in Lieu (TOIL)', 'Attendance Regularization'] { EditIf: `=ISBLANK([_THIS])` }
-  Leave: Enum [Values: 'Full Day', 'Half Day'] = =IF(
-  [RequestType] = "Leave Application",
-   "Full Day",
-   ""
-) { ShowIf: `=or(
-  [RequestType]="Leave Application",
-  [RequestType]="Time Off in Lieu (TOIL)")` | ReqIf: `=or(
-  [RequestType]="Leave Application",
-  [RequestType]="Time Off in Lieu (TOIL)")` | EditIf: `=or(
-  [RequestType]="Leave Application",
-  [RequestType]="Time Off in Lieu (TOIL)")` }
-  LeaveSession: Enum [Values: 'First Half', 'Second Half'] { ShowIf: `=and(
-  [RequestType]="Leave Application",
-  [Leave]="Half Day"
-)` | ValidIf: `=and(
-  [RequestType]="Leave Application",
-  [Leave]="Half Day"
-)` | ReqIf: `=and(
-  [RequestType]="Leave Application",
-  [Leave]="Half Day"
-)` }
-  Employee: Ref { EditIf: `=AND(
-   NOT(IN(
-    [_THISROW].[ID],
-     AttendanceRequest[ID])),
-     ISNOTBLANK(
-      INTERSECT({ "U_People_Admin"},
-       SPLIT(ANY(
-        Me[Roles]
-      ),
-       ","
-    )
-  )
-) )` }
-  StartDate: Date = =IF(
-   ISNOTBLANK(
-    [AttendanceDaily]
-  ),
-   [AttendanceDaily].[Date],
-   TODAY(
-) + 1 ) (→"="Valid From"") { ShowIf: `=ISNOTBLANK([RequestType])` | ValidIf: `=IF(
-   IN(
-    [RequestType],
-     {"Attendance Regularization",
-     "Time Off in Lieu (TOIL)"}),
-     TRUE,
-     AND(
-       OR(
-         [StartDate] >= TODAY(),
-         IN(
-          "U_People_Admin",
-           SPLIT(ANY(
-            Me[Roles]
-          ),
-           ","
-        )
-      ),
-       AND(
-         ISNOTBLANK(
-          INTERSECT({"U_Reporting_Officer"},
-           SPLIT(ANY(
-            Me[Roles]
-          ),
-           ","
-        )
-      )
-    ),
-     [Employee].[ReportingOfficer] = ANY(
-      Me[Employee]
-    )
-  )
-), ISBLANK( FILTER(
-   "AttendanceRequest",
-   AND(
-     ([ID] <> [_THISROW].[ID]),
-     ([Employee] = [_THISROW].[Employee]),
-     ([StartDate] <= [_THISROW].[EndDate]),
-     ([EndDate] >= [_THISROW].[StartDate]),
-     ([Status] <> "Rejected") ) ) ) ) )` | EditIf: `=OR(
-   CONTEXT("ViewType"
-) <> "Form", IN(
-  [RequestType],
-   {"Work From Home",
-   "Leave Application",
-   "Remote Work"}
-) )` }
-  EndDate: Date = =IF(
-   ISNOTBLANK(
-    [AttendanceDaily]
-  ),
-   [AttendanceDaily].[Date],
-   [StartDate]
-) (→"="Valid To"") { ShowIf: `=AND(
-   IN(
-    [RequestType],
-     {"Leave Application",
-     "Remote Work",
-     "Work From Home"}
-  ),
-   [Leave] <> "Half Day",
-   [RequestType] <> "Attendance Regularization" )` | ValidIf: `=AND(
-   IF(
-     [Leave] = "Half Day",
-     [EndDate] = [StartDate],
-     [EndDate] >= [StartDate] ),
-     ISBLANK( SELECT(
-       AttendanceRequest[ID],
-       AND(
-         [ID] <> [_THISROW].[ID],
-         [Employee] = [_THISROW].[Employee],
-         [StartDate] <= [_THISROW].[EndDate],
-         [EndDate] >= [_THISROW].[StartDate],
-         OR(
-          [Status] = "Approved",
-           [Status] = "Requested") ) ) ),
-           IF(
-             IN(
-              [RequestType],
-               {"Attendance Regularization",
-               "Time Off in Lieu (TOIL)"}),
-               true,
-               OR(
-                 [EndDate] >= TODAY(),
-                 ISNOTBLANK(
-                  INTERSECT({"U_Reporting_Officer"},
-                  SPLIT(ANY(
-                    Me[Roles]
-                  ),
-                  ","
-                )
-              )
-            ),
-             AND(
-               IN(
-                "Reporting_Officer",
-                 SPLIT(ANY(
-                  Me[Roles]
-                ),
-                 ","
-              )
-            ),
-             [Employee].[ReportingOfficer] = ANY(
-              Me[Employee]
-            )
-          )
-        )
-      )
-    )` }
-  LeaveType: Enum { ShowIf: `=IN([RequestType],{"Leave Application"})` | ValidIf: `=[RequestType]="Leave Application"` }
-  LeaveAllocation: Enum { ShowIf: `=IN([RequestType],{"Leave Application"})` | ValidIf: `=IF(
-   [Leave] = "Half Day",
-   0.5,
-   ( TOTALHOURS([EndDate] - [StartDate]) / 24.0 ) ) <= [LeaveAllocation].[Available]` | ReqIf: `=[RequestType]="Leave Application"` }
-  LeaveUsed: Decimal { ShowIf: `=IN([RequestType],{"Leave Application"})` }
-  Remarks: LongText (→"=[Status]&" Remarks"")
-  PendingRow: Number { ShowIf: `=AND(
-   ISNOTBLANK(
-     INTERSECT( {"U_System_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), [PendingRow]<>0,[Status]="Approved", IN(
-  [RequestType],
-   { "Leave Application",
-   "Remote Work",
-   "Work From Home"}
-) )` }
-  AttendanceDaily: Ref { ShowIf: `=IN(
-  [RequestType],
-   {"Attendance Regularization",
-   "Time Off in Lieu (TOIL)"})` | ValidIf: `=SELECT(
-   AttendanceDaily[ID],
-   [Employee] = [_THISROW].[Employee] )` | ReqIf: `=IN(
-  [RequestType],
-   {"Time Off in Lieu (TOIL)",
-   "Attendance Regularization"})` | EditIf: `=ISBLANK([_THIS])` }
-  CorrectCheckIn: Time = =[AttendanceDaily].[Office_Check_In] { ShowIf: `=[RequestType] = "Attendance Regularization"` }
-  CorrectCheckOut: Time = =[AttendanceDaily].[Office_Check_In] { ShowIf: `=[RequestType] = "Attendance Regularization"` }
-  Status: Enum [Values: 'Requested', 'Approved', 'Rejected'] = ="Requested"
-  CreatedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  CreatedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-  Related AttendanceDailys: List [HIDDEN,RO,VC]
-  AttendanceStatus: Enum [RO]
-  Label: Text [RO]
-  AttendanceDailyCount: Number [HIDDEN,RO]
-  CalendarTittle: Text [RO]
-  CalendarEndDate: Date [HIDDEN,RO] { ValidIf: `=ISBLANK( SELECT(
-   AttendanceRequest[ID],
-   AND(
-     [ID] <> [_THISROW].[ID],
-     [Employee] = [_THISROW].[Employee],
-     [StartDate] <= [_THISROW].[EndDate],
-     [EndDate] >= [_THISROW].[StartDate],
-     OR(
-       [Status] = "Approved",
-       [Status] = "Requested" ) ),
-       TRUE
-    )
-  )` }
-  ReportingOfficer: Ref [RO] (→"="Line Manager"")
-  Requested_Days_Total: Decimal [HIDDEN,RO]
-  Description: Text [HIDDEN,RO]
-  Related LeaveAllocations: List [HIDDEN,RO,VC]
-```
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
++ Modified/Added Columns:
+  - _RowNumber: Number
 
 ### AttendanceCheckin (2 cols)
 ```
@@ -1664,9 +893,8 @@
 ```
 
 ### Process for NewEmployeeCreated Process Table (101 cols)
-[Inherits all 72 columns from Table: Employee]
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 + Modified/Added Columns:
-  - Instance Id: Text
   - Employee Folder: Ref
   - Create Employee Folder: Ref
   - Set the Folder ID: Ref
@@ -1711,9 +939,7 @@
 ```
 
 ### Set the Folder ID Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForPassport Output (2 cols)
 ```
@@ -1722,14 +948,10 @@
 ```
 
 ### CreatePassport Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CreatePassportBackCover Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForDiploma Output (2 cols)
 ```
@@ -1738,9 +960,7 @@
 ```
 
 ### CreateDiploma Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForLaborCard Output (2 cols)
 ```
@@ -1749,9 +969,7 @@
 ```
 
 ### CreateLaborCard Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForNationalID Output (2 cols)
 ```
@@ -1760,9 +978,7 @@
 ```
 
 ### CreateNationalID Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForNoObjectionCertificate Output (2 cols)
 ```
@@ -1771,9 +987,7 @@
 ```
 
 ### CreateNOC Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForResidencyVisa Output (2 cols)
 ```
@@ -1782,9 +996,7 @@
 ```
 
 ### CreateResidencyVisa Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForMedical Output (2 cols)
 ```
@@ -1793,9 +1005,7 @@
 ```
 
 ### CreateMedical Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForPoliceClearance Output (2 cols)
 ```
@@ -1804,9 +1014,7 @@
 ```
 
 ### CreatePoliceClearance Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckReferenceLetter1 Output (2 cols)
 ```
@@ -1815,9 +1023,7 @@
 ```
 
 ### CreateReferenceLetter1 Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckReferenceLetter2 Output (2 cols)
 ```
@@ -1826,9 +1032,7 @@
 ```
 
 ### CreateReferenceLetter2 Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckFamilyBook Output (2 cols)
 ```
@@ -1837,9 +1041,7 @@
 ```
 
 ### CreateFamilyBook Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckBeforeCreatingTheChecklist Output (2 cols)
 ```
@@ -1848,19 +1050,14 @@
 ```
 
 ### SetInputEmployeeOnChecklist Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CreateTasksForEmployee Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### Process for UpdateEmployee - 1 Process Table (102 cols)
-[Inherits all 72 columns from Table: Employee]
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 + Modified/Added Columns:
-  - Instance Id: Text
   - Check Employee Folder: Ref
   - Move Folder: Ref
   - ApprovedForOffer: Ref
@@ -1910,14 +1107,10 @@
 ```
 
 ### Create task for offer later Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### create task Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CreateOfferletterTemplate Output (3 cols)
 ```
@@ -1927,9 +1120,7 @@
 ```
 
 ### ReturnValueInDocument Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### Onboarding Output (2 cols)
 ```
@@ -1938,9 +1129,7 @@
 ```
 
 ### CommunicationForOnboarding Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### NewEmployeeAnouncment Output (2 cols)
 ```
@@ -1949,19 +1138,13 @@
 ```
 
 ### CreateAppUserID Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### add appuser from employee Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CommunicationForNEA Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckBeforeCreatingTheTasksForOnBoarding Output (2 cols)
 ```
@@ -1970,14 +1153,10 @@
 ```
 
 ### SetInputEmployeeOnChecklist Output 2 (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CreateTasksForEmployeeOnboarding Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CreateOrientation Output (1 cols)
 ```
@@ -1998,14 +1177,10 @@
 ```
 
 ### CodeOfConduct Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CreateCodeOfConductDocument Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckBeforeCreatingOneOnOneMeeting Output (2 cols)
 ```
@@ -2047,39 +1222,18 @@
 ```
 
 ### CreateCommunicationRow Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### RemoveValueFrom CommunicationTable Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### Process for DocumentHandler Process Table (21 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_this])` }
-  Employee: Ref { EditIf: `=ISBLANK([_THIS])` }
-  DocumentType: Enum
-  DocumentName: Text
-  DocumentNumber: Text
-  IssueDate: Date
-  ExpiryDate: Date
-  FileAttachment: File
-  FileURL: Url
-  DriveFileID: Text { EditIf: `=1=2` }
-  DriveFileURL: Url { EditIf: `=1=2` }
-  SubStatus: Enum [Values: 'Pending', 'Verified', 'Rejected', 'Archived']
-  Notes: LongText
-  LastEditedBy: Enum { EditIf: `=ISBLANK([_this])` }
-  LastEditedOn: DateTime { EditIf: `=ISBLANK([_this])` }
-  Status: Enum
-  EmployeeStatus: Enum
-  The document is updated: Ref
-  Update the file path: Ref
-  Update File ID and URL: Ref
-```
+[Inherits all 18 columns from Table: Documents]
++ Modified/Added Columns:
+  - Instance Id: Text
+  - The document is updated: Ref
+  - Update the file path: Ref
+  - Update File ID and URL: Ref
 
 ### The document is updated Output (2 cols)
 ```
@@ -2095,54 +1249,22 @@
 ```
 
 ### Update File ID and URL Output (18 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_this])` }
-  Employee: Ref { EditIf: `=ISBLANK([_THIS])` }
-  DocumentType: Enum
-  DocumentName: Text
-  DocumentNumber: Text
-  IssueDate: Date
-  ExpiryDate: Date
-  FileAttachment: File
-  FileURL: Url
-  DriveFileID: Text { EditIf: `=1=2` }
-  DriveFileURL: Url { EditIf: `=1=2` }
-  SubStatus: Enum [Values: 'Pending', 'Verified', 'Rejected', 'Archived']
-  Notes: LongText
-  LastEditedBy: Enum { EditIf: `=ISBLANK([_this])` }
-  LastEditedOn: DateTime { EditIf: `=ISBLANK([_this])` }
-  Status: Enum
-  EmployeeStatus: Enum
-```
+[Inherits all 18 columns from Table: Documents]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### Process for CommunicationEmail Process Table (24 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Template: Enum
-  Employee: Ref
-  Date: Date
-  Subject: Enum [Values: 'Performance Review']
-  To: EnumList
-  CC: EnumList
-  BCC: EnumList
-  ReplayTo: Enum
-  Sender: Text
-  Status: Enum [Values: 'Draft', 'Send', 'Sent']
-  CreatedBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Send Internal Announcement: Ref
-  SetTheStatusAsSent: Ref
-  CheckNewJoinee: Ref
-  SetTheStatusAsSent NA: Ref
-  EmployeeOnboarding: Ref
-  SetTheStatusSentEmployeeOnboarding: Ref
-  New step: Ref
-  New step 1 2 2: Ref
-```
+[Inherits all 16 columns from Table: Communication]
++ Modified/Added Columns:
+  - Instance Id: Text
+  - Send Internal Announcement: Ref
+  - SetTheStatusAsSent: Ref
+  - CheckNewJoinee: Ref
+  - SetTheStatusAsSent NA: Ref
+  - EmployeeOnboarding: Ref
+  - SetTheStatusSentEmployeeOnboarding: Ref
+  - New step: Ref
+  - New step 1 2 2: Ref
 
 ### Send Internal Announcement Output (2 cols)
 ```
@@ -2151,24 +1273,9 @@
 ```
 
 ### SetTheStatusAsSent Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Template: Enum
-  Employee: Ref
-  Date: Date
-  Subject: Enum [Values: 'Performance Review']
-  To: EnumList
-  CC: EnumList
-  BCC: EnumList
-  ReplayTo: Enum
-  Sender: Text
-  Status: Enum [Values: 'Draft', 'Send', 'Sent']
-  CreatedBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-```
+[Inherits all 16 columns from Table: Communication]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### CheckNewJoinee Output (2 cols)
 ```
@@ -2177,24 +1284,9 @@
 ```
 
 ### SetTheStatusAsSent NA Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Template: Enum
-  Employee: Ref
-  Date: Date
-  Subject: Enum [Values: 'Performance Review']
-  To: EnumList
-  CC: EnumList
-  BCC: EnumList
-  ReplayTo: Enum
-  Sender: Text
-  Status: Enum [Values: 'Draft', 'Send', 'Sent']
-  CreatedBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-```
+[Inherits all 16 columns from Table: Communication]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### EmployeeOnboarding Output (2 cols)
 ```
@@ -2203,24 +1295,9 @@
 ```
 
 ### SetTheStatusSentEmployeeOnboarding Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Template: Enum
-  Employee: Ref
-  Date: Date
-  Subject: Enum [Values: 'Performance Review']
-  To: EnumList
-  CC: EnumList
-  BCC: EnumList
-  ReplayTo: Enum
-  Sender: Text
-  Status: Enum [Values: 'Draft', 'Send', 'Sent']
-  CreatedBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditedOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-```
+[Inherits all 16 columns from Table: Communication]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### New step Output (2 cols)
 ```
@@ -2234,9 +1311,8 @@
 ```
 
 ### Process for DeleteEmployee - 1 Process Table (74 cols)
-[Inherits all 72 columns from Table: Employee]
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 + Modified/Added Columns:
-  - Instance Id: Text
   - CheckAr: Ref
   - MoveToArchived: Ref
 
@@ -2348,9 +1424,8 @@
   - Instance Id: Text
 
 ### Process for Attendance Daily Process Table (75 cols)
-[Inherits all 72 columns from Table: Employee]
+[Inherits all 74 columns from Table: Process for DeleteEmployee - 1 Process Table]
 + Modified/Added Columns:
-  - Instance Id: Text
   - check: Ref
   - create attendance: Ref
   - Create Attendance 2: Ref
@@ -2362,46 +1437,23 @@
 ```
 
 ### create attendance Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### Create Attendance 2 Output (72 cols)
-[Inherits all 72 columns from Table: Employee]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
 
 ### Process for TriggersCalledFromApp Process Table (24 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date
-  PickDateTime: DateTime
-  ValueText: Text
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Date: Text
-  Create AttendanceDaily Row: Ref
-  Delete the AttendnaceDaily not relate to the same day: Ref
-  If PickDate+count is before PickDateTime: Ref
-  Create row for PickDate+0: Ref
-  If PickDate+0 is before PickDateTime 2: Ref
-  Create row for PickDate+1: Ref
-  Sync Attendance Request: Ref
-  Sync LeaveAllocation: Ref
-```
+[Inherits all 16 columns from Table: AppTriggers]
++ Modified/Added Columns:
+  - Instance Id: Text
+  - Create AttendanceDaily Row: Ref
+  - Delete the AttendnaceDaily not relate to the same day: Ref
+  - If PickDate+count is before PickDateTime: Ref
+  - Create row for PickDate+0: Ref
+  - If PickDate+0 is before PickDateTime 2: Ref
+  - Create row for PickDate+1: Ref
+  - Sync Attendance Request: Ref
+  - Sync LeaveAllocation: Ref
 
 ### Create AttendanceDaily Row Output (2 cols)
 ```
@@ -2410,28 +1462,9 @@
 ```
 
 ### Delete the AttendnaceDaily not relate to the same day Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date
-  PickDateTime: DateTime
-  ValueText: Text
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Date: Text
-```
+[Inherits all 16 columns from Table: AppTriggers]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### If PickDate+count is before PickDateTime Output (2 cols)
 ```
@@ -2440,28 +1473,9 @@
 ```
 
 ### Create row for PickDate+0 Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date
-  PickDateTime: DateTime
-  ValueText: Text
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Date: Text
-```
+[Inherits all 16 columns from Table: AppTriggers]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### If PickDate+0 is before PickDateTime 2 Output (2 cols)
 ```
@@ -2470,103 +1484,27 @@
 ```
 
 ### Create row for PickDate+1 Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date
-  PickDateTime: DateTime
-  ValueText: Text
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Date: Text
-```
+[Inherits all 16 columns from Table: AppTriggers]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### Sync Attendance Request Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date
-  PickDateTime: DateTime
-  ValueText: Text
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Date: Text
-```
+[Inherits all 16 columns from Table: AppTriggers]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### Sync LeaveAllocation Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date
-  PickDateTime: DateTime
-  ValueText: Text
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Date: Text
-```
+[Inherits all 16 columns from Table: AppTriggers]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### Process for TriggerHourlyActions - 1 Process Table (19 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date
-  PickDateTime: DateTime
-  ValueText: Text
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Date: Text
-  for Unmarked attendance with check in & out: Ref
-  Set as Present: Ref
-  for tomorrow attendnace: Ref
-```
+[Inherits all 16 columns from Table: AppTriggers]
++ Modified/Added Columns:
+  - Instance Id: Text
+  - for Unmarked attendance with check in & out: Ref
+  - Set as Present: Ref
+  - for tomorrow attendnace: Ref
 
 ### for Unmarked attendance with check in &amp; out Output (2 cols)
 ```
@@ -2575,28 +1513,9 @@
 ```
 
 ### Set as Present Output (16 cols)
-```
-  Instance Id: Text
-  ID: Text { EditIf: `=ISBLANK([_THIS])` }
-  AppTrigger: Enum
-  Bot: Yes/No
-  Type: Enum
-  Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
-   "PickEmployee",
-   SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
-  PickWeekYear: Enum
-  PickDate: Date
-  PickDateTime: DateTime
-  ValueText: Text
-  RefTable: Enum
-  RefValue: Text
-  CreatedBy: Enum { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Date: Text
-```
+[Inherits all 16 columns from Table: AppTriggers]
++ Modified/Added Columns:
+  - Instance Id: Text
 
 ### for tomorrow attendnace Output (2 cols)
 ```
@@ -2605,143 +1524,25 @@
 ```
 
 ### Process for SyncAttendenceDaily - 1 Process Table (19 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Level: Enum [Values: 'System', 'Code']
-  Table: Enum
-  Trigger: Enum
-  View: Enum
-  Column: Enum
-  Title: Text
-  Description: LongText
-  Role: EnumList { ValidIf: `=sort(
-  split(lookup(
-    "AppUserRoles ",
-    "AppVariables",
-    "ID",
-    "MultiValues"
-  ),
-  ","
-),false)` | EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  Email: Enum { EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  User: Enum { EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  Decimal: Number
-  Date: Date
-  AllowedValues: EnumList
-  LastEditBy: Enum { EditIf: `=isblank([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=isblank([_THIS])` }
-  Sync LeaveAllocation: Ref
-  Sync Every Row: Ref
-```
-
-### Sync LeaveAllocation Output 2 (17 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Level: Enum [Values: 'System', 'Code']
-  Table: Enum
-  Trigger: Enum
-  View: Enum
-  Column: Enum
-  Title: Text
-  Description: LongText
-  Role: EnumList { ValidIf: `=sort(
-  split(lookup(
-    "AppUserRoles ",
-    "AppVariables",
-    "ID",
-    "MultiValues"
-  ),
-  ","
-),false)` | EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  Email: Enum { EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  User: Enum { EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  Decimal: Number
-  Date: Date
-  AllowedValues: EnumList
-  LastEditBy: Enum { EditIf: `=isblank([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=isblank([_THIS])` }
-```
-
-### Sync Every Row Output (17 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Level: Enum [Values: 'System', 'Code']
-  Table: Enum
-  Trigger: Enum
-  View: Enum
-  Column: Enum
-  Title: Text
-  Description: LongText
-  Role: EnumList { ValidIf: `=sort(
-  split(lookup(
-    "AppUserRoles ",
-    "AppVariables",
-    "ID",
-    "MultiValues"
-  ),
-  ","
-),false)` | EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  Email: Enum { EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  User: Enum { EditIf: `=ISNOTBLANK(
-  INTERSECT(Any(
-    Me[AllowedRoles]
-  ),
-  {"U_System_Admin"}
-))` }
-  Decimal: Number
-  Date: Date
-  AllowedValues: EnumList
-  LastEditBy: Enum { EditIf: `=isblank([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=isblank([_THIS])` }
-```
-
-### Process for Created AttendanceRequest Process Table (32 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
+[Inherits all 17 columns from Table: AppSettings]
 + Modified/Added Columns:
   - Instance Id: Text
+  - Sync LeaveAllocation: Ref
+  - Sync Every Row: Ref
+
+### Sync LeaveAllocation Output 2 (17 cols)
+[Inherits all 17 columns from Table: AppSettings]
++ Modified/Added Columns:
+  - Instance Id: Text
+
+### Sync Every Row Output (17 cols)
+[Inherits all 17 columns from Table: AppSettings]
++ Modified/Added Columns:
+  - Instance Id: Text
+
+### Process for Created AttendanceRequest Process Table (32 cols)
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
++ Modified/Added Columns:
   - Check for the Line Manager: Ref
 
 ### Check for the Line Manager Output (2 cols)
@@ -2756,65 +1557,11 @@
 ```
 
 ### Process for MoveFinance Process Table (21 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Employee: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-     INTERSECT( {"U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), Employee[ID], LIST(ANY(
-  Me[Employee]
-)) )` | EditIf: `=ISBLANK([_THIS])` }
-  Date: Date
-  Project: Enum { ValidIf: `=Project[ID]` }
-  Claim_Project: Enum
-  Claim_Type: Enum
-  Description: LongText
-  Currency: Enum [Values: 'GBP', 'AED', 'SAR', 'QAR', 'MUR', 'LBP', 'JPY', 'USD']
-  Amount: Decimal
-  Receipt_Files: File
-  Status: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Employee"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Pending"}, { ""} ) + IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Reporting_Officer"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Approved", "Rejected"}, { ""} ) + IF(
-   ISNOTBLANK(
-     INTERSECT( { "U_Finance_User",
-     "U_Finance_Manager",
-     "U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), { "Processed", "Rejected"}, { ""} )` }
-  Manager_Ref: Enum { EditIf: `=ISBLANK([_THIS])` }
-  FolderID: Text
-  FolderURL: Url
-  FinalReceiptURL: Url
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Check Employee Folder: Ref
-  MoveReceiptFile: Ref
-  AppFile URL: Ref
-```
+[Inherits all 20 columns from Table: Process for Approve ExpenseClaims Process Table]
++ Modified/Added Columns:
+  - Check Employee Folder: Ref
+  - MoveReceiptFile: Ref
+  - AppFile URL: Ref
 
 ### Check Employee Folder Output 2 (2 cols)
 ```
@@ -2830,67 +1577,11 @@
 ```
 
 ### AppFile URL Output (18 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Employee: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-     INTERSECT( {"U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), Employee[ID], LIST(ANY(
-  Me[Employee]
-)) )` | EditIf: `=ISBLANK([_THIS])` }
-  Date: Date
-  Project: Enum { ValidIf: `=Project[ID]` }
-  Claim_Project: Enum
-  Claim_Type: Enum
-  Description: LongText
-  Currency: Enum [Values: 'GBP', 'AED', 'SAR', 'QAR', 'MUR', 'LBP', 'JPY', 'USD']
-  Amount: Decimal
-  Receipt_Files: File
-  Status: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Employee"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Pending"}, { ""} ) + IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Reporting_Officer"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Approved", "Rejected"}, { ""} ) + IF(
-   ISNOTBLANK(
-     INTERSECT( { "U_Finance_User",
-     "U_Finance_Manager",
-     "U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), { "Processed", "Rejected"}, { ""} )` }
-  Manager_Ref: Enum { EditIf: `=ISBLANK([_THIS])` }
-  FolderID: Text
-  FolderURL: Url
-  FinalReceiptURL: Url
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-```
+[Inherits all 20 columns from Table: Process for Approve ExpenseClaims Process Table]
 
 ### Process for Check In-Out Reminder Text Process Table (34 cols)
-[Inherits all 32 columns from Table: AttendanceDaily]
+[Inherits all 35 columns from Table: Process for AutoAttendanceFixer - 1 Process Table]
 + Modified/Added Columns:
-  - Instance Id: Text
   - Is Late CheckIn: Ref
   - Is Late CheckOut: Ref
 
@@ -2907,9 +1598,8 @@
 ```
 
 ### Process for AutoAttendanceFixer - 1 Process Table (35 cols)
-[Inherits all 32 columns from Table: AttendanceDaily]
+[Inherits all 34 columns from Table: Process for Check In-Out Reminder Text Process Table]
 + Modified/Added Columns:
-  - Instance Id: Text
   - Check: Ref
   - AddCheckIn&Out: Ref
   - AddCheckOut: Ref
@@ -2921,73 +1611,15 @@
 ```
 
 ### AddCheckIn&amp;Out Output (32 cols)
-[Inherits all 32 columns from Table: AttendanceDaily]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 35 columns from Table: Process for AutoAttendanceFixer - 1 Process Table]
 
 ### AddCheckOut Output (32 cols)
-[Inherits all 32 columns from Table: AttendanceDaily]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 35 columns from Table: Process for AutoAttendanceFixer - 1 Process Table]
 
 ### Process for Created ExpenseClaims Process Table (19 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Employee: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-     INTERSECT( {"U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), Employee[ID], LIST(ANY(
-  Me[Employee]
-)) )` | EditIf: `=ISBLANK([_THIS])` }
-  Date: Date
-  Project: Enum { ValidIf: `=Project[ID]` }
-  Claim_Project: Enum
-  Claim_Type: Enum
-  Description: LongText
-  Currency: Enum [Values: 'GBP', 'AED', 'SAR', 'QAR', 'MUR', 'LBP', 'JPY', 'USD']
-  Amount: Decimal
-  Receipt_Files: File
-  Status: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Employee"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Pending"}, { ""} ) + IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Reporting_Officer"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Approved", "Rejected"}, { ""} ) + IF(
-   ISNOTBLANK(
-     INTERSECT( { "U_Finance_User",
-     "U_Finance_Manager",
-     "U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), { "Processed", "Rejected"}, { ""} )` }
-  Manager_Ref: Enum { EditIf: `=ISBLANK([_THIS])` }
-  FolderID: Text
-  FolderURL: Url
-  FinalReceiptURL: Url
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Check for the Line Manager: Ref
-```
+[Inherits all 20 columns from Table: Process for Approve ExpenseClaims Process Table]
++ Modified/Added Columns:
+  - Check for the Line Manager: Ref
 
 ### Check for the Line Manager Output 2 (2 cols)
 ```
@@ -2996,64 +1628,10 @@
 ```
 
 ### Process for Approve ExpenseClaims Process Table (20 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Employee: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-     INTERSECT( {"U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), Employee[ID], LIST(ANY(
-  Me[Employee]
-)) )` | EditIf: `=ISBLANK([_THIS])` }
-  Date: Date
-  Project: Enum { ValidIf: `=Project[ID]` }
-  Claim_Project: Enum
-  Claim_Type: Enum
-  Description: LongText
-  Currency: Enum [Values: 'GBP', 'AED', 'SAR', 'QAR', 'MUR', 'LBP', 'JPY', 'USD']
-  Amount: Decimal
-  Receipt_Files: File
-  Status: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Employee"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Pending"}, { ""} ) + IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Reporting_Officer"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Approved", "Rejected"}, { ""} ) + IF(
-   ISNOTBLANK(
-     INTERSECT( { "U_Finance_User",
-     "U_Finance_Manager",
-     "U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), { "Processed", "Rejected"}, { ""} )` }
-  Manager_Ref: Enum { EditIf: `=ISBLANK([_THIS])` }
-  FolderID: Text
-  FolderURL: Url
-  FinalReceiptURL: Url
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Approved Expense Update to Employee: Ref
-  Processed Expense: Ref
-```
+[Inherits all 19 columns from Table: Process for Created ExpenseClaims Process Table]
++ Modified/Added Columns:
+  - Approved Expense Update to Employee: Ref
+  - Processed Expense: Ref
 
 ### Approved Expense Update to Employee Output (2 cols)
 ```
@@ -3068,63 +1646,7 @@
 ```
 
 ### Process for Rejected ExpenseClaims Process Table (19 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Employee: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-     INTERSECT( {"U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), Employee[ID], LIST(ANY(
-  Me[Employee]
-)) )` | EditIf: `=ISBLANK([_THIS])` }
-  Date: Date
-  Project: Enum { ValidIf: `=Project[ID]` }
-  Claim_Project: Enum
-  Claim_Type: Enum
-  Description: LongText
-  Currency: Enum [Values: 'GBP', 'AED', 'SAR', 'QAR', 'MUR', 'LBP', 'JPY', 'USD']
-  Amount: Decimal
-  Receipt_Files: File
-  Status: Enum { ValidIf: `=IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Employee"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Pending"}, { ""} ) + IF(
-   ISNOTBLANK(
-    INTERSECT({ "U_Reporting_Officer"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-)), { "Approved", "Rejected"}, { ""} ) + IF(
-   ISNOTBLANK(
-     INTERSECT( { "U_Finance_User",
-     "U_Finance_Manager",
-     "U_Finance_Admin"},
-     SPLIT(ANY(
-      Me[Roles]
-    ),
-     ","
-  )
-) ), { "Processed", "Rejected"}, { ""} )` }
-  Manager_Ref: Enum { EditIf: `=ISBLANK([_THIS])` }
-  FolderID: Text
-  FolderURL: Url
-  FinalReceiptURL: Url
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Approved Expense Update to Employee: Ref
-```
+[Inherits all 20 columns from Table: Process for Approve ExpenseClaims Process Table]
 
 ### Approved Expense Update to Employee Output 2 (2 cols)
 ```
@@ -3133,32 +1655,10 @@
 ```
 
 ### Process for SyncTriggerCalendarHoliday Process Table (20 cols)
-```
-  Instance Id: Text
-  ID: Text
-  CalendarName: Name
-  Employee_Type: EnumList [Values: 'Full-time', 'Project-based', 'Consultant']
-  OfficeLocation: Enum
-  Description: LongText
-  Leave: EnumList
-  OfficeShift: EnumList { ValidIf: `=COUNT([_THISROW].[OfficeShift]) = COUNT( UNIQUE( SELECT(
-  OfficeShift[WeekDay],
-   IN(
-    [ID],
-     [_THISROW].[OfficeShift])) ) )` }
-  OfficeHoliday: EnumList
-  Status: Enum [Values: 'Active', 'Inactive']
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Holidays: List
-  Shifts: List
-  OfficeLeave: List
-  Label: Text
-  LocationName: Name
-  Related CandidateDatas: List [VC]
-  Check: Ref
-  Execute_Sync_on_Holidays: Ref
-```
+[Inherits all 20 columns from Table: Process for CalendarHolidaySyncBot - 1 Process Table]
++ Modified/Added Columns:
+  - Check: Ref
+  - Execute_Sync_on_Holidays: Ref
 
 ### Check Output 3 (2 cols)
 ```
@@ -3167,58 +1667,13 @@
 ```
 
 ### Execute_Sync_on_Holidays Output (18 cols)
-```
-  Instance Id: Text
-  ID: Text
-  CalendarName: Name
-  Employee_Type: EnumList [Values: 'Full-time', 'Project-based', 'Consultant']
-  OfficeLocation: Enum
-  Description: LongText
-  Leave: EnumList
-  OfficeShift: EnumList { ValidIf: `=COUNT([_THISROW].[OfficeShift]) = COUNT( UNIQUE( SELECT(
-  OfficeShift[WeekDay],
-   IN(
-    [ID],
-     [_THISROW].[OfficeShift])) ) )` }
-  OfficeHoliday: EnumList
-  Status: Enum [Values: 'Active', 'Inactive']
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Holidays: List
-  Shifts: List
-  OfficeLeave: List
-  Label: Text
-  LocationName: Name
-  Related CandidateDatas: List [RO,VC]
-```
+[Inherits all 20 columns from Table: Process for SyncTriggerCalendarHoliday Process Table]
 
 ### Process for CalendarHolidaySyncBot - 1 Process Table (20 cols)
-```
-  Instance Id: Text
-  ID: Text
-  CalendarName: Name
-  Employee_Type: EnumList [Values: 'Full-time', 'Project-based', 'Consultant']
-  OfficeLocation: Enum
-  Description: LongText
-  Leave: EnumList
-  OfficeShift: EnumList { ValidIf: `=COUNT([_THISROW].[OfficeShift]) = COUNT( UNIQUE( SELECT(
-  OfficeShift[WeekDay],
-   IN(
-    [ID],
-     [_THISROW].[OfficeShift])) ) )` }
-  OfficeHoliday: EnumList
-  Status: Enum [Values: 'Active', 'Inactive']
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Holidays: List
-  Shifts: List
-  OfficeLeave: List
-  Label: Text
-  LocationName: Name
-  Related CandidateDatas: List [VC]
-  New step: Ref
-  New step 1: Ref
-```
+[Inherits all 20 columns from Table: Process for SyncTriggerCalendarHoliday Process Table]
++ Modified/Added Columns:
+  - New step: Ref
+  - New step 1: Ref
 
 ### New step Output 2 (2 cols)
 ```
@@ -3227,57 +1682,14 @@
 ```
 
 ### New step 1 Output (18 cols)
-```
-  Instance Id: Text
-  ID: Text
-  CalendarName: Name
-  Employee_Type: EnumList [Values: 'Full-time', 'Project-based', 'Consultant']
-  OfficeLocation: Enum
-  Description: LongText
-  Leave: EnumList
-  OfficeShift: EnumList { ValidIf: `=COUNT([_THISROW].[OfficeShift]) = COUNT( UNIQUE( SELECT(
-  OfficeShift[WeekDay],
-   IN(
-    [ID],
-     [_THISROW].[OfficeShift])) ) )` }
-  OfficeHoliday: EnumList
-  Status: Enum [Values: 'Active', 'Inactive']
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Holidays: List
-  Shifts: List
-  OfficeLeave: List
-  Label: Text
-  LocationName: Name
-  Related CandidateDatas: List [RO,VC]
-```
+[Inherits all 20 columns from Table: Process for SyncTriggerCalendarHoliday Process Table]
 
 ### Process for HolidayCalendarSyncBot - 1 Process Table (13 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Date: Date { ValidIf: `=ISBLANK( FILTER(
-   "OfficeHoliday",
-   AND(
-     [_THISROW].[Date] = [Date],
-     [_THISROW].[Title] = [Title],
-     [_THISROW].[ID] <> [ID] ) ) )` }
-  Title: Text { ValidIf: `=ISBLANK( FILTER(
-   "OfficeHoliday",
-   AND(
-     [_THISROW].[Date] = [Date],
-     [_THISROW].[Title] = [Title],
-     [_THISROW].[ID] <> [ID] ) ) )` }
-  Description: LongText
-  Applicable_Calendars: EnumList
-  Status: Enum [Values: 'Active', 'Inactive']
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Year: Enum
-  Label: Text
-  Check: Ref
-  Trigger Calendar Sync: Ref
-```
+[Inherits all 11 columns from Table: OfficeHoliday]
++ Modified/Added Columns:
+  - Instance Id: Text
+  - Check: Ref
+  - Trigger Calendar Sync: Ref
 
 ### Check Output 4 (2 cols)
 ```
@@ -3286,51 +1698,25 @@
 ```
 
 ### Trigger Calendar Sync Output (11 cols)
-```
-  Instance Id: Text
-  ID: Text
-  Date: Date { ValidIf: `=ISBLANK( FILTER(
-   "OfficeHoliday",
-   AND(
-     [_THISROW].[Date] = [Date],
-     [_THISROW].[Title] = [Title],
-     [_THISROW].[ID] <> [ID] ) ) )` }
-  Title: Text { ValidIf: `=ISBLANK( FILTER(
-   "OfficeHoliday",
-   AND(
-     [_THISROW].[Date] = [Date],
-     [_THISROW].[Title] = [Title],
-     [_THISROW].[ID] <> [ID] ) ) )` }
-  Description: LongText
-  Applicable_Calendars: EnumList
-  Status: Enum [Values: 'Active', 'Inactive']
-  LastEditBy: Enum { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime { EditIf: `=ISBLANK([_THIS])` }
-  Year: Enum
-  Label: Text
-```
-
-### Sync this Employee Leave Balance Process Table (33 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
+[Inherits all 11 columns from Table: OfficeHoliday]
 + Modified/Added Columns:
   - Instance Id: Text
+
+### Sync this Employee Leave Balance Process Table (33 cols)
+[Inherits all 32 columns from Table: Process for Created AttendanceRequest Process Table]
++ Modified/Added Columns:
   - Sync this AttendanceRequest: Ref
   - Sync this LeaveAllocation: Ref
 
 ### Sync this AttendanceRequest Output (31 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
 
 ### Sync this LeaveAllocation Output (31 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
 
 ### Process for AttendanceRequestApproval Process Table (42 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
 + Modified/Added Columns:
-  - Instance Id: Text
   - Sync Balance: Ref
   - Check if AttendanceDaily have to be created: Ref
   - Select Dates in WorkDay for AttendanceRequestn: Ref
@@ -3355,14 +1741,10 @@
 ```
 
 ### Select Dates in WorkDay for AttendanceRequestn Output (31 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
 
 ### Create Rows in AttendanceDaily Output (31 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
 
 ### Sync Leave Balance Output (1 cols)
 ```
@@ -3376,9 +1758,7 @@
 ```
 
 ### Update Check_In and Check_Out Output (31 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
 
 ### Process TOIL Output (2 cols)
 ```
@@ -3387,9 +1767,7 @@
 ```
 
 ### Create TOIL Allocation Output (31 cols)
-[Inherits all 31 columns from Table: AttendanceRequest]
-+ Modified/Added Columns:
-  - Instance Id: Text
+[Inherits all 33 columns from Table: Sync this Employee Leave Balance Process Table]
 
 ### Sending Approval Notification Output (2 cols)
 ```

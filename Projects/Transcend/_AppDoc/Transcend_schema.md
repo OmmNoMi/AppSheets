@@ -1,18 +1,18 @@
 # Transcend — AppSheet Schema (v1.000009)
 > Parsed: 6/12/2026, 4:57:22 PM | 11T / 296C / 2S / 32V / 152A / 0FR
 > Deployable: No | Runnable: Yes
-> Spreadsheet cross-reference: 9 tables matched to worksheets
+> Spreadsheet cross-reference: 2 tables matched to worksheets
 
 ## Tables
 ```
   _Per User Settings        src=native   sheet=?                    mode=UPDATES_ONLY
-  AppUser                   src=google   sheet=AppUser              mode=ALL_CHANGES  [XLSX: AppUser]
-  AppViews                  src=google   sheet=AppViews             mode=ALL_CHANGES  [XLSX: AppViews]
-  AppSettings               src=google   sheet=AppSettings          mode=ALL_CHANGES  [XLSX: AppSettings]
-  AppVariables              src=google   sheet=AppVariables         mode=ALL_CHANGES  [XLSX: AppVariables]
-  AppTriggers               src=google   sheet=AppTriggers          mode=ALL_CHANGES  [XLSX: AppTriggers]
-  AppTimeline               src=google   sheet=AppTimeline          mode=ALL_CHANGES  [XLSX: AppTimeline]
-  AppResources              src=google   sheet=AppResources         mode=ALL_CHANGES  [XLSX: AppResources]
+  AppUser                   src=google   sheet=AppUser              mode=ALL_CHANGES
+  AppViews                  src=google   sheet=AppViews             mode=ALL_CHANGES
+  AppSettings               src=google   sheet=AppSettings          mode=ALL_CHANGES
+  AppVariables              src=google   sheet=AppVariables         mode=ALL_CHANGES
+  AppTriggers               src=google   sheet=AppTriggers          mode=ALL_CHANGES
+  AppTimeline               src=google   sheet=AppTimeline          mode=ALL_CHANGES
+  AppResources              src=google   sheet=AppResources         mode=ALL_CHANGES
   Therapy Intake            src=google   sheet=?                    mode=READ_ONLY
   FormIntake                src=google   sheet=FormIntake           mode=ALL_CHANGES  [XLSX: FormIntake]
   Client                    src=google   sheet=Client               mode=ALL_CHANGES  [XLSX: Client]
@@ -31,7 +31,7 @@
   Country Option: Enum [HIDDEN] [Values: 'Australia', 'Brazil', 'Canada']
   Language Option: Enum [HIDDEN] [Values: 'English', 'French', 'Tamil']
   Me: Enum (→"="Logged in As"")
-  AccessKey: Text { ShowIf: `=1=2` }
+  AccessKey: Text { Logic: [ShowIf]="=1=2" }
   Option 7: Text [HIDDEN]
   Option 8: Text [HIDDEN]
   Option 9: Text [HIDDEN]
@@ -48,9 +48,9 @@
   Roles: EnumList = ="U_Employee"
   AccessKey: Text [HIDDEN] = ="Not in Use"
   Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_this])` }
-  LastEditedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_this])` }
-  RolesList: List [RO,VC]
+  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_this])" }
+  RolesList: List [RO]
 ```
 
 ### AppViews (16 cols)
@@ -68,9 +68,9 @@
   AllowValues: EnumList
   AllowMultiple: EnumList
   AllowRoles: EnumList
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = NOW() { EditIf: `=ISBLANK([_THIS])` }
-  AppLink: App [RO,VC]
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  AppLink: App [RO]
 ```
 
 ### AppSettings (15 cols)
@@ -84,17 +84,17 @@
   Column: Enum
   Title: Text
   Description: LongText
-  Roles: EnumList { ValidIf: `=SPLIT(TEXT(LOOKUP(
+  Roles: EnumList { Logic: [ValidIf]="=SPLIT(TEXT(LOOKUP(
   "AppUserRoles",
   "AppVariables",
   "ID",
   "VariableList"
-))," , ")` }
+))," , ")" }
   Decimal: Number (→"="Days"")
   Date: Date = TODAY()
   AllowedValues: EnumList
-  LastEditBy: Enum = =Any(Me[ID]) { EditIf: `=isblank([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=isblank([_THIS])` }
+  LastEditBy: Enum = =Any(Me[ID]) { Logic: [EditIf]="=isblank([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=isblank([_THIS])" }
 ```
 
 ### AppVariables (19 cols)
@@ -108,46 +108,46 @@
   Title: Text
   Description: LongText
   UsedFor: LongText
-  Decimal: Decimal { EditIf: `=in("Decimal",[ValueControl])` }
-  EnumValue: Enum { EditIf: `=in("Enum",[ValueControl])` }
-  EnumList: EnumList { EditIf: `=in("EnumList",[ValueControl])` }
-  VariableList: EnumList { ValidIf: `=FILTER(
+  Decimal: Decimal { Logic: [EditIf]="=in("Decimal",[ValueControl])" }
+  EnumValue: Enum { Logic: [EditIf]="=in("Enum",[ValueControl])" }
+  EnumList: EnumList { Logic: [EditIf]="=in("EnumList",[ValueControl])" }
+  VariableList: EnumList { Logic: [ValidIf]="=FILTER(
   "AppVariables",
   CONTAINS(
     "ID Connected to Variable",
     [Tags]
   )
-)` | EditIf: `=in("VariableList",[ValueControl])` }
-  DateValue: Date { EditIf: `=in("Date",[ValueControl])` }
-  Photo: Image { EditIf: `=in("Photo",[ValueControl])` }
-  URL: Url { EditIf: `=in("URL",[ValueControl])` }
-  File: File { EditIf: `=in("File",[ValueControl])` }
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=isblank([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=isblank([_THIS])` }
+)" | [EditIf]="=in("VariableList",[ValueControl])" }
+  DateValue: Date { Logic: [EditIf]="=in("Date",[ValueControl])" }
+  Photo: Image { Logic: [EditIf]="=in("Photo",[ValueControl])" }
+  URL: Url { Logic: [EditIf]="=in("URL",[ValueControl])" }
+  File: File { Logic: [EditIf]="=in("File",[ValueControl])" }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=isblank([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=isblank([_THIS])" }
 ```
 
 ### AppTriggers (16 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID() { EditIf: `=ISBLANK([_THIS])` }
+  ID: Text = UNIQUEID() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   AppTrigger: Enum
   Bot: Yes/No = =if(ISBLANK([_THIS]),TRUE,FALSE)
   Type: Enum
   Table: Enum
-  PickEmployee: Enum { ShowIf: `=IN(
+  PickEmployee: Enum { Logic: [ShowIf]="=IN(
    "PickEmployee",
    SPLIT([AppTrigger].[AllowedValues],
-   ","
-) )` }
+   ",")
+)" }
   PickWeekYear: Enum
   PickDate: Date = TODAY()
   PickDateTime: DateTime = =NOW()
   ValueText: Text = =[PickEmployee].[Email]
   RefTable: Enum
   RefValue: Text
-  CreatedBy: Enum = =ANY(Me[ID]) { EditIf: `=isblank([_THIS])` }
-  CreatedOn: DateTime = =NOW() { EditIf: `=isblank([_THIS])` }
-  Date: Text [RO,VC]
+  CreatedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=isblank([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  CreatedOn: DateTime = =NOW() { Logic: [EditIf]="=isblank([_THIS])" }
+  Date: Text [RO]
 ```
 
 ### AppTimeline (6 cols)
@@ -185,9 +185,9 @@
   ),
    TRUE,
    FALSE
-)
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = NOW() { EditIf: `=ISBLANK([_THIS])` }
+) { Slices Cross-Ref: Me -> AppUser }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### Therapy Intake (84 cols)
@@ -309,7 +309,6 @@ Note: We are unable to process American Express or Discover cards*: Enum [Values
   Secondary Phone Number: Phone
   Work Phone Number: Phone
   Preferred Contact Method: Text
-  Preferred Contact Method_28: Text [VC]
   Insurance Company: Text
   Member/Beneficiary ID: Text
   Priority: Text
@@ -330,22 +329,23 @@ Note: We are unable to process American Express or Discover cards*: Enum [Values
   Front of Insurance Card: Text
   Back of Insurance Card: Text
   Name on Card: Name
-  Type of Card. Note: We are unable to process American Express or Discover cards*: LongText [VC]
   Is this a credit card? (Mark "No" if the card is an HSA, FSA or HRA card or a debit card that can be processed without a pin number): Number
-  Card Number: Number
-  Card Expiration Date: Date = TODAY()
-  Security Code: Text
   Billing Street Address: Address
   Billing City: Text
   Billing Zip Code: Text
-  Medication Name: Name
-  Dosage: Text
-  Form / Unit (Capsule, tablet, liquid): Text
-  Amount (How many are taken): Number
-  Frequency (How often is it taken): Text
-  Symptoms Being Treated: Text
-  Prescribed By: Text
-  Is there another medication that you take?: Yes/No
+  Preferred Contact Method_28: Text [VC]
+  Type of Card. Note: We are unable to process American Express or Discover cards*: LongText [VC]
+  Card Number: Number [VC]
+  Card Expiration Date: Date [VC] = TODAY()
+  Security Code: Text [VC]
+  Medication Name: Name [VC]
+  Dosage: Text [VC]
+  Form / Unit (Capsule, tablet, liquid): Text [VC]
+  Amount (How many are taken): Number [VC]
+  Frequency (How often is it taken): Text [VC]
+  Symptoms Being Treated: Text [VC]
+  Prescribed By: Text [VC]
+  Is there another medication that you take?: Yes/No [VC]
   Medication Name_65: Name [VC]
   Dosage_66: Text [VC]
   Form / Unit (Capsule, tablet, liquid)_67: Text [VC]
@@ -367,7 +367,7 @@ Note: We are unable to process American Express or Discover cards*: Enum [Values
 ### Client (18 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID() { EditIf: `=ISBLANK([_THIS])` }
+  ID: Text = UNIQUEID() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   FirstName: Name
   LastName: Name
   DateOfBirth: Date
@@ -379,10 +379,10 @@ Note: We are unable to process American Express or Discover cards*: Enum [Values
   State: Enum
   ZipCode: Enum
   EmergencyContact: Phone
-  CreatedBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  CreatedOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
-  LastEditBy: Enum = =ANY(Me[ID]) { EditIf: `=ISBLANK([_THIS])` }
-  LastEditOn: DateTime = =NOW() { EditIf: `=ISBLANK([_THIS])` }
+  CreatedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  CreatedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   FullName: Name [RO,VC]
 ```
 

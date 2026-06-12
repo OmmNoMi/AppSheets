@@ -682,8 +682,31 @@ def generate_compact_markdown(app_info, tables, all_columns, slices, views, acti
         # ─── Full Column Listing ───
         physical_set = physical_cols_map.get(table_name)
         
-        lines.append("```")
+        # Pre-process columns to determine VC status and sort
+        processed_cols = []
         for col in columns:
+            col_name = col['name']
+            is_vc = False
+            if physical_set is not None:
+                # Absolute detection via spreadsheet cross-reference
+                if col_name not in physical_set and col_name != '_RowNumber':
+                    is_vc = True
+            else:
+                # Heuristic detection
+                if col_name.startswith('_Computed') or col_name.startswith('Related '):
+                    is_vc = True
+                elif col['initial_value'] and 'REF_ROWS' in col['initial_value'].upper():
+                    is_vc = True
+                elif 'App Formula' in col['all_props'] and col['read_only'] == 'Yes' and col_name != '_RowNumber':
+                    is_vc = True
+            processed_cols.append((is_vc, col))
+            
+        # Sort so that physical columns (False) come before virtual columns (True)
+        # We use a stable sort based on original order.
+        processed_cols.sort(key=lambda x: x[0])
+        
+        lines.append("```")
+        for is_vc, col in processed_cols:
             col_name = col['name']
             flags = []
             
@@ -706,21 +729,6 @@ def generate_compact_markdown(app_info, tables, all_columns, slices, views, acti
             # Read-Only
             if col['read_only'] == 'Yes':
                 flags.append("RO")
-            
-            # Virtual Column detection
-            is_vc = False
-            if physical_set is not None:
-                # Absolute detection via spreadsheet cross-reference
-                if col_name not in physical_set and col_name != '_RowNumber':
-                    is_vc = True
-            else:
-                # Heuristic detection
-                if col_name.startswith('_Computed') or col_name.startswith('Related '):
-                    is_vc = True
-                elif col['initial_value'] and 'REF_ROWS' in col['initial_value'].upper():
-                    is_vc = True
-                elif 'App Formula' in col['all_props'] and col['read_only'] == 'Yes' and col_name != '_RowNumber':
-                    is_vc = True
             
             if is_vc:
                 flags.append("VC")
@@ -753,15 +761,15 @@ def generate_compact_markdown(app_info, tables, all_columns, slices, views, acti
             # Dynamic Logic
             logic_flags = []
             if col['show_if']:
-                logic_flags.append(f"ShowIf: `{fmt(col['show_if'])}`")
+                logic_flags.append(f"[ShowIf]=\"{fmt(col['show_if'])}\"")
             if col['valid_if']:
-                logic_flags.append(f"ValidIf: `{fmt(col['valid_if'])}`")
+                logic_flags.append(f"[ValidIf]=\"{fmt(col['valid_if'])}\"")
             if col['required_if']:
-                logic_flags.append(f"ReqIf: `{fmt(col['required_if'])}`")
+                logic_flags.append(f"[ReqIf]=\"{fmt(col['required_if'])}\"")
             if col['editable_if']:
-                logic_flags.append(f"EditIf: `{fmt(col['editable_if'])}`")
+                logic_flags.append(f"[EditIf]=\"{fmt(col['editable_if'])}\"")
             
-            logic_str = f" {{ {' | '.join(logic_flags)} }}" if logic_flags else ""
+            logic_str = f" {{ Logic: {' | '.join(logic_flags)} }}" if logic_flags else ""
             
             # Check for slice cross-references in formulas
             combined_formulas = init_str + logic_str
