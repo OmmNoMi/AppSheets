@@ -53,7 +53,7 @@
 
 ### Automation: Hourly App Script Bot
 **Problem**: Admin only available 8am-12pm AZ. Client form submissions happen 24/7. Need auto-processing without manual button.
-**Solution**: App Script `processNewIntakes()` function with `ScriptApp.newTrigger().timeBased().everyHours(1)` trigger. Filters `IntakeForm` for `ProcessedStatus = "New"`. Logs each run to AppTrigger table.
+**Solution**: App Script `processNewIntakes()` function with `ScriptApp.newTrigger().timeBased().everyHours(1)` trigger. Filters `FormIntake` for `ProcessedStatus = "New"`. Logs each run to AppTrigger table.
 **AppSheet Config**: `AppSetting.BotProcessingEnabled` = TRUE/FALSE toggle. `AppTrigger` table records each run with Status (Success/Failed) and count processed.
 **Tested**: No
 **Reusable**: Yes — any project with Google Form → AppSheet automated processing
@@ -62,7 +62,7 @@
 
 ### Schema: Google Form Sheet Integration Rules
 **Problem**: AppSheet imports ALL columns from Google Form sheet. Renaming columns breaks form output. Adding columns in the middle breaks column index mapping.
-**Solution**: (1) Never rename form-generated columns in AppSheet — use Display Name property instead. (2) Add admin columns (ProcessedStatus, ClientID, etc.) only at the END (rightmost) of the sheet. (3) Set IntakeForm key = Timestamp (auto-generated, unique per submission).
+**Solution**: (1) Never rename form-generated columns in AppSheet — use Display Name property instead. (2) Add admin columns (ProcessedStatus, ClientID, etc.) only at the END (rightmost) of the sheet. (3) Set FormIntake key = Timestamp (auto-generated, unique per submission).
 **AppSheet Config**: Column Display Names for all form columns. Admin columns added right of last form column.
 **Tested**: No
 **Reusable**: Yes — applies to every project using Google Form as data source

@@ -22,7 +22,7 @@ Transcend Counseling & Wellness is transitioning its administrative intake, docu
 The application relies on a Google Sheet backend, structured into several key operational tables:
 
 ### Core Operational Data
-- **`IntakeForm`:** Raw data directly from the Google Form. It's read-only for historical tracking, which the system processes into the tables below.
+- **`FormIntake`:** Raw data directly from the Google Form. It's read-only for historical tracking, which the system processes into the tables below.
 - **`Client`:** The core record representing a patient. Holds demographic info, contact preferences, telehealth/email consent, assigned therapist, and current status in the pipeline.
 - **`Session`:** Represents a scheduled appointment between a client and their therapist. Includes date, time, and status (Scheduled/Completed/Cancelled).
 - **`SessionNotes`:** Clinical notes linked to a specific session. Secure and restricted to the System Admin (therapist) only.

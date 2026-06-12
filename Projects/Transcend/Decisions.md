@@ -61,14 +61,14 @@
 **Context**: Google Form stores up to 3 medications as flat column groups (Medication1_Name, Medication1_Dosage, etc.).
 **Decision**: AppSheet schema uses `ClientMedication` child table — one record per medication, not flat columns. App Script during intake processing creates individual `ClientMedication` rows.
 **Reason**: Flat columns break when clients have more than 3 medications (future phase). Child table is scalable, queryable, and follows relational design. `[Related ClientMedications]` list deref works cleanly.
-**Impact**: IntakeForm keeps flat columns (Google Form output, unmodified). App Script normalizes into ClientMedication during processing. Schema future-proof for more than 3 medications.
+**Impact**: FormIntake keeps flat columns (Google Form output, unmodified). App Script normalizes into ClientMedication during processing. Schema future-proof for more than 3 medications.
 **Pattern**: SP-002 (to add) — "Normalize flat form columns to child table during intake processing"
 
 ---
 
 ### 2026-05-31 — Hourly App Script Bot for Intake Auto-Processing
 **Context**: David's admin assistant works 8am–12pm AZ only. New client form submissions happen any time. David wants the flow from form submission to document generation to be automatic.
-**Decision**: App Script time-based trigger runs every hour. Checks IntakeForm sheet for rows where `ProcessedStatus = "New"`. For each, creates Client + child records, creates Drive folder, sets `ProcessedStatus = "Processed"`. Manual "Generate Docs" button still available for re-runs.
+**Decision**: App Script time-based trigger runs every hour. Checks FormIntake sheet for rows where `ProcessedStatus = "New"`. For each, creates Client + child records, creates Drive folder, sets `ProcessedStatus = "Processed"`. Manual "Generate Docs" button still available for re-runs.
 **Reason**: AppSheet automations (ADDS_ONLY bots) have limitations with external script triggers. App Script time-based trigger is more reliable for Google Sheets → App Script workflows. `BotProcessingEnabled` AppSetting flag allows admin to pause the bot.
 **Impact**: App Script project needs time-based trigger set to every 1 hour. AppTrigger table logs each bot run.
 **Pattern**: AU-004 (to add) — "Hourly App Script bot for Google Form auto-processing"
