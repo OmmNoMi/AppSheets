@@ -116,6 +116,14 @@ if (consentEmail === 'Yes') {
 
 ---
 
+## Project Overviews (Architecture & Scope)
+| Project | Overview File | Focus Areas |
+|---------|---------------|-------------|
+| Transcend | `../Projects/Transcend/README.md` | Intake automation, Document generation, Pipeline tracking |
+| Orbit | `../Projects/Orbit/README.md` | HR lifecycle, Geofenced attendance, Leave ledger, Expense claims |
+
+---
+
 ## How Antigravity Adds a New Pattern
 When a solution is found during a project session:
 1. Add a row to the relevant section above with next ID
