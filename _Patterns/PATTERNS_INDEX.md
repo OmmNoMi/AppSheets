@@ -34,6 +34,7 @@
 | AP-001 | Prevent filter inheritance on Add | `_SOP/Actions.md §Custom Add` | SOP |
 | AP-002 | Force row recalculation | `_SOP/Actions.md §Sync_` | SOP |
 | AP-003 | *(Add new patterns here)* | | |
+| AP-004 | Upsert child record with auto-filled Initial Values (Passing the Ref) | `_SOP/Automations.md §Action Pattern` | Transcend |
 
 ### FP-003 Inline: Creation-Only Editability for Pre-Filled Columns
 **Problem**: `ISBLANK([_THIS])` fails to restrict edits to "creation only" if the field has an Initial Value (e.g., logged-in user).
@@ -90,6 +91,9 @@ IFS(
 | AU-003 | Conditional document versioning (consent flags → doc version) | Inline below | Transcend |
 | AU-004 | Hourly App Script bot for Google Form auto-processing | `Automations/HourlyFormProcessingBot.md` | Transcend |
 | AU-005 | AppTimeline daily calendar bot — claim a date row, log execution | `_SOP/Automations.md §AppTimeline` | Base App |
+| AU-006 | AppScript Webhook payload parsing (safeParse fallback) | `_SOP/Automations.md §AppScript` | Transcend |
+| AU-007 | Google Docs API limitation: use plain text `{{}}` over smart chips | `_SOP/Automations.md §AppScript` | Transcend |
+| AU-008 | Force AppSheet re-auth after `appsscript.json` scope changes | `_SOP/Automations.md §AppScript` | Transcend |
 
 ### UX-004 Inline: Dependent Field Auto-Compute with Conditional Override
 **Problem**: A field must dynamically pull a value from a dropdown selection, but must be manually editable if specific exceptions are chosen (e.g. "Work From Home").
