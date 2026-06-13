@@ -18,6 +18,10 @@
 | BF-005 | HIPAA/PCI: App Script extracts last 4 of card number only | 2026-05-31 |
 | AU-003 | Consent-driven document versioning (Yes/No flags → doc paragraph) | 2026-05-31 |
 | AU-004 | Hourly App Script bot for auto-processing new form submissions | 2026-05-31 |
+| SP-005 | Form Branching & Multi-Row Expansion for flat arrays | 2026-06-13 |
+| BF-007 | Ref Display vs. Database Raw Value (use raw keys in automation) | 2026-06-13 |
+| BF-008 | Schema Validation Mismatches on Custom Action Steps (Text vs Number) | 2026-06-13 |
+| AU-009 | The `[_THISROW]` Scope Qualifier in multi-step row generation loops | 2026-06-13 |
 
 
 ---
@@ -75,3 +79,38 @@
 **AppSheet Config**: `Client.ConsentEmail` (Enum: Yes/No), `Client.ConsentTelehealth` (Enum: Yes/No). App Script: `if (consentEmail === 'Yes') { includeSection('email_consent_yes') } else { includeSection('email_consent_no') }`
 **Tested**: No
 **Reusable**: Yes — any project with conditional document sections based on client preferences
+
+---
+
+### Schema: Form Branching & Multi-Row Expansion
+**Problem**: Users shouldn't see Medication #2 and #3 if they only have 1 medication, but the database needs all medications in a normalized, related table.
+**Solution**: (1) Google Form uses branching logic ("Go to section based on answer") to skip Medication 2/3 and route to Submit. (2) AppSheet Bot runs multiple sequential "Add a new row" tasks. It checks if the columns for Med #2/#3 are populated and explicitly maps the flattened form columns into distinct rows in the `Medication` child table.
+**AppSheet Config**: 3 sequential Data Actions in the Bot mapping `[_THISROW].[FormIntake].[Medication Name_65]`, etc.
+**Tested**: Yes
+**Reusable**: Yes — standard pattern for flattening multi-entry forms into relational rows.
+
+---
+
+### Bug Fix: AppSheet "Ref" Display vs. Database Raw Value
+**Problem**: AppSheet renders Ref columns as the Display Label in the UI (e.g., "06/13/2026 - John Doe"). Developers mistakenly assume they must use complex `CONTAINS` formulas to extract the ID.
+**Solution**: AppSheet always stores the RAW KEY (e.g., the timestamp or UniqueID) in the backend spreadsheet. Direct dereferencing like `[_THISROW].[FormIntake].[ColumnName]` works natively without lookup formulas. Always trust the raw spreadsheet data, not the AppSheet UI rendering.
+**AppSheet Config**: Native dereferencing.
+**Tested**: Yes
+**Reusable**: Yes — core AppSheet conceptual learning.
+
+---
+
+### Bug Fix: Schema Validation Mismatches on Custom Action Steps
+**Problem**: Action bots run successfully but silently fail to append rows into child tables.
+**Solution**: strict Type validation. If an `Amount` column is typed as `Number`, but a user types "half" or "1 tablet" in a text input, AppSheet rejects the insert entirely. 
+**Fix**: Monitor `Manage > Monitor > Audit History` for type conversion crashes. Change unpredictable input columns to `Text` type for system tolerance.
+**Tested**: Yes
+**Reusable**: Yes — universal debugging step for silent action failures.
+
+---
+
+### Automation: The `[_THISROW]` Scope Qualifier
+**Problem**: Mapping `[FormIntake].[Medication Name]` directly inside an automation step on the Client table fails to resolve.
+**Solution**: AppSheet loses scope of the active row triggering the bot during multi-step actions. You must explicitly prefix the path with `[_THISROW]` (e.g., `[_THISROW].[FormIntake].[Medication Name]`) to cross-reference columns cleanly.
+**Tested**: Yes
+**Reusable**: Yes — mandatory for all multi-step row generation loops.
