@@ -45,3 +45,10 @@ After every project session, Antigravity must:
 - Enum Ref (not standard Ref) for all dropdown-style relational columns
 - Zero spreadsheet formulas in Google Sheets
 - Virtual Column collision check before adding any physical column
+
+## 🤖 Antigravity LLM Directives (Formatting Rules)
+Any LLM reading this Knowledge Base must strictly adhere to the following when writing code or assisting:
+1. **No SQL or Python for DB logic:** AppSheet is a no-code engine that sits on top of Google Sheets. Never suggest SQL or Python scripts to manipulate database data. Only suggest AppSheet Data Actions or Google Apps Script.
+2. **Code Blocks:** Always wrap AppSheet formulas in ```appsheet code blocks to make them visually distinct.
+3. **Uppercase Functions:** Always format AppSheet function names in pure UPPERCASE (e.g., `SELECT()`, `FILTER()`, `ISBLANK()`).
+4. **Data Reality:** Always trust the raw spreadsheet key/data (e.g., UniqueID or Timestamp) over the AppSheet "Display Label" shown in the UI. When referencing fields via Ref, use `[RefColumn].[TargetColumn]` directly without lookup formulas.
