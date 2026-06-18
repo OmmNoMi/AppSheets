@@ -61,3 +61,54 @@
 **Reason**: To ensure that the requested employee is immutable once the request is created. Even if a People Admin makes the request on behalf of an employee, the employee target cannot be swapped out afterwards.
 **Impact**: `AttendanceRequest` table introduced; `EmployeeID` field locks after creation for all users.
 **Pattern**: Reusable (Creation-Only Column Restriction)
+
+---
+
+### 2026-06-18 Phase 3 — Early Careers Module Kickoff
+**Context**: IKAROS engaged OmmNoMi as technical development partner to build the Orbit Early Careers & Internship Module per SOW v2.0 (8 June 2026). Client is BLR World; IKAROS is the project sponsor.
+**Decision**: Phase 3 is treated as an additive module on top of the existing Orbit Phase 1 and Phase 2 codebase. No new AppSheet app or Google Sheet is created — all new tables are added to the existing Orbit Main spreadsheet.
+**Reason**: Maximum reuse of existing Employee, TaskList, EmployeeDocument, CandidateSubmission, Project, and Approval infrastructure. Avoids data duplication and preserves the existing data model integrity.
+**Impact**: 9 new Google Sheet tabs, 3 extended existing tables, 3 new AppVariables roles, 4 new AppSettings, 12 new bots.
+**Pattern**: Reusable (Additive Module Pattern — extend existing Base App)
+
+### 2026-06-18 Internship Status as 11-State Machine
+**Context**: SOW defines 11 status states for the intern lifecycle.
+**Decision**: Implement all status transitions via AppSheet Action buttons ONLY — no manual text editing of the Status field. Actions are role-gated and condition-gated to enforce valid transitions.
+**Reason**: Mirrors the existing Orbit Employee status engine pattern. Prevents data corruption from invalid status entries. Ensures automation bots trigger correctly (bots watch for specific status transitions).
+**Impact**: 8 Action buttons on the Internship table covering all valid forward transitions + 1 withdrawal action. Status field is Enum sourced from InternStatus_List AppVariable.
+**Pattern**: Reusable (State Machine via Action Buttons — extended from Employee pattern)
+
+### 2026-06-18 Compliance Engine — Rules Table + Auto-Build Bot
+**Context**: SOW requires jurisdiction-specific compliance items to be automatically generated per intern based on their country.
+**Decision**: Use a two-table pattern: `ComplianceRule` (config, pre-seeded once from SOW Appendix B) and `ComplianceItem` (operational, auto-generated per intern). The `Bot_ComplianceBuilder` creates items via AppSheet "For each row" automation step when Country is first set on an Internship.
+**Reason**: Separating rules from instances allows the compliance engine to be updated (new country added, rule changed) without touching any existing intern records. Idempotency check (COUNT = 0) prevents duplicate item generation.
+**Impact**: ComplianceRule pre-seeded with 12 rules across 5 jurisdictions. ComplianceItem auto-populated on country selection. Bot triggers only once per internship.
+**Pattern**: Reusable (Rules Table + Instance Builder Pattern)
+
+### 2026-06-18 Passport Validity — 7-Month Rule Implementation
+**Context**: SOW requires a passport validity check: passport expiry must be at least 7 months beyond the internship end date.
+**Decision**: Implemented as a bot on `EmployeeDocument` (ADDS_AND_UPDATES, condition: Type = Passport AND IsIntern = TRUE). Bot uses `EDATE([EndDate], 7)` to compute the minimum valid date and sets `NotificationStatus` to Active / Warning-30 / Expired accordingly.
+**Reason**: Reuses the existing EmployeeDocument.NotificationStatus enum (Active, Warning-30, Warning-7, Expired) to preserve consistency with the existing document expiry notification system.
+**Impact**: Bot_PassportValidityCheck added. Internship.PassportExpiryCheck VC displays traffic-light status on the intern record. HR notified immediately on Warning or Expired result.
+**Pattern**: Reusable (Document Validity Check with Minimum Lead Time)
+
+### 2026-06-18 InternReview — Reuses Orbit 1-5 Rating Scale
+**Context**: SOW states intern reviews should use the Orbit performance wizard 1-5 scale so scores are comparable with the wider performance engine.
+**Decision**: Created a separate `InternReview` table (rather than extending ManagerEvaluation) with four rating dimensions (Quality, Timeliness, Communication, Collaboration) on the same 1-5 Enum scale. AverageScore is a Virtual Column computing the mean. ScoreLabel VC maps to the Orbit rating labels (Exceeds Expectations → Does Not Meet Expectations).
+**Reason**: A dedicated table keeps intern review data separate from employee appraisal data, avoiding slice complexity. The shared 1-5 scale preserves cross-cohort comparability.
+**Impact**: InternReview table with 2 VCs (AverageScore, ScoreLabel). Mid and End bots trigger review task creation. Regular reviews are on a configurable cadence (AppSettings: ReviewCadenceDays).
+**Pattern**: Reusable (Numeric Rating with Label VC pattern)
+
+### 2026-06-18 InternFeedback — Single Standardised Form Replaces 3 Variants
+**Context**: SOW notes that BLR World currently has three different feedback form variants. The module must replace these with a single standardised form.
+**Decision**: One `InternFeedback` table with 6 Section A rating fields (1-5 Enum) and 5 Section B free text fields. Bot pre-creates a Draft record 14 days before end date (configurable via AppSettings `InternFeedbackDaysBeforeEnd`). Intern fills it in via the `InternFeedback_Form` view.
+**Reason**: Pre-creating the record via bot allows deep linking from the email notification directly to the specific form. Intern does not need to navigate or create a new record — just fill and submit.
+**Impact**: Bot_FeedbackDispatch added. OverallScore VC auto-calculates mean of 6 dimensions. Scores feed directly into the Leadership Dashboard charts (Phase B).
+**Pattern**: Reusable (Bot Pre-Create + Deep Link Form pattern)
+
+### 2026-06-18 University Coordinator Role — Row-Level Security via AppUser
+**Context**: SOW specifies an optional University Coordinator persona with read-only access to sponsored interns only.
+**Decision**: Add a `UniversityID` column (Enum Ref → University) to the `AppUser` table. The `InternshipByUniversity` slice filters using `[EmployeeID].[UniversityID] = LOOKUP(ANY(Me[ID]),"AppUser","ID","UniversityID")`. This gives each coordinator access to only their institution's interns without any per-record manual gating.
+**Reason**: Row-level security via a single AppUser-side attribute is the OmmNoMi standard pattern for partner/affiliate access. Cleaner than managing individual record-level permissions.
+**Impact**: AppUser table gains `UniversityID` column (Phase B, add when University table exists). Slice filter is self-maintaining as new interns are added.
+**Pattern**: Reusable (Partner Row-Level Security via AppUser Attribute)\n\n### 2026-06-18 Compliance Tables Eliminated — Extend DocType + Documents Instead\n**Context**: During review of the initial ComplianceRule + ComplianceItem design, it was noted that the live Orbit app already has a `DocType` (config) \u2192 `Documents` (instance) pattern that is structurally identical to what ComplianceRule \u2192 ComplianceItem would have been.\n**Decision**: Eliminate `ComplianceRule` and `ComplianceItem` as new tables. Instead:\n1. Extend `DocType` with 6 new columns: `Country`, `DocCategory`, `AppliesWhen`, `IsMandatory`, `IsComplianceRequirement`, `NationalityScope`. A slice `DocType_ComplianceRules` (IsComplianceRequirement=TRUE) serves as the rule filter.\n2. Extend `Documents` with 3 new columns: `InternshipID`, `ComplianceStatus`, `DueDate`. A Documents row with InternshipID set IS a compliance item. Existing DocType expiry alert system (RedAlert/OrangeAlert/YellowAlert) applies automatically.\n3. Extend `CheckList` with `Type = \"Internship Onboarding\"` template rows. Bot_InternOnboardingGenerator now uses the existing CheckList \u2192 TaskList creation pattern instead of hardcoded Add Row steps.\n**Reason**: Avoids 2 new sheet tabs and 2 new AppSheet tables. Reuses the established document lifecycle pattern already understood by the client. All existing document views, alerts, and verification flow apply automatically to compliance items.\n**Impact**: New sheet tabs reduced 9 \u2192 7. Existing tables extended: 3 \u2192 5. DocType update mode changed UPDATES_ONLY \u2192 ALL_CHANGES (bot read requirement). Bot_ComplianceBuilder condition updated to check Documents instead of ComplianceItem.\n**Pattern**: Reusable (Eliminate New Table by Extending Existing Equivalent Pattern)

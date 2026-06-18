@@ -12,8 +12,10 @@
 | Automation / bot patterns | `_SOP/Automations.md` |
 | UX, format rules, view types | `_SOP/UX.md` |
 | Pre-launch deployment checklist | `_SOP/Deployment.md` |
+| Commercial proposals, pricing & Frappe quotations | `_SOP/Commercial_Quotations.md` |
 | Reusable cross-project patterns (SEARCH HERE FIRST) | `_Patterns/PATTERNS_INDEX.md` |
 | Start a new project | `_Templates/ProjectInfo.md` |
+| Commercial Proposal Template | `_Templates/TechnicalResponse.md` |
 | Schema design template | `_Templates/Schema.md` |
 | Base App Google Sheet data (copy for each project) | `_Templates/Base Template Core.xlsx` |
 

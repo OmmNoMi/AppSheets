@@ -79,3 +79,31 @@ When a solution is found during a project session:
 3. If simple, inline it in this index file directly
 4. Update source project's `Learnings.md` with Promoted = Yes
 5. Mark with ⭐ after it's been verified in a second project
+
+---
+
+## Patterns Added — Orbit Phase 3 Session (18 June 2026)
+
+### Schema Patterns (continued)
+| ID | Problem / Use Case | Pattern File | Source |
+|----|-------------------|-------------|--------|
+| SP-006 | Additive module on existing Base App — new tables added to existing spreadsheet, no new app | Inline: Extend existing Orbit Main sheet. Add new tabs. Add tables in AppSheet editor pointing to new tabs. Extend existing table enums/columns. Never duplicate existing tables. | Orbit Phase 3 |
+| SP-007 | Rules table + Instance builder pattern — config table (seeded once) + operational table (auto-built per record) | Inline: `ComplianceRule` (config, static, pre-seeded by dev) + `ComplianceItem` (dynamic, auto-built by bot per intern on trigger). Bot uses `COUNT = 0` idempotency check. Allows rules to be updated without touching existing operational rows. | Orbit Phase 3 |
+| SP-008 | Partner row-level security via AppUser attribute — external viewer restricted to their own org's records | Inline: Add `OrgID` (Enum Ref → OrgTable) to `AppUser`. Slice filter: `[RecordField].[OrgID] = LOOKUP(ANY(Me[ID]),"AppUser","ID","OrgID")`. Self-maintaining — no per-record permission rows needed. | Orbit Phase 3 |
+
+### Action Patterns (continued)
+| ID | Problem / Use Case | Pattern File | Source |
+|----|-------------------|-------------|--------|
+| AP-005 | 11-state lifecycle State Machine — all transitions via Action buttons, no manual text entry | Inline: Define all valid state transitions as AppSheet Actions with condition guards (`[Status] = "X"`). Role-gate actions. Bots watch for specific status values using `[_THISROW_BEFORE].[Status] <> "Target"` to fire only on transition, not on every update. | Orbit Phase 3 |
+
+### Automation Patterns (continued)
+| ID | Use Case | Pattern File | Source |
+|----|---------|-------------|--------|
+| AU-010 | Idempotent child record creation — bot creates children only once, never duplicates | Inline: Add `COUNT(SELECT(ChildTable[ID], [ParentID]=[_THISROW].[ID])) = 0` to bot condition. Without this, every update to the parent re-fires the bot and duplicates children. Critical for compliance items, onboarding tasks, and review records. | Orbit Phase 3 |
+| AU-011 | Bot pre-create + deep link form pattern — bot creates a draft record, sends deep link, user fills it in | Inline: Bot creates a Draft record with known IDs pre-filled. Email notification includes `LINKTOROW(record_id, "FormView")` or equivalent. User lands directly on their specific form — no navigation, no record creation needed. Eliminates "wrong record" errors. | Orbit Phase 3 |
+| AU-012 | Document validity check with minimum lead time — flag documents expiring within N months of a deadline | Inline: `IF([Expiry] >= EDATE([Deadline], N), "Valid", IF([Expiry] >= [Deadline], "Warning", "Expired"))`. N is stored in AppSettings for easy configuration. Applied on bot trigger (ADDS_AND_UPDATES on the document table). | Orbit Phase 3 |
+
+### Formula Patterns (continued)
+| ID | Problem / Use Case | Pattern File | Source |
+|----|-------------------|-------------|--------|
+| FP-005 | Numeric Enum rating to label VC — 1-5 Enum score auto-mapped to descriptive label | Inline: Rating stored as Enum ("1","2","3","4","5"). AverageScore VC: `ROUND((VALUE([R1])+VALUE([R2])+VALUE([R3])+VALUE([R4]))/4,2)`. ScoreLabel VC: `IFS([Avg]>=4.5,"Exceeds",[Avg]>=3.5,"Meets",[Avg]>=2.5,"Partially Meets",[Avg]>=1.5,"Needs Support",TRUE,"Does Not Meet")`. Keep rating as Enum (not Number) for clean mobile dropdowns. | Orbit Phase 3 |
