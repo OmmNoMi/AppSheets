@@ -9,8 +9,10 @@
 |-------|-------|
 | Client | BLR World |
 | App Name | BLR World HRMS — Orbit |
-| Phase | Phase 2 |
-| Start Date | 02/06/2025 (Phase 1) / 03/09/2025 (Phase 2) |
+| Phase | Phase 3 (Early Careers Module) |
+| Start Date | 02/06/2025 (Phase 1) / 03/09/2025 (Phase 2) / 18/06/2026 (Phase 3) |
+| Phase 3 Partner | IKAROS Digital Team (Project Sponsor) — on behalf of BLR World |
+| Phase 3 SOW | Orbit Early Careers Module — Developer Technical SOW v2.0 (8 June 2026) |
 | Antigravity Conversation | 343138bc-a7fc-4868-9544-0eaafc2a6a1f |
 | AppSheet App URL | `https://www.appsheet.com/template/AppDoc?appName=BLRWORLDHRMS-418983340&appId=c745d6d9-9b71-44d4-b43e-5612638df213` |
 | Google Sheet URL | *(to be added)* |
@@ -28,6 +30,9 @@
 | Line Manager | `U_Reporting_Officer` / LineManager | Team performance & operations | Set employee objectives, perform manager evaluations, review/approve expense claims, view team calendars |
 | Employee | `U_Employee` / Employee | Self-service HR access | Submit self-evaluations, upload document updates, log daily check-in/out, submit expense claims |
 | Finance Admin | `U_Finance_Admin` / FinanceAdmin | Financial oversight & claims | Review expenses, verify financial compliance, monitor labor law check-in constraints |
+| **People Admin (HR)** | **`U_People_Admin`** | **Full intern lifecycle management** | **Create internships, manage compliance, approve reviews, run dashboards — Phase 3** |
+| **Intern** | **`U_Intern`** | **Self-service internship access** | **View own internship, log EPIC activities, upload documents, submit feedback — Phase 3** |
+| **University Coordinator** | **`U_University_Coordinator`** | **Read-only sponsored intern progress** | **View progress of their sponsored interns only (row-level security) — Phase 3** |
 
 ---
 
@@ -47,6 +52,25 @@
 - [ ] **Hourly Present-Marker Bot**: Identify employee shift check-in logs and automatically set status to "Present" if they forget to check out.
 - [ ] **Digital Claims**: Submission of AED expense claims requiring digital receipt capture and manager/finance sign-off.
 - [ ] **Attendance Requests**: Processing of Time Off in Lieu (TOIL) and Attendance Regularization requests, linked to specific daily attendance logs.
+
+### Phase 3 — Early Careers Module (Internship Lifecycle)
+
+**Phase 3A — Priority Scope (62 hrs)**
+- [ ] **Intern Lifecycle & Status Engine**: 11-state status flow (Applied → Withdrawn). Action-only transitions, folder mapping, role slices.
+- [ ] **Onboarding & Agreement Automation**: Auto-generated role-based task checklist, internship agreement + NDA generation via Apps Script, Drive folder creation.
+- [ ] **Jurisdiction Compliance Engine**: ComplianceRule config table pre-seeded per SOW Appendix B. Bot auto-generates per-intern ComplianceItems on Country selection. Passport 7-month validity check.
+- [ ] **EPIC Learning Records**: Weekly intern activity log (Experiential/People/Investigation/Courses). Monthly check-ins with manager sign-off. Weekly reminder bot.
+- [ ] **Mentoring & Reviews**: MentorAssignment table, Regular/Mid/End review cycle on Orbit 1–5 scale, mid and end triggers.
+- [ ] **Standardised Intern Feedback**: Single feedback form (6 ratings + 5 free text), auto-dispatched 14 days before end date.
+- [ ] **Self-Service & Cockpit Views**: Intern self-service portal, Line Manager "My Interns", HR compliance board + cockpit.
+
+**Phase 3B — Extended Scope (34 hrs)**
+- [ ] **Application Intake**: Intern application pipeline extending CandidateSubmission, shortlisting workflow, one-click conversion.
+- [ ] **Cohorts & Universities**: Intake cohort grouping, consolidated University register.
+- [ ] **Certificates & Conversion**: Auto-generated completion certificate, Pathway intern → Employee conversion bot.
+- [ ] **Dashboards & Reporting**: Leadership dashboard (intake, conversion, EPIC mix, satisfaction). HR cockpit.
+- [ ] **QA, UAT & Support**: Test coverage and 10-day BLR/IKAROS review window.
+- [ ] **Training & Documentation**: AppResources in-app guides for all 4 personas.
 
 ---
 
@@ -109,3 +133,25 @@ Open → Locked → Closed
 **Out of Scope**:
 * Integration with external payroll software (handled via Excel/CSV exports for now).
 * Biometric hardware syncing (strictly GPS-based validation in AppSheet).
+
+---
+
+## Phase 3 Scope (Early Careers Module)
+**Fixed Scope per SOW v2.0 (IKAROS · 8 June 2026)**
+
+**In Scope**:
+* Intern lifecycle (11 status states) end-to-end on the existing Orbit stack.
+* 9 new Google Sheet tabs + 3 extended existing tables.
+* 12 automation bots (9 Phase A, 3 Phase B).
+* Jurisdiction compliance engine for UAE, Qatar, KSA, Japan, UK (rules per SOW Appendix B).
+* EPIC learning record system (Experiential, People, Investigation, Courses).
+* Standardised feedback form replacing 3 existing variants.
+* Certificate generation and Pathway intern → Employee conversion (Phase B).
+* 4 role types: U_People_Admin, U_Reporting_Officer (existing), U_Intern, U_University_Coordinator.
+
+**Out of Scope** (per SOW Section 14):
+* Custom CSS, HTML overlays, or layout beyond native AppSheet capability.
+* Payroll processing or government portal integrations beyond status recording.
+* Migration of historic interns beyond the active go-live cohort.
+* Third-party e-signature platforms.
+* Content authoring (certificate artwork, legal clause drafting).
