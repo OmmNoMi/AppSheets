@@ -66,12 +66,12 @@
 
 ---
 
-### 2026-05-31 — Hourly App Script Bot for Intake Auto-Processing
-**Context**: David's admin assistant works 8am–12pm AZ only. New client form submissions happen any time. David wants the flow from form submission to document generation to be automatic.
-**Decision**: App Script time-based trigger runs every hour. Checks FormIntake sheet for rows where `ProcessedStatus = "New"`. For each, creates Client + child records, creates Drive folder, sets `ProcessedStatus = "Processed"`. Manual "Generate Docs" button still available for re-runs.
-**Reason**: AppSheet automations (ADDS_ONLY bots) have limitations with external script triggers. App Script time-based trigger is more reliable for Google Sheets → App Script workflows. `BotProcessingEnabled` AppSetting flag allows admin to pause the bot.
-**Impact**: App Script project needs time-based trigger set to every 1 hour. AppTrigger table logs each bot run.
-**Pattern**: AU-004 (to add) — "Hourly App Script bot for Google Form auto-processing"
+### 2026-06-19 — Intake Processing Shifted to AppSheet Automation
+**Context**: Re-evaluating the flow from form submission to client record creation.
+**Decision**: Use an AppSheet native Automation (Bot) triggered on FormIntake adds, instead of an hourly App Script trigger.
+**Reason**: Simpler architecture, keeps data logic inside AppSheet, and allows real-time processing of new intakes instead of hourly batching. The user explicitly preferred this approach.
+**Impact**: App Script will not handle intake processing. AppSheet Actions (ADD_RECORD_TO) will be configured to parse FormIntake and create Client, ClientMedication, ClientPayment, etc.
+**Pattern**: Not reusable (project-specific decision)
 
 ---
 
@@ -157,3 +157,39 @@
 ---
 
 *(Append new entries below this line)*
+
+---
+
+### 2026-06-19 — Intake UI Rebuilt: Table → Deck + Sectioned Detail
+**Context**: The Intake Table view was showing all 80+ FormIntake columns horizontally — unreadable for the assistant.
+**Decision**: Intake queue view reduced to 5 columns only (Label, Timestamp, Primary Phone, Insurance Company, ProcessedStatus). Detail view reorganized into logical sections: Identity, Contact, Insurance, Medications, Admin.
+**Reason**: Operations Manager needs a scannable queue, not a data dump. All detail is accessible on drill-down.
+**Impact**: Intake view now shows clean queue. Assistant can act without scrolling dozens of irrelevant columns.
+**Pattern**: Promote to UX pattern — "Queue + Section Detail for high-column intake tables"
+
+---
+
+### 2026-06-19 — View_FormIntake Action Added to Client Table
+**Context**: Admin and assistant needed a quick way to jump from a Client record back to its original FormIntake record.
+**Decision**: Created `View_FormIntake` action on Client table using `LINKTOROW("FormIntake_Detail", ANY(SELECT(FormIntake[Timestamp], [ClientID] = [_THISROW].[ID])))`.
+**Reason**: Closes the loop between processed client records and their source intake form. Enables quick auditing and verification.
+**Impact**: Client detail view now has a "View Intake Form" button. FormIntake.ClientID write-back confirmed working.
+**Pattern**: AP-005 (to add) — "LINKTOROW pattern to navigate from child record back to source intake"
+
+---
+
+### 2026-06-19 — Email Notification via Google Doc Template (Not HTML Body)
+**Context**: AppSheet's Email Body field strips advanced CSS/HTML styling, rendering all styled HTML as plain text.
+**Decision**: Use AppSheet's Google Doc Body Template feature instead of inline HTML. Admin designs the email layout in Google Docs (with tables, colors, branding) and links the doc as the email template.
+**Reason**: Google Doc templates are converted to pixel-perfect HTML by AppSheet at send time. Inline HTML is sanitized and degraded.
+**Impact**: Bot email template now linked to a Google Doc. HTML email files removed from codebase.
+**Pattern**: AU-005 (to add) — "Use Google Doc Body Template for styled AppSheet bot emails"
+
+---
+
+### 2026-06-19 — AppVariables for Deployment Configuration
+**Context**: Required a way to store the root Shared Drive folder ID so it could be passed to App Script without hardcoding it in the script or AppSheet formulas.
+**Decision**: Added `AppCodeBaseFolder` to the `AppVariables` table. Introduced a new Tag: `Changes on App Copy`.
+**Reason**: When deploying this app template for a new client/tenant, developers only need to filter `AppVariables` by the `Changes on App Copy` tag to see exactly which URLs, IDs, and keys need to be updated for the new environment.
+**Impact**: App Script webhooks now dynamically look up the root folder URL from the app's database. Zero code changes required for new deployments.
+**Pattern**: DB-003 (to add) — "Use 'Changes on App Copy' tag in AppVariables for zero-touch deployments"
