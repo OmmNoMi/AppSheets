@@ -86,7 +86,9 @@ function moveAndRenameFileWithPaths(oldFolderId, oldFileIdentifier, newFolderId,
       }
     } else {
       log('INFO', ctx, 'Treating source as relative path');
-      const oldStartFolder = DriveApp.getFolderById(oldFolderId);
+      const safeOldFolderId = extractIdFromUrl(oldFolderId);
+      if (!safeOldFolderId) throw new Error('oldFolderId is missing or invalid.');
+      const oldStartFolder = DriveApp.getFolderById(safeOldFolderId);
       fileToMove = findFileByPath(oldStartFolder, oldFileIdentifier);
     }
 
@@ -128,6 +130,7 @@ function moveAndRenameFileWithPaths(oldFolderId, oldFileIdentifier, newFolderId,
     log('SUCCESS', ctx, `Moved and renamed to "${finalFileName}"`);
 
     return {
+      error:         '',
       fileID:        fileToMove.getId(),
       fileURL:       fileToMove.getUrl(),
       fileName:      fileToMove.getName(),
@@ -138,6 +141,14 @@ function moveAndRenameFileWithPaths(oldFolderId, oldFileIdentifier, newFolderId,
 
   } catch (e) {
     log('ERROR', ctx, e.message);
-    return { error: e.message };
+    return { 
+      error:         e.message,
+      fileID:        '',
+      fileURL:       '',
+      fileName:      '',
+      fileThumbnail: '',
+      folderName:    '',
+      folderURL:     ''
+    };
   }
 }

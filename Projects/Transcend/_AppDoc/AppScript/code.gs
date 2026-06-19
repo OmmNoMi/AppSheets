@@ -5,84 +5,96 @@
 
 const TEMPLATE_IDS = {
   // TODO: Replace with actual Google Doc Template IDs
-  INTAKE_TEMPLATE: 'YOUR_TEMPLATE_ID_HERE', 
+  THERAPY_CONTRACT: 'YOUR_THERAPY_CONTRACT_TEMPLATE_ID_HERE',
 };
 
 /**
  * Creates a HIPAA-compliant Shared Drive folder for a new client.
  * Webhook Action: 'createDriveFolder'
- * 
+ *
  * Expected data:
- * {
- *   "ClientID": "CUST-0001",
- *   "FirstName": "John",
- *   "LastName": "Doe"
- * }
+ * { "ClientID": "...", "FirstName": "...", "LastName": "..." }
  */
 function createClientDriveFolder(data) {
   const ctx = 'createClientDriveFolder';
   log('INFO', ctx, 'Creating Drive folder for client: ' + data.ClientID);
-  
-  const rootDriveId = PropertiesService.getScriptProperties().getProperty('DRIVE_FOLDER_ID');
-  if (!rootDriveId) {
-    throw new Error('DRIVE_FOLDER_ID Script Property is not set.');
-  }
-  
+
+  // Accept full Drive URL (from AppVariables) or bare ID (from Script Properties fallback).
+  // extractIdFromUrl() handles both formats cleanly.
+  const rawRoot     = data.RootFolderURL
+    || PropertiesService.getScriptProperties().getProperty('DRIVE_FOLDER_ID');
+  const rootDriveId = extractIdFromUrl(rawRoot);
+
+  if (!rootDriveId) return { error: 'No root folder available. Set AppCodeBaseFolder in AppVariables or DRIVE_FOLDER_ID in Script Properties.' };
+
   const folderName = `${data.ClientID}_${data.LastName}_${data.FirstName}`;
-  
-  // Uses getOrCreateFolderByPath from folders.gs
-  const result = getOrCreateFolderByPath(rootDriveId, folderName);
-  
-  if (result.error) {
-    log('ERROR', ctx, result.error);
-    return result;
-  }
-  
+  const result     = getOrCreateFolderByPath(rootDriveId, folderName);
+
+  if (result.error) { log('ERROR', ctx, result.error); return result; }
+
+  log('SUCCESS', ctx, `Client folder ready: ${folderName}`);
   return { FolderID: result.id, FolderURL: result.url };
 }
 
 /**
- * Generates the intake package (contract + info) based on the template.
- * Webhook Action: 'generateDocs'
- * 
+ * Generates the Therapy Services Contract for a client.
+ * Webhook Action: 'generateTherapyContract'
+ *
+ * If FolderID is not passed, the folder is auto-created from ClientID/Name.
+ *
  * Expected data:
  * {
- *   "ClientID": "CUST-0001",
- *   "FolderID": "1A2B3C...", 
- *   "paramObj": { ... all the AppSheet mapping ... }
+ *   "ClientID":          "...",
+ *   "FolderID":          "..." (optional — auto-created if blank),
+ *   "FirstName":         "...",
+ *   "LastName":          "...",
+ *   "Email":             "...",
+ *   "Phone":             "...",
+ *   "ConsentEmail":      "Yes/No",
+ *   "ConsentTelehealth": "Yes/No"
  * }
+ *
+ * Returns: { FileURL: "...", FileID: "...", FolderID: "..." }
  */
-function generateIntakePackage(data) {
-  const ctx = 'generateIntakePackage';
-  log('INFO', ctx, 'Generating intake docs for client: ' + data.ClientID);
-  
-  if (!data.FolderID) {
-    return { error: 'No FolderID provided. Cannot generate documents.' };
+function generateTherapyContract(data) {
+  const ctx = 'generateTherapyContract';
+  log('INFO', ctx, 'Generating Therapy Contract for: ' + data.ClientID);
+
+  // Auto-create Drive folder if not passed
+  let folderId = data.FolderID;
+  if (!folderId) {
+    log('INFO', ctx, 'No FolderID passed — creating folder now.');
+    const folderResult = createClientDriveFolder(data);
+    if (folderResult.error) return folderResult;
+    folderId = folderResult.FolderID;
   }
-  
-  // Use createGoogleDoc from docs.gs
+
   const fileObj = {
-    templateId: TEMPLATE_IDS.INTAKE_TEMPLATE,
-    folderId: data.FolderID,
-    fileName: `IntakePackage_${data.ClientID}_${new Date().toISOString().split('T')[0]}`
+    templateId: TEMPLATE_IDS.THERAPY_CONTRACT,
+    folderId:   folderId,
+    fileName:   `TherapyContract_${data.ClientID}_${new Date().toISOString().split('T')[0]}`
   };
-  
-  // AppSheet will send the fully formatted JSON string for paramObj, parse it safely
-  let params = data.paramObj;
-  if (typeof params === 'string') {
-    params = safeParse(params, 'paramObj');
-  }
-  
+
+  // Plain text placeholders {{...}} must be used in the Google Doc template
+  const params = {
+    '{{FirstName}}':         data.FirstName         || '',
+    '{{LastName}}':          data.LastName          || '',
+    '{{Email}}':             data.Email             || '',
+    '{{Phone}}':             data.Phone             || '',
+    '{{ConsentEmail}}':      data.ConsentEmail      || '',
+    '{{ConsentTelehealth}}': data.ConsentTelehealth || '',
+    '{{Today}}':             new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    '{{ClientID}}':          data.ClientID          || '',
+  };
+
   const docResult = createGoogleDoc(fileObj, params);
-  
-  if (docResult.error) {
-    log('ERROR', ctx, docResult.error);
-    return docResult;
-  }
-  
-  // Return the new document info back to AppSheet so it can save the link
+
+  if (docResult.error) { log('ERROR', ctx, docResult.error); return docResult; }
+
+  log('SUCCESS', ctx, `Contract created: ${docResult.fileName}`);
   return {
-    DocumentURL: docResult.fileURL,
-    DocumentID: docResult.fileId
+    FileURL:  docResult.fileURL,
+    FileID:   docResult.fileId,
+    FolderID: folderId,        // Return so AppSheet can write it back to Client.DriveFolderID
   };
 }

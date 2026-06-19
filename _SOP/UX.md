@@ -33,10 +33,25 @@
 **Name**: `[Module]_Dash` (e.g., `Employee_Dash`, `Sales_Dash`)
 
 **Composition**:
-- Top: Detail View (summary card with key stats)
-- Bottom: Gallery or Card View (quick action list)
+- Top: KPI Chart View (Action Required Counter) OR Detail View (summary card)
+- Middle: Deck/Card View (Incoming Queue)
+- Bottom: Gallery/Table (Full list)
 
 **When to use**: Any module requiring both functional navigation AND real-time stats/status.
+
+---
+
+## Action Required KPI Counter (UX Pattern)
+**Purpose**: Give users a massive, unmissable counter at the top of their dashboard showing exactly how many items need their attention.
+
+1. **Slice**: Create a Read-Only slice (e.g., `FormIntake_ActionRequired`) filtering for unprocessed rows (`[ProcessedStatus] = "New"`).
+2. **Chart View**: 
+   - Type: `Chart` → `Donut` or `ColSeries`
+   - Data: The Slice you just made.
+   - Aggregate: `Count`
+   - Group By: `[ProcessedStatus]`
+   - Position: `ref` (Hide from menu)
+3. **Dashboard Integration**: Add this Chart view to the very top of the `View Entries` list in your Dashboard view.
 
 ---
 

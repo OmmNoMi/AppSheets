@@ -301,10 +301,13 @@
   _ComputedName2: Name [RO,VC]
 ```
 
-### Client (25 cols)
+### Client (28 cols)
 [Inherits all 25 columns from Table: 1st Row to Medication Output]
 + Modified/Added Columns:
   - _RowNumber: Number
+  - Status: Enum [Values: 'New', 'ClientInfoReceived', 'DocsRequested', 'DocsGenerated', 'AwaitingSignature', 'Signed', 'InsuranceVerifying', 'AwaitingIntakeSession', 'IntakeComplete', 'Active', 'NotProceeding', 'Archived'] = ="ClientInfoReceived"
+  - DriveFolderID: Text [HIDDEN]
+  - DocumentURL: Url [HIDDEN]
 
 ### Insurance (14 cols)
 ```
@@ -361,7 +364,7 @@
   LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
-### Document (12 cols)
+### Document (13 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
   ID: Text = UNIQUEID()
@@ -369,7 +372,8 @@
   DocumentName: Name
   DocumentType: Text
   UploadDate: Date = TODAY()
-  FileURL: File
+  FileURL: Url      ← Auto-set by App Script OR manually entered external link (DocuSign, EHR portal, etc.)
+  File: File        ← Manual file upload by admin (signed PDF post-e-sign)
   Notes: LongText
   CreatedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
   CreatedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }

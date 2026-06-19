@@ -184,3 +184,12 @@
 **Reason**: Google Doc templates are converted to pixel-perfect HTML by AppSheet at send time. Inline HTML is sanitized and degraded.
 **Impact**: Bot email template now linked to a Google Doc. HTML email files removed from codebase.
 **Pattern**: AU-005 (to add) — "Use Google Doc Body Template for styled AppSheet bot emails"
+
+---
+
+### 2026-06-19 — AppVariables for Deployment Configuration
+**Context**: Required a way to store the root Shared Drive folder ID so it could be passed to App Script without hardcoding it in the script or AppSheet formulas.
+**Decision**: Added `AppCodeBaseFolder` to the `AppVariables` table. Introduced a new Tag: `Changes on App Copy`.
+**Reason**: When deploying this app template for a new client/tenant, developers only need to filter `AppVariables` by the `Changes on App Copy` tag to see exactly which URLs, IDs, and keys need to be updated for the new environment.
+**Impact**: App Script webhooks now dynamically look up the root folder URL from the app's database. Zero code changes required for new deployments.
+**Pattern**: DB-003 (to add) — "Use 'Changes on App Copy' tag in AppVariables for zero-touch deployments"

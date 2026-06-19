@@ -107,7 +107,25 @@
 - **Use Plain Text Placeholders**: Google Apps Script's `replaceText()` API **only targets plain text**. It completely ignores Google Docs "Variable Smart Chips" (the blue interactive chips). **Always use standard plain text like `{{FirstName}}` in your document templates.**
 - **Orphan File Cleanup**: If document generation fails halfway through, the script must catch the error and delete the temporary copy (`newFile.setTrashed(true)`) to prevent Drive clutter.
 
-### 3. OAuth Scopes & AppSheet Authorization
+### 3. Strict Type Translation Crash (AppSheet Safe Returns)
+- **Problem**: When using AppSheet's "Call a script" automation, if you define Return Values in AppSheet (e.g., `fileURL`, `folderURL`), AppSheet strictly enforces that the script's JSON response contains those exact keys. If the script fails and only returns `{ error: "msg" }`, AppSheet will crash with `Failed App Script type translation: Key not found`.
+- **Solution**: Always return the **full object schema** with empty strings on error.
+  ```javascript
+  return { 
+    error: e.message, 
+    fileURL: '', 
+    folderURL: '' 
+  };
+  ```
+- **Pro Tip**: Always add an `error` return key in the AppSheet interface (Type: Text). This allows you to read the exact error message in the AppSheet Automation Monitor if the script fails.
+
+### 4. Zero-Touch Configuration via AppVariables
+- **Problem**: Hardcoding Drive Folder IDs, Webhook URLs, or API keys directly into AppSheet expressions or App Script makes deploying the app to a new client a manual, error-prone nightmare.
+- **Solution**: Store these in the `AppVariables` table and tag them with `Changes on App Copy`.
+- **Usage in AppSheet**: `LOOKUP("AppCodeBaseFolder", "AppVariables", "ID", "URL")` or `[EnumValue]`
+- **Usage in App Script**: Use `extractIdFromUrl()` to safely extract the 33-character ID whether the user provides a full `https://drive.google.com/...` link or the raw ID from AppVariables.
+
+### 5. OAuth Scopes & AppSheet Authorization
 If you add new permissions to `appsscript.json` (like `https://www.googleapis.com/auth/documents`):
 1. You must manually run the script once from the Google Apps Script Editor to trigger the OAuth consent screen and approve the new scopes.
 2. In the AppSheet Editor, you must click the **Refresh icon** next to the linked Apps Script Project to force AppSheet to request a new token with the expanded scopes.
