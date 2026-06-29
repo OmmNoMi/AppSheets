@@ -678,9 +678,12 @@
   _Auto (5): EMAIL, NAVIGATE_APP, OPEN_FILE_
   - **Action for add Row to Document**: ADD_RECORD_TO IF `true`
   - **Action for Create New Client**: ADD_RECORD_TO IF `true`
+  - **Open Intake Form**: NAVIGATE_URL IF `true` (Target: `=LOOKUP("GoogleFormLink", "AppVariables", "ID", "URL")`)
 
 ### FormIntake
   _Auto (6): NAVIGATE_APP, NAVIGATE_URL_
+  - **Open Intake Form**: NAVIGATE_URL IF `true` (Target: `=LOOKUP("GoogleFormLink", "AppVariables", "ID", "URL")`)
+
 
 ### Client
   _Auto (1): NAVIGATE_APP_

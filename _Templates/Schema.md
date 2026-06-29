@@ -21,11 +21,12 @@
 ## System Tables
 > Full config in `_SOP/OmmNoMi_Standard.md §3`. Only note project-specific additions here.
 
-### AppVariables — Project Roles Added
-| ID | Title | Notes |
-|----|-------|-------|
-| *(base roles pre-seeded — add project-specific roles here)* | | |
-| | | |
+### AppVariables — Project Variables & Roles Added
+| ID | Title | Tags | ValueControl | Description / Notes |
+|----|-------|------|--------------|---------------------|
+| `GoogleFormLink` | Google Form Link | Changes on App Copy, ID Connected to Variable | URL | Stores the public URL of the Google Form used for client intake. |
+| *(base roles pre-seeded — add project-specific roles below)* | | | | |
+
 
 ### AppSettings — Project Settings
 | ID | Title | Description | Tags |

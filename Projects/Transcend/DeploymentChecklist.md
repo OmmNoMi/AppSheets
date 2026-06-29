@@ -40,13 +40,14 @@
 - [ ] `ClientPayment` view: security filter = `IN("Admin", ANY(Me[Roles]))` (only admin sees payment)
 - [ ] `ClientInsurance` card images: access restricted to Operations_Manager and above
 
-### AppSetting Values Confirmed
-- [ ] `CompanyName` = "Transcend Counseling & Wellness"
-- [ ] `FormIntakeURL` = actual Google Form share URL (not edit URL)
-- [ ] `DriveFolderID` = actual Shared Drive root folder ID
-- [ ] `DocuSignEnabled` = "FALSE" (Phase 1 — Google e-Sign manual)
-- [ ] `BotProcessingEnabled` = "TRUE"
-- [ ] `SMTPFromEmail` = David's practice email
+### AppSetting & AppVariable Values Confirmed
+- [ ] `CompanyName` = "Transcend Counseling & Wellness" (AppSettings)
+- [ ] `DriveFolderID` = actual Shared Drive root folder ID (AppSettings)
+- [ ] `DocuSignEnabled` = "FALSE" (Phase 1 — Google e-Sign manual) (AppSettings)
+- [ ] `BotProcessingEnabled` = "TRUE" (AppSettings)
+- [ ] `SMTPFromEmail` = David's practice email (AppSettings)
+- [ ] `GoogleFormLink` = actual public Google Form share URL (AppVariables)
+
 
 ### App Script
 - [ ] App Script project created and linked to Google Sheet

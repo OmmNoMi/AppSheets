@@ -193,3 +193,16 @@
 **Reason**: When deploying this app template for a new client/tenant, developers only need to filter `AppVariables` by the `Changes on App Copy` tag to see exactly which URLs, IDs, and keys need to be updated for the new environment.
 **Impact**: App Script webhooks now dynamically look up the root folder URL from the app's database. Zero code changes required for new deployments.
 **Pattern**: DB-003 (to add) — "Use 'Changes on App Copy' tag in AppVariables for zero-touch deployments"
+
+---
+
+### 2026-06-25 — GoogleFormLink Variable for Intake Form Access
+**Context**: Needed a way to allow users to open the public Google Form for client intake directly from anywhere within the app, specifically on the Intake dashboards/records, while keeping the URL fully configurable per environment.
+**Decision**: Added `GoogleFormLink` to the `AppVariables` table (tagged with `Changes on App Copy`, `ID Connected to Variable`, ValueControl `URL`). Created an action `Open Intake Form` on `FormIntake` and `Therapy Intake` tables.
+**Reason**: This avoids hardcoding the Google Form URL in AppSheet formulas or App Script webhooks. It can be easily updated in the `AppVariables` configuration screen.
+**Impact**: Users can open the Google Form with one click from details of any Intake or Therapy Intake view.
+**Formula**:
+```appsheet
+LOOKUP("GoogleFormLink", "AppVariables", "ID", "URL")
+```
+

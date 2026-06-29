@@ -112,3 +112,25 @@
 **Reason**: Row-level security via a single AppUser-side attribute is the OmmNoMi standard pattern for partner/affiliate access. Cleaner than managing individual record-level permissions.
 **Impact**: AppUser table gains `UniversityID` column (Phase B, add when University table exists). Slice filter is self-maintaining as new interns are added.
 **Pattern**: Reusable (Partner Row-Level Security via AppUser Attribute)\n\n### 2026-06-18 Compliance Tables Eliminated — Extend DocType + Documents Instead\n**Context**: During review of the initial ComplianceRule + ComplianceItem design, it was noted that the live Orbit app already has a `DocType` (config) \u2192 `Documents` (instance) pattern that is structurally identical to what ComplianceRule \u2192 ComplianceItem would have been.\n**Decision**: Eliminate `ComplianceRule` and `ComplianceItem` as new tables. Instead:\n1. Extend `DocType` with 6 new columns: `Country`, `DocCategory`, `AppliesWhen`, `IsMandatory`, `IsComplianceRequirement`, `NationalityScope`. A slice `DocType_ComplianceRules` (IsComplianceRequirement=TRUE) serves as the rule filter.\n2. Extend `Documents` with 3 new columns: `InternshipID`, `ComplianceStatus`, `DueDate`. A Documents row with InternshipID set IS a compliance item. Existing DocType expiry alert system (RedAlert/OrangeAlert/YellowAlert) applies automatically.\n3. Extend `CheckList` with `Type = \"Internship Onboarding\"` template rows. Bot_InternOnboardingGenerator now uses the existing CheckList \u2192 TaskList creation pattern instead of hardcoded Add Row steps.\n**Reason**: Avoids 2 new sheet tabs and 2 new AppSheet tables. Reuses the established document lifecycle pattern already understood by the client. All existing document views, alerts, and verification flow apply automatically to compliance items.\n**Impact**: New sheet tabs reduced 9 \u2192 7. Existing tables extended: 3 \u2192 5. DocType update mode changed UPDATES_ONLY \u2192 ALL_CHANGES (bot read requirement). Bot_ComplianceBuilder condition updated to check Documents instead of ComplianceItem.\n**Pattern**: Reusable (Eliminate New Table by Extending Existing Equivalent Pattern)
+
+---
+
+### 2026-06-29 AttendanceRequest Delete Restricted to People Admin, Today/Future, Non-Approved Today Rows & Non-TOIL/Regularization Rows
+**Context**: Attendance requests (TOIL, Regularization, Leave) link to daily attendance or ledger logs. Deleting past requests, today's already approved requests, or any TOIL/Regularization requests makes the ledger inconsistent and breaks check-in/out audit histories.
+**Decision**: Restrict the Delete system action on the `AttendanceRequest` table to `U_People_Admin` and `U_System_Admin` roles. Only allow deletion if:
+1. The request's `StartDate` is today or in the future (`[StartDate] >= TODAY()`).
+2. The request is not for today and approved (`NOT(AND([StartDate] = TODAY(), [Status] = "Approved"))`).
+3. The request type is NOT TOIL or Attendance Regularization (`NOT(IN([RequestType], {"Time Off in Lieu (TOIL)", "Attendance Regularization"}))`).
+**Reason**: To protect past attendance check-in/out and leave allocations from being orphaned or broken when a request is deleted. Deletion of past records is strictly blocked. For today's requests, if they are already approved, they have already generated ledger allocations or updated logs, so they cannot be deleted. Future approved requests (excluding TOIL/Regularization) are still deletable. TOIL and Attendance Regularization records are never deletable to maintain absolute ledger safety.
+**Impact**: Update the Behavior Condition of the `Delete` action on the `AttendanceRequest` table. Normal employees and non-admin roles cannot delete any requests.
+**Pattern**: Reusable (Role-Gated Past-Record, Today-Approved, and TOIL/Regularization Deletion Prevention Pattern)
+
+---
+
+### 2026-06-29 ExpenseClaims Claim_Type Sourced from AppVariables
+**Context**: User requested adding new options ("Corporate Debit Card" and "Corporate Credit Card") to the expense claim selection list. The existing `Claim_Type` column in the `ExpenseClaims` table dynamically loads its dropdown options from the `AppVariables` table using the ID `Emp_ExpenceClaim_Type`.
+**Decision**: Instead of introducing a new column, update the existing `AppVariables` row `Emp_ExpenceClaim_Type` `EnumValue` setting to: `Travel, Meals, Supplies, Corporate Debit Card, Corporate Credit Card, Other`.
+**Reason**: This aligns with OmmNoMi's dynamic variables architecture. AppSheet pulls the options dynamically via `=SPLIT(LOOKUP("Emp_ExpenceClaim_Type", "AppVariables", "ID", "EnumValue"), ", ")`, allowing options to be edited database-side without app redevelopment.
+**Impact**: Update the `Schema.md` to document the `Claim_Type` column and the correct Enum values for `Emp_ExpenceClaim_Type`.
+**Pattern**: Reusable (Dynamic Variables-Driven Dropdown Pattern)
+

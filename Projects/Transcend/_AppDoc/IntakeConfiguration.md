@@ -63,3 +63,78 @@ This is the single button the assistant clicks on the FormIntake record.
 - **Display**: Display Prominently.
 
 Once this is configured, the assistant just clicks this one button and the whole pipeline executes seamlessly!
+
+## 3.1 The `[Open Intake Form]` Action
+This button is displayed in the Intake detail views to allow quick access to the live Google Form.
+
+**Action Settings:**
+- **Action Name**: `Open Intake Form`
+- **Table**: `FormIntake` (also recommended on `Therapy Intake`)
+- **Type**: `External: open a website`
+- **Target**: 
+  ```appsheet
+  LOOKUP("GoogleFormLink", "AppVariables", "ID", "URL")
+  ```
+- **Display**: Display prominently (e.g. Primary action on detail view).
+
+---
+
+
+## 4. Background Bot Automation Steps (Therapy Contract Creation)
+These steps are run via the `Document Processing` Bot on the `Document` table to automatically generate the unsigned contract PDF.
+
+### Bot Event Trigger:
+* **Event Name**: `New Therapy Contract Added`
+* **Table**: `Document`
+* **Event Type**: `Data Change` -> `Adds Only` *(Restricted to Adds Only so it never triggers on updates)*
+* **Condition**:
+  ```excel
+  AND(
+    [DocumentType] = "DocType_TherapyContract",
+    ISNOTBLANK([Client]),
+    ISNOTBLANK([Client].[DriveFolderID])
+  )
+  ```
+  *(Best practice: only triggers if the client has a valid Drive folder ID, preventing script crashes)*
+
+Configure these steps inside this bot:
+
+### Create Therapy Contract Step
+* **Step Name**: `Create Therapy Contract`
+  * **Step Type**: `Call a script` (Apps Script)
+  * **Run this step only if**: `ISBLANK([FileURL])` *(Only runs when the document is first created)*
+  * **Function Name**: `createGoogleDoc`
+  * **Function Parameters**:
+    * **`fileObj`**:
+      ```excel
+      CONCATENATE(
+        '{"templateId": "1TpNa772w7...", "folderId": "', 
+        [Client].[DriveFolderID], 
+        '", "fileName": "', 
+        [Client].[LastName], "_", [Client].[FirstName], "_Therapy_Contract_Unsigned", 
+        '", "exportAsPdf": true}'
+      )
+      ```
+    * **`paramObj`**:
+      ```excel
+      CONCATENATE(
+        '{"{{FirstName}}": "', [Client].[First Name], 
+        '", "{{LastName}}": "', [Client].[Last Name], 
+        '", "{{Email}}": "', [Client].[Email], 
+        '", "{{Phone}}": "', [Client].[Phone], 
+        '", "{{ConsentEmail}}": "', [Client].[ConsentEmail], 
+        '", "{{ConsentTelehealth}}": "', [Client].[ConsentTelehealth], 
+        '", "{{Today}}": "', TEXT(TODAY(), "MM/DD/YYYY"), 
+        '", "{{ClientID}}": "', [Client].[ID], '"}'
+      )
+      ```
+
+### Save File URL Step
+* **Step Name**: `ReturnValueInDocument`
+  * **Step Type**: `Run a task` -> `Add new rows` (targeting the `Document` table)
+  * **Run this step only if**: `ISNOTBLANK([Create Therapy Contract].[fileURL])`
+  * **Column Mappings**:
+    - `Client` = `[Client]`
+    - `FileURL` = `[Create Therapy Contract].[fileURL]`
+    - `DocumentName` = `[Create Therapy Contract].[fileName]`
+    - `DocumentType` = `"DocType_TherapyContract"`

@@ -387,6 +387,7 @@
 | Action | Type | Condition | Set Columns |
 |--------|------|-----------|-------------|
 | `Create_TOIL_Allocation` | Add new row to `LeaveAllocation` | `TRUE` (Triggered by Bot) | `ID`=`TEXT(UNIQUEID())`, `Date`=`TODAY()`, `Employee`=`[Employee]`, `LeaveType`=`"LT_TOIL"`, `Quantity`=`IF([Leave]="Half Day", 0.5, 1.0)`, `StartDate`=`[StartDate]`, `EndDate`=`EDATE([StartDate], 3)` |
+| `Delete` | Delete (System Action override) | `AND(ISNOTBLANK(INTERSECT({"U_People_Admin", "U_System_Admin"}, SPLIT(ANY(Me[Roles]), ","))), [StartDate] >= TODAY(), NOT(AND([StartDate] = TODAY(), [Status] = "Approved")), NOT(IN([RequestType], {"Time Off in Lieu (TOIL)", "Attendance Regularization"})))` | — |
 
 ---
 
@@ -423,7 +424,7 @@
 | ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | — | |
 | EmployeeID | Enum Ref → Employee | — | `ISBLANK([_THIS])` | — | |
 | Title | Text | — | — | — | Expense title/description |
-| Category | Enum | — | — | — | Travel, Meals & Entertainment, Office Supplies, Training, Other |
+| Claim_Type | Enum | — | — | — | Sourced from AppVariables ID "Emp_ExpenceClaim_Type" (Travel, Meals, Supplies, Corporate Debit Card, Corporate Credit Card, Other) |
 | Amount | Price | — | — | — | Currency: AED, Decimals: 2 |
 | Date | Date | `TODAY()` | — | — | Date incurred |
 | File | Image | — | — | — | Mandatory receipt upload |
@@ -482,7 +483,8 @@
 | AttendanceRequest.LeaveSession | Morning, Afternoon |
 | AttendanceRequest.Status | Requested, Approved, Rejected |
 | LeaveAllocation.LeaveType | LT_Sick, LT_Anul, LT_Stdy, LT_TOIL, LT_Ernd, LT_Pater, LT_Mater, LT_Comp, LT_Compe, LT_LOP, LT_Unpaid |
-| ExpenseClaim.Category | Travel, Meals & Entertainment, Office Supplies, Training, Other |
+| ExpenseClaim.Claim_Type | Sourced from AppVariables `Emp_ExpenceClaim_Type` |
+| AppVariables.Emp_ExpenceClaim_Type | Travel, Meals, Supplies, Corporate Debit Card, Corporate Credit Card, Other |
 | ExpenseClaim.Status | Draft, Pending Manager Approval, Pending Finance Approval, Approved, Rejected |
 | Approval.Status | Pending, Approved, Rejected |
 
