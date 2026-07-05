@@ -134,3 +134,13 @@
 **Impact**: Update the `Schema.md` to document the `Claim_Type` column and the correct Enum values for `Emp_ExpenceClaim_Type`.
 **Pattern**: Reusable (Dynamic Variables-Driven Dropdown Pattern)
 
+### 2026-07-05 Daily Attendance Key and Idempotency Date Format Fix
+**Context**: User reported that tomorrow's attendance rows were being created for only 7 employees, and their statuses were being modified/overwritten hourly.
+**Decision**: 
+1. Fix the date formatting mismatch between the `AttendanceDaily` key and the `Employee.AttendanceToday` virtual column.
+   - The key of `AttendanceDaily` is generated as: `=text([Date],"dd/mm/yyyy")&"-"&[Employee]`.
+   - The virtual column `Employee.AttendanceToday` formula was incorrect: `=TEXT(TODAY()+1,"MM/DD/YYYY")&"-"&[ID]`.
+   - Update `Employee.AttendanceToday` formula to: `=TEXT(TODAY()+1,"DD/MM/YYYY")&"-"&[ID]`.
+2. This ensures the `ISBLANK([AttendanceToday].[Status])` guard correctly evaluates to `FALSE` after the row is created, preventing the hourly scheduled bot from continually re-adding/overwriting the daily attendance rows.
+**Reason**: Align the date formats so that lookup references evaluate correctly.
+**Impact**: Stabilizes hourly sync behaviors, prevents data overwrites, and allows safety net bots to correctly check for missing rows.

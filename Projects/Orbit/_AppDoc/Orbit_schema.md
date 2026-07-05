@@ -1,5 +1,5 @@
-# Orbit — AppSheet Schema (v1.102403)
-> Parsed: 6/12/2026, 6:35:33 PM | 191T / 4528C / 17S / 146V / 361A / 18FR
+# Orbit — AppSheet Schema (v1.102430)
+> Parsed: (Loading...) | 191T / 4563C / 17S / 147V / 362A / 18FR
 > Deployable: Yes | Runnable: Yes
 
 ## Tables
@@ -137,10 +137,10 @@
   Process for TriggersCalledFromApp Process Table src=native   sheet=?                    mode=READ_ONLY
   Create AttendanceDaily Row Output src=native   sheet=?                    mode=READ_ONLY
   Delete the AttendnaceDaily not relate to the same day Output src=native   sheet=?                    mode=READ_ONLY
-  If PickDate+count is before PickDateTime Output src=native   sheet=?                    mode=READ_ONLY
-  Create row for PickDate+0 Output src=native   sheet=?                    mode=READ_ONLY
-  If PickDate+0 is before PickDateTime 2 Output src=native   sheet=?                    mode=READ_ONLY
-  Create row for PickDate+1 Output src=native   sheet=?                    mode=READ_ONLY
+  If PickDate&#x2B;count is before PickDateTime Output src=native   sheet=?                    mode=READ_ONLY
+  Create row for PickDate&#x2B;0 Output src=native   sheet=?                    mode=READ_ONLY
+  If PickDate&#x2B;0 is before PickDateTime 2 Output src=native   sheet=?                    mode=READ_ONLY
+  Create row for PickDate&#x2B;1 Output src=native   sheet=?                    mode=READ_ONLY
   Sync Attendance Request Output src=native   sheet=?                    mode=READ_ONLY
   Sync LeaveAllocation Output src=native   sheet=?                    mode=READ_ONLY
   Process for TriggerHourlyActions - 1 Process Table src=native   sheet=?                    mode=READ_ONLY
@@ -198,8 +198,8 @@
 ```
 
 ## Columns
-### Employee (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### Employee (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 + Modified/Added Columns:
   - _RowNumber: Number
 
@@ -496,11 +496,7 @@
      AND(
        [Type] = "Cycle_Annual",
        TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
-       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Mid",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfMidReviewStart],
        TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
     )
   )
@@ -521,16 +517,8 @@
    OR(
     AND(
        TODAY() >= [EmployeeReview].[Cycle].[SelfReviewStart],
-       TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Annual",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfReviewStart],
-       TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Mid",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfMidReviewStart],
        TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
     )
   )
@@ -543,16 +531,8 @@
    OR(
     AND(
        TODAY() >= [EmployeeReview].[Cycle].[SelfReviewStart],
-       TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Annual",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfReviewStart],
-       TODAY() <= [EmployeeReview].[Cycle].[SelfReviewEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Mid",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfMidReviewStart],
        TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
     )
   )
@@ -565,16 +545,8 @@
    OR(
      AND(
        TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
-       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Annual",
-       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
-       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Mid",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfMidReviewStart],
        TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
     )
   )
@@ -595,16 +567,8 @@
    OR(
      AND(
        TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
-       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Annual",
-       TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
-       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Mid",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[AppraisalStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfMidReviewStart],
        TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
     )
   )
@@ -634,11 +598,7 @@
      AND(
        [Type] = "Cycle_Annual",
        TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
-       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Mid",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfMidReviewStart],
        TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
     )
   )
@@ -668,11 +628,7 @@
      AND(
        [Type] = "Cycle_Annual",
        TODAY() >= [EmployeeReview].[Cycle].[AppraisalStart],
-       TODAY() <= [EmployeeReview].[Cycle].[AppraisalEnd]
-    ),
-     AND(
-       [Type] = "Cycle_Mid",
-       TODAY() >= [EmployeeReview].[Cycle].[SelfMidReviewStart],
+       TODAY() = [EmployeeReview].[Cycle].[SelfMidReviewStart],
        TODAY() <= [EmployeeReview].[Cycle].[SelfMidReviewEnd]
     )
   )
@@ -892,8 +848,8 @@
   TriggeredOn: DateTime
 ```
 
-### Process for NewEmployeeCreated Process Table (101 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### Process for NewEmployeeCreated Process Table (102 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 + Modified/Added Columns:
   - Employee Folder: Ref
   - Create Employee Folder: Ref
@@ -938,8 +894,8 @@
   url: Url
 ```
 
-### Set the Folder ID Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### Set the Folder ID Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForPassport Output (2 cols)
 ```
@@ -947,11 +903,11 @@
   Result: Yes/No
 ```
 
-### CreatePassport Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreatePassport Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### CreatePassportBackCover Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreatePassportBackCover Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForDiploma Output (2 cols)
 ```
@@ -959,8 +915,8 @@
   Result: Yes/No
 ```
 
-### CreateDiploma Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateDiploma Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForLaborCard Output (2 cols)
 ```
@@ -968,8 +924,8 @@
   Result: Yes/No
 ```
 
-### CreateLaborCard Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateLaborCard Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForNationalID Output (2 cols)
 ```
@@ -977,8 +933,8 @@
   Result: Yes/No
 ```
 
-### CreateNationalID Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateNationalID Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForNoObjectionCertificate Output (2 cols)
 ```
@@ -986,8 +942,8 @@
   Result: Yes/No
 ```
 
-### CreateNOC Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateNOC Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForResidencyVisa Output (2 cols)
 ```
@@ -995,8 +951,8 @@
   Result: Yes/No
 ```
 
-### CreateResidencyVisa Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateResidencyVisa Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForMedical Output (2 cols)
 ```
@@ -1004,8 +960,8 @@
   Result: Yes/No
 ```
 
-### CreateMedical Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateMedical Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckForPoliceClearance Output (2 cols)
 ```
@@ -1013,8 +969,8 @@
   Result: Yes/No
 ```
 
-### CreatePoliceClearance Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreatePoliceClearance Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckReferenceLetter1 Output (2 cols)
 ```
@@ -1022,8 +978,8 @@
   Result: Yes/No
 ```
 
-### CreateReferenceLetter1 Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateReferenceLetter1 Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckReferenceLetter2 Output (2 cols)
 ```
@@ -1031,8 +987,8 @@
   Result: Yes/No
 ```
 
-### CreateReferenceLetter2 Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateReferenceLetter2 Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckFamilyBook Output (2 cols)
 ```
@@ -1040,8 +996,8 @@
   Result: Yes/No
 ```
 
-### CreateFamilyBook Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateFamilyBook Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckBeforeCreatingTheChecklist Output (2 cols)
 ```
@@ -1049,14 +1005,14 @@
   Result: Yes/No
 ```
 
-### SetInputEmployeeOnChecklist Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### SetInputEmployeeOnChecklist Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### CreateTasksForEmployee Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateTasksForEmployee Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### Process for UpdateEmployee - 1 Process Table (102 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### Process for UpdateEmployee - 1 Process Table (103 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 + Modified/Added Columns:
   - Check Employee Folder: Ref
   - Move Folder: Ref
@@ -1106,11 +1062,11 @@
   Result: Yes/No
 ```
 
-### Create task for offer later Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### Create task for offer later Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### create task Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### create task Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CreateOfferletterTemplate Output (3 cols)
 ```
@@ -1119,8 +1075,8 @@
   fileName: Text
 ```
 
-### ReturnValueInDocument Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### ReturnValueInDocument Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### Onboarding Output (2 cols)
 ```
@@ -1128,8 +1084,8 @@
   Result: Yes/No
 ```
 
-### CommunicationForOnboarding Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CommunicationForOnboarding Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### NewEmployeeAnouncment Output (2 cols)
 ```
@@ -1137,14 +1093,14 @@
   Result: Yes/No
 ```
 
-### CreateAppUserID Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateAppUserID Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### add appuser from employee Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### add appuser from employee Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### CommunicationForNEA Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CommunicationForNEA Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckBeforeCreatingTheTasksForOnBoarding Output (2 cols)
 ```
@@ -1152,11 +1108,11 @@
   Result: Yes/No
 ```
 
-### SetInputEmployeeOnChecklist Output 2 (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### SetInputEmployeeOnChecklist Output 2 (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### CreateTasksForEmployeeOnboarding Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateTasksForEmployeeOnboarding Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CreateOrientation Output (1 cols)
 ```
@@ -1176,11 +1132,11 @@
   fileURL: Url
 ```
 
-### CodeOfConduct Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CodeOfConduct Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### CreateCodeOfConductDocument Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateCodeOfConductDocument Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### CheckBeforeCreatingOneOnOneMeeting Output (2 cols)
 ```
@@ -1221,11 +1177,11 @@
   Result: Yes/No
 ```
 
-### CreateCommunicationRow Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### CreateCommunicationRow Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### RemoveValueFrom CommunicationTable Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### RemoveValueFrom CommunicationTable Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### Process for DocumentHandler Process Table (21 cols)
 [Inherits all 18 columns from Table: Documents]
@@ -1310,8 +1266,8 @@
   Instance Id: Text
 ```
 
-### Process for DeleteEmployee - 1 Process Table (74 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### Process for DeleteEmployee - 1 Process Table (75 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 + Modified/Added Columns:
   - CheckAr: Ref
   - MoveToArchived: Ref
@@ -1423,8 +1379,8 @@
 + Modified/Added Columns:
   - Instance Id: Text
 
-### Process for Attendance Daily Process Table (75 cols)
-[Inherits all 74 columns from Table: Process for DeleteEmployee - 1 Process Table]
+### Process for Attendance Daily Process Table (76 cols)
+[Inherits all 75 columns from Table: Process for DeleteEmployee - 1 Process Table]
 + Modified/Added Columns:
   - check: Ref
   - create attendance: Ref
@@ -1436,11 +1392,11 @@
   Result: Yes/No
 ```
 
-### create attendance Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### create attendance Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
-### Create Attendance 2 Output (72 cols)
-[Inherits all 75 columns from Table: Process for Attendance Daily Process Table]
+### Create Attendance 2 Output (73 cols)
+[Inherits all 76 columns from Table: Process for Attendance Daily Process Table]
 
 ### Process for TriggersCalledFromApp Process Table (24 cols)
 [Inherits all 16 columns from Table: AppTriggers]
@@ -1466,24 +1422,24 @@
 + Modified/Added Columns:
   - Instance Id: Text
 
-### If PickDate+count is before PickDateTime Output (2 cols)
+### If PickDate&#x2B;count is before PickDateTime Output (2 cols)
 ```
   Instance Id: Text
   Result: Yes/No
 ```
 
-### Create row for PickDate+0 Output (16 cols)
+### Create row for PickDate&#x2B;0 Output (16 cols)
 [Inherits all 16 columns from Table: AppTriggers]
 + Modified/Added Columns:
   - Instance Id: Text
 
-### If PickDate+0 is before PickDateTime 2 Output (2 cols)
+### If PickDate&#x2B;0 is before PickDateTime 2 Output (2 cols)
 ```
   Instance Id: Text
   Result: Yes/No
 ```
 
-### Create row for PickDate+1 Output (16 cols)
+### Create row for PickDate&#x2B;1 Output (16 cols)
 [Inherits all 16 columns from Table: AppTriggers]
 + Modified/Added Columns:
   - Instance Id: Text
@@ -1874,6 +1830,7 @@
 - **EmployeeReview**: card → ? pos=ref
 - **EmployeeReviewObjective**: table → ? pos=ref
 - **ExpenseClaims**: table → ? pos=ref
+- **ExpenseClaims_Inline**: table → ? pos=ref
 - **Holiday_List**: table → ? pos=ref
 - **LeaveAllocation**: table → ? pos=ref
 - **LeaveAllocation_Inline**: table → ? pos=ref
@@ -1943,7 +1900,8 @@
   - **Action for CommunicationForNEA**: ADD_RECORD_TO IF `true`
   - **CreateEmployeeReview**: ADD_RECORD_TO IF `true`
   - **CreateAppUser (→"Create User")**: ADD_RECORD_TO IF `=AND(
-  ISNOTBLANK(INTERSECT({"U_System_Admin","U_People_Admin"}, SPLIT(ANY(Me[R`
+  ISNOTBLANK(INTERSECT({"U_System_Admin"}, SPLIT(ANY(Me[Roles]), ","))),
+ `
   - **EmployeeEvaluation (→"Evaluation")**: NAVIGATE_APP IF `true`
   - **Action for CreateReferenceLetter2**: ADD_RECORD_TO IF `true`
   - **create attendance Action - 1**: REF_ACTION IF `true`
@@ -1988,7 +1946,7 @@
   - **Action for Create Missing Row**: ADD_RECORD_TO IF `true`
 
 ### Documents
-  _Auto (10): EDIT_RECORD, NAVIGATE_APP, NAVIGATE_URL, OPEN_FILE_
+  _Auto (11): EDIT_RECORD, NAVIGATE_APP, NAVIGATE_URL, OPEN_FILE_
   - **Action for Update File ID and URL**: SET_COLUMN_VALUE IF `true`
   - **Verified_Document (→"Verified")**: SET_COLUMN_VALUE IF `=NOT(IN([SubStatus],{"Verified"}))`
   - **Sync_Documents (→"Sync")**: SET_COLUMN_VALUE
