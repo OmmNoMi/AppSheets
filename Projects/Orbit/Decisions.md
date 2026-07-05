@@ -144,3 +144,11 @@
 2. This ensures the `ISBLANK([AttendanceToday].[Status])` guard correctly evaluates to `FALSE` after the row is created, preventing the hourly scheduled bot from continually re-adding/overwriting the daily attendance rows.
 **Reason**: Align the date formats so that lookup references evaluate correctly.
 **Impact**: Stabilizes hourly sync behaviors, prevents data overwrites, and allows safety net bots to correctly check for missing rows.
+### 2026-07-05 AppSheet Scheduled Bots Timezone and Formatting Best Practices
+**Context**: Handled edge cases and error prevention for scheduled daily attendance generation bots in AppSheet to prevent timing offsets and data insertion errors.
+**Decision**:
+1. **Timezone Offset Guard**: Avoid scheduling daily creation bots between 12:00 AM and 04:00 AM local time. This is because AppSheet evaluates `TODAY()` on its server in UTC, creating a mismatch where the server date lags behind the local date (e.g. 2:00 AM GST local time is 10:00 PM UTC of the previous day, causing the bot to generate rows for the wrong day). Schedule daily bots at 08:00 AM local time or later.
+2. **Explicit Concatenation & Capitalization**: Use `CONCATENATE(TEXT([Date], "DD/MM/YYYY"), "-", [Employee])` instead of implicit string coercion to guarantee formatting consistency across different database regional settings.
+3. **Idempotency Guard**: Always wrap row creation steps in a `FILTER` that verifies the key does not already exist via `ISBLANK(LOOKUP(...))`, preventing duplicate primary key errors during manual triggers.
+**Reason**: Prevent server-to-client timezone issues and database formatting mismatches.
+**Impact**: Clean, error-free daily automations.
