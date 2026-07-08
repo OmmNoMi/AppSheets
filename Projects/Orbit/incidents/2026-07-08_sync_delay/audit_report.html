@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AppSheet Automation Sync Audit Report - BLR World</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Serif:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Roboto', sans-serif;
+        font-size: 10px;
+        color: #80868b;
+      }
+    }
+    
+    body {
+      font-family: 'Roboto Serif', Georgia, serif;
+      color: #202124;
+      margin: 0;
+      padding: 0;
+      font-size: 12.5px;
+      line-height: 1.6;
+      background-color: #ffffff;
+    }
+    
+    header {
+      border-bottom: 2px solid #dadce0;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-img {
+      height: 40px;
+      width: auto;
+    }
+    
+    .logo-text-block {
+      display: flex;
+      align-items: baseline;
+    }
+    
+    .logo-omm-text {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      line-height: 1;
+    }
+    
+    .logo-part-omm {
+      color: #4285f4; /* Blue */
+    }
+    
+    .logo-part-no {
+      color: #34a853; /* Green */
+    }
+    
+    .logo-part-m {
+      color: #ea4335; /* Red */
+    }
+    
+    .logo-part-i {
+      color: #fbbc05; /* Yellow */
+    }
+    
+    .logo-sub {
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: #80868b; /* Gray */
+      margin-left: 8px;
+      letter-spacing: -0.2px;
+      line-height: 1;
+    }
+    
+    .report-badge {
+      font-family: 'Roboto', sans-serif;
+      background-color: #e8f0fe;
+      color: #4285f4;
+      border: 1px solid #d2e3fc;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #202124;
+      margin-top: 0;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+    
+    .subtitle {
+      font-family: 'Roboto Serif', Georgia, serif;
+      font-size: 13px;
+      color: #5f6368;
+      margin-bottom: 20px;
+    }
+    
+    .metadata-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    
+    .metadata-card {
+      background-color: #f8f9fa;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
+      padding: 12px;
+    }
+    
+    .metadata-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #5f6368;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+    
+    .metadata-value {
+      font-family: 'Roboto Serif', Georgia, serif;
+      font-size: 13px;
+      color: #202124;
+      font-weight: 500;
+    }
+    
+    h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #4285f4;
+      border-bottom: 2px solid #4285f4;
+      padding-bottom: 6px;
+      margin-top: 25px;
+      margin-bottom: 12px;
+    }
+    
+    p {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+    
+    .timeline {
+      position: relative;
+      margin: 15px 0 25px 8px;
+      padding-left: 20px;
+      border-left: 2px solid #dadce0;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 3px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      border: 2px solid #5f6368;
+    }
+    
+    .timeline-item.success::before {
+      background-color: #34a853; /* Green */
+      border-color: #34a853;
+    }
+    
+    .timeline-item.warning::before {
+      background-color: #ea4335; /* Red */
+      border-color: #ea4335;
+    }
+    
+    .timeline-item.blue::before {
+      background-color: #4285f4; /* Blue */
+      border-color: #4285f4;
+    }
+    
+    .timeline-item.orange::before {
+      background-color: #fbbc05; /* Yellow */
+      border-color: #fbbc05;
+    }
+    
+    .timeline-time {
+      font-family: 'Roboto', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #202124;
+      margin-bottom: 2px;
+    }
+    
+    .timeline-title {
+      font-family: 'Roboto', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #202124;
+    }
+    
+    .timeline-desc {
+      font-family: 'Roboto Serif', Georgia, serif;
+      font-size: 12px;
+      color: #5f6368;
+      margin-top: 2px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    th, td {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid #dadce0;
+    }
+    
+    th {
+      font-family: 'Roboto', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #5f6368;
+      font-weight: 700;
+      background-color: #f8f9fa;
+      letter-spacing: 0.5px;
+    }
+    
+    td {
+      font-size: 12px;
+    }
+    
+    .code-block {
+      background-color: #f8f9fa;
+      color: #202124;
+      border: 1px solid #dadce0;
+      font-family: monospace;
+      font-size: 11px;
+      padding: 12px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+    }
+    
+    .footer-note {
+      margin-top: 35px;
+      padding-top: 12px;
+      border-top: 1px solid #dadce0;
+      font-size: 10px;
+      color: #5f6368;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <img class="logo-img" src="file:///c:/Users/hardi/AppSheets/.agents/brand/icon_logo.jpg" alt="OmmNoMi Logo" />
+      <div class="logo-text-block">
+        <span class="logo-omm-text">
+          <span class="logo-part-omm">Omm</span><span class="logo-part-no">No</span><span class="logo-part-m">M</span><span class="logo-part-i">i</span>
+        </span>
+        <span class="logo-sub">Automation LLP</span>
+      </div>
+    </div>
+    <span class="report-badge">INCIDENT REPORT</span>
+  </header>
+
+  <h1>AppSheet Sync Delay Incident Audit</h1>
+  <div class="subtitle">Systematic audit of a false check-in reminder email issued to Rania Moussa on July 8, 2026.</div>
+
+  <div class="metadata-grid">
+    <div class="metadata-card">
+      <div class="metadata-label">Employee</div>
+      <div class="metadata-value">Rania Moussa</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Employee ID</div>
+      <div class="metadata-value">e635fbb9</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Office Jurisdiction</div>
+      <div class="metadata-value">Lebanon (UTC+3)</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Planned Shift</div>
+      <div class="metadata-value">09:00:00 - 18:00:00</div>
+    </div>
+  </div>
+
+  <h2>1. Summary of Mismatch</h2>
+  <p>
+    An audit has been conducted regarding the false-positive alert triggered by the <strong>Orbit check-in reminder bot</strong>. Although the employee's mobile interface confirmed that she checked in at 8:19 AM local time, an automated reminder was dispatched to her at 9:30 AM GST (8:30 AM Lebanon time) stating she had not checked in yet.
+  </p>
+  <p>
+    The audit of cell history and background sync logs indicates that the check-in occurred on time locally but was stored in the device's local queue. The data did not synchronize to the AppSheet cloud database until <strong>10:36 AM local time</strong>, resulting in a <strong>2-hour, 17-minute synchronization lag</strong>.
+  </p>
+
+  <h2>2. Chronological Log (EEST / UTC+3)</h2>
+  <div class="timeline">
+    <div class="timeline-item success">
+      <div class="timeline-time">08:19:31 AM</div>
+      <div class="timeline-title">Local Clock-In Performed</div>
+      <div class="timeline-desc">The employee logs a check-in on the Orbit app. The event timestamp is recorded locally as 05:19:31 UTC. The database write remains queued on the device due to background sync configuration.</div>
+    </div>
+    <div class="timeline-item warning">
+      <div class="timeline-time">08:30:00 AM (9:30 AM GST)</div>
+      <div class="timeline-title">Bot Evaluation & False Reminder Sent</div>
+      <div class="timeline-desc">The AppSheet scheduler evaluates attendance on the server. Since the local clock-in is not synced, the server reads the check-in cell as blank. With lateness evaluated at 60 minutes (exceeding the 15-minute trigger), the server fires the reminder email.</div>
+    </div>
+    <div class="timeline-item blue">
+      <div class="timeline-time">10:36:05 AM</div>
+      <div class="timeline-title">Device Background Sync Execution</div>
+      <div class="timeline-desc">A polling-initiated background sync executes on the device, uploading the queued check-in data to the AppSheet cloud server.</div>
+    </div>
+    <div class="timeline-item orange">
+      <div class="timeline-time">10:59:00 AM (12:59 PM IST)</div>
+      <div class="timeline-title">Spreadsheet Key Written</div>
+      <div class="timeline-desc">The transaction is processed and written to the master Google Sheet database (recorded under column <code>Check_In</code> as <code>08/07/2026 05:19:31</code> UTC).</div>
+    </div>
+  </div>
+
+  <h2>3. Technical Log Evidence</h2>
+  
+  <h3>A. AppSheet Client Sync Parameters</h3>
+  <div class="code-block">
+InitiatedBy: Polling
+IsBackgroundSync: True
+tzOffset: -180 (UTC+3, Lebanon EEST)
+appStartTime: 07/08/2026 07:30:00
+lastSyncTime: 07/08/2026 10:36:05
+Table:AttendanceDaily: LastModified:07/08/2026 11:06:29, NotModified:False</div>
+
+  <h3>B. Google Sheets Transaction History</h3>
+  <p>
+    The master spreadsheet logs the update transaction on row 3548:
+  </p>
+  <div class="code-block">
+ID: 08/07/2026-e635fbb9
+Employee ID: e635fbb9
+Check_In Cell Value: 08/07/2026 05:19:31 (UTC)
+LastEditOn Value: 08/07/2026 08:19:31 (Local)
+Google Sheets Edit Timestamp: 8 July, 12:59 PM IST (07:29 AM UTC)</div>
+
+
+  <div class="footer-note">
+    Report produced by OmmNoMi LLP • Karsog, Mandi, Himachal Pradesh • ommnomi.in
+  </div>
+
+</body>
+</html>
