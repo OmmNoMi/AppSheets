@@ -1,100 +1,136 @@
-# DA Onboarding Migration: BLUJ → ONDT
+# DA Onboarding Migration: BLUJ → ONDT Migration Plan
 
-> **Context**: This document details the differences in the DA (Delivery Associate) Onboarding flow between Navi BLUJ and Navi ONDT, and provides step-by-step instructions for bringing ONDT up to parity with BLUJ's more advanced onboarding structure.
+> **Context**: Detailed breakdown of Columns, Actions, Views, and Slices needed to align ONDT with BLUJ.
 
----
+## Table: Candidate
 
-## 1. Executive Summary
+### 1. Data Columns
+#### Missing Columns (To be added to ONDT)
+| Column Name | Type | Initial Value/Formula |
+|---|---|---|
+| `RejectionReason` | EnumList | `` |
 
-The DA Onboarding process in Navi ONDT **does not match** Navi BLUJ. 
+### 2. Actions
+**BLUJ Actions:**
+- **StartOnboarding (→"Start Onboarding")**: ADD_RECORD_TO IF `=[Decision] = "Selected"`
+- **UpdateCandidate**: SET_COLUMN_VALUE IF `true`
+- **Set [Decision] to Scheduled**: SET_COLUMN_VALUE
+- **Set [Decision] to Scheduled 2**: SET_COLUMN_VALUE
+- **Export (→"Download")**: EXPORT_VIEW
+- **New step Action - 5**: REF_ACTION IF `true`
+- **ReviewedCandidate (→"Candidate Reviewed")**: SET_COLUMN_VALUE
+- **Call Phone (Phone) (→"Phone call")**: CALL IF `NOT(ISBLANK([Phone]))`
+- **Send SMS (Phone) (→"Text message")**: SMS IF `NOT(ISBLANK([Phone]))`
 
-Navi BLUJ has evolved its onboarding flow to include deep integration with DSP/Amazon logistics platforms (Cortex, JJ Keller, Relay) and more granular road test and mentoring steps. ONDT is currently using a legacy onboarding structure with obsolete columns (e.g., `1Onboarding`, `Day1`, `TrainingDay2`).
+**ONDT Actions:**
+- **StartOnboarding (→"Start Onboarding")**: ADD_RECORD_TO IF `=[Decision] = "Selected"`
+- **UpdateCandidate**: SET_COLUMN_VALUE IF `true`
+- **Set [Decision] to Scheduled**: SET_COLUMN_VALUE
+- **Set [Decision] to Scheduled 2**: SET_COLUMN_VALUE
+- **Export (→"Download")**: EXPORT_VIEW
+- **New step Action - 5**: REF_ACTION IF `true`
+- **ReviewedCandidate (→"Candidate Reviewed")**: SET_COLUMN_VALUE
+- **Call Phone (Phone) (→"Phone call")**: CALL IF `NOT(ISBLANK([Phone]))`
+- **Send SMS (Phone) (→"Text message")**: SMS IF `NOT(ISBLANK([Phone]))`
 
-**To achieve parity in ONDT, you must:**
-1. Add 1 missing column to the `Candidate` table.
-2. Add 11 missing logistics/status columns to the `Onboarding` table.
-3. Remove 8 deprecated legacy columns from the `Onboarding` table to clean up the schema.
-4. Update associated Form Views to use the new `Show` columns for section grouping.
+### 3. Views
+**BLUJ Views:**
+- None
 
----
+**ONDT Views:**
+- None
 
-## 2. Table: `Candidate` Changes
+### 4. Slices
+**BLUJ Slices:**
+- **NewCandidate** (Candidate): `=or(AND([Date] >= NOW()-7,[Decision]<>"Not Interested",[Decision]<>"Selected",[Decision]<>"Never Responded",[Decision]<>"Rejected"),[Interview Date]>today())`
+- **TodayInterview** (Candidate): `=Date([Interview Date]) = today()`
 
-BLUJ tracks why candidates are rejected directly on the candidate profile.
-
-> [!IMPORTANT]  
-> Add the following column to the `Candidate` Google Sheet, then regenerate the schema in AppSheet.
-
-| Column Name | AppSheet Type | Notes / Initial Value |
-|-------------|---------------|-----------------------|
-| `RejectionReason` | **EnumList** | Use this to track granular drop-off reasons (e.g., "No Show", "Background Failed", "Not Interested"). |
-
----
-
-## 3. Table: `Onboarding` Additions (The Core Migration)
-
-BLUJ tracks multiple third-party platform credentials and road test statuses. 
-
-> [!IMPORTANT]
-> Add the following 11 columns to the ONDT `Onboarding` Google Sheet, and configure their types in AppSheet. 
-
-### Section 1: System Groupings (UI)
-*Add these as Virtual Columns or physical columns typed as `Show` in AppSheet to group the form logically.*
-- `Onboarding` (Type: **Show**, Category: Page Header)
-- `JJ Keller` (Type: **Show**, Category: Section Header)
-
-### Section 2: Platform IDs & Statuses
-| Column Name | AppSheet Type | Initial Value Formula | Purpose |
-|-------------|---------------|-----------------------|---------|
-| `TransporterId` | **Text** | | Amazon DA mapping ID |
-| `JJKId` | **Text** | | JJ Keller system ID |
-| `CortexStatus` | **Enum** | `="Not Active"` | Tracks active/inactive state in Cortex |
-| `Fleet` | **Enum** | | Associated fleet account |
-| `Badge` | **Enum** | | Badge request/issuance status |
-| `Relay` | **Enum** | | Amazon Relay onboarding status |
-
-### Section 3: Training & Road Test
-| Column Name | AppSheet Type | Initial Value Formula | Purpose |
-|-------------|---------------|-----------------------|---------|
-| `Road Test Status` | **Text** | | Current progress of the road test |
-| `Road Test Date` | **Date** | `TODAY()` | Date the road test is conducted |
-| `Mentor` | **Enum** | | Reference to the employee training the DA |
+**ONDT Slices:**
+- **NewCandidate** (Candidate): `=or(AND([Date] >= NOW()-7,[Decision]<>"Not Interested",[Decision]<>"Selected",[Decision]<>"Never Responded",[Decision]<>"Rejected"),[Interview Date]>today())`
+- **TodayInterview** (Candidate): `=Date([Interview Date]) = today()`
 
 ---
 
-## 4. Table: `Onboarding` Cleanup (Optional but Recommended)
+## Table: Onboarding
 
-BLUJ has dropped several columns that ONDT still retains. To fully match BLUJ's clean architecture, you should migrate data away from these and delete them from ONDT.
+### 1. Data Columns
+#### Missing Columns (To be added to ONDT)
+| Column Name | Type | Initial Value/Formula |
+|---|---|---|
+| `TransporterId` | Text | `` |
+| `CortexStatus` | Enum | `=Not Active` |
+| `Fleet` | Enum | `` |
+| `Mentor` | Enum | `` |
+| `JJKId` | Text | `` |
+| `Badge` | Enum | `` |
+| `Relay` | Enum | `` |
+| `Road Test Status` | Text | `` |
+| `Road Test Date` | Date | `TODAY()` |
+| `Onboarding` | Show | `` |
+| `JJ Keller` | Show | `` |
 
-> [!WARNING]
-> Before deleting these, check if any legacy automations or bots in ONDT rely on them.
-
-**Legacy Columns to Remove:**
-- `1Onboarding`
-- `2Onboarding`
+#### Legacy Columns (Present in ONDT, missing in BLUJ)
 - `Day1`
-- `TrainingDay2`
 - `Documents`
 - `Missing Documents`
-- `EmployeeID` *(BLUJ uses relational links rather than string EmployeeIDs in this phase)*
+- `1Onboarding`
+- `2Onboarding`
+- `TrainingDay2`
+- `EmployeeID`
 - `EmployeeStatus`
+
+### 2. Actions
+**BLUJ Actions:**
+- **Set [Onboarding Status] to Background Failed Action - 1**: SET_COLUMN_VALUE IF `true`
+- **Action for Set [Onboarding Status] to Drug Test Failed**: SET_COLUMN_VALUE
+- **Action for Set [Onboarding Status] to Followup**: SET_COLUMN_VALUE
+- **set Onboarding status to Training scheduled Action - 1**: SET_COLUMN_VALUE IF `true`
+- **Set [Onboarding Status] to Waiting for Results**: SET_COLUMN_VALUE
+- **MoveToEmployee**: ADD_RECORD_TO IF `true`
+- **ExportOnboarding (→"Download")**: EXPORT_VIEW
+- **New step Action - 3**: REF_ACTION IF `true`
+- **Action for CreateTaskforDispatch**: ADD_RECORD_TO IF `true`
+- **AddTransporterID Action - 1**: ADD_RECORD_TO IF `true`
+- **Set [OnboaridngStatus] to Schedule Training Action - 1**: SET_COLUMN_VALUE IF `true`
+- **New step Action - 1**: SET_COLUMN_VALUE IF `true`
+- **FirstDayDocusign (→"Send New Hire Docusign")**: NAVIGATE_URL IF `=AND([NewHireStatus]="Joined",isblank([Docusign]))`
+- **Edit_Onboarding (→"Edit")**: NAVIGATE_APP IF `true`
+- **Action for MarkAsDOTDriver**: REF_ACTION IF `true`
+
+**ONDT Actions:**
+- **Set [Onboarding Status] to Background Failed Action - 1**: SET_COLUMN_VALUE IF `true`
+- **Action for Set [Onboarding Status] to Drug Test Failed**: SET_COLUMN_VALUE
+- **Action for Set [Onboarding Status] to Followup**: SET_COLUMN_VALUE
+- **set Onboarding status to Training scheduled Action - 1**: SET_COLUMN_VALUE IF `true`
+- **Set [Onboarding Status] to Waiting for Results**: SET_COLUMN_VALUE
+- **MoveToEmployee**: ADD_RECORD_TO IF `true`
+- **ExportOnboarding (→"Download")**: EXPORT_VIEW
+- **New step Action - 3**: REF_ACTION IF `true`
+- **Action for CreateTaskforDispatch**: ADD_RECORD_TO IF `true`
+- **AddTransporterID Action - 1**: ADD_RECORD_TO IF `true`
+- **Set [OnboaridngStatus] to Schedule Training Action - 1**: SET_COLUMN_VALUE IF `true`
+- **New step Action - 1**: SET_COLUMN_VALUE IF `true`
+- **FirstDayDocusign (→"Send New Hire Docusign")**: NAVIGATE_URL IF `=AND( OR(
+- **EditOnboarding (→"Edit")**: NAVIGATE_APP IF `true`
+- **EditEmployeeFromOnboarding (→"Employee Details")**: NAVIGATE_APP IF `=AND(
+
+### 3. Views
+**BLUJ Views:**
+- None
+
+**ONDT Views:**
+- None
+
+### 4. Slices
+**BLUJ Slices:**
+- **CurrentOnboarding** (Onboarding): `=AND([OnboardingStatus] <> "Training Scheduled", [OnboardingStatus] <> "Background Failed",[OnboardingStatus] <> "Drug Test Failed", [OnboardingStatus]<>"Not Moving Forward", [OnboardingStatus]<>"No Response",[OnboardingStatus]<>"Declined to Join"
+- **NewHire** (Onboarding): `=AND([NewHireStatus]<>"All Completed",[NewHireStatus]<>"Declined to Join",isnotblank([TrainingDate]))`
+- **CurrentOnboardingDOTDriver** (Onboarding): `=AND([OnboardingStatus] <> "Training Scheduled", [OnboardingStatus] <> "Background Failed",[OnboardingStatus] <> "Drug Test Failed", [OnboardingStatus]<>"Not Moving Forward", [OnboardingStatus]<>"No Response",[OnboardingStatus]<>"Declined to Join"
+
+**ONDT Slices:**
+- **CurrentOnboarding** (Onboarding): `=AND([OnboardingStatus] <> "Training Scheduled", [OnboardingStatus] <> "Background Failed",[OnboardingStatus] <> "Drug Test Failed", [OnboardingStatus]<>"Not Moving Forward", [OnboardingStatus]<>"No Response",[OnboardingStatus]<>"Declined to Join"
+- **NewHire** (Onboarding): `=AND([NewHireStatus]<>"All Completed",[NewHireStatus]<>"Declined to Join",isnotblank([TrainingDate]))`
+- **CurrentOnboardingDOT** (Onboarding): `=AND([OnboardingStatus] <> "Training Scheduled", [OnboardingStatus] <> "Background Failed",[OnboardingStatus] <> "Drug Test Failed", [OnboardingStatus]<>"Not Moving Forward", [OnboardingStatus]<>"No Response",[OnboardingStatus]<>"Declined to Join"
 
 ---
 
-## 5. Implementation Steps
-
-1. **Google Sheets Updates**:
-   - Open the ONDT database.
-   - In the `Candidate` sheet, append `RejectionReason`.
-   - In the `Onboarding` sheet, append the 9 new physical columns (exclude the 2 `Show` columns).
-2. **AppSheet Regeneration**:
-   - Go to Data → Tables → `Candidate` → **Regenerate Structure**.
-   - Go to Data → Tables → `Onboarding` → **Regenerate Structure**.
-3. **AppSheet Configuration**:
-   - Apply the types and `Initial Value` formulas listed in the tables above.
-   - Add the two Virtual Columns for `Onboarding` and `JJ Keller` as `Show` types to organize the Onboarding Form view.
-4. **View Updates**:
-   - Navigate to UX → Views → `Onboarding_Form`.
-   - Reorder the columns so that the `Show` columns correctly group the DSP data (TransporterId, Cortex, Relay) and the JJ Keller data (JJKId).
-5. **Action Updates**:
-   - Review the `StartOnboarding` action to ensure it properly populates the new fields if any default assignments are required upon transitioning from Candidate to Onboarding.
