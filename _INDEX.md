@@ -26,6 +26,7 @@
 | Transcend Counseling & Wellness | 🔄 In Progress (Phase 1) | `Projects/Transcend/` |
 | BLR World — Orbit | 🔄 In Progress (Phase 1) | `Projects/Orbit/` |
 | Navi ONDT | 🔄 In Progress (Phase 1) | `Projects/Navi/` |
+| Navi BLUJ | 📄 Documented (Existing App) | `Projects/NaviBLUJ/` |
 
 ## 🧠 Self-Learning Protocol
 After every project session, Antigravity must:
