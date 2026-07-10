@@ -15,9 +15,12 @@
 | `Status` | Text | `` |
 | `LastUpdateBy` | Enum | `` |
 | `LastUpdateOn` | DateTime | `` |
-| `IsDOTEmployee` | Yes/No | `` |
-| `EmployeeAddress` | Address | `` |
-| `PhoneNumber` | Phone | `` |
+#### Virtual Columns (Add directly in AppSheet)
+| Column Name | Type | AppFormula |
+|---|---|---|
+| `IsDOTEmployee` | Yes/No | `=IN("DOT", [EmployeeId].[Role])` (or similar depending on your Employee tags) |
+| `EmployeeAddress` | Address | `=[EmployeeId].[Address]` |
+| `PhoneNumber` | Phone | `=[EmployeeId].[Phone]` |
 
 ### 2. Actions
 **BLUJ Actions:**
