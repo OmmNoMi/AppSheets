@@ -16,9 +16,27 @@ Before bringing in the new BLUJ modules, ONDT's legacy schema must be strictly p
 
 The user experience during data entry can be heavily optimized using AppSheet's dynamic form features.
 
-- **Dynamic Rejection Reasons**: As seen in the `Candidate` table, the `RejectionReason` field is an `EnumList`. 
-  - **Improvement**: Ensure the `Show_If` condition is strictly set to `=[Decision]="Rejected"`. 
-  - **Standardized Values**: Hardcode or link to an Admin Settings table for the exact list of Amazon DSP rejection reasons (e.g., *Experience answers unclear, Communication, Lacking soft skills, Insufficient Customer Obsession, Lacking On-road awareness, Lack of BT Experience, Lack of Initiative, Poor Problem-Solving Skills, Inability to Handle Pressure, Expectations Mismatch, Not Good Fit*).
+- **Dynamic Rejection Reasons via `AppVariables`**: As seen in the `Candidate` table, the `RejectionReason` field is an `EnumList`. Instead of hardcoding the dropdown values directly into the column definition, you should drive these dynamically using the ONDT `AppVariables` table.
+  - **Step 1 (Create Variable)**: Add a new row to the `AppVariables` table (either in the app or Google Sheet).
+    - `ID`: `CandidateRejectionReasons`
+    - `ValueControl`: `Multi`
+    - `Title`: `Candidate Rejection Reasons`
+    - `MultiValues`: Enter the comma-separated list: `Experience answers unclear, Communication, Lacking soft skills, Insufficient Customer Obsession, Lacking On-road awareness, Lack of BT Experience, Lack of Initiative, Poor Problem-Solving Skills, Inability to Handle Pressure, Expectations Mismatch, Not Good Fit`
+  - **Step 2 (AppSheet Config)**: In the `Candidate` table for the `RejectionReason` column:
+    - Set **Show_If** strictly to: `=[Decision]="Rejected"`
+    - Under **Data Validity**, set **Valid_If** to the following formula:
+      ```appsheet
+      =SORT(
+        SPLIT(LOOKUP(
+          "CandidateRejectionReasons",
+          "AppVariables",
+          "ID",
+          "MultiValues"
+        ), ","),
+        FALSE
+      )
+      ```
+    - Set the **Type** to `EnumList` (with base type `Enum`).
 - **Logical Sectioning via `Show` Columns**: The `DOTAudit` table has 100+ columns. In ONDT, ensure that `Show` columns (`Page Header` and `Section Header`) are utilized properly (Inside Cab, Front of Vehicle, Passenger Side, Driver Side, Final Review) so the auditor doesn't face a massive scrolling form.
 
 ## 3. Automation & Action Upgrades
