@@ -10,6 +10,20 @@ All scripts are in the `scripts/` subdirectory.
 
 ---
 
+## ⚠️ New Developer Setup (One-Time, Per Machine)
+
+`credentials.json` and `token.json` are **gitignored** and must be set up locally on each machine.
+
+1. Go to [GCP Console](https://console.cloud.google.com/auth/clients?project=ommnomi-appsheet-integrations)
+2. Click **OmmNoMi AppSheet Integration** → Download JSON
+3. Rename the file to `credentials.json`
+4. Place it at: `.agents/skills/appsheet-utilities/credentials.json`
+5. Run any script — a browser popup will appear **once** for Google login. After that, `token.json` is saved automatically and no further login is needed.
+
+> **Note:** Each developer logs in with their own Google account. They must be a member of `ommnomi.in` to access the GCP project.
+
+---
+
 ## 1. parse_appdoc.py — Schema Parser
 
 Extracts structured schema data from AppSheet's exported HTML documentation.
