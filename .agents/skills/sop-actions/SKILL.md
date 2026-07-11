@@ -1,3 +1,8 @@
+---
+name: sop-actions
+description: Standard Operating Procedure for Actions. Use this skill when asked about best practices, rules, or standards for Actions.
+---
+
 # Action Patterns — OmmNoMi Standard
 
 ## Core Principle

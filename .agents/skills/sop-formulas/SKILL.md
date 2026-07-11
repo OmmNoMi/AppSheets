@@ -1,3 +1,8 @@
+---
+name: sop-formulas
+description: Standard Operating Procedure for Formulas. Use this skill when asked about best practices, rules, or standards for Formulas.
+---
+
 # Formula Library — OmmNoMi Standard
 
 ## I. Audit Stamp Formulas

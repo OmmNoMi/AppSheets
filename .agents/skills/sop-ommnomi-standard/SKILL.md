@@ -1,3 +1,8 @@
+---
+name: sop-ommnomi-standard
+description: Standard Operating Procedure for OmmNoMi_Standard. Use this skill when asked about best practices, rules, or standards for OmmNoMi_Standard.
+---
+
 # OmmNoMi Standard — AppSheet Development SOP
 > OmmNoMi Automation LLP | Version: Living Document | Last Updated: See git history
 

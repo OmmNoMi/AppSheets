@@ -13,5 +13,5 @@ When instructing the user to configure AppSheet tables, ALWAYS separate the inst
 4. **Virtual Column Level**: VCs must ONLY be added in the AppSheet editor, never the Google Sheet.
 
 ## 3. Tool Usage Enforcement
-- If dealing with schema structures, you must proactively rely on `parse_appdoc.py` to extract exact truth rather than guessing.
+- If dealing with schema structures, you must proactively rely on `.agents/skills/appsheet-utilities/scripts/parse_appdoc.py` to extract exact truth rather than guessing.
 - If the HTML export is known to lack data (e.g., Enum values), proactively inform the user of this limitation immediately rather than waiting for an error to occur.

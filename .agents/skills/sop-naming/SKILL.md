@@ -1,3 +1,8 @@
+---
+name: sop-naming
+description: Standard Operating Procedure for Naming. Use this skill when asked about best practices, rules, or standards for Naming.
+---
+
 # Naming Conventions — OmmNoMi Standard
 
 ## Tables

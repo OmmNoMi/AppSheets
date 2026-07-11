@@ -1,3 +1,8 @@
+---
+name: pattern-patterns-index
+description: Architectural pattern for PATTERNS_INDEX. Use this skill when asked to implement or design PATTERNS_INDEX.
+---
+
 # Patterns Index — OmmNoMi Cross-Project Learning
 > **FOR ANTIGRAVITY**: Search this index FIRST before generating any schema, formula, or action.
 > Each entry links to a detailed pattern file. Only fetch the file you need.

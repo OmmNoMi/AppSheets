@@ -1,3 +1,8 @@
+---
+name: sop-deployment
+description: Standard Operating Procedure for Deployment. Use this skill when asked about best practices, rules, or standards for Deployment.
+---
+
 # Deployment Checklist — OmmNoMi Standard
 > Copy this into `Projects/[Name]/DeploymentChecklist.md` before go-live. Mark each item ✅ when done.
 
