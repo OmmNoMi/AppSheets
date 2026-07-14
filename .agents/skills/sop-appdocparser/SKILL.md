@@ -1,3 +1,8 @@
+---
+name: sop-appdocparser
+description: Standard Operating Procedure for AppDocParser. Use this skill when asked about best practices, rules, or standards for AppDocParser.
+---
+
 # AppDoc Parser Standard Operating Procedure (SOP)
 
 This guide explains how to extract, parse, and utilize AppSheet schema metadata using the custom V4 Python Parser. Following this SOP ensures that the generated metadata is accurate, highly compressed (for token efficiency), and correctly identifies Virtual Columns and System attributes.

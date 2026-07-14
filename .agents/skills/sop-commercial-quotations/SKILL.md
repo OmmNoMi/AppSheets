@@ -1,3 +1,8 @@
+---
+name: sop-commercial-quotations
+description: Standard Operating Procedure for Commercial_Quotations. Use this skill when asked about best practices, rules, or standards for Commercial_Quotations.
+---
+
 # OmmNoMi Standard — Commercial & Quotation Process
 > OmmNoMi Automation LLP | Commercial Strategy & Quoting SOP
 

@@ -1,3 +1,8 @@
+---
+name: sop-automations
+description: Standard Operating Procedure for Automations. Use this skill when asked about best practices, rules, or standards for Automations.
+---
+
 # Automation Patterns — OmmNoMi Standard
 
 ## Trigger Types Quick Reference

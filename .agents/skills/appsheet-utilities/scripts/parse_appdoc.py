@@ -187,7 +187,8 @@ def extract_columns_for_schema(content: str, schema_name: str) -> list:
             'hidden': props.get('Hidden', 'No'),
             'read_only': props.get('Read-Only', 'No'),
             'required': props.get('Required', 'No'),
-            'initial_value': props.get('App Formula', props.get('Initial value', '')),
+            'initial_value': props.get('Initial value', ''),
+            'app_formula': props.get('App Formula', ''),
             'description': props.get('Description', ''),
             'display_name': props.get('Display name', ''),
             'ref_table': ref_table,
@@ -695,7 +696,8 @@ def generate_compact_markdown(app_info, tables, all_columns, slices, views, acti
                 # Heuristic detection
                 if col_name.startswith('_Computed') or col_name.startswith('Related '):
                     is_vc = True
-                elif col['initial_value'] and 'REF_ROWS' in col['initial_value'].upper():
+                elif (col['initial_value'] and 'REF_ROWS' in col['initial_value'].upper()) or \
+                     (col.get('app_formula') and 'REF_ROWS' in col.get('app_formula', '').upper()):
                     is_vc = True
                 elif 'App Formula' in col['all_props'] and col['read_only'] == 'Yes' and col_name != '_RowNumber':
                     is_vc = True
@@ -753,7 +755,14 @@ def generate_compact_markdown(app_info, tables, all_columns, slices, views, acti
             
             # Initial value / App Formula (formatted)
             init = col['initial_value']
-            init_str = f" = {fmt(init)}" if init else ""
+            app_f = col.get('app_formula', '')
+            init_str = ""
+            if init and app_f:
+                init_str = f" = [Init: {fmt(init)} | Formula: {fmt(app_f)}]"
+            elif init:
+                init_str = f" = [Init: {fmt(init)}]"
+            elif app_f:
+                init_str = f" = [Formula: {fmt(app_f)}]"
             
             # Display name
             display = f' (→"{col["display_name"]}")' if col['display_name'] else ""
@@ -965,8 +974,16 @@ def generate_markdown(app_info, tables, all_columns, slices, views, actions) -> 
             hidden = '👁️‍🗨️' if col['hidden'] == 'Yes' else ''
             ro = '🔒' if col['read_only'] == 'Yes' else ''
             init = col['initial_value'][:60] if col['initial_value'] else ''
+            app_f = col.get('app_formula', '')[:60] if col.get('app_formula') else ''
+            val_str = ""
+            if init and app_f:
+                val_str = f"[Init: {init} <br> Formula: {app_f}]"
+            elif init:
+                val_str = f"{init}"
+            elif app_f:
+                val_str = f"[Formula: {app_f}]"
             display = f" ({col['display_name']})" if col['display_name'] else ''
-            lines.append(f"| {col['name']}{display} | {col['type']} | {key} | {label} | {hidden} | {ro} | `{init}` |")
+            lines.append(f"| {col['name']}{display} | {col['type']} | {key} | {label} | {hidden} | {ro} | `{val_str}` |")
 
         lines.append("")
 
