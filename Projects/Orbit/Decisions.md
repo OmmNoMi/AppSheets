@@ -152,3 +152,26 @@
 3. **Idempotency Guard**: Always wrap row creation steps in a `FILTER` that verifies the key does not already exist via `ISBLANK(LOOKUP(...))`, preventing duplicate primary key errors during manual triggers.
 **Reason**: Prevent server-to-client timezone issues and database formatting mismatches.
 **Impact**: Clean, error-free daily automations.
+
+### 2026-07-15 Daily Attendance Today Safety Net (Hourly Scheduled Bot)
+**Context**: User requested adding a check and safety net to the daily scheduled bot. If someone deletes the today attendance row, the bot should detect the omission and automatically recreate it during its next hourly check, while preserving the old functionality (pre-creating tomorrow's row at night) and correctly handling all leave, holiday, and weekend use cases globally.
+**Decision**:
+1. **Single Action Method**: Define a single action `CreateEmployeeAttendanceToday` in the `Employee` table (`ADD_RECORD_TO` the `AttendanceDaily` table for `Date` = `TODAY()`, `Employee` = `[ID]`).
+2. **Direct Bot Step Filtering**: Run this action in the hourly scheduled bot using the step filter condition:
+   ```appsheet
+   AND(
+     IN([Status], {"Probation", "Onboarding", "Confirmed"}),
+     ISBLANK(
+       SELECT(
+         AttendanceDaily[ID],
+         AND(
+           [Employee] = [_THISROW].[ID],
+           [Date] = TODAY()
+         )
+       )
+     )
+   )
+   ```
+3. **Dynamic Initial Values Resolution**: Rely on the `AttendanceDaily` table's native Initial Value formulas to automatically resolve holiday checks (comparing `OfficeHoliday` with employee's `Office_Calendar`), leave/request check (matching approved `AttendanceRequest`), and weekend check (evaluating `Office_Shift.Type = "Day Off"`).
+**Reason**: Placing the conditional logic directly in the bot step eliminates the need for virtual columns or parent loop actions. Recreating rows using standard values allows native initial values to dynamically and safely calculate status, avoiding redundant logic and hardcoding.
+**Impact**: Restores deleted attendance logs within the hour across all global locations, with zero virtual column overhead.
