@@ -12,6 +12,11 @@ removing the need to manually copy-paste JavaScript code into the browser editor
 
 ## One-Time Setup
 
+**Prerequisite: Enable Apps Script API**
+Before running any `clasp` commands, you MUST enable the Apps Script API for your Google account:
+1. Go to: [https://script.google.com/home/usersettings](https://script.google.com/home/usersettings)
+2. Turn the toggle to **ON**.
+
 **Step 1: Login**
 Run this command once in your terminal. A browser window will open for Google authentication.
 ```bash

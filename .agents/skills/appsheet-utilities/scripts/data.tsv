@@ -1,0 +1,393 @@
+ID	DD_Project	TradeName	Associate	Activity	Tag1	Tag2	Tag3	Start_Time	End_Time	Duration	Hours	Costing	Net Cost	Billing	Net Bill	Description	Notes	Remark	Show	LastEditBy	LastEditOn	Employee	ApprovedOn	EmployeeCheckIn	EmployeeCheckout	Project	Phase	Date	_LS_Tag1_	_LS_Tag2_	_LS_Tag3_	Pricing	Involvement	Involved	
+44e505f9	997d9562	EaGeR_NoMi	NoMi	7777.02.01:- Exploration and Research				12/07/2026 22:30	12/07/2026 23:04	00:34	0.57		0.00	0.00	0.00	"• have done the intense research on other modles
+• have found that the chaineed deepseek and quen by alibawa are really great
+• have also found groq and grok are different
+• and found we might have to use other models from google ai studio for better per day quota
+• for using it free the system we can use the Groq cluster for the most per day limits
+• i will make my Frappe Assistant Help compatable with all of these"			Internal	NoMi	12/07/2026 23:04:27	HR-EMP-001				997d9562	7777.02 :- Knowledge Management.	12/07/2026						NoMi :-Associate	
+bbc913ac	997d9562	EaGeR_NoMi	NoMi	7777.02.01:- Exploration and Research				12/07/2026 17:58	12/07/2026 19:10	01:12	1.20		0.00	0.00	0.00	"• we have worked on this part
+• have tried fixing the frappe framework
+• have added the functionaality for the tour"			Internal	NoMi	12/07/2026 22:09:26	HR-EMP-001				997d9562	7777.02 :- Knowledge Management.	12/07/2026						NoMi :-Associate	
+420c7002	997d9562	EaGeR_NoMi	NoMi	7777.02.01:- Exploration and Research				12/07/2026 13:28	12/07/2026 14:39	01:11	1.18		0.00	0.00	0.00	"• have improved the frappe tour adn the frappe sidebar UX as on done it comes back to the chat view
+• have also removed the fetch links values which was stopping us as it was taking tokens and leaking the data to LLM"			Internal	NoMi	12/07/2026 14:39:59	HR-EMP-001				997d9562	7777.02 :- Knowledge Management.	12/07/2026						NoMi :-Associate	
+3f947cf8	997d9562	EaGeR_NoMi	NoMi	7777.02.01:- Exploration and Research				12/07/2026 08:30	12/07/2026 11:45	03:15	3.25		0.00	0.00	0.00	"• working on the frappe assistant Help application i am building
+• have added documentation for the system multi module design
+• have made it mobile friendly
+• have added to the documentation about the frappe cloud api key placement per site and from frappe cloud marketplace adding the payment tears
+• we know we can have it working easily
+• have implimentate the frappe tour as part of the focus to the form"			Internal	NoMi	12/07/2026 13:28:01	HR-EMP-001				997d9562	7777.02 :- Knowledge Management.	12/07/2026						NoMi :-Associate	
+52586fd7	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				12/07/2026 09:42	12/07/2026 09:42	00:00	0.00		0.00	0.00	0.00				Fully Billed	Neha	12/07/2026 09:42:01	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	12/07/2026						Neha :-Associate	
+dd94b3f2	997d9562	Meenaxi_Maxi	Maxi	7777.01.06:- Accounting & Financial Analysis				12/07/2026 07:29	12/07/2026 08:09	00:40	0.67		0.00	0.00	0.00	"• Adding purchase invoice for Airtel postpaid for both the numbers
+• Google workspace and frappe cloud for June"			Internal	Maxi	12/07/2026 08:09:10	HR-EMP-002				997d9562	7777.01 :- Core Opretions.	12/07/2026						Meenaxi :-Associate	
+90b96578	997d9562	EaGeR_NoMi	NoMi	7777.02.01:- Exploration and Research				12/07/2026 00:03	12/07/2026 02:16	02:13	2.22		0.00	0.00	0.00	"• have created the OmmNoMI Frappe Assistant Help
+• this app is going to work like frappe assistant core but visually helping the user
+• have connected that to the google gemini api
+• have added documentation and vision to this"			Internal	NoMi	12/07/2026 08:53:10	HR-EMP-001				997d9562	7777.02 :- Knowledge Management.	12/07/2026						NoMi :-Associate	
+2f090033	997d9562	EaGeR_NoMi	NoMi	7777.02.01:- Exploration and Research				11/07/2026 22:12	11/07/2026 23:58	01:46	1.77		0.00	0.00	0.00	"• doing the full research on the project management with the appsheet and connecting the custom MCP for the appsheet appplication
+• have connected it with the gemini vie ai studio
+• the chat is working
+• have also worked on ommnomi intelligance and the ommnomi frappe Assistnat Help"			Internal	NoMi	12/07/2026 08:40:27	HR-EMP-001				997d9562	7777.02 :- Knowledge Management.	11/07/2026						NoMi :-Associate	
+912d9ae5	0921fd98	Devoted_NoMi	NoMi	1112.27.04:- Navi BlueJay				11/07/2026 17:17	11/07/2026 21:15	03:58	3.97		0.00	0.00	0.00	"• building the app as per bluj
+• setting up the employee audit
+• setting up the appsheet integration in my computer
+• have done the setup for googe sheet auto edit
+• have also done the setup for th e cli of googel appscript
+• now it is working
+• we can easily work now on the projects which are related to the google workspace"			Fully Billed	NoMi	11/07/2026 22:12:39	HR-EMP-001				0921fd98	1112.27 :- NaviX Apr.- Jun. 2026.	11/07/2026						NoMi :-Associate	
+67064ed2		OmmNoMi						11/07/2026 19:50	11/07/2026 19:50	00:00	0.00		0.00	0.00	0.00	Clocked in via CLI AI			Internal		11/07/2026 19:53:53							11/07/2026							
+64f336ff	awlngqu6	Gagi_Gagi	Gagi	1133.15.01:- Project Management	f4e17855	a1371251	fbe4bd42	11/07/2026 06:34	11/07/2026 06:52	00:18	0.30		0.00	0.00	0.00	chapter 3 part 3En is final ready			Fully Billed	Gagi	11/07/2026 06:52:48	HR-EMP-005				awlngqu6	1133.15 :- AL - Apr. 2026.	11/07/2026	Full Video Editing	English	Part 3			Gayatri :-Associate	
+c96002e1	bf837ce8	Dev_NoMi	NoMi	1026.0.01:- Feature Dvelopment				11/07/2026 02:15	11/07/2026 03:30	01:15	1.25		0.00	0.00	0.00	"• had a meeting with david
+• have told him aobut our services
+• he said he is happy to work with us
+• might in future get some more work from him
+• have also defined data
+• have shown him the producat demo
+• he liked what was build so far
+• we have to make sure the data is always there"			Fully Billed	NoMi	11/07/2026 17:16:39	HR-EMP-001				bf837ce8	1026.0 :- Transcend Project.	11/07/2026						NoMi :-Associate	
+7224398c	0921fd98	Devoted_NoMi	NoMi	1112.27.04:- Navi BlueJay				11/07/2026 00:16	11/07/2026 02:10	01:54	1.90		0.00	0.00	0.00	"• setting up the Navi environment for S0172 as per BLUJ DOT onboarding and DOT Audit and vehical inspection
+• processing the documentation of the application
+• have tried covering the DA Audit and found it is mulitple tables"			Fully Billed	NoMi	11/07/2026 17:07:07	HR-EMP-001				0921fd98	1112.27 :- NaviX Apr.- Jun. 2026.	11/07/2026						NoMi :-Associate	
+8004de88	cd6ecd03	Devoted_NoMi	NoMi	1122.24.08:- Demo Setup				10/07/2026 17:57	10/07/2026 23:58	06:01	6.02		0.00	0.00	0.00	"• prep for colorodo
+• compliting the meeting management
+• we have to do
+• had this 3 hour long session
+• have shown them what we ahve in our software
+• have done meeting after with hte other people"			Fully Billed	NoMi	11/07/2026 00:16:18	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	10/07/2026						NoMi :-Associate	
+ecd5f204	997d9562	Deepi_Deepi	Deepi	7777.02.03:- Training and Knowledge Sharing				10/07/2026 15:49	10/07/2026 16:59	01:10	1.17		0.00	0.00	0.00	c c working			Internal	Deepi	10/07/2026 16:59:35	HR-EMP-006				997d9562	7777.02 :- Knowledge Management.	10/07/2026						Deepika :-Associate	
+b2c0c221	awlngqu6	Shobhi_Shobhi	Shobhi	1133.15.16:- GyanEasy - Notebook LM feasibility				10/07/2026 16:56	10/07/2026 16:56	00:00	0.00		0.00	0.00	0.00	"• I have started work after a long break of 20 days.
+• I have noticed all we have started.
+• I have seen that in our 10th class social science all 4 books chapters are uploaded to YouTube.
+• I have worked on the 9th class complete history book overview video. For this book we have an old pattern edited video.
+• I have generated complete book overview video for this book because we want to publish it as a course in frappe learning."			Fully Billed	Shobhi	10/07/2026 17:49:19	HR-EMP-003				awlngqu6	1133.15 :- AL - Apr. 2026.	10/07/2026						Shobhana :-Associate	
+fe7abed0	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				10/07/2026 14:39	10/07/2026 15:45	01:06	1.10		0.00	0.00	0.00	"• testing github flow
+• mac cresshed
+• cleaned january files"			Fully Billed	NoMi	10/07/2026 17:57:16	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	10/07/2026						NoMi :-Associate	
+50677aec	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				10/07/2026 10:11	10/07/2026 11:37	01:26	1.43		0.00	0.00	0.00	"• verifying the PR and commiting that to the tudoqsoft
+• making sure we use most of the Github
+• reportign the issue which stop us from login if we are already logged in"			Fully Billed	NoMi	10/07/2026 14:39:03	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	10/07/2026						NoMi :-Associate	
+9d36bad4	cd6ecd03	Devoted_NoMi	NoMi	1122.24.01:- Meeting with Deepak Sir and Other				10/07/2026 08:10	10/07/2026 09:45	01:35	1.58		0.00	0.00	0.00	"• meeting with musgrave
+• have reported many pr with verification to the tudo
+• have update the flow to clen up
+• have combined multiple PR logically
+• have also added the milestones"			Fully Billed	NoMi	10/07/2026 10:10:56	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	10/07/2026						NoMi :-Associate	
+264eba04	awlngqu6	Gagi_Gagi	Gagi	1133.15.01:- Project Management	f4e17855	a1371251	ebfd9aa1	10/07/2026 08:53	10/07/2026 09:07	00:14	0.23		0.00	0.00	0.00	10.SS.CW.C5.02 En part - final video is ready			Fully Billed	Gagi	10/07/2026 09:07:18	HR-EMP-005				awlngqu6	1133.15 :- AL - Apr. 2026.	10/07/2026	Full Video Editing	English	Part 2			Gayatri :-Associate	
+6bc199ff	awlngqu6	Gagi_Gagi	Gagi	1133.15.01:- Project Management	f4e17855	903b6657	fbe4bd41	10/07/2026 08:35	10/07/2026 08:53	00:18	0.30		0.00	0.00	0.00	10.SS.CW.HI.01 part completed .final video is ready			Fully Billed	Gagi	10/07/2026 08:53:16	HR-EMP-005				awlngqu6	1133.15 :- AL - Apr. 2026.	10/07/2026	Full Video Editing	Hindi	Part 1			Gayatri :-Associate	
+55e4acff	cd6ecd03	Devoted_NoMi	NoMi	1122.24.01:- Meeting with Deepak Sir and Other				10/07/2026 00:04	10/07/2026 03:14	03:10	3.17		0.00	0.00	0.00	"• have helped him setup the project and variables for the automation
+• have also helped him setup the campuscredit environment
+• now he is also doing the same i am doing"			Fully Billed	NoMi	10/07/2026 03:14:36	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	10/07/2026						NoMi :-Associate	
+fdce596b	awlngqu6	Gagi_Gagi	Gagi	1133.15.01:- Project Management	f4e17855	903b6657	fbe4bd43	10/07/2026 01:11	10/07/2026 01:26	00:15	0.25		0.00	0.00	0.00	hi part 4 of chapter 4 is ready			Fully Billed	Gagi	10/07/2026 08:33:28	HR-EMP-005				awlngqu6	1133.15 :- AL - Apr. 2026.	10/07/2026	Full Video Editing	Hindi	Part 4			Gayatri :-Associate	
+ff29e231	cd6ecd03	Devoted_NoMi	NoMi	1122.24.08:- Demo Setup				09/07/2026 21:25	09/07/2026 23:59	02:34	2.57		0.00	0.00	0.00	"• trying to improve the script for my demo
+• had a discussion with the musgrave and the julian
+• created the html based slide for the demo
+• have given my full demo once abou the software
+• have reorganized it based on the story
+• we have completed the overall implimentation
+• we practised the onboarding and the colorodo
+• i dont have to reply to any emails from the clients is they didnt have their first onboarding session"			Fully Billed	NoMi	10/07/2026 03:13:38	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	09/07/2026						NoMi :-Associate	
+9a17d8f3	0921fd98	Devoted_NoMi	NoMi	1112.27.04:- Navi BlueJay				09/07/2026 18:56	09/07/2026 20:43	01:47	1.78		0.00	0.00	0.00	"• navi blujay
+• we have to make sure it is there
+• setting up the account for Studio 0178
+• have follwede the migration script
+• have completed
+• we ahve to make sure it is owrking
+• the appscript needs improvement in config
+• have to connect it with the appscript
+• have to define the app interface
+• all table data still needs to be cleaned"			Fully Billed	NoMi	09/07/2026 20:43:56	HR-EMP-001				0921fd98	1112.27 :- NaviX Apr.- Jun. 2026.	09/07/2026						NoMi :-Associate	
+2412145d	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				09/07/2026 17:57	09/07/2026 18:56	00:59	0.98		0.00	0.00	0.00	"• development
+• hte quota is over
+• have researched aobut the social network and named my project as chawpaal the modular social media
+• the one app for everything
+• have also read aobu the tor browser
+• have completed the automation
+• have found it hard to compeete with the larg markets partners"			Fully Billed	NoMi	09/07/2026 18:56:02	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	09/07/2026						NoMi :-Associate	
+4b97123b	cd6ecd03	Devoted_NoMi	NoMi	1122.24.09:- CampusCredit Support				09/07/2026 15:11	09/07/2026 17:18	02:07	2.12		0.00	0.00	0.00	"replying to email
+• have done the claude setup on my compute chrome
+• it is going to now organize everyting in my system
+• it is goig to keep working and connectiong to the outside world
+• now realized neha's work can be automated to a high extent
+• have defined the management of PR rules and forcing the claude to learn that pattern
+• we have to make sure it is working
+• adding the multi document upload functionality to the articulaiton agreement
+• have created the repo for the documentationa nd working it well
+• have added in the github workflow the tudo ad hte approver
+• now the code knows what to do when
+• have implimented the github flows for the automation of some actions"			Fully Billed	NoMi	09/07/2026 17:18:30	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	09/07/2026						NoMi :-Associate	
+f7886d6f	997d9562	EaGeR_NoMi	NoMi	7777.02.01:- Exploration and Research				09/07/2026 14:12	09/07/2026 15:10	00:58	0.97		0.00	0.00	0.00	"• have done the full research on the products
+• we have to make suere it is working well
+• • replying to the emails
+• have read the product update by frappe
+• have seen they are managing it well now
+• they are developing fast now
+• but the quality of code is not that good
+• they just release without making it bug proof
+Show"			Internal	NoMi	09/07/2026 15:13:00	HR-EMP-001				997d9562	7777.02 :- Knowledge Management.	09/07/2026						NoMi :-Associate	
+d9a5d2c0	997d9562	Deepi_Deepi	Deepi	7777.02.02:- Skill Enhancement & Certification				09/07/2026 12:11	09/07/2026 14:47	02:36	2.60		0.00	0.00	0.00	working on CC			Internal	Deepi	09/07/2026 14:47:17	HR-EMP-006				997d9562	7777.02 :- Knowledge Management.	09/07/2026						Deepika :-Associate	
+d1837d1d	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				09/07/2026 12:52	09/07/2026 14:34	01:42	1.70		0.00	0.00	0.00	"• Have start creating courses in all the high school district which have active articulation agreement with SBVC
+• I'm still working on it"			Fully Billed	Neha	12/07/2026 09:45:38	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	09/07/2026						Neha :-Associate	
+8b577874	62cee122	Consult_NoMi	NoMi	1113.22.02:- Meeting with Client				09/07/2026 12:27	09/07/2026 14:02	01:35	1.58		0.00	0.00	0.00	"• call with dev
+• regarding the expense booking
+• have helped him in booking one accounting entry for te WHH Project
+• have created the folder in my computer for accesslivelihoods
+• in that i have started booking the accounting
+• we have also done the accounting
+• we have redorded the sop verry well
+• this looks cool"			Fully Billed	NoMi	09/07/2026 14:02:37	HR-EMP-001				62cee122	1113.22 :- ERPNext Implimentation.	09/07/2026					113b20d2	NoMi :-Associate	
+56c58631	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				09/07/2026 09:52	09/07/2026 12:52	03:00	3.00		0.00	0.00	0.00	"• have checked the emails
+• , have updated the clients on the questions they had asked, inform them about the data Corrections, and notify them about the feature that had been resolved then I sent them an email with all the updates
+• have managed three meeting notes india respective folder
+• Have start creating courses in all the high school district which have active articulation agreement with sbvc"			Fully Billed	Neha	12/07/2026 09:44:45	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	09/07/2026						Neha :-Associate	
+430fc8b1	997d9562	Meenaxi_Maxi	Maxi	7777.01.06:- Accounting & Financial Analysis				09/07/2026 10:50	09/07/2026 12:28	01:38	1.63		0.00	0.00	0.00	"• Nomeshwer and I we reviewed the financial statements and the accounting for the previous year 2024-25 before sharing it with Soumya.
+• Found 2-3 correction points and shared the statements after finalized and through review."			Internal	Maxi	09/07/2026 12:28:26	HR-EMP-002				997d9562	7777.01 :- Core Opretions.	09/07/2026						Meenaxi :-Associate	
+107fdb3b	997d9562	EaGeR_NoMi	NoMi	7777.01.06:- Accounting & Financial Analysis				09/07/2026 10:53	09/07/2026 12:26	01:33	1.55		0.00	0.00	0.00	"• meeting with meenaxi
+• meeting with meenaxi
+• we discussing
+• have shared the finalized the financial and shared with soumya"			Internal	NoMi	09/07/2026 12:26:58	HR-EMP-001				997d9562	7777.01 :- Core Opretions.	09/07/2026						NoMi :-Associate	
+6af911e3	ad83fbe9	Meenaxi_Maxi	Maxi	1111.23.04:- Bug fixing and data Correction				09/07/2026 09:09	09/07/2026 10:06	00:57	0.95		0.00	0.00	0.00	"• Added my feedback for the timetable of BKM branch and found 5 wrong classes and deleted them.
+I have mentioned the right classes and their timings in the comments because couldn't add them because the actual classes are not coming up in the class type drop down list.
+• There are 37 classes in total and 32 in the ERPNext Time table list are well verified and all correct.
+Only 5 more 1 for Friday,2 Saturday and 2 for Sunday are pending.
+• Reported about the work on Raven"			Fully Billed	Maxi	09/07/2026 10:06:02	HR-EMP-002				ad83fbe9	1111.23 :- April - June 2026.	09/07/2026						Meenaxi :-Associate	
+5d3f6ac7	ad83fbe9	Meenaxi_Maxi	Maxi	1111.23.03:- ERPNext Configuration				08/07/2026 21:05	08/07/2026 22:10	01:05	1.08		0.00	0.00	0.00	"• Verification of the sales invoices to be verified.
+• Added feedback or submitted the sales as per my findings.
+• Have verified all except 2 because of their wrong backtracking id in Appsheet.
+Have given my feedback in ERPNext comments."			Fully Billed	Maxi	08/07/2026 23:04:44	HR-EMP-002				ad83fbe9	1111.23 :- April - June 2026.	08/07/2026						Meenaxi :-Associate	
+af88cf86	awlngqu6	Gagi_Gagi	Gagi	1133.15.01:- Project Management	f4e17855	903b6657	fbe4bd42	08/07/2026 18:41	08/07/2026 19:20	00:39	0.65		0.00	0.00	0.00	10.SS.CW.04 HI  part 3			Fully Billed	Gagi	08/07/2026 19:20:45	HR-EMP-005				awlngqu6	1133.15 :- AL - Apr. 2026.	08/07/2026	Full Video Editing	Hindi	Part 3			Gayatri :-Associate	
+fc4152d9	997d9562	Hardik_Hardi	Hardi	7777.02.03:- Training and Knowledge Sharing				08/07/2026 16:22	08/07/2026 16:22	00:00	0.00		0.00	0.00	0.00				Internal	Hardi	08/07/2026 16:22:28	HR-EMP-004				997d9562	7777.02 :- Knowledge Management.	08/07/2026						Hardik :-Associate	
+769d16b1	29b09403	Hardik_Hardi	Hardi	1135.01.06:- Support & Documentation				08/07/2026 13:55	08/07/2026 13:55	00:00	0.00		0.00	0.00	0.00	• have recive the bug from the orbit team			Fully Billed	Hardi	08/07/2026 14:19:20	HR-EMP-004				29b09403	1135.01 :- People Module.	08/07/2026						Hardik :-Associate	
+afd9e28a	997d9562	Hardik_Hardi	Hardi	7777.03.02:- Social Channels & Content Management				08/07/2026 12:00	08/07/2026 12:00	00:00	0.00		0.00	0.00	0.00				Internal	Hardi	08/07/2026 15:16:09	HR-EMP-004				997d9562	7777.03 :- Other Operations.	08/07/2026						Hardik :-Associate	
+31dcaf46	997d9562	Deepi_Deepi	Deepi	7777.02.03:- Training and Knowledge Sharing				08/07/2026 09:56	08/07/2026 11:37	01:41	1.68		0.00	0.00	0.00	working CC , registrar			Internal	Deepi	08/07/2026 11:37:13	HR-EMP-006				997d9562	7777.02 :- Knowledge Management.	08/07/2026						Deepika :-Associate	
+2132a153	cd6ecd03	Devoted_NoMi	NoMi	1122.24.10:- Onboarding Session				08/07/2026 00:01	08/07/2026 05:30	05:29	5.48		0.00	0.00	0.00	"• multiple onboarding sessions and the code management
+• have fixed the multiple information
+• have done 3 onboarding sessions"			Fully Billed	NoMi	09/07/2026 14:11:53	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	08/07/2026						NoMi :-Associate	
+c93c5672	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				07/07/2026 19:59	07/07/2026 23:59	04:00	4.00		0.00	0.00	0.00	"• have worked on the code management and exploration
+• did onboardng sessiion also"			Fully Billed	NoMi	09/07/2026 14:03:26	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	07/07/2026						NoMi :-Associate	
+99f596af	cd6ecd03	Devoted_NoMi	NoMi	1122.24.06:- Documentation				07/07/2026 16:15	07/07/2026 18:43	02:28	2.47		0.00	0.00	0.00	"• have checked the full email
+• have done the fixing of the code nad the reply to the emails
+• have also shareed to the DNS repcord info to the dev team"			Fully Billed	NoMi	07/07/2026 18:43:22	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	07/07/2026						NoMi :-Associate	
+d4e0f5a8	997d9562	Meenaxi_Maxi	Maxi	7777.01.06:- Accounting & Financial Analysis				07/07/2026 14:39	07/07/2026 15:14	00:35	0.58		0.00	0.00	0.00	• Added the pending payment entries in ERPNext for the June payout transfer.			Fully Billed	Maxi	07/07/2026 15:14:31	HR-EMP-002				997d9562	7777.01 :- Core Opretions.	07/07/2026						Meenaxi :-Associate	
+d62fdc9e	997d9562	Hardik_Hardi	Hardi	7777.02.03:- Training and Knowledge Sharing				07/07/2026 12:00	07/07/2026 15:00	03:00	3.00		0.00	0.00	0.00	"• have created the project over view of the app
+• have given the notebooklm file to gemini
+• have ask him for a talk about app
+• have tackel about app
+• have told gemini that what we want
+• have created the app over wiev document
+• have created thet the main thing like what we want to create
+• have trained the gemin
+• have created the app documentation overview"			Internal	Hardi	08/07/2026 15:20:31	HR-EMP-004				997d9562	7777.02 :- Knowledge Management.	07/07/2026						Hardik :-Associate	
+dc28ce4d	997d9562	EaGeR_NoMi	NoMi	7777.02.01:- Exploration and Research				07/07/2026 14:22	07/07/2026 15:00	00:38	0.63		0.00	0.00	0.00	"• explore teh my bharat application
+• have updated the username there to nomeshwer"			Internal	NoMi	07/07/2026 16:23:12	HR-EMP-001				997d9562	7777.02 :- Knowledge Management.	07/07/2026						NoMi :-Associate	
+86e1434d	997d9562	Deepi_Deepi	Deepi	7777.02.03:- Training and Knowledge Sharing				07/07/2026 14:21	07/07/2026 14:57	00:36	0.60		0.00	0.00	0.00	meeting with neha about campus credit			Internal	Deepi	07/07/2026 14:57:11	HR-EMP-006				997d9562	7777.02 :- Knowledge Management.	07/07/2026						Deepika :-Associate	
+60a4faa0	cd6ecd03	Neha_NoMi	NoMi	1122.24.06:- Documentation				07/07/2026 14:00	07/07/2026 14:57	00:57	0.95		0.00	0.00	0.00	• Head a meeting with Deepika didi in which I explained her to how we create a video in campus credit so I showed a whole workflow how we can what kind of branding we followed and how we can copy the prompt where is the our script and all of thing in detail			Fully Billed	Neha	07/07/2026 14:57:29	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	07/07/2026						Neha :-Associate	
+90bdba01	cd6ecd03	Devoted_NoMi	NoMi	1122.24.08:- Demo Setup				07/07/2026 01:43	07/07/2026 03:00	01:17	1.28		0.00	0.00	0.00	"• creation of the meeting presentation
+• have shared the presentation with the client
+• shared with nathanial"			Fully Billed	NoMi	07/07/2026 16:23:23	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	07/07/2026						NoMi :-Associate	
+576da530	cd6ecd03	Devoted_NoMi	NoMi	1122.24.06:- Documentation				06/07/2026 22:00	06/07/2026 23:59	01:59	1.98		0.00	0.00	0.00	"• working on improving the knowledgebase
+• we ahve to make sure all is good
+• created the learning and the knowleduebase improvement plan based on the appsheet documenation
+• had a call with deepak sier
+• he is leaving froom us on 25th
+• he will reach in india on 27th
+• have shown him the full implimented process
+• ahve doen the full work with him
+• he is happy with my owrki
+• he told not to work on the project that much
+• and he have told that our gettign the colorodo project is only 5%"			Fully Billed	NoMi	06/07/2026 23:59:02	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	06/07/2026						NoMi :-Associate	
+a140c16e	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				06/07/2026 22:04	06/07/2026 22:46	00:42	0.70		0.00	0.00	0.00	"• have manage task
+• Have start creating courses in high school district
+• Because in previous we already created some articulation agreement in SBCUSD with SBVC so I checked that but our education entity filter is not working so it's really hard to configure"			Fully Billed	Neha	07/07/2026 15:00:15	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	06/07/2026						Neha :-Associate	
+6de71b71	cd6ecd03	Devoted_NoMi	NoMi	1122.24.08:- Demo Setup				06/07/2026 20:21	06/07/2026 21:30	01:09	1.15		0.00	0.00	0.00	"• call with musgrave for the hubspot domain issue
+• and he reported his google account was going to spam the google wokspace account
+• i asked him to give me details about the task
+• will do the setup with him for the from emails"			Fully Billed	NoMi	06/07/2026 23:59:11	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	06/07/2026						NoMi :-Associate	
+c0fda572	29b09403	Hardik_Hardi	Hardi	1135.01.06:- Support & Documentation				06/07/2026 16:23	06/07/2026 19:23	03:00	3.00		0.00	0.00	0.00	"have chat whit finance and tell them that we are naot going to build any feature
+have checked the odl chat the is we have told to any one that we create camera intrigation ti hte app
+have checjed chat with fatima 
+MOE 
+and othe tem 
+have reply then that we have created the feature as you demanded the file upload and pdf uploda 
+so we have remove the came rha from the app"			Fully Billed	Hardi	08/07/2026 15:15:43	HR-EMP-004				29b09403	1135.01 :- People Module.	06/07/2026						Hardik :-Associate	
+6517fa17	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				06/07/2026 16:50	06/07/2026 18:52	02:02	2.03		0.00	0.00	0.00	"• Have completed creating all the courses in sbvc
+• Whenever I was unsure I cleared it fired all my doubts with bahia
+• Tried to create the educator checklist from the cloud"			Fully Billed	Neha	06/07/2026 22:15:21	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	06/07/2026						Neha :-Associate	
+11a887b9	29b09403	Hardik_Hardi	Hardi	1135.01.06:- Support & Documentation				06/07/2026 13:30	06/07/2026 15:45	02:15	2.25		0.00	0.00	0.00	"• have se the mext message of fatima that what she is facing
+• the error is folder is not creating in the drive related to finance
+• have find the error
+• have try many thing
+• have finsd the error by nomi bhai
+• the error is we havent turn on the feature for every one
+• we have turn on the to only nomi and hardik
+• have turn on this to every one
+• have done
+• have created teh all folders
+• have created the"			Fully Billed	Hardi	08/07/2026 14:19:35	HR-EMP-004				29b09403	1135.01 :- People Module.	06/07/2026						Hardik :-Associate	
+9ef42904	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				06/07/2026 14:20	06/07/2026 15:40	01:20	1.33		0.00	0.00	0.00	"• Have started creating courses in sbvc
+• Have not complete it yet"			Fully Billed	Neha	06/07/2026 22:12:23	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	06/07/2026						Neha :-Associate	
+212bd81c	997d9562	Neha_NoMi	NoMi	7777.02.03:- Training and Knowledge Sharing				06/07/2026 12:20	06/07/2026 14:20	02:00	2.00		0.00	0.00	0.00	"• Bhiya I have shared their idea about creating a new software for all the shopkeepers
+• What kind of problem faces a shopkeeper while they are arranging there calculation revenue amount profit in the end of month all of things
+• So he generated a video drama notebook LM and then he showed us and explain is the purpose of that software
+• It's really exciting software because every shopkeeper wants their shop software too many is their account and all of things
+• We had a really great discussion about it"			Fully Billed	Neha	06/07/2026 22:10:34	HR-EMP-007				997d9562	7777.02 :- Knowledge Management.	06/07/2026						Neha :-Associate	
+d9f65ab5	997d9562	Hardik_Hardi	Hardi	7777.02.03:- Training and Knowledge Sharing				06/07/2026 13:00	06/07/2026 13:30	00:30	0.50		0.00	0.00	0.00	"• have listen the new idea of the app
+• have listen the information
+• have desscus about it
+• have listen how we implimenting the idea
+• hav edecide dto do ths"			Internal	Hardi	08/07/2026 13:45:02	HR-EMP-004				997d9562	7777.02 :- Knowledge Management.	06/07/2026						Hardik :-Associate	
+43fb0d8b	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				06/07/2026 11:13	06/07/2026 12:20	01:07	1.12		0.00	0.00	0.00	"• have check email
+• Have checked the bug log status
+• Have started creating articulation agreement in sbvc first I have to create all the courses in sbvc
+• Start creating courses in S sbbc"			Fully Billed	Neha	06/07/2026 22:06:37	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	06/07/2026						Neha :-Associate	
+340f8377	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				06/07/2026 08:00	06/07/2026 10:04	02:04	2.07		0.00	0.00	0.00	"• implimenting the JWT swap for the user
+• have tried fixing the issue with the profiel switching properly and updating the permission managemet of teh aws lambda for top secureity with criptografic tokens"			Fully Billed	NoMi	06/07/2026 10:04:33	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	06/07/2026						NoMi :-Associate	
+f5845f67	997d9562	Meenaxi_Maxi	Maxi	7777.01.07:- Payout Analysis & Processing				06/07/2026 09:32	06/07/2026 09:45	00:13	0.22		0.00	0.00	0.00	• Raised the transfer request for all the Associates			Internal	Maxi	06/07/2026 09:45:22	HR-EMP-002				997d9562	7777.01 :- Core Opretions.	06/07/2026						Meenaxi :-Associate	
+56aac91a	997d9562	Hardik_Hardi	Hardi	7777.02.03:- Training and Knowledge Sharing				05/07/2026 21:00	05/07/2026 22:45	01:45	1.75		0.00	0.00	0.00	"have created the tunnel link 
+have started the bench 
+Have migrted the site 
+have created teh changes 
+have presented to the nomi bhai 
+have created the pr 
+have done the work"			Internal	Hardi	05/07/2026 22:45:58	HR-EMP-004				997d9562	7777.02 :- Knowledge Management.	05/07/2026						Hardik :-Associate	
+da88279c	29b09403	Hardik_Hardi	Hardi	1135.01.06:- Support & Documentation				05/07/2026 12:36	05/07/2026 15:36	03:00	3.00		0.00	0.00	0.00	"• have setup the meeting with nomi bhai
+• have try to find the bug
+• have explain the all error to nomi bhai
+• but its no correct
+• have fornd all error with the help of anti gravity
+• have found the error and try to solve it
+• have solvet in the employee table in one column
+• have created the neww condition like if we delet row tody and need to auto correct it"			Fully Billed	Hardi	05/07/2026 21:36:45	HR-EMP-004				29b09403	1135.01 :- People Module.	05/07/2026						Hardik :-Associate	
+25a9a7c8	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				05/07/2026 11:48	05/07/2026 15:30	03:42	3.70		0.00	0.00	0.00	"• working on the feature for the view all users in system admin portal
+• updating the learning and contributon files to the repo
+• have developed the CI
+• have build the contribution and pr and isssu flow
+• ahve started createing the individual PR"			Fully Billed	NoMi	05/07/2026 15:30:45	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	05/07/2026						NoMi :-Associate	
+f02aa048	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				05/07/2026 12:30	05/07/2026 14:17	01:47	1.78		0.00	0.00	0.00	"• have started work on creating articulation agreement in sbvc
+• First I store all the high school district is which have active articulation agreement with sbvc
+• Have Check the all the district we have onboarded or not
+• There are two High School District which we have two onboarded in our system so I take their information from Google
+• Onboarded one High School District and two high schools off that high school district in our system"			Fully Billed	Neha	06/07/2026 11:15:59	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	05/07/2026						Neha :-Associate	
+0e1be213	29b09403	Hardik_Hardi	Hardi	1135.01.06:- Support & Documentation				05/07/2026 12:30	05/07/2026 12:36	00:06	0.10		0.00	0.00	0.00	"have meeting with rand 
+have seen his screen and her screen is clear no error there"			Fully Billed	Hardi	05/07/2026 21:31:45	HR-EMP-004				29b09403	1135.01 :- People Module.	05/07/2026						Hardik :-Associate	
+11081fef	29b09403	Hardik_Hardi	Hardi	1135.01.06:- Support & Documentation				05/07/2026 11:19	05/07/2026 12:30	01:11	1.18		0.00	0.00	0.00	"• have found the error in the message
+• there is no row for today attendance
+• have created the row for every one
+• have try to found the bug
+• have seen all column edit history
+• have seen there is rows careted the 3 jluy"			Fully Billed	Hardi	05/07/2026 21:31:40	HR-EMP-004				29b09403	1135.01 :- People Module.	05/07/2026						Hardik :-Associate	
+a1c4e6b6	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				04/07/2026 20:23	04/07/2026 21:27	01:04	1.07		0.00	0.00	0.00	"• learnign resources
+• trying to create the live website for it
+• have created the campuscredit.ommnomi.com
+• have shared the structure with all in tech group"			Fully Billed	NoMi	04/07/2026 21:27:43	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						NoMi :-Associate	
+42ce8825	997d9562	Hardik_Hardi	Hardi	7777.03.02:- Social Channels & Content Management				04/07/2026 16:00	04/07/2026 19:00	03:00	3.00		0.00	0.00	0.00	"• have created the video
+• have creasted the all video
+• have create the video with the help of ai means genimi
+• have create teh visual pronpt for every video
+• have created the video
+• have created teh image
+• have cr5eate the video from image
+• have creaated teh  the scene
+• have added all scene in video
+• and final product is ready"			Internal	Hardi	05/07/2026 21:44:23	HR-EMP-004				997d9562	7777.03 :- Other Operations.	04/07/2026						Hardik :-Associate	
+b9209ec6	cd6ecd03	Neha_NoMi	NoMi	1122.24.08:- Demo Setup				04/07/2026 17:00	04/07/2026 17:58	00:58	0.97		0.00	0.00	0.00	"• Have set up a dummy environment for bhiya in which I onboarded two call District two colleges connected with each indivisible college District then I created two High School District then I created two two high schools involt High School District
+• Have give entity access  we have set up all the environment from a cloud"			Fully Billed	Neha	05/07/2026 12:41:19	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						Neha :-Associate	
+ea2974e8	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				04/07/2026 15:52	04/07/2026 17:00	01:08	1.13		0.00	0.00	0.00	"• Have started creating a regulation agreement in about college with their all high school district which have active articles in agreement
+• I'm not completing yet I'm still working on it"			Fully Billed	Neha	05/07/2026 12:38:24	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						Neha :-Associate	
+57a33233	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				04/07/2026 14:39	04/07/2026 15:39	01:00	1.00		0.00	0.00	0.00	"• Have start creating courses in high school district
+• Have completing creating courses in high school district"			Fully Billed	Neha	05/07/2026 12:37:22	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						Neha :-Associate	
+3b87179c	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				04/07/2026 14:11	04/07/2026 15:30	01:19	1.32		0.00	0.00	0.00	"• this is ok
+• have tried connecting to the server"			Fully Billed	NoMi	05/07/2026 08:56:44	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						NoMi :-Associate	
+fd3a997e	997d9562	Meenaxi_Maxi	Maxi	7777.02.04:- Performance Meeting & Review				04/07/2026 15:00	04/07/2026 15:21	00:21	0.35		0.00	0.00	0.00	"• Weekly meeting with Hardik.
+He discussed about the new idea of showing social media presence by Bumping Into Bugs BIB plan."			Internal	Maxi	04/07/2026 15:21:26	HR-EMP-002				997d9562	7777.02 :- Knowledge Management.	04/07/2026						Meenaxi :-Associate	
+473345cf	997d9562	Hardik_Hardi	Hardi	7777.03.02:- Social Channels & Content Management				04/07/2026 12:00	04/07/2026 15:00	03:00	3.00		0.00	0.00	0.00	"• have try to create the video
+• have created teh video
+• have edited the video
+• have found the idea
+• have start the meeting
+• have recorded the meet
+• have done it"			Internal	Hardi	05/07/2026 21:38:15	HR-EMP-004				997d9562	7777.03 :- Other Operations.	04/07/2026						Hardik :-Associate	
+086cbd94	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				04/07/2026 14:25	04/07/2026 14:39	00:14	0.23		0.00	0.00	0.00	"• Have start creating courses in high school district
+• Have completing creating courses in high school district"			Fully Billed	Neha	05/07/2026 12:36:33	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						Neha :-Associate	
+c0439802	997d9562	Meenaxi_Maxi	Maxi	7777.02.04:- Performance Meeting & Review				04/07/2026 14:15	04/07/2026 14:32	00:17	0.28		0.00	0.00	0.00	• Weekly meeting with Neha.			Internal	Maxi	04/07/2026 15:19:55	HR-EMP-002				997d9562	7777.02 :- Knowledge Management.	04/07/2026						Meenaxi :-Associate	
+678c240e	997d9562	Neha_NoMi	NoMi	7777.02.04:- Performance Meeting & Review				04/07/2026 14:05	04/07/2026 14:25	00:20	0.33		0.00	0.00	0.00	"• Had a weekly  meeting with me minakshi didi
+• So I explained her my all weekly work which have done"			Fully Billed	Neha	05/07/2026 12:33:34	HR-EMP-007				997d9562	7777.02 :- Knowledge Management.	04/07/2026						Neha :-Associate	
+b221c1f0	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				04/07/2026 11:10	04/07/2026 13:10	02:00	2.00		0.00	0.00	0.00	"• have started cretating coursed in the high school district woth have active articulation agrrment with CHabot
+• have replied Solano entity client with the update they what some change so I update them
+• have in the high school district which have active articulation agreement with chatbot college the high school district many of course did not provide information so I asked them question about that in a email"			Fully Billed	Neha	05/07/2026 12:30:12	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						Neha :-Associate	
+87be4a20	cd6ecd03	Devoted_NoMi	NoMi	1122.24.03:- Research and Learning				04/07/2026 10:55	04/07/2026 13:00	02:05	2.08		0.00	0.00	0.00	"• meeting with deepak sir
+• have got access to the aws and the claude code from dkaushik cc
+• have implimented the dev setup in my claude"			Fully Billed	NoMi	04/07/2026 14:11:31	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						NoMi :-Associate	
+032d4750	ad83fbe9	Meenaxi_Maxi	Maxi	1111.23.03:- ERPNext Configuration				04/07/2026 11:05	04/07/2026 12:00	00:55	0.92		0.00	0.00	0.00	"• Verification of the sales invoices to be verified.
+• Added feedback or submitted the sales as per my findings.
+• For grading items the item name is not able to show the item name with the varient sold to the student and 
+This is not good.
+• Updated Nomeshwer about the findings on WhatsApp."			Fully Billed	Maxi	04/07/2026 12:00:22	HR-EMP-002				ad83fbe9	1111.23 :- April - June 2026.	04/07/2026						Meenaxi :-Associate	
+929678f8	997d9562	Meenaxi_Maxi	Maxi	7777.01.07:- Payout Analysis & Processing				04/07/2026 08:56	04/07/2026 10:16	01:20	1.33		0.00	0.00	0.00	"• Employee check in sync time updated for June and 
+
+
+Attandance marked for all the shift types in ERPNext.
+• Comparison of the total work hours in Empire Nomi and monthly attendance check in in ERPNext.
+Found that the work hours of the day in which we couldn't meet the half-day threshold got excluded from the total monthly work hours of the associates.
+• Created the payroll entry submitted salary slip and tried to initiate transfer request for all in PNB biz but found PNB login error due to network issue.
+• Added payment entry for Meenaxi Nomeshwer and golden sparrow AL invoice."			Internal	Maxi	04/07/2026 10:16:44	HR-EMP-002				997d9562	7777.01 :- Core Opretions.	04/07/2026						Meenaxi :-Associate	
+c46fde95	cd6ecd03	Neha_NoMi	NoMi	1122.24.09:- CampusCredit Support				04/07/2026 07:38	04/07/2026 08:43	01:05	1.08		0.00	0.00	0.00	"• have check the emails of both account
+• have check the bug log sheet staus
+• have complate the creating the course in chabot"			Fully Billed	Neha	04/07/2026 11:12:15	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	04/07/2026						Neha :-Associate	
+01d8c9e6	cd6ecd03	Devoted_NoMi	NoMi	1122.24.09:- CampusCredit Support				03/07/2026 21:33	03/07/2026 23:58	02:25	2.42		0.00	0.00	0.00	"• checking emails
+• i worked on the concept
+• had a call with deepak sir
+• have tried setting upd the aws account
+• have meet with varun
+• have also tried the connnection
+• the script is working fine
+• after that i have meeting with musgrave"			Fully Billed	NoMi	04/07/2026 11:04:51	HR-EMP-001				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	03/07/2026						NoMi :-Associate	
+f519074b	awlngqu6	Gagi_Gagi	Gagi	1133.15.01:- Project Management	f4e17855	903b6657	ebfd9aa1	03/07/2026 21:48	03/07/2026 22:05	00:17	0.28		0.00	0.00	0.00	age of indus. part 2 hi final video			Fully Billed	Gagi	03/07/2026 22:09:25	HR-EMP-005				awlngqu6	1133.15 :- AL - Apr. 2026.	03/07/2026	Full Video Editing	Hindi	Part 2			Gayatri :-Associate	
+45c88c7c	awlngqu6	Gagi_Gagi	Gagi	1133.15.01:- Project Management	f4e17855	903b6657	fbe4bd41	03/07/2026 21:30	03/07/2026 21:45	00:15	0.25		0.00	0.00	0.00	chapter 4 age of industrialisation hi part 1 complete			Fully Billed	Gagi	03/07/2026 22:07:39	HR-EMP-005				awlngqu6	1133.15 :- AL - Apr. 2026.	03/07/2026	Full Video Editing	Hindi	Part 1			Gayatri :-Associate	
+839563f8	997d9562	Hardik_Hardi	Hardi	7777.03.02:- Social Channels & Content Management				03/07/2026 16:00	03/07/2026 19:00	03:00	3.00		0.00	0.00	0.00	"• have decided to change the script
+• have changed the script
+• have created the new script for it
+• have created the new meme style script
+• have created the voice over and we like it
+• have selected the jatt voice for it
+• have created teh second bug script
+• have created the audio
+• have present it to every one wee like it"			Internal	Hardi	04/07/2026 14:55:59	HR-EMP-004				997d9562	7777.03 :- Other Operations.	03/07/2026						Hardik :-Associate	
+56d4ebca	997d9562	Meenaxi_Maxi	Maxi	7777.01.06:- Accounting & Financial Analysis				03/07/2026 18:30	03/07/2026 18:42	00:12	0.20		0.00	0.00	0.00	• PNB transfer request for 50000 to settle the employee expense payable to Nomeshwer.			Internal	Maxi	03/07/2026 20:40:33	HR-EMP-002				997d9562	7777.01 :- Core Opretions.	03/07/2026						Meenaxi :-Associate	
+2c956176	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				03/07/2026 17:02	03/07/2026 18:15	01:13	1.22		0.00	0.00	0.00	"• Have start creating courses in chatbot College
+• The agreement sheet not contain the description of courses so I take their description from Google AI
+• I'm not completing yet creating courses so I'm still working on it"			Fully Billed	Neha	04/07/2026 07:53:35	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	03/07/2026						Neha :-Associate	
+942c91f8	997d9562	Meenaxi_Maxi	Maxi	7777.01.07:- Payout Analysis & Processing				03/07/2026 17:10	03/07/2026 17:30	00:20	0.33		0.00	0.00	0.00	• Timesheets approval from 24 to 30 June.			Internal	Maxi	03/07/2026 20:42:04	HR-EMP-002				997d9562	7777.01 :- Core Opretions.	03/07/2026						Meenaxi :-Associate	
+f95594a9	997d9562	Neha_Neha	Neha	7777.03.02:- Social Channels & Content Management				03/07/2026 16:32	03/07/2026 17:02	00:30	0.50		0.00	0.00	0.00	"• I found a bug in email i assigned a  email task to me but when I open that email task that is not open
+• As we working on bumping into bugs so I record they're all the necessity workflow in specific folder like I added their console log then I capture all the screenshot with all description how I can find a bug where i found a bug
+• And adding some short video recordings in that Google Doc so whenever we try to create a video from notebooklm so they easily understand the content of this bug"			Internal	Neha	04/07/2026 07:52:19	HR-EMP-007				997d9562	7777.03 :- Other Operations.	03/07/2026						Neha :-Associate	
+51026bd9	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				03/07/2026 16:06	03/07/2026 16:32	00:26	0.43		0.00	0.00	0.00	"• Have start on voting and titties which have active articulation agree ment with chabot college
+• Have completing on boarding all the entities and gave entity access with the chatbot college to all the high school district
+• No I have started creating courses in chabot college"			Fully Billed	Neha	04/07/2026 07:50:04	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	03/07/2026						Neha :-Associate	
+60138e6e	997d9562	Meenaxi_Maxi	Maxi	7777.01.07:- Payout Analysis & Processing				03/07/2026 14:41	03/07/2026 15:50	01:09	1.15		0.00	0.00	0.00	• Attandance approval for June			Internal	Maxi	03/07/2026 16:03:02	HR-EMP-002				997d9562	7777.01 :- Core Opretions.	03/07/2026						Meenaxi :-Associate	
+812fe97e	997d9562	Hardik_Hardi	Hardi	7777.03.02:- Social Channels & Content Management				03/07/2026 14:00	03/07/2026 15:14	01:14	1.23		0.00	0.00	0.00	"• have created the video for it but its not attrective
+• we dont like babu bhiya style
+• the video have multi cut and voice over change in every secene"			Internal	Hardi	04/07/2026 14:56:50	HR-EMP-004				997d9562	7777.03 :- Other Operations.	03/07/2026						Hardik :-Associate	
+26c77c08	cd6ecd03	Neha_NoMi	NoMi	1122.24.11:- Data Management in Portal				03/07/2026 13:02	03/07/2026 15:11	02:09	2.15		0.00	0.00	0.00	"• have  started analyzing the agreements currently we have to create articulation agreement for two new entities first one is chabot college and second is sbvc
+• So first I take chatbot college entity agreements so first I have two copy there all the agreements from their website to a Google sheet so I copied there all the agreement and enter in our Google sheet
+• But that is little bit confusing so I arrange that agreement sheet according to my understanding
+• No I'm start checking if their High School District and high school is onwarded or not so first I add all the high school district name in agreement sheet because they provide us their high school name but we create a articulation agreement with high school district so I searched all the high school district in map and cross check if that is go to high school district or not after adding all the high school district in the articulation list
+• No I'm start on boarding and it is which we have not onboarded in production which have active articulation agreement with chairboardw
+• For now I am on boarding to high school district and there one one High School in our system i'm still working on it"			Fully Billed	Neha	04/07/2026 07:48:17	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	03/07/2026						Neha :-Associate	
+26bba1de	997d9562	Hardik_Hardi	Hardi	7777.03.02:- Social Channels & Content Management				03/07/2026 11:00	03/07/2026 14:00	03:00	3.00		0.00	0.00	0.00	"• have get the access from cc to ommnomi of thet sync bug in google doc
+• have accept the bug file here
+• have created the script
+• have created the 60 sec video
+• have seprate it in the 8 sec parts
+• have start creating the video of it"			Internal	Hardi	04/07/2026 14:52:18	HR-EMP-004				997d9562	7777.03 :- Other Operations.	03/07/2026						Hardik :-Associate	
+4cf43585	cd6ecd03	Neha_NoMi	NoMi	1122.24.09:- CampusCredit Support				03/07/2026 11:25	03/07/2026 13:02	01:37	1.62		0.00	0.00	0.00	"• have check emails
+• chabot and T-share their articulation agreement so I analyze that they gave us a website where they enter there all the enter there all the agreements
+• I have many tasks in which I have to reply for client according to their requirements so I emailed 3 to 4 clients and update them according to the requirements they want from us
+• Have create a new feature request that is disable course access option in configuration so I created a feature request and add this feature request in their respective document
+• Then I reported some bugs to Dab team
+• That is I want a copy button in all the knowledge base article"			Fully Billed	Neha	04/07/2026 07:43:40	HR-EMP-007				cd6ecd03	1122.24 :- Apr. - Jun. 2026.	03/07/2026						Neha :-Associate	
+06d63ea4	cd6ecd03	Devoted_NoMi	NoMi	1122.24.01:- Meeting with Deepak Sir and Other				03/07/2026 09:42	03/07/2026 10:21	00:39	0.65		0.00	0.00	0.00	"• meeting with julian for the discussion of the items
+• ceateing the email alieas for the accounts
+• had a call with julina
+• have shown him what is wrong with the code
+• have also analysed the data
+• we need to make sure it is working fie
+• have helped him delete the user accounts from the google workspace admin
+• now these all are just the

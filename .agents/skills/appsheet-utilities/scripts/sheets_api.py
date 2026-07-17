@@ -174,15 +174,17 @@ def build_format_requests(sheet_id: int, all_headers: list) -> list:
             }
         })
 
-    # 4. Auto-resize all columns
+    # 4. Set minimum column width (120px) — auto-resize squishes empty columns
     requests.append({
-        'autoResizeDimensions': {
-            'dimensions': {
+        'updateDimensionProperties': {
+            'range': {
                 'sheetId': sheet_id,
                 'dimension': 'COLUMNS',
                 'startIndex': 0,
                 'endIndex': len(all_headers)
-            }
+            },
+            'properties': {'pixelSize': 130},
+            'fields': 'pixelSize'
         }
     })
 
