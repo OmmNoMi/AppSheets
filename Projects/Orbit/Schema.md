@@ -142,6 +142,7 @@
 | `Approved_Confirm` | Set Status = "Confirmed", DateOfConfirmation = TODAY() | `[Status] = "Probation"` |
 | `Terminated_Employee` | Set Status = "Terminated", DateOfTermination = TODAY() | `[Status] <> "Terminated"` |
 | `Update_AppUserID` | Set AppUserID = ANY(SELECT(AppUser[ID], [Employee] = [_THISROW].[ID])) | TRUE |
+| `CreateEmployeeAttendanceToday` | Add new row to `AttendanceDaily` with `Date` = `TODAY()`, `EmployeeID` = `[ID]` | `TRUE` |
 
 ---
 
@@ -333,7 +334,7 @@
 
 | Column | Type | Initial Value / App Formula | Editable_If | Reset on Edit | Notes |
 |--------|------|----------------------------|-------------|---------------|-------|
-| ID | Text (Key) | `TEXT(UNIQUEID())` | `ISBLANK([_THIS])` | — | |
+| ID | Text (Key) | `TEXT([Date], "dd/mm/yyyy") & "-" & [EmployeeID]` | `ISBLANK([_THIS])` | — | |
 | EmployeeID | Enum Ref → Employee | — | `ISBLANK([_THIS])` | — | |
 | Date | Date | `TODAY()` | `ISBLANK([_THIS])` | — | Attendance log date (DD/MM/YYYY) |
 | CheckInTime | DateTime | `UTCNOW()` | — | — | UTC timestamp |
@@ -525,6 +526,27 @@
 * **Trigger Condition**: `AND([RequestType] = "Time Off in Lieu (TOIL)", [Status] = "Approved", [_THISROW_BEFORE].[Status] <> "Approved")`
 * **Run Step**: Run Action `Create_TOIL_Allocation` on the current `AttendanceRequest` record.
 * **Purpose**: When an admin approves a TOIL request, immediately generate a leave allocation bucket for the employee valid for exactly 3 months from the day the extra work was performed. Amount is based on whether the original shift was Full or Half-Day.
+
+### Bot: Daily Attendance Generation (Hourly)
+* **Trigger Event**: Scheduled (Hourly)
+* **Run Step 1 (Create Tomorrow's Row)**: Execute Action `Create Attendance 2 Action - 2` (or similar) on `Employee` table.
+* **Run Step 2 (Safety Net - Create Today's Row)**: Run Action `CreateEmployeeAttendanceToday` on `Employee` table.
+  - **Step Condition** (Run only if...):
+    ```appsheet
+    AND(
+      IN([Status], {"Probation", "Onboarding", "Confirmed"}),
+      ISBLANK(
+        SELECT(
+          AttendanceDaily[ID],
+          AND(
+            [Employee] = [_THISROW].[ID],
+            [Date] = TODAY()
+          )
+        )
+      )
+    )
+    ```
+* **Purpose**: Automatically pre-creates tomorrow's attendance row at night, and checks/recreates today's attendance row if it was deleted or is missing.
 
 ---
 
