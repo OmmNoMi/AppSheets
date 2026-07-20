@@ -46,6 +46,7 @@ description: Architectural pattern for PATTERNS_INDEX. Use this skill when asked
 | BF-006 | Google Form sheet columns renamed/broken in AppSheet | Never rename form cols — use Display Name; add admin cols at END only; use Timestamp as key | Transcend |
 | BF-007 | Ref Display vs Database Raw Value | `BugFixes/BF-007_RefDisplayVsRaw.md` | Transcend |
 | BF-008 | Action fails silently | `BugFixes/BF-008_SchemaValidation.md` | Transcend |
+| BF-009 | Blank email body / wrong recipient in automation email | `BugFixes/BF-009_BlankEmailBody.md` | Navi ONDT |
 
 ## UX Patterns
 | ID | Use Case | Pattern File | Source |
@@ -112,3 +113,17 @@ When a solution is found during a project session:
 | ID | Problem / Use Case | Pattern File | Source |
 |----|-------------------|-------------|--------|
 | FP-005 | Numeric Enum rating to label VC — 1-5 Enum score auto-mapped to descriptive label | Inline: Rating stored as Enum ("1","2","3","4","5"). AverageScore VC: `ROUND((VALUE([R1])+VALUE([R2])+VALUE([R3])+VALUE([R4]))/4,2)`. ScoreLabel VC: `IFS([Avg]>=4.5,"Exceeds",[Avg]>=3.5,"Meets",[Avg]>=2.5,"Partially Meets",[Avg]>=1.5,"Needs Support",TRUE,"Does Not Meet")`. Keep rating as Enum (not Number) for clean mobile dropdowns. | Orbit Phase 3 |
+
+---
+
+## Patterns Added — Navi ONDT Session (20 July 2026)
+
+### Automation Patterns (continued)
+| ID | Use Case | Pattern File | Source |
+|----|---------|-------------|--------|
+| AU-013 | Google Doc email body template — merge tag syntax, AppVariables lookup, Shared Drive access rules | `Automations/AU-013_EmailBodyTemplate.md` | Navi ONDT |
+
+### Bug Fix Patterns (continued)
+| ID | Problem / Use Case | Pattern File | Source |
+|----|-------------------|-------------|--------|
+| BF-009 | Blank email body / wrong recipient — 6-cause diagnostic checklist | `BugFixes/BF-009_BlankEmailBody.md` | Navi ONDT |

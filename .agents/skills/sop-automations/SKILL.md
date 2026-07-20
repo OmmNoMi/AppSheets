@@ -127,7 +127,8 @@ description: Standard Operating Procedure for Automations. Use this skill when a
 ### 4. Zero-Touch Configuration via AppVariables
 - **Problem**: Hardcoding Drive Folder IDs, Webhook URLs, or API keys directly into AppSheet expressions or App Script makes deploying the app to a new client a manual, error-prone nightmare.
 - **Solution**: Store these in the `AppVariables` table and tag them with `Changes on App Copy`.
-- **Usage in AppSheet**: `LOOKUP("AppCodeBaseFolder", "AppVariables", "ID", "URL")` or `[EnumValue]`
+- **Usage in AppSheet**: `LOOKUP("AppCodeBaseFolder", "AppVariables", "ID", "EnumValue")` or `[EnumValue]`
+- **Confirmed column names in AppVariables table**: `"ID"` (key), `"EnumValue"` (text values), `"File"` (file/URL values), `"Photo"` (image values). Do NOT use `"Value"` — it does not exist.
 - **Usage in App Script**: Use `extractIdFromUrl()` to safely extract the 33-character ID whether the user provides a full `https://drive.google.com/...` link or the raw ID from AppVariables.
 
 ### 5. OAuth Scopes & AppSheet Authorization
