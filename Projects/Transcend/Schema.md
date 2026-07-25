@@ -214,7 +214,7 @@
 + Modified/Added Columns:
   - _RowNumber: Number
 
-### FormIntake (83 cols)
+### FormIntake (92 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
   Timestamp: DateTime = NOW()
@@ -230,118 +230,201 @@
   Sexual Orientation: Text
   Race: Text
   Ethnicity: Text
-  Language: Text
+  Preferred Language: Text
   Marital Status: Text
   Religious Affiliation:: Text
+  Email Address:: Email
+  Mobile phone number: Phone
+  Mobile phone voice messages: Yes/No
+  Mobile phone text messages: Yes/No
+  Home phone number: Phone
+  Home phone voice messages: Yes/No
+  Preferred Contact Method: Text
+  Encrypted Email Notice & Consent: Yes/No
+  Telehealth Option Consent: Yes/No
   Home Address: Address
   Home City: Text
   Home State: Text
   Home Zip: Text
-  Country: Text
   Time Zone: Text
-  Email Address: Email
-  Primary Phone Number: Number
-  Secondary Phone Number: Number
-  Work Phone Number: Number
-  Preferred Contact Method: Text
-  Preferred Contact Method_28: Text
-  Insurance Company: Text
+  Payor Benefit Choice: Text
+  Use EAP Benefits: Yes/No
+  EAP Program Name: Text
+  EAP Authorized Sessions Count: Number
+  Has EAP Authorization Form: Yes/No
+  EAP Authorization File Upload: File
+  Use Insurance Option: Yes/No
+  Is Insurance Medicare Plan: Yes/No
+  Medicare Secondary Insurance: Text
+  Name of Insurance Company: Text
+  Insurance Plan Name: Text
   Member/Beneficiary ID: Text
-  Priority: Text
   Policy Group Number: Text
   Plan Name: Name
-  Is the name and contact information for the primary insured the same as the client?: Name
-  Client relationship to policy holder: Text
-  Policy holder (First Name): Name
-  Policy holder (Middle Name): Name
-  Policy holder (Last Name): Name
+  Is Primary Insured Same As Client: Yes/No
+  Client Relationship to Policy Holder: Text
+  Policy Holder First Name: Name
+  Policy Holder Middle Name: Name
+  Policy Holder Last Name: Name
   Administrative Sex: Text
   Policy Holder Date of Birth:: Date = TODAY()
   Policy Holder Address 1: Address
   Policy Holder Address 2: Address
   Policy Holder Zip: Text
   Policy Holder City/State: Text
-  Policy Holder Phone Number: Text
+  Policy Holder Phone Number: Phone
+  Is Only Insurance Plan: Yes/No
   Front of Insurance Card: Url
   Back of Insurance Card: Url
   Name on Card: Name
-  Type of Card. Note: We are unable to process American Express or Discover cards*: Text
-  Is this a credit card? (Mark "No" if the card is an HSA, FSA or HRA card or a debit card that can be processed without a pin number): Yes/No
+  Type of Card.: Text
+  Is Credit Card: Yes/No
   Card Number: Text
   Card Expiration Date: Text
   Security Code: Text
   Billing Street Address: Address
   Billing City: Text
   Billing Zip Code: Text
+  Taking Prescription Meds: Yes/No
   Medication Name: Name
   Dosage: Text
-  Form / Unit (Capsule, tablet, liquid): Text
-  Amount (How many are taken): Text
-  Frequency (How often is it taken): Text
+  Amount and Frequency: Text
   Symptoms Being Treated: Text
   Prescribed By: Text
-  Is there another 2nd medication that you take?: Text
-  Medication Name_65: Name
-  Dosage_66: Text
-  Form / Unit (Capsule, tablet, liquid)_67: Text
-  Amount (How many are taken)_68: Text
-  Frequency (How often is it taken)_69: Text
-  Symptoms Being Treated_70: Text
-  Prescribed By_71: Text
-  Medication Name_72: Name
-  Dosage_73: Text
-  Form / Unit (Capsule, tablet, liquid)_74: Text
-  Amount (How many are taken)_75: Text
-  Frequency (How often is it taken)_76: Text
-  Symptoms Being Treated_77: Text
-  Prescribed By_78: Text
-  Is there another 3nd medication that you take?: Yes/No
+  Taking Second Med: Yes/No
+  Medication Name #2: Name
+  Dosage #2: Text
+  Amount and Frequency #2: Text
+  Symptoms Being Treated #2: Text
+  Prescribed By #2: Text
+  Taking Third Med: Yes/No
+  Medication Name #3: Name
+  Dosage #3: Text
+  Amount and Frequency #3: Text
+  Symptoms Being Treated #3: Text
+  Prescribed By #3: Text
+  Taking Additional Meds: Yes/No
+  Additional Medications Details: LongText
+  ProcessedStatus: Enum [Values: 'New', 'Processing', 'Processed', 'Failed'] = ="New"
+  ClientID: Ref
+  ProcessedOn: DateTime
+  ProcessedBy: Text
   Label: Text [RO]
   _ComputedName: Name [RO,VC]
-  _ComputedName2: Name [RO,VC]
 ```
 
-### Client (28 cols)
-[Inherits all 25 columns from Table: 1st Row to Medication Output]
-+ Modified/Added Columns:
-  - _RowNumber: Number
-  - Status: Enum [Values: 'New', 'ClientInfoReceived', 'DocsRequested', 'DocsGenerated', 'AwaitingSignature', 'Signed', 'InsuranceVerifying', 'AwaitingIntakeSession', 'IntakeComplete', 'Active', 'NotProceeding', 'Archived'] = ="ClientInfoReceived"
-  - DriveFolderID: Text [HIDDEN]
-  - DocumentURL: Url [HIDDEN]
+### Client (55 cols)
+```
+  _RowNumber: Number [SYSTEM,HIDDEN,RO]
+  ID: Text = UNIQUEID()
+  FirstName: Name = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[First Name], "")
+  Middle Name: Name = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Middle Name], "")
+  LastName: Name = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Last Name], "")
+  PreferredName: Name = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Preferred name], "")
+  Suffix: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Suffix], "")
+  AlsoKnownAs: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Also known as], "")
+  Pronouns: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Pronouns], "")
+  AdministrativeGender: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Current Administrative Gender], "")
+  GenderIdentity: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Gender Identity], "")
+  SexualOrientation: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Sexual Orientation], "")
+  Race: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Race], "")
+  Ethnicity: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Ethnicity], "")
+  PreferredLanguage: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Preferred Language], "")
+  MaritalStatus: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Marital Status], "")
+  ReligiousAffiliation: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Religious Affiliation:], "")
+  ConsentMobileVoice: Yes/No = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Mobile phone voice messages], "")
+  ConsentMobileSMS: Yes/No = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Mobile phone text messages], "")
+  HomePhone: Phone = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Home phone number], "")
+  ConsentHomeVoice: Yes/No = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Home phone voice messages], "")
+  PreferredContactMethod: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Preferred Contact Method], "")
+  ConsentEmail: Yes/No = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Although our practice uses an encrypted form of email, we cannot guarantee the security of messages once they in your email service or on your computer/device.], "")
+  ConsentTelehealth: Yes/No = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Telehealth - Please mark yes, if you would like the option to receive telehealth services even if you would prefer most services in-person], "")
+  TimeZone: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Time Zone], "")
+  UseEAP: Yes/No = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Do you have EAP benefits you would like to use?], "")
+  EAPProgramName: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[What is the name of your EAP program?], "")
+  EAPAuthorizedSessions: Number = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[How many sessions are authorized], "")
+  HasEAPAuthForm: Yes/No = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Do you have an authorization form sent by your EAP program?], "")
+  EAPAuthFile: File = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Please upload a copy of your authorization.], "")
+  AdditionalMedicationsNotes: LongText = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Please list additional medications, including the name of the medication, dosage and frequency, symptoms being treated and the name of the presriber.], "")
+  NameOnCard: Name = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Name on Card], "")
+  TypeOfCard: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Type of Card.], "")
+  IsCreditCard: Yes/No = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Is this a credit card?], "")
+  CardNumber: Text [SENSITIVE/ENCRYPTED] = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Card Number], "")
+  CardExpirationDate: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Card Expiration Date], "")
+  SecurityCode: Text [SENSITIVE/ENCRYPTED] = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Security Code], "")
+  BillingStreetAddress: Address = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Billing Street Address], "")
+  BillingCity: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Billing City], "")
+  BillingZipCode: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Billing Zip Code], "")
+  DateOfBirth: Date = TODAY()
+  Gender: Text
+  Phone: Phone = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Mobile phone number], "")
+  Email: Email = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Email Address:], "")
+  Address: Address = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Home Address], "")
+  City: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Home City], "")
+  State: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Home State], "")
+  ZipCode: Text = =IF(ISNOTBLANK([FormIntake]), [FormIntake].[Home Zip], "")
+  EmergencyContact: Phone
+  Status: Enum [Values: 'New', 'ClientInfoReceived', 'DocsRequested', 'DocsGenerated', 'AwaitingSignature', 'Signed', 'InsuranceVerifying', 'AwaitingIntakeSession', 'IntakeComplete', 'Active', 'NotProceeding', 'Archived'] = ="ClientInfoReceived"
+  FormIntake: Ref
+  DriveFolderId: Text [HIDDEN]
+  CreatedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  CreatedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditOn]="=ISBLANK([_THIS])" }
+```
 
-### Insurance (14 cols)
+### Insurance (31 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
   ID: Text = UNIQUEID()
   Client: Ref
   ProviderName: Name
-  PolicyNumber: Number
-  GroupNumber: Number
+  UseInsurance: Yes/No
+  PolicyNumber: Text
+  GroupNumber: Text
   SubscriberName: Name
   SubscriberDOB: Date = TODAY()
   SubscriberRelationship: Text
-  ExpirationDate: Date = TODAY()
+  ExpirationDate: Date
+  IsMedicare: Yes/No
+  SecondaryPlanNotes: LongText
+  InsurancePlanName: Name
+  MemberBeneficiaryID: Text
+  PlanName: Name
+  IsPrimaryInsuredSameAsClient: Yes/No
+  ClientRelationshipToPolicyHolder: Text
+  SubscriberFirstName: Name
+  SubscriberMiddleName: Name
+  SubscriberLastName: Name
+  AdministrativeSex: Text
+  SubscriberAddress: Address
+  SubscriberAddress2: Address
+  SubscriberCityState: Text
+  SubscriberZip: Text
+  SubscriberPhone: Phone
+  IsOnlyPlan: Yes/No
   CreatedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
   CreatedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
   LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditOn: DateTime = =NOW() { Logic: [EditOn]="=ISBLANK([_THIS])" }
 ```
 
-### Payment (13 cols)
+### Payment (14 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
   ID: Text = UNIQUEID()
-  ClientID: Text
-  SessionID: Text
+  ClientID: Ref
+  SessionID: Ref
   PaymentDate: Date = TODAY()
-  Amount: Number
-  PaymentMethod: Price
+  Amount: Price
+  PaymentMethod: Enum [Values: 'Credit Card', 'Insurance', 'EAP', 'Cash', 'Check']
   TransactionID: Text
   Notes: LongText
-  CreatedBy: Text
-  CreatedOn: Text
-  LastEditBy: Name
-  LastEditOn: Name
+  CreatedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  CreatedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = =NOW() { Logic: [EditOn]="=ISBLANK([_THIS])" }
+```}
 ```
 
 ### Medication (16 cols)
@@ -422,9 +505,18 @@
   - Instance Id: Text
   - If New Client: Ref
   - Create New Client: Ref
-  - Create Contract?: Ref
-  - Therapy Services Contract: Ref
-  - add Row to Document: Ref
+  - Create Insurance: Ref  ← Auto-populates Insurance table from FormIntake
+  - Add Front Insurance Card Document: Ref
+  - Check for Back Insurance Card: Ref
+  - Add Insurance: Ref
+
+### Document Processing Bot (Document Table)
+Event: Updates to Document
+Process Step: **Create Therapy Contract** (Calls Google Apps Script `createGoogleDoc`)
+Parameters:
+- `fileObj`: `'{"templateId": "1TpNa772w7Q2ZC9pbjmpl3LM9GWicYb5vwrUUVrIVutI", "folderId": "1FKfHsHTgtkL-iFP-QA5suCvV_BdciTKF"}'`
+- `paramObj`: Formatted JSON payload dereferencing `[Client]` and `[Insurance]` values for Google Doc merge fields.
+- Output: Returns `fileURL` and `fileName` to update `Document` row.
 
 ### If New Client Output (2 cols)
 ```
