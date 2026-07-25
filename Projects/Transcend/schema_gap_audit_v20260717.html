@@ -891,6 +891,39 @@
         </tbody>
       </table>
 
+      <!-- Automation Architecture Section -->
+      <div class="sh">Automation Engine Architecture (ProcessForNewIntakeResponse)</div>
+      <div class="callout" style="background:#f8f9fa; border-left:4px solid #673AB7; padding:16px; margin-bottom:20px; border-radius:4px;">
+        <p style="font-weight:600; color:#673AB7; margin-bottom:8px;">⚡ Event-Driven Multi-Table Automation Workflow</p>
+        <p style="margin-bottom:10px;">The <strong>ProcessForNewIntakeResponse</strong> bot triggers automatically on the <code>Client</code> table whenever a new intake response is logged. It executes a 3-stage conditional process:</p>
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; font-size:10px; margin-top:10px;">
+          <thead>
+            <tr style="background:#e8eaed; color:#202124; text-align:left;">
+              <th style="padding:6px; border:1px solid #dadce0;">Step Name</th>
+              <th style="padding:6px; border:1px solid #dadce0;">Condition / Trigger Rule</th>
+              <th style="padding:6px; border:1px solid #dadce0;">Target Table & Action Execution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:6px; border:1px solid #dadce0;"><strong>Check for Front Insurance Card</strong></td>
+              <td style="padding:6px; border:1px solid #dadce0;"><code>ISNOTBLANK([FormIntake].[Front of Insurance Card])</code></td>
+              <td style="padding:6px; border:1px solid #dadce0;">Adds row to <code>Document</code> table (Type: <code>DocType_Insurance</code>, File: Front Image URL)</td>
+            </tr>
+            <tr>
+              <td style="padding:6px; border:1px solid #dadce0;"><strong>Check for Back Insurance Card</strong></td>
+              <td style="padding:6px; border:1px solid #dadce0;"><code>ISNOTBLANK([FormIntake].[Back of Insurance Card])</code></td>
+              <td style="padding:6px; border:1px solid #dadce0;">Adds row to <code>Document</code> table (Type: <code>DocType_Insurance</code>, File: Back Image URL)</td>
+            </tr>
+            <tr>
+              <td style="padding:6px; border:1px solid #dadce0;"><strong>Add Insurance</strong></td>
+              <td style="padding:6px; border:1px solid #dadce0;">Runs unconditionally after card checks</td>
+              <td style="padding:6px; border:1px solid #dadce0;">Adds row to <code>Insurance</code> table mapping all 26 policy fields (ProviderName, PolicyNumber, MemberID, SubscriberDOB, AdministrativeSex, etc.) using strict type-matched <code>IF(ISNOTBLANK(...))</code> expressions</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <!-- Recommended Action Plan -->
       <div class="sh">Implementation Protocol (Rule A2 Standard)</div>
       <div class="callout">
