@@ -522,10 +522,7 @@ Parameters:
 1. **Type Matching in AppSheet `IF()` Expressions**:
    - `IF(ISNOTBLANK([FormIntake]), [FormIntake].[Column], FALSE)` causes type errors if `[Column]` is `Name` or `Text`.
    - **Rule**: `value-if-true` and `value-if-false` MUST share identical types. For `Text`/`Name`, use `""`. For `Yes/No`, use `FALSE`.
-2. **Strict Native `JSON.parse` vs `eval()`**:
-   - Passing multiline unescaped quotes to Google Apps Script forces an `eval()` fallback.
-   - **Rule**: Single-quote wrap strict JSON strings (e.g. `'{"templateId":"..."}'`) for zero-overhead parsing.
-3. **Credit Card Storage Separation**:
+2. **Credit Card Storage Separation**:
    - Never log intake payment cards inside transactional `Payment` tables (avoids $0 junk ledger rows). Store directly on master `Client` table with `PII = TRUE`.
 
 ### If New Client Output (2 cols)
