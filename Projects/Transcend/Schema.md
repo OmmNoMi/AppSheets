@@ -505,10 +505,10 @@
   - Instance Id: Text
   - If New Client: Ref
   - Create New Client: Ref
-  - Create Insurance: Ref  ← Auto-populates Insurance table from FormIntake
-  - Add Front Insurance Card Document: Ref
-  - Check for Back Insurance Card: Ref
-  - Add Insurance: Ref
+  - Check for Front Insurance Card: Branch (Condition: `ISNOTBLANK([Front of Insurance Card])`)
+  - Add Front Insurance Card Document: Data Action (Adds row to `Document` table)
+  - Check for Back Insurance Card: Branch (Condition: `ISNOTBLANK([Back of Insurance Card])`)
+  - Add Insurance: Data Action (Adds row to `Insurance` table using `IF(ISNOTBLANK(...))` formulas for all 26 policy fields)
 
 ### Document Processing Bot (Document Table)
 Event: Updates to Document
@@ -517,6 +517,16 @@ Parameters:
 - `fileObj`: `'{"templateId": "1TpNa772w7Q2ZC9pbjmpl3LM9GWicYb5vwrUUVrIVutI", "folderId": "1FKfHsHTgtkL-iFP-QA5suCvV_BdciTKF"}'`
 - `paramObj`: Formatted JSON payload dereferencing `[Client]` and `[Insurance]` values for Google Doc merge fields.
 - Output: Returns `fileURL` and `fileName` to update `Document` row.
+
+### Key Architectural Learnings & Gotchas
+1. **Type Matching in AppSheet `IF()` Expressions**:
+   - `IF(ISNOTBLANK([FormIntake]), [FormIntake].[Column], FALSE)` causes type errors if `[Column]` is `Name` or `Text`.
+   - **Rule**: `value-if-true` and `value-if-false` MUST share identical types. For `Text`/`Name`, use `""`. For `Yes/No`, use `FALSE`.
+2. **Strict Native `JSON.parse` vs `eval()`**:
+   - Passing multiline unescaped quotes to Google Apps Script forces an `eval()` fallback.
+   - **Rule**: Single-quote wrap strict JSON strings (e.g. `'{"templateId":"..."}'`) for zero-overhead parsing.
+3. **Credit Card Storage Separation**:
+   - Never log intake payment cards inside transactional `Payment` tables (avoids $0 junk ledger rows). Store directly on master `Client` table with `PII = TRUE`.
 
 ### If New Client Output (2 cols)
 ```
