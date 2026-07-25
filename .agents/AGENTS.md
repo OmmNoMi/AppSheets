@@ -32,16 +32,31 @@ All raw brand images (logo icons, variations, and banners) are stored in this re
 
 ### B5. Documentation Style Guide (SRS, Audits, Work Updates)
 All OmmNoMi documents must follow a strict, professional layout protocol:
-* **Header Structure:** Every document begins with a clean header showing the OmmNoMi Brand inline text:
-  `<span style="font-family:'Roboto',sans-serif;font-weight:900;"><span style="color:#4285f4;">Omm</span><span style="color:#34a853;">No</span><span style="color:#ea4335;">M</span><span style="color:#fbbc05;">i</span></span> Automation LLP`
+* **Header & Hero Block Layout:** Every report begins with the exact hero block structure, featuring the official full brand logo (`<img class="logo-img" src="data:image/png;base64,..." style="height: 28px; width: auto;" />`), clean title and subtitle, right-aligned doc control badge box, followed directly by the 4-color brand stripe:
+  ```html
+  <div class="hero">
+    <div>
+      <div class="logo-row">
+        <img class="logo-img" src="data:image/png;base64,..." alt="OmmNoMi Logo" style="height: 28px; width: auto;" />
+      </div>
+      <div class="hero-title">Report Title</div>
+      <div class="hero-sub">Subtitle &nbsp;·&nbsp; Category &nbsp;·&nbsp; Type</div>
+    </div>
+    <div class="doc-control">
+      <span class="control-badge">BADGE</span>
+      <span class="control-text">Doc Ref: ONM-XXX-2026-001</span>
+      <span class="control-text">Version: v1.0.0</span>
+    </div>
+  </div>
+  <div class="stripe"></div>
+  ```
 * **Badges:** Use a standardized right-aligned color badge to indicate the type of document (e.g. `INCIDENT REPORT` in `#4285F4`, `SRS` in `#673AB7`, `WORK UPDATE` in `#34A853`).
-* **Metadata Grid:** Standardize metadata cards (Employee, Jurisdiction, Date, Status, etc.) in a grey container background (`#f8f9fa`) with thin borders (`#dadce0`) and rounded corners (`6px`).
-* **Typography Hierarchy:**
-  * Titles and Headings: `Roboto` (bold, geometric, clean).
-  * Body, Descriptions, and Lists: `Roboto Serif` (serif, elegant, readable).
-* **Section Dividers:** Separate major document sections with a horizontal line (`<hr>` or `---`) styled using brand blue (`#4285F4`) or grey (`#dadce0`).
-* **Highlight Color Coding:**
-  * **Success / Action Completed:** Green (`#34A853`).
+* **Dynamic Associate Signatures (For Any Team Member):** Whenever an author or reviewer signature is created in a report, dynamically fetch their official role, headline, link, and tagline from their live OmmNoMi associate profile page at `https://ommnomi.in/associate/<username>` (e.g., `whardiksharma` → `Assistant Developer (Product Research & Development)`, `nomeshwer` → `Founder & Automation Architect (Business Process Developer & Implementor)`).
+* **Permanent Full Footer:** Every exported report MUST include the standard OmmNoMi footer containing:
+  - Official full brand logo image (`<img class="logo-img" src="..." style="height: 22px; width: auto;" />`) without duplicate text underneath
+  - Headquarters address (`Karsog, Mandi, Himachal Pradesh`)
+  - Tagline (`Unlocking Business Potential Through Automation`)
+  - Full social media SVG icons (Website, LinkedIn, GitHub, YouTube, Instagram, X, Discord).
   * **Warning / Incident / High Priority:** Red (`#EA4335`).
   * **Informational / Low Priority:** Blue (`#4285F4`).
   * **Pending / Medium Priority:** Yellow (`#FBBC05`) or Purple (`#673AB7`).

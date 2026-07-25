@@ -9,6 +9,9 @@ This document serves as the visual and philosophical constitution of **OmmNoMi**
 ### Main Brand Banner
 ![OmmNoMi Brand Banner](file:///c:/Users/hardi/AppSheets/.agents/brand/banner.png)
 
+### Official Full Brand Logo
+![Official Full Logo](file:///c:/Users/hardi/AppSheets/.agents/brand/ommnomi_full_logo.png)
+
 ### Logo Variations
 ![Logo Variations](file:///c:/Users/hardi/AppSheets/.agents/brand/logo_variations.png)
 
