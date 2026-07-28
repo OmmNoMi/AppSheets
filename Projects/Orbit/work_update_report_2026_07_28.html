@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Work Update & Incident Resolution Report - BLR World Orbit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Serif:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Roboto', sans-serif;
+        font-size: 10px;
+        color: #80868b;
+      }
+    }
+    
+    body {
+      font-family: 'Roboto Serif', Georgia, serif;
+      color: #202124;
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      line-height: 1.6;
+      background-color: #ffffff;
+    }
+    
+    header {
+      border-bottom: 2px solid #dadce0;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-omm-text {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      line-height: 1;
+    }
+    
+    .logo-part-omm { color: #4285f4; } /* Blue */
+    .logo-part-no { color: #34a853; }  /* Green */
+    .logo-part-m { color: #ea4335; }   /* Red */
+    .logo-part-i { color: #fbbc05; }   /* Yellow */
+    
+    .logo-sub {
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: #80868b;
+      margin-left: 8px;
+      letter-spacing: -0.2px;
+      line-height: 1;
+    }
+    
+    .report-badge {
+      font-family: 'Roboto', sans-serif;
+      background-color: #e6f4ea;
+      color: #34a853;
+      border: 1px solid #ceead6;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .metadata-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+      background: #f8f9fa;
+      border: 1px solid #dadce0;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    
+    .metadata-card {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .metadata-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      color: #70757a;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+    
+    .metadata-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: #202124;
+    }
+    
+    h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #202124;
+      margin-top: 0;
+      margin-bottom: 4px;
+    }
+    
+    .doc-sub {
+      font-size: 12px;
+      color: #5f6368;
+      margin-bottom: 18px;
+    }
+    
+    h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #4285f4;
+      border-bottom: 1px solid #e8eaed;
+      padding-bottom: 4px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    p, li {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    
+    .callout {
+      background-color: #f8f9fa;
+      border-left: 4px solid #4285f4;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 12px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .callout-warning {
+      background-color: #fef7e0;
+      border-left: 4px solid #fbbc05;
+    }
+    
+    .callout-success {
+      background-color: #e6f4ea;
+      border-left: 4px solid #34a853;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 18px;
+      margin: 12px 0;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: #dadce0;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -18px;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4285f4;
+      border: 2px solid #ffffff;
+    }
+    
+    .timeline-item.warning::before { background: #ea4335; }
+    .timeline-item.success::before { background: #34a853; }
+    .timeline-item.purple::before { background: #673ab7; }
+    
+    .timeline-time {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 10.5px;
+      color: #70757a;
+    }
+    
+    .timeline-title {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      color: #202124;
+      margin-top: 1px;
+    }
+    
+    .timeline-desc {
+      font-size: 11.5px;
+      color: #5f6368;
+      margin-top: 2px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin: 12px 0;
+    }
+    
+    table th {
+      font-family: 'Roboto', sans-serif;
+      background: #5f6368;
+      color: #ffffff;
+      padding: 8px 10px;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: left;
+    }
+    
+    table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #e8eaed;
+      font-size: 11.5px;
+    }
+    
+    table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-done {
+      display: inline-block;
+      font-family: 'Roboto', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #34a853;
+      background: #e6f4ea;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .badge-pending {
+      display: inline-block;
+      font-family: 'Roboto', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #673ab7;
+      background: #f3e8fd;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .footer-note {
+      margin-top: 25px;
+      border-top: 1px solid #dadce0;
+      padding-top: 10px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 9.5px;
+      color: #80868b;
+      text-align: center;
+    }
+
+    .sig-title {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      color: #1a73e8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <div class="logo-text-block">
+        <span class="logo-omm-text">
+          <span class="logo-part-omm">Omm</span><span class="logo-part-no">No</span><span class="logo-part-m">M</span><span class="logo-part-i">i</span>
+        </span>
+        <span class="logo-sub">Automation LLP</span>
+      </div>
+    </div>
+    <div class="report-badge">WORK UPDATE</div>
+  </header>
+
+  <h1>AppSheet System Work Update & Support Log</h1>
+  <div class="doc-sub">Daily Maintenance, Feature Enhancements, and Access Escalation for BLR World Orbit</div>
+
+  <div class="metadata-grid">
+    <div class="metadata-card">
+      <div class="metadata-label">Lead Engineer</div>
+      <div class="metadata-value">Nomeshwer Sharma</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Client System</div>
+      <div class="metadata-value">BLR World Orbit</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Log Date</div>
+      <div class="metadata-value">28 July 2026</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Status</div>
+      <div class="metadata-value">Completed / Escalated</div>
+    </div>
+  </div>
+
+  <h2>1. Summary of Deliverables & Issues Handled</h2>
+  <p>
+    During today's operational support cycle for <strong>BLR World Orbit</strong>, three key client requests/incidents were identified, diagnosed, and resolved/escalated:
+  </p>
+  <ul>
+    <li><strong>Khaled's ORBIT Account Access Issue:</strong> Resolved sidebar restriction issue (user seeing only <em>Resources</em> module) by identifying missing employee role mapping and initiating People Admin onboarding SOP.</li>
+    <li><strong>Receipt Attachment & Validation in Expense Claims:</strong> Added <code>Receipt_Image</code> alongside <code>Receipt_Files</code>, enforcing validation that at least one receipt attachment is required to save a claim.</li>
+    <li><strong>Automated Receipt Folder Organization (Process for MoveFinance):</strong> Implemented automated AppSheet bot/process logic to automatically route attached receipt images and files to the designated employee's Google Drive folder, organized strictly by fiscal year, month, and finance subfolder.</li>
+    <li><strong>"See in Drive" Direct Action Button:</strong> Created a custom AppSheet Action button (`External: open a website`) to allow users and managers to quickly open the properly renamed and organized receipt file directly in Google Drive from the claim detail view.</li>
+    <li><strong>Currency Dropdown Update (EUR Added):</strong> Expanded the <code>ExpenseClaims</code> currency option list to include <strong>EUR</strong> upon request from Fatima Seedat for Angelique's expense submission.</li>
+  </ul>
+
+  <h2>2. Detailed Task Breakdown</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Ticket / Request</th>
+        <th>Requester</th>
+        <th>Diagnosis / Root Cause</th>
+        <th>Resolution Action Taken</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Khaled Account Permissions</strong></td>
+        <td>Support Query</td>
+        <td>Account lacked <code>Employee</code> record in <code>AppUser</code> mapping table, restricting UI strictly to <code>Resources</code>.</td>
+        <td>Escalated to <strong>Rizalyn Bolasco</strong> (People Admin) to run the Standard Operating Procedure for User Creation in AppSheet.</td>
+        <td><span class="badge-pending">Escalated (SOP)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Receipt Attachment & Mandatory Validation</strong></td>
+        <td>Aaron Daniel Ashworth</td>
+        <td>Saving an expense claim requires proof of expense, but previously only <code>Receipt_Files</code> was present on the form.</td>
+        <td>Added <code>Receipt_Image</code> (Image file) alongside <code>Receipt_Files</code> (Document file). Configured validation rule so that <strong>attaching at least one of them is required</strong> to save the expense claim.</td>
+        <td><span class="badge-done">Deployed & Verified</span></td>
+      </tr>
+      <tr>
+        <td><strong>Automated Drive Storage Organization</strong></td>
+        <td>Finance / Architecture</td>
+        <td>Uploaded expense receipt files/images previously resided in default AppSheet folders without structured employee or fiscal timeline categorization.</td>
+        <td>Deployed <code>Process for MoveFinance</code> automation. Dynamically moves attached receipt images/files into the employee's dedicated Google Drive folder structure (<code>Employee Folder > Finance > Fiscal Year > Month</code>).</td>
+        <td><span class="badge-done">Deployed & Active</span></td>
+      </tr>
+      <tr>
+        <td><strong>"See in Drive" Action Button</strong></td>
+        <td>UX / Operations</td>
+        <td>Reviewers and managers needed an instant way to view the newly renamed and organized Google Drive receipt document directly from the claim view.</td>
+        <td>Added an AppSheet action button (<code>External: open a website</code>) targeting the Google Drive file URL generated post-automation execution.</td>
+        <td><span class="badge-done">Deployed & Active</span></td>
+      </tr>
+      <tr>
+        <td><strong>Expense Currency EUR Option</strong></td>
+        <td>Fatima Seedat / Angelique</td>
+        <td>Currency enum list in <code>ExpenseClaims</code> lacked the <code>EUR</code> option.</td>
+        <td>Updated AppSheet <code>ExpenseClaims</code> table configuration and AppVariables enum values to include <code>EUR</code> option. Verified live in UI.</td>
+        <td><span class="badge-done">Deployed</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Chronological Communication & Execution Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-item warning">
+      <div class="timeline-time">28 July 2026 - Incident Reported</div>
+      <div class="timeline-title">Khaled's Clock In/Out Access Issue</div>
+      <div class="timeline-desc">Issue analyzed. Confirmed restricted permission state and requested People Admin Rizalyn Bolasco to run employee onboarding creation SOP.</div>
+    </div>
+    <div class="timeline-item purple">
+      <div class="timeline-time">17:53 - Mobile Client Support</div>
+      <div class="timeline-title">Expense Receipt Camera Option Guidance</div>
+      <div class="timeline-desc">Aaron Daniel Ashworth queried about photo receipt capture on iOS. Advised performing app sync to pull latest schema changes.</div>
+    </div>
+    <div class="timeline-item success">
+      <div class="timeline-time">17:58 - Feature Configuration</div>
+      <div class="timeline-title">EUR Currency Added to Expense Claims</div>
+      <div class="timeline-desc">Fatima Seedat requested EUR currency addition. Updated AppSheet enum configuration, added <strong>EUR</strong> to dropdown list, and confirmed deployment.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-success">
+    <strong>System State:</strong> All requested expense claim form enhancements (Receipt attachment sync & EUR currency option) are live and verified. The user account creation process for Khaled is currently with the People Admin team under standard SOP.
+  </div>
+
+  <div class="footer-note">
+    Report produced by <span class="sig-title">OmmNoMi Automation LLP</span> • Karsog, Mandi, Himachal Pradesh • <a href="https://ommnomi.in" target="_blank" class="sig-title">ommnomi.in</a>
+  </div>
+
+</body>
+</html>

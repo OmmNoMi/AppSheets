@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AppSheet Permission Audit & Incident Report - BLR World Orbit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Serif:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Roboto', sans-serif;
+        font-size: 10px;
+        color: #80868b;
+      }
+    }
+    
+    body {
+      font-family: 'Roboto Serif', Georgia, serif;
+      color: #202124;
+      margin: 0;
+      padding: 0;
+      font-size: 12.5px;
+      line-height: 1.6;
+      background-color: #ffffff;
+    }
+    
+    header {
+      border-bottom: 2px solid #dadce0;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-omm-text {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      line-height: 1;
+    }
+    
+    .logo-part-omm { color: #4285f4; } /* Blue */
+    .logo-part-no { color: #34a853; }  /* Green */
+    .logo-part-m { color: #ea4335; }   /* Red */
+    .logo-part-i { color: #fbbc05; }   /* Yellow */
+    
+    .logo-sub {
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: #80868b;
+      margin-left: 8px;
+      letter-spacing: -0.2px;
+      line-height: 1;
+    }
+    
+    .report-badge {
+      font-family: 'Roboto', sans-serif;
+      background-color: #fce8e6;
+      color: #ea4335;
+      border: 1px solid #fad2cf;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .metadata-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+      background: #f8f9fa;
+      border: 1px solid #dadce0;
+      padding: 15px;
+      border-radius: 6px;
+    }
+    
+    .metadata-card {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .metadata-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #70757a;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    
+    .metadata-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: #202124;
+    }
+    
+    h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #202124;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    
+    .doc-sub {
+      font-size: 13px;
+      color: #5f6368;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #4285f4;
+      border-bottom: 1px solid #e8eaed;
+      padding-bottom: 6px;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #202124;
+      margin-top: 15px;
+      margin-bottom: 8px;
+    }
+    
+    p, li {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    
+    ul {
+      padding-left: 20px;
+    }
+    
+    .callout {
+      background-color: #f8f9fa;
+      border-left: 4px solid #4285f4;
+      padding: 12px 15px;
+      border-radius: 0 6px 6px 0;
+      margin: 15px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .callout-warning {
+      background-color: #fef7e0;
+      border-left: 4px solid #fbbc05;
+    }
+    
+    .callout-success {
+      background-color: #e6f4ea;
+      border-left: 4px solid #34a853;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: #dadce0;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -19px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #4285f4;
+      border: 2px solid #ffffff;
+    }
+    
+    .timeline-item.warning::before { background: #ea4335; }
+    .timeline-item.success::before { background: #34a853; }
+    .timeline-item.blue::before { background: #4285f4; }
+    .timeline-item.orange::before { background: #fbbc05; }
+    
+    .timeline-time {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: #70757a;
+    }
+    
+    .timeline-title {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: #202124;
+      margin-top: 2px;
+    }
+    
+    .timeline-desc {
+      font-size: 12px;
+      color: #5f6368;
+      margin-top: 4px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin: 15px 0;
+    }
+    
+    table th {
+      font-family: 'Roboto', sans-serif;
+      background: #5f6368;
+      color: #ffffff;
+      padding: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: left;
+    }
+    
+    table td {
+      padding: 10px;
+      border-bottom: 1px solid #e8eaed;
+      font-size: 12px;
+    }
+    
+    table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .footer-note {
+      margin-top: 30px;
+      border-top: 1px solid #dadce0;
+      padding-top: 10px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 10px;
+      color: #80868b;
+      text-align: center;
+    }
+
+    .sig-title {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      color: #1a73e8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <div class="logo-text-block">
+        <span class="logo-omm-text">
+          <span class="logo-part-omm">Omm</span><span class="logo-part-no">No</span><span class="logo-part-m">M</span><span class="logo-part-i">i</span>
+        </span>
+        <span class="logo-sub">Automation LLP</span>
+      </div>
+    </div>
+    <div class="report-badge">Incident Audit</div>
+  </header>
+
+  <h1>AppSheet User Access Audit & SOP Remediation</h1>
+  <div class="doc-sub">Diagnostic & Escalation Report for Khaled's Orbit User Account Access Issue</div>
+
+  <div class="metadata-grid">
+    <div class="metadata-card">
+      <div class="metadata-label">Affected User</div>
+      <div class="metadata-value">Khaled</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Application</div>
+      <div class="metadata-value">BLR World Orbit</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Incident Date</div>
+      <div class="metadata-value">28 July 2026</div>
+    </div>
+    <div class="metadata-card">
+      <div class="metadata-label">Report Status</div>
+      <div class="metadata-value">Escalated to People Admin</div>
+    </div>
+  </div>
+
+  <h2>1. Executive Summary & Symptom Analysis</h2>
+  <p>
+    An operational issue was reported regarding <strong>Khaled's ORBIT account</strong>, where the <em>Clock In / Clock Out</em> action and sidebar modules were not visible upon logging into the application. The user was only able to view the <strong>Resources</strong> section.
+  </p>
+  <div class="callout callout-warning">
+    <strong>Diagnostic Finding:</strong> When an AppSheet user in the Orbit application only sees the <code>Resources</code> module on the sidebar and lacks attendance/clock-in controls, it explicitly confirms that the user account lacks the <strong>Employee</strong> role / access mapping in the AppUser control table.
+  </div>
+
+  <h2>2. Chronological Log & Resolution Workflow</h2>
+  <div class="timeline">
+    <div class="timeline-item warning">
+      <div class="timeline-time">28 July 2026 - Client Inquiry</div>
+      <div class="timeline-title">Issue Reported via Support Channel</div>
+      <div class="timeline-desc">Client queried why the Clock In/Out option was not appearing on Khaled's account.</div>
+    </div>
+    <div class="timeline-item blue">
+      <div class="timeline-time">28 July 2026 - Technical Diagnosis</div>
+      <div class="timeline-title">Sidebar Visibility & Permission Audit</div>
+      <div class="timeline-desc">Analyzed UI state (user limited strictly to <code>Resources</code> view). Identified missing <code>Employee</code> record/mapping in the AppUser table.</div>
+    </div>
+    <div class="timeline-item success">
+      <div class="timeline-time">28 July 2026 - Escalation to People Admin</div>
+      <div class="timeline-title">SOP Workflow Initiated</div>
+      <div class="timeline-desc">Escalated to <strong>Rizalyn Bolasco</strong> (People Admin) to execute the Standard Operating Procedure for User Creation in AppSheet.</div>
+    </div>
+  </div>
+
+  <h2>3. Standard Operating Procedure (SOP) Remediation Checklist</h2>
+  <p>
+    To resolve the missing Clock In/Out functionality and grant proper employee permissions, the People Admin must perform the following standard multi-tier updates:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Target Component</th>
+        <th>Action Required</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Google Sheets Level</strong></td>
+        <td><code>Employee</code> / <code>AppUser</code> Master Data Sheet</td>
+        <td>Ensure physical row exists for Khaled with valid email address, role, and department.</td>
+      </tr>
+      <tr>
+        <td><strong>2. AppSheet Level</strong></td>
+        <td><code>AppUser</code> Table Regenerate</td>
+        <td>Trigger data sync or process flow to link the authenticated email ID to the Employee ID.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Column Type Level</strong></td>
+        <td><code>Ref</code> Configuration</td>
+        <td>Verify <code>Ref</code> relationship between <code>AppUser</code> and <code>Employee</code> table to prevent invalid dereference errors.</td>
+      </tr>
+      <tr>
+        <td><strong>4. View & UX Level</strong></td>
+        <td><code>Clock In / Out</code> Action Buttons</td>
+        <td>Confirm slice conditions evaluate <code>USEREMAIL()</code> against active Employee records.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-success">
+    <strong>Action Item for People Admin (Rizalyn Bolasco):</strong> Follow the <em>User Creation SOP</em> to complete Khaled's employee onboarding record and trigger the <code>CreateAppUserID</code> workflow in AppSheet.
+  </div>
+
+  <div class="footer-note">
+    Report produced by <span class="sig-title">OmmNoMi Automation LLP</span> • Karsog, Mandi, Himachal Pradesh • <a href="https://ommnomi.in" target="_blank" class="sig-title">ommnomi.in</a>
+  </div>
+
+</body>
+</html>
