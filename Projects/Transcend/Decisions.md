@@ -198,6 +198,16 @@
 
 ### 2026-06-25 — GoogleFormLink Variable for Intake Form Access
 **Context**: Needed a way to allow users to open the public Google Form for client intake directly from anywhere within the app, specifically on the Intake dashboards/records, while keeping the URL fully configurable per environment.
+**Decision**: Store public form URL in `AppVariables` under key `GoogleFormLink`.
+**Reason**: Keeps environment URLs dynamically configurable.
+
+---
+
+### 2026-07-23 — Form Rename & Version Update (v20260717)
+**Context**: David Phelan updated the intake Google Form name to "New Client Inquiry Form" (version `v20260717`) at URL `https://docs.google.com/forms/d/10xTL2Lln5p_2Srpf-QL-yszmO6dd1Z3zq_vw4E2_OFU/edit`.
+**Decision**: Update `AppVariables` (`GoogleFormLink`) and verify AppSheet table structure / regeneration requirements against the newly linked form responses sheet.
+**Reason**: Ensure full alignment between the new Google Form fields/responses sheet and `FormIntake` table.
+
 **Decision**: Added `GoogleFormLink` to the `AppVariables` table (tagged with `Changes on App Copy`, `ID Connected to Variable`, ValueControl `URL`). Created an action `Open Intake Form` on `FormIntake` and `Therapy Intake` tables.
 **Reason**: This avoids hardcoding the Google Form URL in AppSheet formulas or App Script webhooks. It can be easily updated in the `AppVariables` configuration screen.
 **Impact**: Users can open the Google Form with one click from details of any Intake or Therapy Intake view.
