@@ -13,15 +13,15 @@ These rules apply to ALL tasks in this workspace. Any agent working here MUST fo
 
 ### B2. Vibrant Color Palette & Hex Codes
 When styling user interfaces, custom HTML components, or PDF reports, use the following exact hex codes:
-* **Blue (Ethical & Excellence):** `#4285F4`
-* **Green (Ecological & Equity):** `#34A853`
+* **Blue (Ethical & Excellence):** `#4285F4` (Primary UI Blue: `#1a73e8`, Dark Blue: `#174EA6`)
+* **Green (Ecological & Equity):** `#34A853` (Text Green: `#137333`)
 * **Red (Entrepreneurial):** `#EA4335`
-* **Yellow (Enthusiasm):** `#FBBC05`
+* **Yellow (Enthusiasm):** `#FBBC05` (Text Yellow: `#b06000`)
 * **Purple (Empowerment):** `#673AB7`
 
 ### B3. Typography
-* **Headings:** Modern, bold, geometric Sans-Serif (`Roboto`, `Open Sans`, or `Google Sans`).
-* **Body Text:** Clean, highly legible serif (`Roboto Serif` or standard serif font stacks).
+* **Headings & Accents:** Modern, bold, geometric Sans-Serif (`Roboto`, `Open Sans`, or `Google Sans`).
+* **Body Text:** Clean, highly legible serif (`Roboto Serif` or standard serif font stacks; size `11px`, line-height `1.5`).
 
 ### B4. Visual Assets Directory
 All raw brand images (logo icons, variations, and banners) are stored in this repository at:
@@ -32,12 +32,12 @@ All raw brand images (logo icons, variations, and banners) are stored in this re
 
 ### B5. Documentation Style Guide (SRS, Audits, Work Updates)
 All OmmNoMi documents must follow a strict, professional layout protocol:
-* **Header & Hero Block Layout:** Every report begins with the exact hero block structure, featuring the official full brand logo (`<img class="logo-img" src="data:image/png;base64,..." style="height: 28px; width: auto;" />`), clean title and subtitle, right-aligned doc control badge box, followed directly by the 4-color brand stripe:
+* **Header & Hero Block Layout:** Every report begins with the hero block structure, featuring the official full brand logo (`<img class="logo-img" src="data:image/png;base64,..." style="height: 24px; width: auto; max-width: 220px; object-fit: contain;" />`), single-line title (`font-size: 15px; white-space: nowrap;`), subtitle, right-aligned doc control badge box (`white-space: nowrap; flex-shrink: 0;`), followed directly by the 4-color brand stripe:
   ```html
   <div class="hero">
-    <div>
+    <div class="hero-left">
       <div class="logo-row">
-        <img class="logo-img" src="data:image/png;base64,..." alt="OmmNoMi Logo" style="height: 28px; width: auto;" />
+        <img class="logo-img" src="data:image/png;base64,..." alt="OmmNoMi Logo" />
       </div>
       <div class="hero-title">Report Title</div>
       <div class="hero-sub">Subtitle &nbsp;·&nbsp; Category &nbsp;·&nbsp; Type</div>
@@ -46,20 +46,19 @@ All OmmNoMi documents must follow a strict, professional layout protocol:
       <span class="control-badge">BADGE</span>
       <span class="control-text">Doc Ref: ONM-XXX-2026-001</span>
       <span class="control-text">Version: v1.0.0</span>
+      <span class="control-text">Date: July 31, 2026</span>
     </div>
   </div>
   <div class="stripe"></div>
   ```
-* **Badges:** Use a standardized right-aligned color badge to indicate the type of document (e.g. `INCIDENT REPORT` in `#4285F4`, `SRS` in `#673AB7`, `WORK UPDATE` in `#34A853`).
-* **Dynamic Associate Signatures (For Any Team Member):** Whenever an author or reviewer signature is created in a report, dynamically fetch their official role, headline, link, and tagline from their live OmmNoMi associate profile page at `https://ommnomi.in/associate/<username>` (e.g., `whardiksharma` → `Assistant Developer (Product Research & Development)`, `nomeshwer` → `Founder & Automation Architect (Business Process Developer & Implementor)`).
+* **Badges:** Use a standardized right-aligned color badge to indicate the type of document (e.g. `COMPREHENSIVE AUDIT` in `#673AB7`, `INCIDENT REPORT` in `#4285F4`, `WORK UPDATE` in `#34A853`).
+* **Integrated Executive CTA Cards:** For meeting bookings or external link invitations, use an integrated `#f8f9fa` callout card with a `#1a73e8` left accent border and solid `#1a73e8` button (`4px` border radius) instead of heavy floating pill buttons with dense drop shadows.
+* **Dynamic Associate Signatures:** Whenever an author or reviewer signature is created in a report, dynamically fetch their official role, headline, link, and tagline from their live OmmNoMi associate profile page at `https://ommnomi.in/associate/<username>` (e.g., `whardiksharma` → `Assistant Developer (Product Research & Development)`, `nomeshwer` → `Founder & Automation Architect`, `neha` → `Operations Associate (Data Hygiene & Quality Assurance Specialization)`).
 * **Permanent Full Footer:** Every exported report MUST include the standard OmmNoMi footer containing:
-  - Official full brand logo image (`<img class="logo-img" src="..." style="height: 22px; width: auto;" />`) without duplicate text underneath
-  - Headquarters address (`Karsog, Mandi, Himachal Pradesh`)
+  - Official full brand logo image (`<img class="footer-logo-img" src="..." style="height: 20px; width: auto; max-width: 220px; object-fit: contain;" />`)
+  - Registered Headquarters address block (`© OmmNoMi \n 1/1 Vill. Kalouta PO Mahun Teh. Karsog Distt. Mandi Himachal Pradesh, India 175010`)
   - Tagline (`Unlocking Business Potential Through Automation`)
-  - Full social media SVG icons (Website, LinkedIn, GitHub, YouTube, Instagram, X, Discord).
-  * **Warning / Incident / High Priority:** Red (`#EA4335`).
-  * **Informational / Low Priority:** Blue (`#4285F4`).
-  * **Pending / Medium Priority:** Yellow (`#FBBC05`) or Purple (`#673AB7`).
+  - Full social media SVG icons (Website, LinkedIn, GitHub, Instagram).
 
 ---
 
