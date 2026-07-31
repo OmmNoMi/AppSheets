@@ -1,0 +1,2 @@
+var NAVI_OPS = "1DmHlAzrVXYWO9L8dnsLTSVF9opcepWz7lPPARfhO0Do";
+var NAVI_FLEET_ID = "1ASHzLeuFiByKMqisTXCh3QdgCb2zUCZm1c_DxDIlcY4";

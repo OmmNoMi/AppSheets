@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Transcend Intake Schema Audit</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Serif:ital,opsz,wght=0,8..144,400;1,8..144,400&display=swap"
+    rel="stylesheet">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto Serif', Georgia, serif;
+      background: #f0f2f5;
+      color: #202124;
+      font-size: 11px;
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      padding: 40px 20px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    @media print {
+      @page {
+        margin: 12mm 15mm;
+        size: A4 portrait;
+      }
+
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+        min-height: auto;
+      }
+
+      .sh {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      tr {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      .meta-section,
+      .executive-summary,
+      .callout,
+      .signature-section,
+      .footer {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+
+    /* Hero Block Styling */
+    .hero {
+      background: #ffffff;
+      padding: 24px 32px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .logo-img {
+      height: 28px;
+      width: auto;
+    }
+
+    .hero-title {
+      font-family: 'Roboto', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: #202124;
+      margin-bottom: 4px;
+    }
+
+    .hero-sub {
+      font-size: 11px;
+      color: #5f6368;
+      font-style: italic;
+    }
+
+    .doc-control {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .control-badge {
+      font-family: 'Roboto', sans-serif;
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      align-self: flex-end;
+      background: #e8f0fe;
+      color: #1a73e8;
+    }
+
+    .control-text {
+      font-size: 9px;
+      color: #9aa0a6;
+      font-weight: 500;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* 4-Color Stripe directly under Hero */
+    .stripe {
+      height: 6px;
+      background: linear-gradient(to right, #4285F4 25%, #34A853 25% 50%, #EA4335 50% 75%, #FBBC05 75%);
+    }
+
+    /* Meta Data Grid Section */
+    .meta-section {
+      background: #f8f9fa;
+      border-bottom: 1px solid #dadce0;
+      padding: 20px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      column-gap: 16px;
+      align-items: baseline;
+    }
+
+    .meta-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 8.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #5f6368;
+    }
+
+    .meta-value {
+      font-size: 11px;
+      font-weight: 500;
+      color: #202124;
+    }
+
+    .meta-value.status-action {
+      color: #c5221f;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #fce8e6;
+      padding: 1px 6px;
+      border-radius: 12px;
+      font-size: 10px;
+    }
+
+    .meta-inline-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+      padding-top: 12px;
+      border-top: 1px dashed #dadce0;
+    }
+
+    .meta-inline-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      background: #ffffff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #eaebed;
+      flex: 1;
+      min-width: 130px;
+    }
+
+    .emp-link {
+      font-family: 'Roboto', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1a73e8;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .body {
+      padding: 24px 32px 32px;
+      flex: 1;
+    }
+
+    /* Executive Summary Block */
+    .executive-summary {
+      background: #f8f9fa;
+      border: 1px solid #dadce0;
+      border-left: 4px solid #34a853;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+
+    .summary-title {
+      font-family: 'Roboto', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #137333;
+      margin-bottom: 6px;
+    }
+
+    .summary-text {
+      font-size: 11px;
+      color: #202124;
+      line-height: 1.5;
+    }
+
+    .sh {
+      font-family: 'Roboto', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #202124;
+      margin: 20px 0 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .sh::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 11px;
+      background: #1a73e8;
+      margin-right: 8px;
+      border-radius: 2px;
+    }
+
+    .callout {
+      background: #e8f0fe;
+      border: 1px solid #d2e3fc;
+      border-left: 4px solid #1a73e8;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 11px;
+      color: #174ea6;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      margin: 14px 0 20px;
+      overflow: hidden;
+    }
+
+    table th {
+      font-family: 'Roboto', sans-serif;
+      background: #5f6368;
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    table td {
+      padding: 8px 12px;
+      border-top: 1px solid #dadce0;
+      font-size: 10px;
+      color: #202124;
+    }
+
+    table tr:nth-child(even) td {
+      background: #f8f9fa;
+    }
+
+    .status-missing {
+      color: #c5221f;
+      font-weight: bold;
+      background: #fce8e6;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 9px;
+    }
+
+    .status-mapped {
+      color: #137333;
+      font-weight: bold;
+      background: #e6f4ea;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 9px;
+    }
+
+    ol, ul {
+      padding-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .signature-section {
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid #dadce0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sig-box {
+      width: 45%;
+    }
+
+    .sig-line {
+      border-bottom: 1px solid #202124;
+      margin-top: 25px;
+      margin-bottom: 4px;
+    }
+
+    .sig-title {
+      font-family: 'Roboto', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #1a73e8;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .sig-sub {
+      font-size: 9px;
+      color: #5f6368;
+    }
+
+    /* Standard Orbit Footer Styling */
+    .footer {
+      background: #ffffff;
+      color: #202124;
+      padding: 20px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #dadce0;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faddr {
+      font-size: 9px;
+      color: #5f6368;
+    }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 9px;
+      color: #5f6368;
+      font-style: italic;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 6px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .social-link {
+      color: #5f6368;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #f1f3f4;
+      text-decoration: none;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .social-link svg {
+      width: 11px;
+      height: 11px;
+      fill: currentColor;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <!-- Hero Block -->
+    <div class="hero">
+      <div>
+        <div class="logo-row">
+          <img class="logo-img"
+            src="file:///C:/Users/hardi/.gemini/antigravity-ide/brain/0dc8f8be-5e32-41cf-8328-e260570740eb/media__1784026479240.png"
+            alt="OmmNoMi Logo" style="height: 28px; width: auto;" />
+        </div>
+        <div class="hero-title">Transcend Intake Schema Audit</div>
+        <div class="hero-sub">Transcend Counseling &nbsp;·&nbsp; Operational Schema Audit &nbsp;·&nbsp; Intake Form v20260717</div>
+      </div>
+      <div class="doc-control">
+        <span class="control-badge">SRS AUDIT</span>
+        <span class="control-text">Doc Ref: ONM-AUD-2026-002</span>
+        <span class="control-text">Version: v1.0.0</span>
+      </div>
+    </div>
+
+    <!-- 4-Color Brand Stripe -->
+    <div class="stripe"></div>
+
+    <!-- Meta Data Grid Section -->
+    <div class="meta-section">
+      <div class="meta-row">
+        <div class="meta-label">Client / App</div>
+        <div class="meta-value">Transcend Counseling & Wellness</div>
+      </div>
+
+      <div class="meta-row" style="margin-top: 4px;">
+        <div class="meta-label">Form Version</div>
+        <div class="meta-value">New Client Inquiry Form (v20260717) — 88 Form Questions</div>
+      </div>
+
+      <div class="meta-inline-row">
+        <div class="meta-inline-group">
+          <div class="meta-label">Audit Date</div>
+          <div class="meta-value">24 July 2026</div>
+        </div>
+        <div class="meta-inline-group">
+          <div class="meta-label">Auditor</div>
+          <div class="meta-value">OmmNoMi Coding Agent</div>
+        </div>
+        <div class="meta-inline-group">
+          <div class="meta-label">Status</div>
+          <div class="meta-value"><span class="status-action">⚠️ Action Required</span></div>
+        </div>
+        <div class="meta-inline-group">
+          <div class="meta-label">Prepared By</div>
+          <div class="meta-value">
+            <a href="https://ommnomi.in/associate/whardiksharma" target="_blank" class="emp-link">
+              Hardik Sharma
+              <svg style="width:11px; height:11px; fill:currentColor;" viewBox="0 0 24 24">
+                <path d="M14 3h7v7h-2V6.41l-9 9-1.41-1.41 9-9H14V3zm-2 11h-4V8h4V6H8c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-4h-2v4z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Body -->
+    <div class="body">
+
+      <!-- Executive Summary -->
+      <div class="executive-summary">
+        <div class="summary-title">Executive Summary</div>
+        <div class="summary-text">
+          A systematic gap audit was performed comparing all 88 questions from the newly updated <strong>New Client Inquiry Form (v20260717)</strong> against the existing production database tables (<code>Client</code>, <code>Insurance</code>, <code>Medication</code>, <code>Payment</code>, and <code>Document</code>). This audit details all mapped fields as well as <strong>38 missing database columns</strong> across personal details, contact consents, EAP program attributes, Medicare insurance, and medication details.
+        </div>
+      </div>
+
+      <!-- Section 1: Personal & Contact Details -->
+      <div class="sh">1. Client Personal & Contact Details</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Form Question / Column</th>
+            <th>FormIntake Column</th>
+            <th>Target DB Table</th>
+            <th>Status</th>
+            <th>Required Schema Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>First Name</td>
+            <td><code>First Name</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>FirstName</code></td>
+          </tr>
+          <tr>
+            <td>Middle Name</td>
+            <td><code>Middle Name</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>MiddleName</code></td>
+          </tr>
+          <tr>
+            <td>Last Name</td>
+            <td><code>Last Name</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>LastName</code></td>
+          </tr>
+          <tr>
+            <td><strong>Suffix</strong></td>
+            <td><code>Suffix</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>Suffix</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Preferred name</strong></td>
+            <td><code>Preferred name</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>PreferredName</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Also known as</strong></td>
+            <td><code>Also known as</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>AlsoKnownAs</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Pronouns</strong></td>
+            <td><code>Pronouns</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>Pronouns</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Current Administrative Gender</strong></td>
+            <td><code>Current Administrative Gender</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>AdministrativeGender</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Gender Identity</strong></td>
+            <td><code>Gender Identity</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>GenderIdentity</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Sexual Orientation</strong></td>
+            <td><code>Sexual Orientation</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>SexualOrientation</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Race</strong></td>
+            <td><code>Race</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>Race</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Ethnicity</strong></td>
+            <td><code>Ethnicity</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>Ethnicity</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Preferred Language</strong></td>
+            <td><code>Preferred Language</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>PreferredLanguage</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Marital Status</strong></td>
+            <td><code>Marital Status</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>MaritalStatus</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Religious Affiliation</strong></td>
+            <td><code>Religious Affiliation:</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>ReligiousAffiliation</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td>Email Address</td>
+            <td><code>Email Address:</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>Email</code></td>
+          </tr>
+          <tr>
+            <td>Mobile phone number</td>
+            <td><code>Mobile phone number</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>Phone</code></td>
+          </tr>
+          <tr>
+            <td><strong>Mobile phone voice messages</strong></td>
+            <td><code>Mobile phone voice messages</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>ConsentMobileVoice</code> (Yes/No) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Mobile phone text messages</strong></td>
+            <td><code>Mobile phone text messages</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>ConsentMobileSMS</code> (Yes/No) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Home phone number</strong></td>
+            <td><code>Home phone number</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>HomePhone</code> (Phone) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Home phone voice messages</strong></td>
+            <td><code>Home phone voice messages</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>ConsentHomeVoice</code> (Yes/No) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Preferred Contact Method</strong></td>
+            <td><code>Preferred Contact Method</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>PreferredContactMethod</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Encrypted Email Notice & Consent</strong></td>
+            <td><code>Encrypted Email Notice & Consent</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>ConsentEmail</code> (Yes/No) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Telehealth Option Consent</strong></td>
+            <td><code>Telehealth Option Consent</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>ConsentTelehealth</code> (Yes/No) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td>Home Address / City / State / Zip</td>
+            <td><code>Home Address</code> / City / State / Zip</td>
+            <td><code>Client</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Street, City, State, Zip mapped</td>
+          </tr>
+          <tr>
+            <td><strong>Time Zone</strong></td>
+            <td><code>Time Zone</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>TimeZone</code> (Text) to <code>Client</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section 2: EAP Benefits -->
+      <div class="sh">2. EAP (Employee Assistance Program) Benefits</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Form Question / Column</th>
+            <th>FormIntake Column</th>
+            <th>Target DB Table</th>
+            <th>Status</th>
+            <th>Required Schema Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Do you have EAP benefits...</strong></td>
+            <td><code>Use EAP Benefits</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>UseEAP</code> (Yes/No) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>What is the name of your EAP program?</strong></td>
+            <td><code>EAP Program Name</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>EAPProgramName</code> (Text) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>How many sessions are authorized</strong></td>
+            <td><code>EAP Authorized Sessions Count</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>EAPAuthorizedSessions</code> (Number) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Do you have authorization form sent...</strong></td>
+            <td><code>Has EAP Authorization Form</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>HasEAPAuthForm</code> (Yes/No) to <code>Client</code></td>
+          </tr>
+          <tr>
+            <td><strong>Please upload a copy of your authorization</strong></td>
+            <td><code>EAP Authorization File Upload</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>EAPAuthFile</code> (File) to <code>Client</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section 3: Insurance & Medicare Details -->
+      <div class="sh">3. Insurance Details & Medicare</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Form Question / Column</th>
+            <th>FormIntake Column</th>
+            <th>Target DB Table</th>
+            <th>Status</th>
+            <th>Required Schema Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Do you have insurance...</strong></td>
+            <td><code>Use Insurance Option</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>UseInsurance</code> (Yes/No) to <code>Insurance</code></td>
+          </tr>
+          <tr>
+            <td><strong>Is your insurance a Medicare Plan?</strong></td>
+            <td><code>Is Insurance Medicare Plan</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>IsMedicare</code> (Yes/No) to <code>Insurance</code></td>
+          </tr>
+          <tr>
+            <td><strong>Medicare Secondary Insurance Notes</strong></td>
+            <td><code>Medicare Secondary Insurance</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>SecondaryPlanNotes</code> (Text) to <code>Insurance</code></td>
+          </tr>
+          <tr>
+            <td>Name of Insurance Company</td>
+            <td><code>Name of Insurance Company</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>ProviderName</code></td>
+          </tr>
+          <tr>
+            <td>Insurance Plan Name / Name on Card</td>
+            <td><code>Insurance Plan Name</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>PlanName</code></td>
+          </tr>
+          <tr>
+            <td>Member/Beneficiary ID</td>
+            <td><code>Member/Beneficiary ID</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>PolicyNumber</code></td>
+          </tr>
+          <tr>
+            <td>Policy Group Number</td>
+            <td><code>Policy Group Number</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>GroupNumber</code></td>
+          </tr>
+          <tr>
+            <td>Policy Holder Name / DOB / Relation</td>
+            <td>Policy Holder Name / DOB</td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Mapped to <code>SubscriberName</code>, <code>SubscriberDOB</code></td>
+          </tr>
+          <tr>
+            <td><strong>Policy Holder Address & Zip</strong></td>
+            <td>Policy Holder Address / Zip</td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>SubscriberAddress</code> & <code>SubscriberZip</code> to <code>Insurance</code></td>
+          </tr>
+          <tr>
+            <td><strong>Policy Holder Phone Number</strong></td>
+            <td><code>Policy Holder Phone Number</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>SubscriberPhone</code> (Phone) to <code>Insurance</code></td>
+          </tr>
+          <tr>
+            <td><strong>Is this client's only insurance plan?</strong></td>
+            <td><code>Is Only Insurance Plan</code></td>
+            <td><code>Insurance</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>IsOnlyPlan</code> (Yes/No) to <code>Insurance</code></td>
+          </tr>
+          <tr>
+            <td><strong>Front & Back of Insurance Card</strong></td>
+            <td>Front / Back of Insurance Card</td>
+            <td><code>Document</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Save as File rows in <code>Document</code> table</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section 4: Medications -->
+      <div class="sh">4. Medications & Additional Medication Notes</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Form Question / Column</th>
+            <th>FormIntake Column</th>
+            <th>Target DB Table</th>
+            <th>Status</th>
+            <th>Required Schema Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Medication #1, #2, #3 details</td>
+            <td>Medication Name / Dosage / Symptoms</td>
+            <td><code>Medication</code></td>
+            <td><span class="status-mapped">MAPPED</span></td>
+            <td>Bots split 1st, 2nd, and 3rd meds into <code>Medication</code> rows</td>
+          </tr>
+          <tr>
+            <td><strong>Please list additional medications...</strong></td>
+            <td><code>Additional Medications Details</code></td>
+            <td><code>Client</code></td>
+            <td><span class="status-missing">MISSING</span></td>
+            <td>Add <code>AdditionalMedicationsNotes</code> (LongText) to <code>Client</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Visual AppSheet Bot Workflow Diagram (Exact 2D Layout) -->
+      <div class="sh">Automation Workflow Diagram (ProcessForNewIntakeResponse)</div>
+      <div style="background: #ffffff; border: 1px solid #dadce0; border-radius: 8px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+        
+        <!-- Root Event Card -->
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div style="background: #ffffff; border: 1px solid #dadce0; border-radius: 6px; padding: 12px 24px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); min-width: 220px;">
+            <div style="font-size: 8px; color: #5f6368; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">When this EVENT occurs</div>
+            <div style="font-size: 11px; font-weight: 700; color: #202124; margin-top: 2px;">Process for NewIntakeResponse</div>
+            <div style="font-size: 8.5px; color: #5f6368;">Client</div>
+          </div>
+          
+          <div style="font-size: 8px; color: #5f6368; margin-top: 8px; font-weight: 700; text-transform: uppercase;">Run this PROCESS</div>
+          <div style="width: 2px; height: 16px; background: #dadce0; margin: 4px 0;"></div>
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: #1a73e8; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 8px; font-weight: bold;">+</div>
+          <div style="width: 2px; height: 16px; background: #dadce0; margin-top: 2px;"></div>
+        </div>
+
+        <!-- Check for Front Insurance Card Branch Header -->
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 4px;">
+          <div style="background: #ffffff; border: 1px solid #dadce0; border-radius: 6px; padding: 10px 20px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); min-width: 240px; position: relative;">
+            <div style="position: absolute; top: -8px; right: 12px; font-size: 10px; color: #5f6368;">⋮</div>
+            <div style="font-size: 10px; font-weight: 700; color: #202124; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"><path d="M16 3h5v5M4 21h5v-5M21 3l-7.5 7.5M3 21l7.5-7.5"/></svg>
+              Check for Front Insurance Card
+            </div>
+          </div>
+
+          <!-- Branch Split (YES / NO) -->
+          <div style="display: flex; justify-content: space-between; width: 360px; margin-top: 12px; position: relative;">
+            <div style="font-size: 7.5px; font-weight: 700; color: #5f6368; background: #f1f3f4; padding: 1px 4px; border-radius: 2px;">YES</div>
+            <div style="font-size: 7.5px; font-weight: 700; color: #5f6368; background: #f1f3f4; padding: 1px 4px; border-radius: 2px;">NO</div>
+          </div>
+        </div>
+
+        <!-- 2D Parallel Branch Flow -->
+        <div style="display: flex; justify-content: center; gap: 40px; margin-top: 8px;">
+          
+          <!-- Left Column (YES Path: Card Uploads & Insurance Action) -->
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; width: 220px;">
+            <div style="width: 2px; height: 12px; background: #dadce0;"></div>
+            
+            <!-- Step: Add Front Insurance Card Document -->
+            <div style="background: #ffffff; border: 1px solid #dadce0; border-radius: 6px; padding: 10px 14px; width: 100%; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+              <div style="font-size: 9.5px; font-weight: 700; color: #202124; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                <span style="font-size: 10px;">≡</span> Add Front Insurance Card Document
+              </div>
+            </div>
+
+            <div style="width: 2px; height: 12px; background: #dadce0;"></div>
+
+            <!-- Step: Check for Back Insurance Card -->
+            <div style="background: #ffffff; border: 1px solid #dadce0; border-radius: 6px; padding: 10px 14px; width: 100%; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+              <div style="font-size: 9.5px; font-weight: 700; color: #202124; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                <span style="font-size: 10px;">≡</span> Check for Back Insurance Card
+              </div>
+            </div>
+
+            <div style="width: 2px; height: 12px; background: #dadce0;"></div>
+
+            <!-- Main Blue Highlighted Box: Add Insurance -->
+            <div style="background: #ffffff; border: 2px solid #4285F4; border-radius: 8px; padding: 12px 14px; width: 100%; text-align: center; box-shadow: 0 2px 8px rgba(66, 133, 244, 0.15); position: relative;">
+              <div style="position: absolute; top: 4px; right: 8px; font-size: 10px; color: #5f6368;">⋮</div>
+              <div style="font-size: 10.5px; font-weight: 700; color: #202124; margin-bottom: 6px;">Add Insurance</div>
+              
+              <div style="background: #e8f0fe; color: #1a73e8; font-size: 8px; font-weight: 700; padding: 3px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;">
+                <span>⚡</span> Run a data action
+              </div>
+
+              <div style="background: #f8f9fa; border: 1px solid #dadce0; border-radius: 4px; padding: 4px 8px; margin-top: 6px; font-size: 8px; color: #3c4043;">
+                ⚙️ Custom action (Add Row to Insurance)
+              </div>
+            </div>
+
+            <div style="width: 2px; height: 12px; background: #dadce0;"></div>
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #1a73e8; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 8px;">+</div>
+          </div>
+
+          <!-- Right Column (NO Path: Bypass directly to End) -->
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; width: 80px; padding-top: 12px;">
+            <div style="width: 2px; height: 100%; border-left: 2px dashed #dadce0;"></div>
+          </div>
+
+        </div>
+
+        <!-- Unified END Node -->
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 16px;">
+          <div style="width: 2px; height: 16px; background: #dadce0;"></div>
+          <div style="font-size: 8px; font-weight: 700; color: #5f6368; background: #e8eaed; padding: 2px 10px; border-radius: 4px; letter-spacing: 0.5px;">END</div>
+        </div>
+
+      </div>
+
+      <!-- Recommended Action Plan -->
+      <div class="sh">Implementation Protocol (Rule A2 Standard)</div>
+      <div class="callout">
+        <ol>
+          <li><strong>Google Sheets Level:</strong>
+            <ul>
+              <li>Open <code>Client</code> tab and append physical columns: <code>Suffix</code>, <code>PreferredName</code>, <code>AlsoKnownAs</code>, <code>Pronouns</code>, <code>AdministrativeGender</code>, <code>GenderIdentity</code>, <code>SexualOrientation</code>, <code>Race</code>, <code>Ethnicity</code>, <code>PreferredLanguage</code>, <code>MaritalStatus</code>, <code>ReligiousAffiliation</code>, <code>ConsentMobileVoice</code>, <code>ConsentMobileSMS</code>, <code>HomePhone</code>, <code>ConsentHomeVoice</code>, <code>PreferredContactMethod</code>, <code>ConsentEmail</code>, <code>ConsentTelehealth</code>, <code>TimeZone</code>, <code>UseEAP</code>, <code>EAPProgramName</code>, <code>EAPAuthorizedSessions</code>, <code>HasEAPAuthForm</code>, <code>EAPAuthFile</code>, <code>AdditionalMedicationsNotes</code>.</li>
+              <li>Open <code>Insurance</code> tab and append physical columns: <code>UseInsurance</code>, <code>IsMedicare</code>, <code>SecondaryPlanNotes</code>, <code>SubscriberAddress</code>, <code>SubscriberZip</code>, <code>SubscriberPhone</code>, <code>IsOnlyPlan</code>.</li>
+            </ul>
+          </li>
+          <li><strong>AppSheet Level:</strong> Click <em>Regenerate Structure</em> on both <code>Client</code> and <code>Insurance</code> tables.</li>
+          <li><strong>Column Type Level:</strong> Set exact AppSheet types (<code>Yes/No</code>, <code>Number</code>, <code>File</code>, <code>LongText</code>, <code>Phone</code>).</li>
+          <li><strong>Data Action Mapping Level:</strong> Update <code>Action for Create New Client</code> Data Action to map these values from <code>FormIntake</code> into <code>Client</code> and <code>Insurance</code>.</li>
+        </ol>
+      </div>
+
+      <!-- Signature Section -->
+      <div class="signature-section">
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <a href="https://ommnomi.in/associate/whardiksharma" class="sig-title" target="_blank">
+            HARDIK SHARMA
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+          <div class="sig-sub">Assistant Developer (Product Research & Development)</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-title" style="color:#202124;">DAVID M. PHELAN, LPC</div>
+          <div class="sig-sub">Owner & Practice Director, Transcend</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Official Orbit Footer Structure -->
+    <div class="footer">
+      <div class="footer-left">
+        <img class="logo-img"
+          src="file:///C:/Users/hardi/.gemini/antigravity-ide/brain/0dc8f8be-5e32-41cf-8328-e260570740eb/media__1784026479240.png"
+          alt="OmmNoMi Logo" style="height: 22px; width: auto; margin-bottom: 4px; display: block;" />
+        <div class="faddr">Karsog, Mandi, Himachal Pradesh</div>
+      </div>
+      <div class="footer-right">
+        <div class="footer-tagline">Unlocking Business Potential Through Automation</div>
+        <div class="social-links">
+          <a href="https://ommnomi.in" target="_blank" class="social-link" title="Official Website" style="color:#4285F4;">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" /></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/ommnomi/" target="_blank" class="social-link" title="LinkedIn" style="color:#0A66C2;">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+          </a>
+          <a href="https://www.youtube.com/@OmmNoMi" target="_blank" class="social-link" title="YouTube" style="color:#FF0000;">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>
+          </a>
+          <a href="https://github.com/OmmNoMi" target="_blank" class="social-link" title="GitHub" style="color:#181717;">
+            <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
+          </a>
+          <a href="https://www.instagram.com/ommnomi_automation/" target="_blank" class="social-link" title="Instagram" style="color:#E4405F;">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
+          </a>
+          <a href="https://x.com/ommnomi" target="_blank" class="social-link" title="X (Twitter)" style="color:#000000;">
+            <svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" /></svg>
+          </a>
+          <a href="https://discord.com/users/ommnomi" target="_blank" class="social-link" title="Discord" style="color:#5865F2;">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" /></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
