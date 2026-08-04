@@ -20,7 +20,7 @@ When styling user interfaces, custom HTML components, or PDF reports, use the fo
 * **Purple (Empowerment):** `#673AB7`
 
 ### B3. Typography
-* **Headings:** Modern, bold, geometric Sans-Serif (`Roboto`, `Open Sans`, or `Google Sans`).
+* **Headings, Badges, Header/Footer Metadata & Addresses:** Modern, geometric Sans-Serif (`Roboto`, `Open Sans`, or `Google Sans`).
 * **Body Text:** Clean, highly legible serif (`Roboto Serif` or standard serif font stacks).
 
 ### B4. Visual Assets Directory
@@ -53,8 +53,9 @@ All OmmNoMi documents must follow a strict, professional layout protocol:
 * **Badges:** Use a standardized right-aligned color badge to indicate the type of document (e.g. `INCIDENT REPORT` in `#4285F4`, `SRS` in `#673AB7`, `WORK UPDATE` in `#34A853`).
 * **Dynamic Associate Signatures (For Any Team Member):** Whenever an author or reviewer signature is created in a report, dynamically fetch their official role, headline, link, and tagline from their live OmmNoMi associate profile page at `https://ommnomi.in/associate/<username>` (e.g., `whardiksharma` → `Assistant Developer (Product Research & Development)`, `nomeshwer` → `Founder & Automation Architect (Business Process Developer & Implementor)`).
 * **Permanent Full Footer:** Every exported report MUST include the standard OmmNoMi footer containing:
-  - Official full brand logo image (`<img class="logo-img" src="..." style="height: 22px; width: auto;" />`) without duplicate text underneath
-  - Headquarters address (`Karsog, Mandi, Himachal Pradesh`)
+  - Official full brand logo image (`<img class="logo-img" src="..." style="height: 22px; width: auto;" />`)
+  - Copyright line (`© OmmNoMi`)
+  - Headquarters address (`1/1 Vill. Kalouta PO Mahun Teh. Karsog Distt. Mandi Himachal Pradesh, India 175010`)
   - Tagline (`Unlocking Business Potential Through Automation`)
   - Full social media SVG icons (Website, LinkedIn, GitHub, YouTube, Instagram, X, Discord).
   * **Warning / Incident / High Priority:** Red (`#EA4335`).
@@ -85,3 +86,4 @@ When instructing the user to configure AppSheet tables, ALWAYS separate the inst
 python3 .agents/skills/appsheet-utilities/scripts/parse_appdoc.py <AppDoc.html> --compact
 python3 .agents/skills/appsheet-utilities/scripts/parse_appvariables.py <AppVariables.csv> --json
 ```
+

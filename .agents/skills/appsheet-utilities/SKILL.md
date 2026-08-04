@@ -127,5 +127,26 @@ python3 scripts/parse_appvariables.py <AppVariables.csv> --output /path/to/outpu
 | `File` | `File` (AppResources path) |
 | `Date` | `DateValue` |
 
-**When to use:** ALWAYS run this alongside `parse_appdoc.py` before answering any questions
-that involve Enum options, configuration values, rates, or company constants.
+---
+
+## 5. audit_leave_attendance.py — Attendance & Leave Cross-Table Reconciliation Audit
+
+Performs cross-table verification across `AttendanceDaily.csv`, `AttendanceRequest.csv`, and `LeaveAllocation.csv`.
+
+```bash
+# Auto-detect downloaded CSV files in ~/Downloads:
+python3 scripts/audit_leave_attendance.py
+
+# Custom CSV file paths + HTML report export:
+python3 scripts/audit_leave_attendance.py <AttendanceDaily.csv> <AttendanceRequest.csv> <LeaveAllocation.csv> --html audit_report.html
+```
+
+**What it verifies & reports:**
+- ❌ Date range anomalies (`StartDate > EndDate` resulting in negative days).
+- ❌ Half Day calculation glitches (`Leave = Half Day` but `LeaveUsed != 0.5`).
+- ❌ Approved Leave Applications with 0 days deducted (`LeaveUsed = 0`).
+- ❌ Approved requests stuck with unprocessed bot steps (`PendingRow > 0`).
+- ❌ `AttendanceDaily` missing child rows for approved leaves.
+- ❌ `LeaveAllocation` balance deduction mismatches (`Sum(Approved LeaveUsed)` vs `Allocation.Used` and `Available`).
+- 📄 Generates branded **OmmNoMi** HTML report (`audit_report.html`).
+

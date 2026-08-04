@@ -219,7 +219,7 @@
   Option 7: Text [HIDDEN]
   Option 8: Text [HIDDEN]
   Me: Enum [HIDDEN]
-  _THISUSER: Text [HIDDEN] = onlyvalue
+  _THISUSER: Text [HIDDEN] = [Init: onlyvalue]
 ```
 
 ### Documents (18 cols)
@@ -230,17 +230,17 @@
 ### Project (14 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   Code: Text
   ProjectName: Name
   ProjectDescription: LongText
   TeamEmail: EnumList
-  StartDate: Date = TODAY()
-  EndDate: Date = TODAY()
+  StartDate: Date = [Init: TODAY()]
+  EndDate: Date = [Init: TODAY()]
   FolderID: Text
-  Status: Enum [Values: 'Active', 'Planning', 'Completed', 'On Hold'] = ="Active"
-  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_this])" }
-  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
+  Status: Enum [Values: 'Active', 'Planning', 'Completed', 'On Hold'] = [Init: ="Active"]
+  LastEditedOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_this])" }
+  LastEditedBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
   Related Employees: List [RO,VC]
   Related CandidateDatas: List [RO,VC]
 ```
@@ -248,22 +248,22 @@
 ### Templates (11 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   TemplateType: Enum [Values: 'Offer Letter', ' Welcome Email']
   TemplateName: Name
   GoogleDocTemplateLink: Url
   To: EnumList
   Description: LongText
   Version: Number
-  Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_this])" }
-  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
+  Status: Enum [Values: 'Active', 'Inactive'] = [Init: ="Active"]
+  LastEditedOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_this])" }
+  LastEditedBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
 ```
 
 ### AppUser (14 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = =IFS(
+  ID: Text = [Init: =IFS(
    ISNOTBLANK(
     [Employee].[WorkEmail]
   ),
@@ -274,16 +274,16 @@
   ),
    TRUE,
    UNIQUEID()
-)
+)]
   Photo: Image
   Employee: Enum
   Email: Email
   Name: Name
-  Roles: EnumList = ="U_Employee"
+  Roles: EnumList = [Init: ="U_Employee"]
   AccessKey: Text [HIDDEN]
-  Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_this])" }
+  Status: Enum [Values: 'Active', 'Inactive'] = [Init: ="Active"]
+  LastEditedBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_this])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditedOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_this])" }
   AllowedRoles: List [RO]
   Related TaskLists: List [RO,VC]
   Related AttendanceRequests: List [RO,VC]
@@ -292,50 +292,50 @@
 ### TaskList (18 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   Employee: Ref
-  Category: Enum = =[CheckList].[TaskCategory]
-  TaskName: Enum = =[CheckList].[TaskName]
-  TaskDescription: LongText = =[CheckList].[TaskDescription]
-  AssignedTo: Ref = =[CheckList].[AssignedTo]
-  StartDate: Date = TODAY()
-  DueDate: Date = =[StartDate]+[CheckList].[DueDays]
-  Status: Enum [Values: 'Pending', 'In Progress', 'Completed', 'Blocked', 'Not Applicable'] = ="Pending"
+  Category: Enum = [Init: =[CheckList].[TaskCategory]]
+  TaskName: Enum = [Init: =[CheckList].[TaskName]]
+  TaskDescription: LongText = [Init: =[CheckList].[TaskDescription]]
+  AssignedTo: Ref = [Init: =[CheckList].[AssignedTo]]
+  StartDate: Date = [Init: TODAY()]
+  DueDate: Date = [Init: =[StartDate]+[CheckList].[DueDays]]
+  Status: Enum [Values: 'Pending', 'In Progress', 'Completed', 'Blocked', 'Not Applicable'] = [Init: ="Pending"]
   EndedOn: Date
-  EmployeeActionRequired: Yes/No [HIDDEN] = =FALSE
+  EmployeeActionRequired: Yes/No [HIDDEN] = [Init: =FALSE]
   Notes: LongText
   CheckList: Enum [HIDDEN]
-  CreatedBy: Enum [RO] = =ANY(Me[ID]) { Slices Cross-Ref: Me -> AppUser }
-  CreatedOn: DateTime [RO] = NOW()
-  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditedOn: DateTime = NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  CreatedBy: Enum [RO] = [Init: =ANY(Me[ID])] { Slices Cross-Ref: Me -> AppUser }
+  CreatedOn: DateTime [RO] = [Init: NOW()]
+  LastEditedBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditedOn: DateTime = [Init: NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### CheckList (17 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  ID: Text = [Init: UNIQUEID()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Type: Enum [Values: 'Verification', 'Job Offer', 'Onboarding']
   TaskName: Name
   TaskDescription: LongText
   TaskCategory: Enum [Values: 'Verify', 'Approval', 'Email', 'Enter', 'Followup']
   TaskIndex: Decimal
   TaskPriority: Number
-  Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
+  Status: Enum [Values: 'Active', 'Inactive'] = [Init: ="Active"]
   DueDays: Decimal
   AssignedTo: Enum
   URL: Url
   Notes: LongText
   Input_Employee: Ref
-  LastEditedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditedBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditedOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Label: Text [RO]
 ```
 
 ### CandidateData (46 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  Timestamp: DateTime = NOW()
+  Timestamp: DateTime = [Init: NOW()]
   First Name: Name
   Last Name: Name
   Personal Email: Email
@@ -345,7 +345,7 @@
   Residency Status: Text
   Full Name as per Passport: Name
   Passport Number: Text
-  Passport Expiry Date: Date = TODAY()
+  Passport Expiry Date: Date = [Init: TODAY()]
   Bank Name: Name
   Account Number: Number
   IBAN: Text
@@ -396,14 +396,14 @@
 ### DocType (9 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   Name: Name
   Description: LongText
   RedAlert: Number
   OrangeAlert: Number
   YellowAlert: Number
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### AppViews (21 cols)
@@ -426,8 +426,8 @@
   MaxQty: Decimal
   MinAmount: Number
   MaxAmount: Number
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   AppLink: App [RO]
 ```
 
@@ -439,7 +439,7 @@
 ### AppVariables (19 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   Type: Enum
   Tags: EnumList [Values: 'System', 'Standard', 'Migration', 'Company', 'Configuration', 'Custom', 'Outdated']
   ValueControl: EnumList [Values: 'Date', 'Decimal', 'Enum', 'File', 'Multi', 'Photo', 'URL']
@@ -448,14 +448,14 @@
   Decimal: Decimal { Logic: [EditIf]="=in("Decimal",[ValueControl])" }
   EnumValue: Enum { Logic: [EditIf]="=in("Enum",[ValueControl])" }
   MultiValues: EnumList { Logic: [EditIf]="=in("Multi",[ValueControl])" }
-  DateValue: Date = TODAY() { Logic: [EditIf]="=in("Date",[ValueControl])" }
+  DateValue: Date = [Init: TODAY()] { Logic: [EditIf]="=in("Date",[ValueControl])" }
   Photo: Image { Logic: [EditIf]="=in("Photo",[ValueControl])" }
   URL: Url { Logic: [EditIf]="=in("URL",[ValueControl])" }
   File: File { Logic: [EditIf]="=in("File",[ValueControl])" }
   Description: LongText
   EnumList: EnumList
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=isblank([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=isblank([_THIS])" }
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=isblank([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=isblank([_THIS])" }
   Related AttendanceDailys: List [RO,VC]
 ```
 
@@ -482,7 +482,7 @@
 ### ReviewEvaluations (22 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   EmployeeReview: Ref { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Objective: Enum { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Type: Enum { Logic: [ValidIf]="=SPLIT( LOOKUP(
@@ -634,9 +634,9 @@
   )
 )" } { Slices Cross-Ref: Me -> AppUser }
   Status: Enum
-  Timestamp: DateTime = NOW()
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  Timestamp: DateTime = [Init: NOW()]
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Question: Show [RO]
   Description: Show [RO]
   Instructions: Show [RO]
@@ -654,7 +654,7 @@
 ### AttendanceMonthly (48 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = =[MonthYear]&"-"&[Employee]
+  ID: Text = [Init: =[MonthYear]&"-"&[Employee]]
   MonthYear: Enum
   Employee: Ref
   Day_01: Enum
@@ -697,8 +697,8 @@
   Total_Holiday: Number
   Total_WeekOff: Number
   Status: Enum [Values: 'Open', 'Finalized', 'Archived']
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Year: Text [RO]
   Month: Text [RO]
 ```
@@ -721,33 +721,33 @@
 ### OfficeLeave (10 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   LeaveType: Enum
   AllocationCycle: Enum
   LeaveCount: Number
   Applicable_Calendars: EnumList
-  Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  Status: Enum [Values: 'Active', 'Inactive'] = [Init: ="Active"]
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Lable: Text [RO]
 ```
 
 ### LeaveAllocation (16 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Date: Date = TODAY()
+  ID: Text = [Init: UNIQUEID()]
+  Date: Date = [Init: TODAY()]
   Employee: Enum
   LeaveType: Enum
   OfficeLeave: Enum
   AttendanceRequest: Ref
   Quantity: Decimal
-  StartDate: Date = TODAY()
-  EndDate: Date = =EOMONTH(DATE(YEAR(TODAY()) & "-12-01"), 0)
+  StartDate: Date = [Init: TODAY()]
+  EndDate: Date = [Init: =EOMONTH(DATE(YEAR(TODAY()) & "-12-01"), 0)]
   Used: Decimal
   Available: Decimal
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Label: Text [RO]
   LeaveApplications: List [RO]
 ```
@@ -755,7 +755,7 @@
 ### Employment_Compliance (13 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   Country: Enum
   EmploymentType: Enum [Values: 'Full Time', 'Part Time']
   EmploymentCategory: Enum
@@ -765,14 +765,14 @@
   WeekDays: EnumList [Values: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   LabourCompliance: EnumList
   PayrollCompliance: EnumList
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### Resources (15 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   Category: EnumList
   Tags: EnumList
   Title: Text
@@ -788,31 +788,31 @@
    "ID",
    "EnumValue"
 ), ", " )" }
-  Standard: Yes/No [HIDDEN] = =IF(ANY(Me[ID])="OmmNoMi",TRUE,FALSE) { Slices Cross-Ref: Me -> AppUser }
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  Standard: Yes/No [HIDDEN] = [Init: =IF(ANY(Me[ID])="OmmNoMi",TRUE,FALSE)] { Slices Cross-Ref: Me -> AppUser }
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
 ### OfficeLocation (12 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   Name: Name
   Country: Text
   State: Text
   Address: Address
   UTC_Offset: Enum [Values: '000:00:00', '004:00:00'] (→"=Time Zone")
-  Status: Enum [Values: 'Active', 'Inactive'] = ="Active"
+  Status: Enum [Values: 'Active', 'Inactive'] = [Init: ="Active"]
   LatLong: LatLong
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Related CandidateDatas: List [RO,VC]
 ```
 
 ### OfficeShift (14 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
   Type: Enum [Values: 'Fixed', 'Flexible', 'Day Off'] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   ISO_WeekDay: Number
   WeekDay: Enum { Logic: [EditIf]="=Not(IN([ID], OfficeShift[ID]))" }
@@ -821,9 +821,9 @@
   FullDayHours: Number { Logic: [EditIf]="=ISBLANK([_THIS])" }
   HalfDayHours: Number { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Applicable_Calendars: EnumList
-  Status: Enum [Values: 'Active'] = ="Active"
-  LastEditBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
-  LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  Status: Enum [Values: 'Active'] = [Init: ="Active"]
+  LastEditBy: Enum = [Init: =ANY(Me[ID])] { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  LastEditOn: DateTime = [Init: =NOW()] { Logic: [EditIf]="=ISBLANK([_THIS])" }
   Label: Name [RO]
 ```
 
@@ -835,14 +835,14 @@
 ### AttendanceCheckin (2 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
+  ID: Text = [Init: UNIQUEID()]
 ```
 
 ### WorkDay (6 cols)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Date: Date = TODAY()
+  ID: Text = [Init: UNIQUEID()]
+  Date: Date = [Init: TODAY()]
   AppTrigger: Enum
   TriggerValue: Text
   TriggeredOn: DateTime
