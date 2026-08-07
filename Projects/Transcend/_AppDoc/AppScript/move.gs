@@ -95,6 +95,8 @@ function moveAndRenameFileWithPaths(oldFolderId, oldFileIdentifier, newFolderId,
       return { error: `File not found: "${oldFileIdentifier}"` };
     }
 
+
+
     const newPathParts      = newFilePath.split('/').filter(p => p.length > 0);
     const desiredFileName   = newPathParts.pop();
     const finalFileName     = getCorrectedFileName(fileToMove, desiredFileName);

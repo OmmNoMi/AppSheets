@@ -83,9 +83,17 @@ function generateTherapyContract(data) {
     '{{Phone}}':             data.Phone             || '',
     '{{ConsentEmail}}':      data.ConsentEmail      || '',
     '{{ConsentTelehealth}}': data.ConsentTelehealth || '',
+    '{{ConsentMobileSMS}}':  data.ConsentMobileSMS  || '',
+    '{{CardLast4}}':         extractLast4(data.CardNumber || data.CardLast4 || ''),
+    '{{DOB}}':               data.DOB               || '',
+    '{{Address}}':           data.Address           || '',
+    '{{City}}':              data.City              || '',
+    '{{State}}':             data.State             || '',
+    '{{Zip}}':               data.Zip               || '',
     '{{Today}}':             new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
     '{{ClientID}}':          data.ClientID          || '',
   };
+
 
   const docResult = createGoogleDoc(fileObj, params);
 

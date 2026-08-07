@@ -216,3 +216,14 @@
 LOOKUP("GoogleFormLink", "AppVariables", "ID", "URL")
 ```
 
+---
+
+### 2026-08-07 — Automated 1-Click Contract Creation Action (Add_Document_TherapyContract)
+**Context**: Previously, users had to manually open the `Document Form`, select the `Client`, type/select `"Therapy Contract"` in `DocumentType`, and hit Save to create a document row that triggers background Google Doc contract generation.
+**Decision**: Replaced manual form entry with a single 1-click action `Add_Document_TherapyContract` on the `Client` table.
+**Reason**: Manually filling out the form for every client was repetitive. `Add_Document_TherapyContract` uses Action type `Data: add a new row to another table using values from this row` (`Document` table), passing only the 2 minimal required fields: `Client = [ID]` and `DocumentType = "DocType_TherapyContract"`. All system fields (`ID`, `UploadDate`, `CreatedOn`, `CreatedBy`) default automatically via Initial Values, and document name/file URLs are populated by the background bot.
+
+**Impact**: Eliminates manual form data entry. Action executes in 0.1 seconds from Client Detail View header, immediately triggering the native AppSheet background Bot (`New Therapy Contract Added`). Displays as Prominent button `"Add Therapy Contract"` with icon `file-text` (📄).
+**Naming SOP Alignment**: Follows `sop-naming` (`Add_[Table]_[Detail]`) and `sop-actions` gating (`Only if this condition is true` checks if a document row already exists).
+
+

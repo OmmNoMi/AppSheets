@@ -61,11 +61,12 @@
 - [ ] `AppSetting.BotProcessingEnabled` flag respected — bot stops when set to FALSE
 - [ ] Each bot run logs to AppTrigger: TriggerName, Status (Success/Failed), count processed
 
-### Actions
+- [x] `Add_Document_TherapyContract` 1-click action created on Client table (creates Document row & triggers background bot)
 - [ ] `Sync_Client` action on Client table — tested, LastEditOn updates
 - [ ] `Sync_ClientDocument` action on ClientDocument table — tested
 - [ ] `Send_IntakeLink` SMS action tested — sends correct Google Form URL to client mobile
 - [ ] `Generate_Docs` manual button triggers App Script correctly
+
 - [ ] `View_GoogleDoc` opens correct Google Doc URL
 - [ ] `View_SignedPDF` opens correct signed PDF URL
 - [ ] `Approved_Signed` sets Status to "Signed" and fills SignedOn timestamp
