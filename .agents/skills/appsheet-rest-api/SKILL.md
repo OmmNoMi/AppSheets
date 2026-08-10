@@ -21,7 +21,28 @@ If an API call returns `HTTP 403 Forbidden: The API is not enabled for the calle
 
 ---
 
-## 2. API Endpoint Structure
+## 2. App Credentials Registry (`app_keys.json`)
+
+All project App IDs, Access Keys, and target Spreadsheet IDs should be registered in:
+[.agents/skills/appsheet-rest-api/app_keys.json](file:///Users/ommnomi/AppSheets/.agents/skills/appsheet-rest-api/app_keys.json)
+
+**Registry Format:**
+```json
+{
+  "apps": {
+    "OmmNoMi_Survey_Base": {
+      "appId": "dc77165d-11eb-40cc-9f9a-9c94a875c920",
+      "accessKey": "V2-nC5El-ttsQX-81ZGC-IWZOy-cwjew-58R45-cUyk8-ukw1P",
+      "spreadsheetId": "1uLYuQWQCsJetVRDQcrRsWxoT7Q9cnpz2xAR1fL9diO4",
+      "description": "Base Survey Template application keys"
+    }
+  }
+}
+```
+
+---
+
+## 3. API Endpoint Structure
 
 All data modification requests (Add, Edit, Delete) go to:
 ```http

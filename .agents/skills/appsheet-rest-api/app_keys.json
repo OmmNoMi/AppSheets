@@ -1,0 +1,10 @@
+{
+  "apps": {
+    "OmmNoMi_Survey_Base": {
+      "appId": "dc77165d-11eb-40cc-9f9a-9c94a875c920",
+      "accessKey": "V2-nC5El-ttsQX-81ZGC-IWZOy-cwjew-58R45-cUyk8-ukw1P",
+      "spreadsheetId": "1uLYuQWQCsJetVRDQcrRsWxoT7Q9cnpz2xAR1fL9diO4",
+      "description": "Base Survey Template application keys"
+    }
+  }
+}
