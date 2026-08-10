@@ -2,15 +2,34 @@
 """
 ingest_questionnaire.py — OmmNoMi Standard AppVariables Generator
 ===================================================================
-Generates AppVariables adhering 100% to the official OmmNoMi AppVariables schema:
+Generates AppVariables adhering 100% to your updated Google Sheet column schema:
 
-Columns:
-  ID | Table | Column | Tags | ValueControl | Title | Description | UsedFor |
-  Decimal | EnumValue | EnumList | VariableList | DateValue | Photo | URL | File |
-  LastEditBy | LastEditOn | Name_en | Name_hi | Name_mr | ActionIcon
+Tab Name: `AppVariables` (renamed from `Variable`)
 
-This ensures full backward-compatibility with all OmmNoMi scripts (parse_appvariables.py, linter.py)
-while extending it for survey multilingual prompts and ActionGrid navigation.
+Columns (21 total):
+  1.  ID
+  2.  Table
+  3.  Column
+  4.  Tags
+  5.  ValueControl
+  6.  Title         (English Title / Question Prompt)
+  7.  Description
+  8.  UsedFor
+  9.  Decimal
+  10. EnumValue
+  11. EnumList
+  12. VariableList  (Option choices list)
+  13. DateValue
+  14. Photo
+  15. URL
+  16. File
+  17. Title_hi      (Hindi Translation)
+  18. Title_mr      (Marathi Translation)
+  19. ActionIcon    (Emoji Icon)
+  20. LastEditBy
+  21. LastEditOn
+
+This script parses questionnaire Excel matrices and emits rows matching this exact structure.
 """
 
 import sys
@@ -23,7 +42,7 @@ from datetime import datetime
 STANDARD_HEADERS = [
     'ID', 'Table', 'Column', 'Tags', 'ValueControl', 'Title', 'Description', 'UsedFor',
     'Decimal', 'EnumValue', 'EnumList', 'VariableList', 'DateValue', 'Photo', 'URL', 'File',
-    'LastEditBy', 'LastEditOn', 'Name_en', 'Name_hi', 'Name_mr', 'ActionIcon'
+    'Title_hi', 'Title_mr', 'ActionIcon', 'LastEditBy', 'LastEditOn'
 ]
 
 def parse_questionnaire_excel(xlsx_path):
@@ -40,8 +59,9 @@ def parse_questionnaire_excel(xlsx_path):
             if any(row):
                 questions.append(dict(zip(headers, row)))
                 
-    if 'Variable' in wb.sheetnames:
-        ws = wb['Variable']
+    if 'Variable' in wb.sheetnames or 'AppVariables' in wb.sheetnames:
+        sname = 'AppVariables' if 'AppVariables' in wb.sheetnames else 'Variable'
+        ws = wb[sname]
         headers = [str(cell).strip() for cell in next(ws.iter_rows(values_only=True)) if cell is not None]
         for row in list(ws.iter_rows(values_only=True))[1:]:
             if any(row):
@@ -52,7 +72,7 @@ def parse_questionnaire_excel(xlsx_path):
 
 def transform_to_ommnomi_standard_appvariables(questions, variables):
     """
-    Transforms questions and variables into OmmNoMi Standard AppVariables schema.
+    Transforms questions and variables into your updated AppVariables column schema.
     """
     app_vars = []
     now_str = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
@@ -80,20 +100,22 @@ def transform_to_ommnomi_standard_appvariables(questions, variables):
         var_id = str(v.get('ID', '')).strip()
         if not var_id:
             continue
+        title_en = v.get('Name_en', v.get('Title', var_id))
+        title_hi = v.get('Name_hi', v.get('Title_hi', ''))
+        title_mr = v.get('Name_mr', v.get('Title_mr', ''))
         row = {h: '' for h in STANDARD_HEADERS}
         row.update({
             'ID': f"OPT_{var_id}",
-            'Table': 'Variable',
-            'Column': v.get('Type', ''),
-            'Tags': f"Option , {v.get('Type', '')} , ID Connected to Variable",
+            'Table': 'AppVariables',
+            'Column': v.get('Column', v.get('Type', '')),
+            'Tags': f"Option , {v.get('Column', v.get('Type', ''))} , ID Connected to Variable",
             'ValueControl': 'Enum',
-            'Title': v.get('Name_en', var_id),
+            'Title': title_en,
             'Description': v.get('Description', ''),
-            'UsedFor': f"Option item for {v.get('Type', '')}",
-            'EnumValue': v.get('Name_en', var_id),
-            'Name_en': v.get('Name_en', ''),
-            'Name_hi': v.get('Name_hi', ''),
-            'Name_mr': v.get('Name_mr', ''),
+            'UsedFor': f"Option item for {v.get('Column', v.get('Type', ''))}",
+            'EnumValue': title_en,
+            'Title_hi': title_hi,
+            'Title_mr': title_mr,
             'LastEditBy': 'DevNoMi',
             'LastEditOn': now_str
         })
@@ -109,6 +131,10 @@ def transform_to_ommnomi_standard_appvariables(questions, variables):
         target_col = q.get('Column', '')
         opt_vars_raw = str(q.get('OptionVariables', '') or '').strip()
         
+        q_title = q.get('Question_en', q.get('Title', ''))
+        q_hi = q.get('Question_hi', q.get('Title_hi', ''))
+        q_mr = q.get('Question_mr', q.get('Title_mr', ''))
+
         row = {h: '' for h in STANDARD_HEADERS}
         row.update({
             'ID': f"Q_{q_id}",
@@ -116,15 +142,14 @@ def transform_to_ommnomi_standard_appvariables(questions, variables):
             'Column': target_col,
             'Tags': f"QuestionPrompt , {target_table} , {target_col}",
             'ValueControl': 'VariableList' if opt_vars_raw else 'Enum',
-            'Title': q.get('Question_en', ''),
+            'Title': q_title,
             'Description': f"Questionnaire code: {q.get('Questionnaire', '')}",
             'UsedFor': f"DisplayName & Options for {target_table}.{target_col}",
-            'EnumValue': q.get('Question_en', ''),
-            'VariableList': opt_vars_raw,  # Direct option list in official OmmNoMi VariableList column!
-            'EnumList': opt_vars_raw,      # Secondary fallback
-            'Name_en': q.get('Question_en', ''),
-            'Name_hi': q.get('Question_hi', ''),
-            'Name_mr': q.get('Question_mr', ''),
+            'EnumValue': q_title,
+            'VariableList': opt_vars_raw,
+            'EnumList': opt_vars_raw,
+            'Title_hi': q_hi,
+            'Title_mr': q_mr,
             'LastEditBy': 'DevNoMi',
             'LastEditOn': now_str
         })
@@ -148,13 +173,12 @@ def transform_to_ommnomi_standard_appvariables(questions, variables):
             'Column': 'ActionGrid',
             'Tags': 'UI , Navigation , ActionGrid',
             'ValueControl': 'Enum',
-            'Title': f"Action Button: {name}",
+            'Title': name,
             'Description': desc,
             'UsedFor': f"Inline Action Grid Button for {name}",
             'EnumValue': name,
-            'Name_en': name,
-            'Name_hi': name,
-            'Name_mr': name,
+            'Title_hi': name,
+            'Title_mr': name,
             'ActionIcon': icon,
             'LastEditBy': 'DevNoMi',
             'LastEditOn': now_str
@@ -166,7 +190,7 @@ def transform_to_ommnomi_standard_appvariables(questions, variables):
 
 def export_appvariables_csv(app_vars, output_file):
     """
-    Exports OmmNoMi standard AppVariables to CSV.
+    Exports AppVariables matching the updated Google Sheet headers.
     """
     if not app_vars:
         return
@@ -177,7 +201,7 @@ def export_appvariables_csv(app_vars, output_file):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Ingest questionnaire into OmmNoMi Standard AppVariables.")
+    parser = argparse.ArgumentParser(description="Ingest questionnaire into updated AppVariables schema.")
     parser.add_argument("xlsx_path", help="Path to client questionnaire Excel file")
     parser.add_argument("--output-dir", "-o", default="./output", help="Directory to save generated output")
     args = parser.parse_args()
@@ -192,7 +216,7 @@ def main():
     
     output_csv = os.path.join(args.output_dir, "Generated_AppVariables.csv")
     export_appvariables_csv(app_vars, output_csv)
-    print(f"✅ Generated OmmNoMi Standard AppVariables CSV: {output_csv}")
+    print(f"✅ Generated AppVariables CSV matching updated schema: {output_csv}")
 
 if __name__ == "__main__":
     main()
