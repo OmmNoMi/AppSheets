@@ -5,7 +5,7 @@ description: Expertise and toolset for instantiating dynamic, multilingual, modu
 
 # Survey Engine Generator Skill
 
-This skill allows building and deploying **multilingual, modular AppSheet survey applications** from raw client questionnaires with **minimal re-coding effort**.
+This skill allows building and deploying **multilingual, modular AppSheet survey applications (OmmNoMi Survey)** from raw client questionnaires with **minimal re-coding effort**.
 
 ---
 
@@ -17,15 +17,28 @@ This skill allows building and deploying **multilingual, modular AppSheet survey
    - Enumerators fill only the sub-module forms relevant to that specific respondent, avoiding massive intimidating forms.
 
 2. **Unified Dynamic Metadata Engine (`AppVariables`)**:
-   - Question prompts (`Type = Question`) and dropdown choices (`Type = Options`) are stored in `AppVariables`.
-   - Dynamic `DisplayName` formula:
-     ```excel
-     IFS(
-       USERSETTINGS("Language") = "Marathi", INDEX(Filter("AppVariables", [ID] = "Q_A01_Respondent"), 1)[Name_mr],
-       USERSETTINGS("Language") = "Hindi", INDEX(Filter("AppVariables", [ID] = "Q_A01_Respondent"), 1)[Name_hi],
-       TRUE, INDEX(Filter("AppVariables", [ID] = "Q_A01_Respondent"), 1)[Name_en]
-     )
-     ```
+    - Question prompts (`Q_*` rows) and dropdown choices (`OPT_*` rows) are stored in `AppVariables`.
+    - The `Label` virtual column (IsLabel=Yes) on `AppVariables` auto-resolves the user's language:
+      ```excel
+      =IFS(
+        IN(USEREMAIL(),{"user1@ommnomi.in"}),[Title]&" ("&[Title_hi]&")",
+        1=1,[Title]&" ("&[Title_mr]&")"
+      )
+      ```
+    - **DisplayName** formula (one-liner, Label does the work):
+      ```excel
+      =LOOKUP("Q_A_02_00","AppVariables","ID","Label")
+      ```
+    - **Option columns** use `Ref → AppVariables` with `Valid_If` to restrict dropdown:
+      ```excel
+      Valid_If: SPLIT(LOOKUP("Q_A_02_00","AppVariables","ID","VariableList")," , ")
+      ```
+    - **Cascading fields** use `Description` as parent pointer:
+      ```excel
+      GramPanchyat Initial Value: [Village].[Description]
+      Taluka Initial Value: [GramPanchyat].[Description]
+      ```
+    - Each `OPT_*` row has `Title`, `Title_hi`, `Title_mr` for per-option translation.
 
 3. **Universal Junction Pattern (`MultiSelect`)**:
    - All multi-select arrays across all modules and levels write to a single `MultiSelect` table:

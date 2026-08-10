@@ -81,7 +81,7 @@ def transform_to_ommnomi_standard_appvariables(questions, variables):
     base_constants = [
         {
             'ID': 'CompanyName', 'Table': 'AppVariable', 'Column': '', 'Tags': 'ID is used in Code , Changes on App Copy',
-            'ValueControl': 'Enum', 'Title': 'Company Name', 'Description': 'OmmNoMi Survey Engine', 'UsedFor': 'Header title in reports',
+            'ValueControl': 'Enum', 'Title': 'Company Name', 'Description': 'OmmNoMi Survey', 'UsedFor': 'Header title in reports',
             'EnumValue': 'OmmNoMi Automation LLP', 'LastEditBy': 'DevNoMi', 'LastEditOn': now_str
         },
         {
