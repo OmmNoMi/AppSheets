@@ -1,0 +1,5 @@
+ID,DistrictName,AgroZone,EnterpriseDatasetRecords,TargetQuota,ModelCLFStatus,TotalCLFs,RegisteredCLFs,NRETPFoundingDistrict
+DIST_CHURU,Churu,Arid West (Desert),921,55,TRUE,26,26,TRUE
+DIST_DAUSA,Dausa,Semi-Arid Central,493,55,TRUE,23,21,FALSE
+DIST_DUNGARPUR,Dungarpur,Southern Tribal Belt,211,55,TRUE,34,30,TRUE
+DIST_BARAN,Baran,Fertile East (Hadoti),117,55,TRUE,27,27,TRUE

@@ -1,0 +1,68 @@
+ID,Category,SubCategory,Title,Title_hi,Title_local,Description,VariableList,ValueControl
+ROLE_INVESTIGATOR,Role,System,Field Investigator,क्षेत्र अन्वेषक,क्षेत्र अन्वेषक,Field enumerator role,,Text
+ROLE_SUPERVISOR,Role,System,Field Supervisor,क्षेत्र पर्यवेक्षक,क्षेत्र पर्यवेक्षक,Supervisor and QA role,,Text
+ROLE_RESEARCHER,Role,System,Lead Researcher,मुख्य शोधकर्ता,मुख्य शोधकर्ता,Research & analytics lead role,,Text
+Q_P_01_00,Question,Profile,Social category / caste of entrepreneur?,उद्यमी की सामाजिक श्रेणी / जाति क्या है?,उद्यमी की सामाजिक श्रेणी / जाति का है?,Social category profiling,"OPT_CST_SC, OPT_CST_ST, OPT_CST_OBC, OPT_CST_GEN",Enum
+OPT_CST_SC,Option,Profile,Scheduled Caste (SC),अनुसूचित जाति (SC),अनुसूचित जाति (SC),SC Category,,Text
+OPT_CST_ST,Option,Profile,Scheduled Tribe (ST),अनुसूचित जनजाति (ST),अनुसूचित जनजाति (ST),ST Category,,Text
+OPT_CST_OBC,Option,Profile,Other Backward Class (OBC),अन्य पिछड़ा वर्ग (OBC),अन्य पिछड़ा वर्ग (OBC),OBC Category,,Text
+OPT_CST_GEN,Option,Profile,General Category,सामान्य वर्ग,सामान्य वर्ग,General Category,,Text
+Q_P_02_00,Question,Profile,Ownership structure of enterprise?,उद्यम का स्वामित्व प्रकार क्या है?,उद्यम रो मालिक कौन है?,Ownership model,"OPT_OWN_SELF, OPT_OWN_HUSBAND, OPT_OWN_FAMILY, OPT_OWN_GROUP",Enum
+OPT_OWN_SELF,Option,Profile,Self (Woman Entrepreneur),स्वयं (महिला उद्यमी),खुद री,Self,,Text
+OPT_OWN_HUSBAND,Option,Profile,Husband's enterprise,पति का उद्यम,पति रो,Husband,,Text
+OPT_OWN_FAMILY,Option,Profile,Joint Family Business,संयुक्त परिवार व्यवसाय,परिवार रो धंधो,Family,,Text
+OPT_OWN_GROUP,Option,Profile,Women's Group / SHG Enterprise,महिला समूह / एसएचजी उद्यम,समूह रो काम,Group,,Text
+Q_P_03_00,Question,Profile,Is entrepreneur a first-generation business owner?,क्या उद्यमी प्रथम पीढ़ी की व्यवसायी है?,का पहली बार व्यापार कर रही है?,First gen status,"OPT_GEN_1ST, OPT_GEN_EXP",Enum
+OPT_GEN_1ST,Option,Profile,First-generation entrepreneur (No prior business background),प्रथम पीढ़ी की उद्यमी (कोई पूर्व व्यावसायिक पृष्ठभूमि नहीं),पहली पीढ़ी उद्यमी,First Gen,,Text
+OPT_GEN_EXP,Option,Profile,Had prior business experience / traditional family trade,पूर्व व्यावसायिक अनुभव या पारंपरिक पारिवारिक व्यापार,पुराना अनुभव,Experienced,,Text
+Q_P_04_00,Question,Profile,Age of underlying SHG (in years)?,एसएचजी के गठन की आयु (वर्षों में)?,समूह कितना साल पुरानो है?,SHG age,"OPT_SHG_Y1, OPT_SHG_Y23, OPT_SHG_Y35, OPT_SHG_Y5PLUS",Enum
+OPT_SHG_Y1,Option,Profile,Less than 1 year (Dose 1),1 वर्ष से कम (पहली खुराक),1 साल सूं कम,Year 1,,Text
+OPT_SHG_Y23,Option,Profile,1 - 3 years (Dose 2),1 - 3 वर्ष (दूसरी खुराक),1-3 साल,Year 1-3,,Text
+OPT_SHG_Y35,Option,Profile,3 - 5 years (Dose 3 - Enterprise Threshold),3 - 5 वर्ष (तीसरी खुराक - उद्यम देहरी),3-5 साल,Year 3-5,,Text
+OPT_SHG_Y5PLUS,Option,Profile,More than 5 years (Dose 4 & 5 Mature SHG),5 वर्ष से अधिक (चौथी व पाँचवीं खुराक),5 साल सूं ज्यादा,Year 5+,,Text
+Q_P_05_00,Question,Profile,SHG Credit Dose level reached?,एसएचजी ऋण खुराक का स्तर क्या है?,कौन सी किश्त/डोज मिली है?,Credit dose tier,"OPT_DOS_1, OPT_DOS_2, OPT_DOS_3, OPT_DOS_4PLUS",Enum
+OPT_DOS_1,Option,Profile,1st Credit Dose (Predominantly Consumption),1ली ऋण खुराक (मुख्यतः उपभोग),1ली डोज,Dose 1,,Text
+OPT_DOS_2,Option,Profile,2nd Credit Dose (Consumption & Working Capital),2री ऋण खुराक (उपभोग एवं कार्यशील पूँजी),2री डोज,Dose 2,,Text
+OPT_DOS_3,Option,Profile,3rd Credit Dose (Enterprise Investment - Enterprise Relevant),3री ऋण खुराक (उद्यम निवेश योग्य),3री डोज (उद्यम),Dose 3,,Text
+OPT_DOS_4PLUS,Option,Profile,4th / 5th Credit Dose (Enterprise Scaling / Expansion),4थी / 5वीं ऋण खुराक (उद्यम विस्तार),4थी/5वीं डोज,Dose 4+,,Text
+Q_P_06_00,Question,Profile,Mobile Phone usage patterns by SHG member?,महिला द्वारा मोबाइल फोन का उपयोग?,फोन रो इस्तेमाल कईं-कईं में करो?,Smartphone usage,"OPT_USE_CALL, OPT_USE_BANK, OPT_USE_SHG, OPT_USE_UPI, OPT_USE_SHOP, OPT_USE_SM, OPT_USE_ENT",EnumList
+OPT_USE_CALL,Option,Profile,Phone calls only,केवल फोन कॉल,सिर्फ फोन बात करवा में,Calls,,Text
+OPT_USE_BANK,Option,Profile,Banking communication / SMS alerts,बैंकिंग एसएमएस और जानकारी,बैंक मैसेज,Banking,,Text
+OPT_USE_SHG,Option,Profile,SHG & CLF WhatsApp groups,एसएचजी / सीएलएफ व्हाट्सएप ग्रुप,समूह व्हाट्सएप ग्रुप,SHG group,,Text
+OPT_USE_UPI,Option,Profile,"Digital Payments (PhonePe, GooglePay, Paytm)","डिजिटल भुगतान (फोनपे, गूगलपे)",ऑनलाइन पैसो ट्रांसफर,UPI,,Text
+OPT_USE_SHOP,Option,Profile,"Online shopping (Meesho, Flipkart, eSaras)","ऑनलाइन खरीदारी (मीशो, फ्लिपकार्ट, ई-सरस)",ऑनलाइन सामान मंगावा में,Online shopping,,Text
+OPT_USE_SM,Option,Profile,"Social Media Business (Instagram, WhatsApp Business)",सोशल मीडिया बिज़नेस,इंस्टा/व्हाट्सएप बिज़नेस,Social Business,,Text
+OPT_USE_ENT,Option,Profile,"Entertainment (YouTube, Reels)","मनोरंजन (यूट्यूब, रील्स)",यूट्यूब / रील्स देखना,Entertainment,,Text
+Q_B_01_00,Question,Business,Primary motivation driver (Push vs Pull)?,उद्यम शुरू करने की मुख्य वजह (मजबूरी या अवसर)?,काम शुरू करवा री मुख्य वजह का थी?,Push vs Pull motivation,"OPT_MOT_PUSH_INC, OPT_MOT_PUSH_EMP, OPT_MOT_PULL_OPP, OPT_MOT_PULL_PAS, OPT_MOT_FAM_LEG",Enum
+OPT_MOT_PUSH_INC,Option,Business,Necessity/Push: Household financial distress / rising expenses,मजबूरी/पुश: घरेलू वित्तीय संकट / बढ़ते खर्च,घर खर्चा री मजबूरी,Push Income,,Text
+OPT_MOT_PUSH_EMP,Option,Business,Necessity/Push: Lack of alternate wage employment,मजबूरी/पुश: वैकल्पिक मजदूरी/रोजगार का अभाव,दूसरा काम नी मिलने सूं,Push Employment,,Text
+OPT_MOT_PULL_OPP,Option,Business,Opportunity/Pull: Identified clear market gap / local opportunity,अवसर/पुल: स्थानीय बाजार में स्पष्ट अवसर देखा,बाजार में नया काम दिख्यो,Pull Opportunity,,Text
+OPT_MOT_PULL_PAS,Option,Business,Opportunity/Pull: Entrepreneurial passion & ambition,अवसर/पुल: व्यापारिक आकांक्षा व स्वावलंबन इच्छा,खुद रो काम करवा रो शौक,Pull Ambition,,Text
+OPT_MOT_FAM_LEG,Option,Business,Traditional Family Business continuation,पारंपरिक पारिवारिक व्यवसाय को जारी रखना,खानदानी धंधो,Family Legacy,,Text
+Q_G_01_00,Question,GenderObstacles,Faced obstacles in enterprise due to gender/social norms?,क्या महिला होने या सामाजिक मान्यताओं के कारण बाधाएँ आईं?,लुगाई होने रे कारण कोई परेशानी आई का?,Gender obstacle check,"OPT_OBS_YES, OPT_OBS_NO",Enum
+OPT_OBS_YES,Option,GenderObstacles,"Yes, faced gender-based obstacles","हाँ, बाधाओं का सामना करना पड़ा",हाँ परेशानी आई,Yes,,Text
+OPT_OBS_NO,Option,GenderObstacles,No gender obstacles faced,"नहीं, कोई बाधा नहीं आई",ना कोई परेशानी नी आई,No,,Text
+Q_G_02_00,Question,GenderObstacles,Specific business areas where obstacles occurred?,व्यवसाय के किन क्षेत्रों में बाधाएँ आईं?,का-का काम में अड़चन आई?,Obstacle breakdown,"OPT_GBO_RENT, OPT_GBO_SAFETY, OPT_GBO_MAT_COST, OPT_GBO_VENDOR, OPT_GBO_TRANS, OPT_GBO_SALE_TERMS, OPT_GBO_INTEREST, OPT_GBO_CUST, OPT_GBO_ACCT, OPT_GBO_RECOVERY, OPT_GBO_PURDAH",EnumList
+OPT_GBO_RENT,Option,GenderObstacles,Denied shop premise on rent due to being a woman,महिला होने पर किराए पर दुकान देने से इंकार,दुकान भाड़े पर नी मिली,Rent denial,,Text
+OPT_GBO_SAFETY,Option,GenderObstacles,Reaching distant wholesale markets is unsafe / mobility restricted,दूर बाजार जाने में सुरक्षा चिंता व आवाजाही पर रोक,आवाजाही और सुरक्षा री चिंता,Safety & Mobility,,Text
+OPT_GBO_MAT_COST,Option,GenderObstacles,Charged higher raw material purchase costs,कच्चा माल खरीदने में अधिक दाम वसूला जाना,सामान महँगो दियो,Material price bias,,Text
+OPT_GBO_VENDOR,Option,GenderObstacles,Difficult to find reliable supply vendors,विश्वसनीय विक्रेता मिलने में कठिनाई,भरोसेमंद सप्लायर नी मिलना,Vendor supply,,Text
+OPT_GBO_TRANS,Option,GenderObstacles,Charged higher transportation costs,अधिक परिवहन/भाड़ा शुल्क लिया जाना,गाड़ी भाड़ो ज्यादा लेवो,Transport bias,,Text
+OPT_GBO_SALE_TERMS,Option,GenderObstacles,Unfavourable sale terms from buyers/wholesalers,बिक्री की प्रतिकूल शर्तें,बिक्री में खराब शर्तें,Unfavourable terms,,Text
+OPT_GBO_INTEREST,Option,GenderObstacles,Higher interest rate demanded by informal lenders,साहूकारों द्वारा अधिक ब्याज दर माँगना,ज्यादा ब्याज माँगना,Interest bias,,Text
+OPT_GBO_CUST,Option,GenderObstacles,Difficulty in dealing/interacting with male customers,पुरुष ग्राहकों से बातचीत में हिचकिचाहट/कठिनाई,ग्राहक सूं बात करवा में दिक्कत,Customer interaction,,Text
+OPT_GBO_ACCT,Option,GenderObstacles,Difficulty maintaining financial accounts/bookkeeping,खाता-बही और हिसाब रखने में दिक्कत,हिसाब-किताब रखबो औखा पडना,Accounting,,Text
+OPT_GBO_RECOVERY,Option,GenderObstacles,Difficulty recovering credit/udhaar from male customers,उधार पैसा वापस वसूलने में कठिनाई,उधारी रा पैसा वापस निकालना औखा,Credit recovery,,Text
+OPT_GBO_PURDAH,Option,GenderObstacles,Purdah / Ghoonghat social restriction on public interaction,पर्दा प्रथा / घूँघट की सामाजिक बंदिश,पर्दा प्रथा री बंदिश,Purdah restriction,,Text
+Q_G_03_00,Question,GenderObstacles,Coping mechanisms / solutions adopted for gender obstacles?,इन बाधाओं से निपटने के लिए क्या समाधान अपनाया?,इन अड़चना सूं पार पावा के का उपाय कियो?,Solutions,"OPT_SOL_MALE_PURCH, OPT_SOL_MALE_SALE, OPT_SOL_MALE_OPS, OPT_SOL_CASH_ONLY, OPT_SOL_COMPROMISE",EnumList
+OPT_SOL_MALE_PURCH,Option,GenderObstacles,Husband or male relative handles wholesale purchase,पति या पुरुष रिश्तेदार थोक खरीदारी संभालते हैं,पति या भाई सामान लावे है,Male purchase,,Text
+OPT_SOL_MALE_SALE,Option,GenderObstacles,Husband or male relative handles external sales,पति या पुरुष रिश्तेदार बिक्री संभालते हैं,पति/पुरुष बेचे है,Male sales,,Text
+OPT_SOL_MALE_OPS,Option,GenderObstacles,Husband handles heavy machinery/operations,पति भारी काम/मशीन संचालन संभालते हैं,मशीन रो काम पति करे है,Male ops,,Text
+OPT_SOL_CASH_ONLY,Option,GenderObstacles,Conduct strict cash-only transactions (no credit),केवल नकद व्यापार करना (कोई उधार नहीं),सिर्फ रोड़ा पैसो (नकद) काम,Cash only,,Text
+OPT_SOL_COMPROMISE,Option,GenderObstacles,Compromise and work with existing local vendors,मौजूदा स्थानीय विक्रेताओं के साथ ही काम चलाना,पुराना दुकानदार सूं ही काम चलाना,Compromise,,Text
+Q_E_05_00,Question,Performance,How is enterprise profit predominantly allocated?,उद्यम के लाभ का मुख्य उपयोग कहाँ होता है?,मुनाफे रा रुपया कठे ख़र्च होवे है?,Profit allocation,"OPT_PRF_CONS, OPT_PRF_EDU, OPT_PRF_HUSBAND_BIZ, OPT_PRF_SHG_EMI, OPT_PRF_BIZ_REINVEST",EnumList
+OPT_PRF_CONS,Option,Performance,Household consumption & daily food expenses,घरेलू उपभोग और दैनिक भोजन खर्च,घर रो राशन खर्च,Household consumption,,Text
+OPT_PRF_EDU,Option,Performance,Children's education & healthcare emergencies,बच्चों की शिक्षा और स्वास्थ्य खर्च,टाबरा री पढ़ाई व दवाई,Education & Health,,Text
+OPT_PRF_HUSBAND_BIZ,Option,Performance,Reallocated to husband's or family enterprise,पति या परिवार के व्यवसाय में हस्तांतरित,पति रे काम में लगा दिया,Husband's enterprise,,Text
+OPT_PRF_SHG_EMI,Option,Performance,SHG / Loan EMI repayments,एसएचजी / बैंक ऋण की किश्त (EMI),लोन री किश्त,Loan EMI,,Text
+OPT_PRF_BIZ_REINVEST,Option,Performance,Reinvested in own enterprise expansion / inventory,अपने व्यवसाय के विस्तार / इन्वेंट्री में पुनर्निवेश,खुद री दुकान में वापस लगाया,Reinvested,,Text
