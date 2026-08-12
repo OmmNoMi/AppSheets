@@ -175,3 +175,13 @@
 3. **Dynamic Initial Values Resolution**: Rely on the `AttendanceDaily` table's native Initial Value formulas to automatically resolve holiday checks (comparing `OfficeHoliday` with employee's `Office_Calendar`), leave/request check (matching approved `AttendanceRequest`), and weekend check (evaluating `Office_Shift.Type = "Day Off"`).
 **Reason**: Placing the conditional logic directly in the bot step eliminates the need for virtual columns or parent loop actions. Recreating rows using standard values allows native initial values to dynamically and safely calculate status, avoiding redundant logic and hardcoding.
 **Impact**: Restores deleted attendance logs within the hour across all global locations, with zero virtual column overhead.
+
+---
+
+### 2026-08-12 — AttendanceDaily `IsWorking` VC Formula Status & Account Guard
+**Context**: The `IsWorking` virtual column on `AttendanceDaily` previously checked project type, office holiday, shift day off, and attendance requests, but did not filter out separated/terminated employees or inactive `AppUser` accounts.
+**Decision**: Update `IsWorking` App Formula on `AttendanceDaily` to check employee status (`NOT(IN([Employee].[Status], {"Separated", "Terminated", "Resigned", "Inactive", "Archived"}))`) and `AppUser` account status (`OR(ISBLANK([Employee].[AppUserID]), [Employee].[AppUserID].[Status] <> "Inactive")`).
+**Reason**: Prevents separated, terminated, or inactive accounts from being evaluated as working days in attendance reports and notification triggers.
+**Impact**: `AttendanceDaily.IsWorking` VC formula updated; accurate attendance logs for active personnel only.
+**Pattern**: SP-006 — "Active Employee & Account Status Guard on IsWorking VC"
+
