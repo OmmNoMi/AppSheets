@@ -381,40 +381,25 @@
   LastEditOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
-### Session (14 cols)
+### Session [DEPRECATED]
+*Table deleted and consolidated into single `SessionNotes` table.*
+
+### SessionNotes (9 cols - Clean Streamlined Schema)
 ```
   _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Client: Ref
-  Provider: Text
-  SessionDate: Date = TODAY()
-  StartTime: Time = TIMENOW()
-  EndTime: Time = TIMENOW()
-  SessionType: Text
-  Status: Text
-  CreatedBy: Text
-  CreatedOn: Text
-  LastEditBy: Name
-  LastEditOn: Name
-  Related SessionNotes: List [RO,VC]
+  ID: Text = UNIQUEID() { Logic: [EditIf]="=ISBLANK([_THIS])" }
+  Client: Ref → Client
+  Date: Date = TODAY()
+  Category: Enum [Values: 'Clinical Notes', 'Treatment Goal', 'Progress'] = ="Clinical Notes"
+  GoalName: Text { Logic: [ShowIf]="=[Category] <> 'Clinical Notes'" }
+  Description: LongText
+  Score: Decimal { Logic: [ShowIf]="=[Category] = 'Progress'" }
+  CreatedBy: Enum = =ANY(Me[ID]) { Logic: [EditIf]="=ISBLANK([_THIS])" } { Slices Cross-Ref: Me -> AppUser }
+  CreatedOn: DateTime = =NOW() { Logic: [EditIf]="=ISBLANK([_THIS])" }
 ```
 
-### SessionNotes (13 cols)
-```
-  _RowNumber: Number [SYSTEM,HIDDEN,RO]
-  ID: Text = UNIQUEID()
-  Session: Ref
-  Client: Ref
-  Date: Date = TODAY()
-  ClinicalNotes: LongText
-  TreatmentGoals: Text
-  Progress: Text
-  TherapistSignature: Signature
-  CreatedBy: Text
-  CreatedOn: Text
-  LastEditBy: Name
-  LastEditOn: Name
-```
+
+
 
 ### Process for NewIntakeResponse Process Table (90 cols)
 [Inherits all 85 columns from Table: Therapy Intake]

@@ -206,3 +206,51 @@
 LOOKUP("GoogleFormLink", "AppVariables", "ID", "URL")
 ```
 
+---
+
+### 2026-08-07 — Streamlined 9-Column `SessionNotes` Architecture (Nomeshwer's Pattern)
+**Context**: Reviewing session consolidation with Nomeshwer & David. Merging `Session` into `SessionNotes` does NOT mean dumping 17 bloated columns into one sheet. Scheduling fields (`StartTime`, `EndTime`, `Status`) live in the EHR.
+**Decision**: Streamline `SessionNotes` into a clean **9-column** table:
+1. `ID` (Key, `UNIQUEID()`)
+2. `Client` (Ref → `Client`)
+3. `Date` (Date, default `TODAY()`)
+4. `Category` (Enum: `Clinical Notes`, `Treatment Goal`, `Progress`)
+5. `GoalName` (Text, shown if Category is Goal/Progress)
+6. `Description` (LongText)
+7. `Score` (Decimal, shown if Category is Progress)
+8. `CreatedBy` (Enum → `AppUser`)
+9. `CreatedOn` (DateTime)
+**Reason**: Keeps the database clean, fast, and unbloated while enabling longitudinal progress graphing.
+**Impact**: `Session` table deleted. `SessionNotes` streamlined to 9 columns.
+**Pattern**: SP-005 — "Streamlined 9-Column Clinical SessionNotes Architecture"
+
+
+
+
+---
+
+### 2026-08-07 — Intake Google Form Unrestricted Response Limit
+**Context**: Intake Google Form had "Limit to 1 response" enabled, preventing parents from submitting separate intake entries for multiple children.
+**Decision**: Disable single-response limit on the intake form.
+**Reason**: Allows parents with multiple children to submit unique intake forms without login friction.
+**Impact**: Google Form setting updated to allow multiple submissions.
+
+
+---
+
+### 2026-08-07 — Standardized Client Document Naming Convention
+**Context**: Uploaded client files and generated contracts lacked uniform naming across Google Drive.
+**Decision**: Adopt standardized naming format: `[Last Name], [First Name], [Client Number], [Document Title], [Date]`.
+**Reason**: Ensures file searchability and HIPAA-compliant filing audit trail.
+**Impact**: App Script file naming helper function updated.
+
+---
+
+### 2026-08-07 — Form Ownership & Shared Drive Authorization
+**Context**: Google Form automation failed to move file attachments because form was owned by `admin assist` account instead of `David Phelan`.
+**Decision**: Transfer ownership of intake Google Form to `David Phelan`'s primary Workspace account. Designate `AA Current Clients` as permanent storage location.
+**Reason**: Eliminates cross-account permission bottlenecks for App Script document movers.
+**Impact**: Google Workspace automation authorized; live storage target updated to `AA Current Clients`.
+
+
+
