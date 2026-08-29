@@ -51,3 +51,18 @@ Spreadsheets are the source of truth. Analyze cell-level histories to resolve da
 3. **Verify Action Sync Modes:**
    * Check if action buttons use background syncing.
    * If instant database writes are required, force foreground sync (`Sync Now` action link) on button clicks.
+
+---
+
+## 5. Google Doc Template & PDF Preview Diagnostics
+
+1. **Smart / Typographic Quotes in Templates:**
+   * Never use formula concatenation strings `<<"text" & [Col]>>` for multi-sentence paragraphs in Google Docs templates.
+   * Google Docs converts straight quotes into curly quotes (`“` and `”`), causing silent syntax parse failures and leaving template blocks blank.
+   * Use plain text with direct `<<[Column]>>` merge tags inside `<<IF: ...>>...<<EndIf>>`.
+2. **Scope of Conditional Blocks (`<<EndIf>>`):**
+   * Keep universal notices (e.g. equipment/uniform return instructions) outside mutually exclusive condition blocks.
+3. **AppSheet PDF Preview Caching & File Regeneration:**
+   * File columns (like `EmailPreview`) store static files. Opening the file preview only reads the existing file on Drive.
+   * To force PDF regeneration after editing a Google Doc template, trigger the automation Bot (e.g., Edit record > Save), allow 5–10s for the backend file write, sync, and hard-refresh (`Cmd+Shift+R`).
+

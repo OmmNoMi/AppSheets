@@ -47,6 +47,7 @@ description: Architectural pattern for PATTERNS_INDEX. Use this skill when asked
 | BF-007 | Ref Display vs Database Raw Value | `BugFixes/BF-007_RefDisplayVsRaw.md` | Transcend |
 | BF-008 | Action fails silently | `BugFixes/BF-008_SchemaValidation.md` | Transcend |
 | BF-009 | Blank email body / wrong recipient in automation email | `BugFixes/BF-009_BlankEmailBody.md` | Navi ONDT |
+| BF-010 | Google Doc template missing text / smart quotes / misplaced EndIf | `BugFixes/BF-010_GoogleDocTemplateExpressionSyntax.md` | Navi ONDT |
 
 ## UX Patterns
 | ID | Use Case | Pattern File | Source |
