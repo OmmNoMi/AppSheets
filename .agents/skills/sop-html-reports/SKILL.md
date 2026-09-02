@@ -42,6 +42,29 @@ Both signatories:
 - **Nomeshwer Sharma** → `https://ommnomi.in/associate/nomeshwer` — Business Process Developer & Implementor
 - **Hardik Sharma** → `https://ommnomi.in/associate/whardiksharma` — Assistant Developer · Product Research & Development
 
+### Rule 7 — HEADER STRIPE POSITIONING & SPACING
+- The 4-color OmmNoMi stripe (`#4285F4`, `#34A853`, `#EA4335`, `#FBBC05`) must sit **strictly below** the logo lockup and page header block as an underline/divider.
+- Always include explicit breathing room (`14px`–`20px` margin) below the colored bar before the first section heading or hero element.
+
+### Rule 8 — MULTI-COLUMN CARDS & VERTICAL FILL QA
+- In multi-column grids (like 2x2 Pillar Cards), ensure cards are **100% structurally identical**:
+  1. Equal header and image dimensions (`58px`–`68px` thumbnail).
+  2. A concise definition paragraph (`10px`–`11px`, `1.45` line-height).
+  3. Structured checkpoints (6–7 high-impact, 3–5 word lines with green checkmarks `✓`).
+  4. Single-line tech badges (`flex-wrap: nowrap`, `overflow: hidden`, `white-space: nowrap`) to guarantee symmetrical card heights across columns.
+  5. Never enclose bullet items in cramped, undersized sub-boxes that create trailing internal whitespace.
+
+### Rule 9 — ZERO TEXT OVERFLOW & FOOTER CLEARANCE
+- **Ribbons & Badges**: Set `overflow: hidden` and test printable width (A4 printable width is ~`178mm` after padding). Keep pill badge text concise (e.g., `Logistics & Trade`, `Field Ops & Research`) so badges never clip or spill over container borders.
+- **Footer Clearance**: Always apply `margin-top: 16px–20px` and `padding-top: 10px` above the footer border to ensure bottom cards never touch or crowd the footer.
+
+### Rule 10 — GROUNDED TRUTHFUL METRICS ONLY
+- Never fabricate unrealistic or unverifiable KPIs (e.g. "99.999% SLA across 500 apps").
+- Anchor all metrics to verified project realities in the workspace:
+  - Multi-company ERPNext architecture (Singapore 9% GST, Australia 10% GST, 9 physical branches).
+  - Dynamic AppVariables-driven offline mobile survey engines.
+  - Real-time biometric attendance sync, webhook triggers, and automated invoice/payment reconciliation.
+
 ---
 
 ## COMPLETE HTML TEMPLATE

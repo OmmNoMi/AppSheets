@@ -43,8 +43,12 @@ All OmmNoMi documents must follow a strict, professional layout protocol:
 * **Highlight Color Coding:**
   * **Success / Action Completed:** Green (`#34A853`).
   * **Warning / Incident / High Priority:** Red (`#EA4335`).
-  * **Informational / Low Priority:** Blue (`#4285F4`).
   * **Pending / Medium Priority:** Yellow (`#FBBC05`) or Purple (`#673AB7`).
+
+### B6. Legal Entity vs. Brand Wordmark Invariants
+* **Header / Wordmark / Narrative**: Never include "LLP" in the page header, title block, or general marketing narrative (use `OmmNoMi Automation` or `Next-Gen Operational Ecosystems`).
+* **Footer**: Every document and page footer MUST include the legal registered entity name: **`OmmNoMi Automation LLP`** (e.g. `Mahunag · Karsog · Mandi, HP, India · OmmNoMi Automation LLP`).
+* **Logo Lockup**: Always prefer the official transparent logo lockup PNG over raw CSS text hacks for executive deliverables.
 
 ---
 
