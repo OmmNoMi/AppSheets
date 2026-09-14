@@ -56,12 +56,34 @@ Whenever delivering a console automation or audit script:
 - Before outputting to the user, run `node -c <file>.js` via terminal to guarantee 100% valid JavaScript syntax.
 
 ### R5. Store Discovery Robustness
-Never assume `window.appStore` is already globally attached. Always use the 4-tier traversal:
-1. `window.appStore`
-2. `document.querySelector('.ExpressionControl')`
-3. `document.querySelector('[role="grid"]')`
-4. `document.querySelector('#root')`
-Attach discovered store to `window.appStore` for subsequent inspections.
+**CRITICAL UPDATE (2026-09-26)**: The new AppSheet editor uses `window.reduxStore`, NOT `window.appStore`. Always check BOTH:
+1. `window.reduxStore` - **Check FIRST for new editor**
+2. `window.appStore` - Legacy / fallback
+3. React Fiber traversal from root element
+
+```javascript
+var store = window.reduxStore || window.appStore;
+if (!store) {
+  var els = document.querySelectorAll('*');
+  for (var i = 0; i < els.length && !store; i++) {
+    var keys = Object.keys(els[i]);
+    for (var k = 0; k < keys.length; k++) {
+      if (keys[k].startsWith('__reactFiber')) {
+        var f = els[i][keys[k]];
+        while (f && !store) {
+          if (f.memoizedProps && f.memoizedProps.store && f.memoizedProps.store.dispatch) {
+            store = f.memoizedProps.store;
+          }
+          f = f.return;
+        }
+        break;
+      }
+    }
+  }
+}
+if (store) window.appStore = store;
+```
+Always cache the found store to `window.appStore` for subsequent calls.
 
 ---
 
@@ -105,7 +127,26 @@ Attach discovered store to `window.appStore` for subsequent inspections.
 - **Dual ColumnOrder Requirement**: Form views maintain their explicit column order in TWO places simultaneously:
   1. `control.ViewDefinition.ColumnOrder` (Array of column strings).
   2. `control.Settings` (JSON string containing `{"ColumnOrder":[...], ...}`).
-- **Virtual Column Rendering in Forms**: If a Form view has custom `ColumnOrder` defined, AppSheet strictly ignores any columns (including newly created Virtual Columns like `Related_Q6_Labor`) not present in that list. To render inline subtables with `[ New ]` buttons, the Virtual Columns MUST be injected into both `ViewDefinition.ColumnOrder` and the serialized `Settings.ColumnOrder`.
+- **Virtual Column Rendering in Forms**: If a Form view has custom `ColumnOrder` defined, AppSheet strictly ignores any columns (including newly created Virtual Columns like `Related_Q6_Labor`) not present in that list. To render inline subtables with `[ New ]` buttons, the Virtual Columns MUST be injected into both `ViewDefinition.ColumnOrder` and the serialized `Settings.ColumnOrder`.\
+
+### [Learning] SHG_Women Actual Child Table Names (2026-09-26)
+- **Problem**: Agent referred to `Survey_Tables` as the child matrix table name, but it does NOT exist in the SHG_Women app.
+- **Actual Child Table Names** in SHG_Women app (App ID: `0ec93d78-96d5-487c-87ce-742b3b558a3f`):
+  - `Survey_Labor` — Labor matrix (Purchase/Prod/Serv/Mktg/Sale/Record × 4 cols each)
+  - `Survey_Turnover` — Turnover (Peak/Avg/Lean × Months/Sales/Profit)
+  - `Survey_Capital_Arrangement` — Capital arranged over duration
+  - `Survey_Capital_Loans` — Capital loans table
+  - `Survey_Loan_Usage` — Loan usage tracking
+  - `Survey_Business_Changes` — Business changes
+- **ColumnOrder status as of 2026-09-26**: `Survey_Labor_Form` had `columnOrder=[]` (empty — all columns hidden). Others had `columnOrder=null` (auto-shows all — OK).
+- **Fix**: Set `Survey_Labor_Form.ViewDefinition.ColumnOrder` to full column list via Redux dispatch.
+
+### [Learning] window.reduxStore is the New AppSheet Editor Store Key (2026-09-26)
+- **Discovery**: All previous SOPs assumed `window.appStore`. The new AppSheet editor (2026 rollout) uses `window.reduxStore` instead.
+- **Rule**: Always try `window.reduxStore || window.appStore` before any Fiber traversal.
+- **Schema Name Format**: Schemas in new editor use `Name: "Survey_Labor_Schema"` not `TableName: "Survey_Labor"`.
+
+
 
 ### [Learning] Automation Bot, DataAction & ProcessNode C# Backend Schemas (2026-09-24 00:35)
 - **Problem / Root Cause**: Attempting to inject actions or process steps with made-up class names (e.g. `DataActionAddRow` or `ProcessNodes.RunActionNode` missing `ExprLookup`) causes AppSheet backend C# deserializer to reject the payload with `Error 400: Something went wrong and your changes couldn't be saved`.
