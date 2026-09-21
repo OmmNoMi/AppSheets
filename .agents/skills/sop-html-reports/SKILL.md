@@ -25,15 +25,32 @@ When writing HTML files inside `projects/Orbit/`, use:
 ```
 Never use `.agents/brand/icon_logo.jpg` or placeholder icons.
 
-### Rule 4 — PDF COMPILATION: Always use `--print-to-pdf-no-header`
+### Rule 3.1 — ZERO DUPLICATE WORDMARK (NEVER USE INLINE TEXT BESIDE LOGO)
+* **STRICTLY NEVER** place inline wordmark text (`<span class="wm">...</span>` or text `OmmNoMi Automation LLP`) next to `ommnomi_logo.png`.
+* `ommnomi_logo.png` is the official full-color horizontal lockup which **already contains** both the colorful icon AND the typography "OmmNoMi Automation LLP".
+* Putting inline text beside the image creates an amateur, redundant double logo (`[OmmNoMi Automation LLP] OmmNoMi Automation LLP`).
+* In headers and hero sections, display **ONLY** the logo image:
+  ```html
+  <div class="logo-row">
+    <img class="logo-img" src="../../.agents/brand/ommnomi_logo.png" alt="OmmNoMi Automation LLP" />
+  </div>
+  ```
+* NEVER include `.wm` CSS classes or `<span class="wm">` blocks in exported reports.
+
+### Rule 4 — PDF COMPILATION: Always use `--no-pdf-header-footer` & `--print-to-pdf-no-header`
 ```bash
+# macOS:
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
   --headless --disable-gpu \
-  --print-to-pdf-no-header \
+  --no-pdf-header-footer --print-to-pdf-no-header \
   --print-to-pdf="/path/to/output.pdf" \
   "/path/to/input.html"
+
+# Windows (PowerShell):
+Start-Process -FilePath "C:\Program Files\Google\Chrome\Application\chrome.exe" `
+  -ArgumentList @("--headless", "--disable-gpu", "--no-pdf-header-footer", "--print-to-pdf-no-header", "--print-to-pdf=C:\path\to\output.pdf", "C:\path\to\input.html") -Wait
 ```
-Never use `--run-all-compositor-stages-before-draw`. Always use `--print-to-pdf-no-header` to remove the browser timestamp and URL from the PDF output.
+Never use `--run-all-compositor-stages-before-draw`. Always include both `--no-pdf-header-footer` and `--print-to-pdf-no-header` to guarantee the complete elimination of browser timestamps and URLs on all Chrome versions (including Chrome 128+).
 
 ### Rule 5 — TWO-ROW SYMMETRICAL FOOTER ("AAMNE SAAMNE")
 The final footer must strictly follow a 2-row center-aligned flex layout:
@@ -97,11 +114,8 @@ Copy this template exactly. Replace only: `{{TITLE}}`, `{{DOC_REF}}`, `{{DATE}}`
 
     /* HERO */
     .hero { background: #ffffff; padding: 24px 32px 20px; border-bottom: 1px solid #dadce0; display: flex; justify-content: space-between; align-items: flex-start; }
-    .logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .logo-img { height: 32px; border-radius: 4px; }
-    .wm { font-size: 18px; font-weight: 900; font-family: 'Roboto', sans-serif; }
-    .wm .o { color: #4285F4; } .wm .n { color: #34A853; } .wm .m { color: #EA4335; } .wm .i { color: #FBBC05; }
-    .wm .rest { font-size: 12px; font-weight: 300; color: #80868b; margin-left: 5px; }
+    .logo-row { display: flex; align-items: center; margin-bottom: 8px; }
+    .logo-img { height: 32px; width: auto; display: block; }
     .hero-title { font-family: 'Roboto', sans-serif; font-size: 26px; font-weight: 900; color: #202124; margin-bottom: 4px; }
     .hero-sub { font-size: 11px; color: #5f6368; font-style: italic; }
     .doc-control { text-align: right; display: flex; flex-direction: column; gap: 3px; }
@@ -205,11 +219,7 @@ Copy this template exactly. Replace only: `{{TITLE}}`, `{{DOC_REF}}`, `{{DATE}}`
     <div class="hero">
       <div>
         <div class="logo-row">
-          <img class="logo-img" src="../../.agents/brand/icon_logo.jpg" alt="OmmNoMi Logo" />
-          <span class="wm">
-            <span class="o">Omm</span><span class="n">No</span><span class="m">M</span><span class="i">i</span>
-            <span class="rest">Automation LLP</span>
-          </span>
+          <img class="logo-img" src="../../.agents/brand/ommnomi_logo.png" alt="OmmNoMi Automation LLP" />
         </div>
         <div class="hero-title">{{TITLE}}</div>
         <div class="hero-sub">Orbit HRMS &nbsp;·&nbsp; BLR World &nbsp;·&nbsp; {{SUBTITLE}}</div>

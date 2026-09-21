@@ -31,15 +31,15 @@ All raw brand images (logo icons, variations, and banners) are stored in this re
 
 > Use **repository-relative paths** when referencing brand assets. Never hardcode absolute OS paths.
 
-### B6. Mandatory Lifetime Logo Rule
+### B6. Mandatory Lifetime Logo Rule & Zero Duplicate Wordmark
 * The official full-color horizontal lockup logo (`.agents/brand/ommnomi_logo.png`) is the **exclusive, mandatory logo** for all documents, reports, headers, and footers.
 * Never substitute with third-party logos, outdated icons, or generic placeholders.
+* **ZERO DUPLICATE WORDMARK (STRICTLY FORBIDDEN)**: The official logo image already incorporates the brand icon and the complete typography "OmmNoMi Automation LLP". **Strictly NEVER** place inline brand text (`<span class="wm">...</span>` or `OmmNoMi Automation LLP`) beside `ommnomi_logo.png`. Doing so produces an amateur, redundant double logo (`[OmmNoMi Automation LLP] OmmNoMi Automation LLP`). Headers and heroes must contain ONLY the `<img>` tag.
 
 
 ### B5. Documentation Style Guide (SRS, Audits, Work Updates)
 All OmmNoMi documents must follow a strict, professional layout protocol:
-* **Header Structure:** Every document begins with a clean header showing the OmmNoMi Brand inline text:
-  `<span style="font-family:'Roboto',sans-serif;font-weight:900;"><span style="color:#4285f4;">Omm</span><span style="color:#34a853;">No</span><span style="color:#ea4335;">M</span><span style="color:#fbbc05;">i</span></span> Automation LLP`
+* **Header Structure:** Every document begins with a clean header showing ONLY the official OmmNoMi full-color horizontal lockup logo image (`<img class="logo-img" src="../../.agents/brand/ommnomi_logo.png" alt="OmmNoMi Automation LLP" />`). Never place inline wordmark text beside the logo image.
 * **Badges:** Use a standardized right-aligned color badge to indicate the type of document (e.g. `INCIDENT REPORT` in `#4285F4`, `SRS` in `#673AB7`, `WORK UPDATE` in `#34A853`).
 * **Metadata Grid:** Standardize metadata cards (Employee, Jurisdiction, Date, Status, etc.) in a grey container background (`#f8f9fa`) with thin borders (`#dadce0`) and rounded corners (`6px`).
 * **Typography Hierarchy:**
@@ -138,6 +138,12 @@ When programmatically injecting AppSheet Automation Bots, Processes, or DataActi
   - `ActionType` MUST be `"COMPOSITE"`.
   - `ActionDefinition.$type` MUST be `"Jeenee.DataTypes.DataActionComposite, Jeenee.DataTypes"`.
   - Child actions list MUST be `"Actions": [ { "ActionName": "..." } ]`.
+- **Navigation Action Standards ("App: go to another view within this app")**:
+  - `ActionType` MUST be `"NAVIGATE_APP"` (NEVER `"LINK_TO"`, `"LINK"`, or `"LINKTO"`).
+  - `ActionDefinition.$type` MUST be `"Jeenee.DataTypes.DataActionNavigateApp, Jeenee.DataTypes"`.
+  - Target formula key in `ActionDefinition` and `ActionSettings` MUST be `"NavigateTarget": 'LINKTOFORM(...)'` (or `=LINKTOFORM(...)`).
+  - **Mandatory ActionDefinition Object**: `action.ActionDefinition` MUST ALWAYS be present as an object containing `$type: "Jeenee.DataTypes.DataActionNavigateApp, Jeenee.DataTypes"`, `Prominence: "Display_Prominently"`, `NavigateTarget: ...`, `NeedsConfirmation: false`, etc., synchronized with `ActionSettings`. Omitting `ActionDefinition` causes the AppSheet Editor React UI to crash with `TypeError: Cannot read properties of undefined (reading 'Prominence')`.
+  - **Top-Level Attribute Purity (Zero C# Deserializer Crashes)**: Never dispatch `Show_If`, `ShowIf`, `Editable_If`, `EditableIf` onto top-level `Attribute` in `DataSchemas`. Always use native C# properties: `IsHidden = true` and `IsReadOnly = true` to hide and lock key columns without Error 400.
 - **Process Node (Step) Standards**:
   - Node running an action MUST use `"NodeType": "RUN_ACTION"` and `$type: "Jeenee.DataTypes.ProcessNodes.RunActionNode, Jeenee.DataTypes"`.
   - MUST supply mandatory backend fields: `"ExprLookup": {}`, `"InputAssignments": []`, `"OutputTableName": null`, `"Comment": null`, `"IsValid": true`, `"Visibility": "ALWAYS"`, `"DisableAutoUpdate": false`.
