@@ -1,0 +1,110 @@
+<USER_REQUEST>
+// =========================================================================
+// OmmNoMi: AppSheet Live Schema & Error Health Check Inspector
+// =========================================================================
+(function inspectAppSheetHealth() {
+    console.clear();
+    console.log("%c╔════════════════════════════════════════════════════════════════════════════════════════╗", "color:#4285f4;font-weight:bold;");
+    console.log("%c║        🔍 [OmmNoMi] RUNNING LIVE APPSHEET INTEGRITY AUDIT & VERIFICATION...            ║", "color:#4285f4;font-size:13px;font-weight:bold;");
+    console.log("%c╚════════════════════════════════════════════════════════════════════════════════════════╝", "color:#4285f4;font-weight:bold;");
+
+    // 1. Locate Store
+    let store = window.appStore;
+    if (!store) {
+        const candidates = [document.querySelector('.ExpressionControl'), document.querySelector('[role="grid"]'), document.querySelector('#root'), document.body];
+        for (const el of candidates) {
+            if (!el) continue;
+            const fKey = Object.keys(el).find(k => k.startsWith('__reactFiber') || k.startsWith('__reactInternalInstance'));
+            let f = el[fKey];
+            while (f) {
+                if (f.memoizedProps?.store?.dispatch) { store = f.memoizedProps.store; break; }
+                if (f.stateNode?.store?.dispatch) { store = f.stateNode.store; break; }
+                f = f.return;
+            }
+            if (store) break;
+        }
+    }
+
+    if (!store) {
+        console.error("❌ Redux Store nahi mila! Page ko refresh karke dubara run karein.");
+        return;
+    }
+
+    
+<truncated 80190 bytes>
+"Cap_PrivSaving_Yr1",
+      "Cap_PrivSaving_Mid",
+      "Cap_PrivSaving_Cur",
+      "Cap_PrivSaving_Pending",
+      "Cap_PrivSaving_Usage",
+      "Cap_NBFC_Yr1",
+      "Cap_NBFC_Mid",
+      "Cap_NBFC_Cur",
+      "Cap_NBFC_Pending",
+      "Cap_NBFC_Usage",
+      "Cap_Mudra_Yr1",
+      "Cap_Mudra_Mid",
+      "Cap_Mudra_Cur",
+      "Cap_Mudra_Pending",
+      "Cap_Mudra_Usage",
+      "Cap_BankLoan_Yr1",
+      "Cap_BankLoan_Mid",
+      "Cap_BankLoan_Cur",
+      "Cap_BankLoan_Pending",
+      "Cap_BankLoan_Usage",
+      "MonthlyIncomeIncreaseByOSFSVEP",
+      "Trajectory_Sales_Yr1",
+      "Trajectory_Sales_Cur",
+      "Trajectory_Income_Yr1",
+      "Trajectory_Income_Cur",
+      "Trajectory_TradeStock_Yr1",
+      "Trajectory_TradeStock_Cur",
+      "Trajectory_ProdInputs_Yr1",
+      "Trajectory_ProdInputs_Cur",
+      "Trajectory_ProdFinished_Yr1",
+      "Trajectory_ProdFinished_Cur",
+      "Trajectory_ServAssets_Yr1",
+      "Trajectory_ServAssets_Cur",
+      "FinancialHelpFromIncome",
+      "FinancialHelp_EducationAmt",
+      "FinancialHelp_DebtsAmt",
+      "FinancialHelp_AssetsAmt",
+      "FinancialHelp_MarriageAmt"
+    ],
+    "AutoSave": false,
+    "AutoReopen": false,
+    "FinishView": "**Automatic**",
+    "RowKey": "",
+    "FormStyle": "Automatic",
+    "PageStyle": "Automatic",
+    "FormFooterStyle": "Bottom",
+    "MaxNestedRows": 5,
+    "AudioInput": false,
+    "Events": [
+      {
+        "EventType": "Form Saved",
+        "EventAction": "**auto**"
+      }
+    ],
+    "Icon": "fa-edit",
+    "IconRunnerUps": null,
+    "MenuOrder": 1
+  },
+  "CreatedBy": "App owner",
+  "Comment": null,
+  "IsValid": true,
+  "Visibility": "ALWAYS",
+  "DisableAutoUpdate": false,
+  "ComponentId": "KVIEW_C_1790022914762",
+  "ExprLookup": {},
+  "_index": 12,
+  "_path": "Presentation.Controls[12]",
+  "_isSystemGenerated": false,
+  "_isMinor": false
+}
+undefined
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-22T18:45:15+05:30.
+</ADDITIONAL_METADATA>

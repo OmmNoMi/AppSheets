@@ -146,3 +146,7 @@ ISNOTBLANK(INTERSECT(
 // Standard PDF path for generated reports
 CONCATENATE("OmmNoMi_Reports/", [Department], "/", [ID], "_", TEXT(UTCNOW(), "YYYYMMDD_HHMM"))
 ```
+
+
+### [Learning] AppSheet DisplayName String Quoting and Auto-InitialValues (2026-09-22 18:23)
+- **Rule / Observation**: DisplayNames containing slash are evaluated as arithmetic division and parentheses like (#) as function calls. All static DisplayNames must be wrapped in string quotes. Also new columns with Year or Month auto-infer NOW or TODAY in AppSheet and must be cleared to null.

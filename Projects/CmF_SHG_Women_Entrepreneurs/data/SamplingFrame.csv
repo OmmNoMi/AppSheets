@@ -1,5 +1,11 @@
-ID,DistrictName,AgroZone,EnterpriseDatasetRecords,TargetQuota,ModelCLFStatus,TotalCLFs,RegisteredCLFs,NRETPFoundingDistrict
-DIST_CHURU,Churu,Arid West (Desert),921,55,TRUE,26,26,TRUE
-DIST_DAUSA,Dausa,Semi-Arid Central,493,55,TRUE,23,21,FALSE
-DIST_DUNGARPUR,Dungarpur,Southern Tribal Belt,211,55,TRUE,34,30,TRUE
-DIST_BARAN,Baran,Fertile East (Hadoti),117,55,TRUE,27,27,TRUE
+﻿ID,District,Block,PilotZone,TargetQuota,sc_st_floor_pct,new_enterprise_floor_pct
+SMP_001,DIST_BARAN,BLK_CHHIPABAROD,Fertile East,30,30%,50%
+SMP_002,DIST_BARAN,BLK_BARAN,Fertile East,25,30%,50%
+SMP_003,DIST_CHURU,BLK_RATANGARH,Arid West,30,25%,50%
+SMP_004,DIST_CHURU,BLK_SUJANGARH,Arid West,25,25%,50%
+SMP_005,DIST_DAUSA,BLK_SIKANDRA,Semi-Arid,55,35%,50%
+SMP_006,DIST_DUNGARPUR,BLK_SAGWARA,Southern Tribal,30,70%,50%
+SMP_007,DIST_DUNGARPUR,BLK_GALIAKOT,Southern Tribal,25,70%,50%
+SMP_008,DIST_JODHPUR,BLK_MANDOR,Western Arid,20,20%,50%
+SMP_009,DIST_JODHPUR,BLK_LUNI,Western Arid,20,20%,50%
+SMP_010,DIST_JODHPUR,BLK_SHERGADH,Western Arid,15,20%,50%

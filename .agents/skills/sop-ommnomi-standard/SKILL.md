@@ -517,3 +517,7 @@ Based on the following Project Info, generate ONLY the operational tables needed
 
 Project Info: [INSERT PROJECT REQUIREMENTS]
 ```
+
+
+### [Learning] AppSheet IsAPartOf Internal Property and Form ColumnOrder (2026-09-22 18:27)
+- **Rule / Observation**: In AppSheet Redux, IsPartOf is stored internally as IsAPartOf (with an A) both on the attribute and inside TypeAuxData JSON. Without IsAPartOf: true in TypeAuxData, AppSheet hides child tables in Form Views and only shows them in Detail Views. Additionally, Form Views with custom ColumnOrder require the reverse virtual columns to be explicitly present in ColumnOrder.

@@ -129,3 +129,21 @@ python3 scripts/parse_appvariables.py <AppVariables.csv> --output /path/to/outpu
 
 **When to use:** ALWAYS run this alongside `parse_appdoc.py` before answering any questions
 that involve Enum options, configuration values, rates, or company constants.
+
+---
+
+## 5. appsheet_redux_injector_template.js — Modern Editor Batch Column Injector
+
+Atomic batch injector that sets column properties (`DisplayName`, `AppFormula`, `InitialValue`, etc.) across dozens or hundreds of columns simultaneously directly via AppSheet's Redux store.
+
+```javascript
+// Location: .agents/skills/appsheet-utilities/scripts/appsheet_redux_injector_template.js
+```
+
+**Key Advantages over DOM / Virtual Scroll Automation:**
+- ⚡ **Instant Execution (<100ms)** for 200+ columns simultaneously.
+- 🛡️ **Zero DOM Virtualization Dropouts:** Bypasses `ReactVirtualized__Grid` row recycling completely.
+- 🎯 **Direct Redux State Commit:** Updates `appTemplate.AppData.DataSchemas[].Attributes[]` and activates the native AppSheet cloud Save button via `{ type: 'SHOW_SAVE_BUTTON', value: true }`.
+- 🔒 **Self-Cleaning:** Automatically deletes temporary store references upon completion.
+
+**When to use:** Whenever batch configuring more than 10 columns in the AppSheet modern web editor.

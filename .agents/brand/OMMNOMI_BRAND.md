@@ -6,6 +6,11 @@ This document serves as the visual and philosophical constitution of **OmmNoMi**
 
 ## 1. Visual Assets & Banners
 
+### Mandatory Official Primary Logo (For All Documents & Headers)
+![OmmNoMi Official Logo](file:///c:/Users/hardi/AppSheets/.agents/brand/ommnomi_logo.png)
+* **File:** `.agents/brand/ommnomi_logo.png`
+* **Rule:** This is the permanent, lifetime official logo lockup to be used in all client reports, headers, footers, and official documents.
+
 ### Main Brand Banner
 ![OmmNoMi Brand Banner](file:///c:/Users/hardi/AppSheets/.agents/brand/banner.png)
 
