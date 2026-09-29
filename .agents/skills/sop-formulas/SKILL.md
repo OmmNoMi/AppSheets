@@ -150,3 +150,9 @@ CONCATENATE("OmmNoMi_Reports/", [Department], "/", [ID], "_", TEXT(UTCNOW(), "YY
 
 ### [Learning] AppSheet DisplayName String Quoting and Auto-InitialValues (2026-09-22 18:23)
 - **Rule / Observation**: DisplayNames containing slash are evaluated as arithmetic division and parentheses like (#) as function calls. All static DisplayNames must be wrapped in string quotes. Also new columns with Year or Month auto-infer NOW or TODAY in AppSheet and must be cleared to null.
+
+### [Learning] AppSheet Does Not Support COALESCE() Function (2026-09-29 13:55)
+- **Rule / Observation**: AppSheet returns `Unable to find function 'COALESCE', did you mean 'SELECT'?`. AppSheet has no native `COALESCE` function.
+- **Permanent Solution**: For fallback priority between multiple text/translation columns, always use nested `IF(ISNOTBLANK(...))` or flat `AND(..., ISNOTBLANK(...))` within `IFS()`.
+  Example: `IF(ISNOTBLANK([Title_raj]), [Title_raj], IF(ISNOTBLANK([Title_hi]), [Title_hi], [Title]))`
+
