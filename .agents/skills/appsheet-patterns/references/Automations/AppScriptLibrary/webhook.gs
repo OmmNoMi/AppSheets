@@ -56,8 +56,8 @@ function doPost(e) {
     log('INFO', ctx, `Routing action: "${action}"`);
 
     // ─── Add project-specific routes in code.gs ───────────────────
-    // if (action === 'processIntake')  return createJsonResponse(processNewIntake(payload.data));
-    // if (action === 'generateDocs')   return createJsonResponse(generateIntakePackage(payload.data));
+    if (action === 'createDriveFolder')      return createJsonResponse(createClientDriveFolder(payload.data));
+    if (action === 'generateTherapyContract') return createJsonResponse(generateTherapyContract(payload.data));
     // ──────────────────────────────────────────────────────────────
 
     log('WARN', ctx, `Unknown action: "${action}"`);

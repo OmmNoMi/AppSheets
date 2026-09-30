@@ -1,0 +1,385 @@
+Questionnaire for the Study on Performance of SHG-led Women Entrepreneurs in Rajasthan
+An assessment of enterprise financing among SHG members and its impact on women-led livelihoods
+Section A: Basic details
+Q1. District 
+Baran
+Churu
+Dausa
+Dungarpur
+Jodhpur
+Q2. Block
+Chhipabarod
+Baran
+Kishanganj
+Sardar Sheher
+Bidasar
+Secundra
+Sagwara
+Galiakot
+Bicchiwada
+(Need to add the blocks from Jodhpur)
+Q3. Village/GP 
+( Need to add the village/GP names in relevant blocks)
+Q4. CLF Name
+Q5. VO Name
+Q6. SHG Name
+Q7. Respondent Name
+Q8. Enterprise Name
+Q9. Year of setting up enterprise
+Q10. Main business activities of the enterprise (Tick all the relevant activities)
+Grocery 
+General store
+Leather
+Flour mill
+Tailoring
+Apparel
+Beauty parlour
+Handicraft
+Dairy shop
+Auto-mechanic 
+E-mitra
+Mobile repair shop
+Transport
+Instructions to Data Collectors: 
+The respondent should be the SHG member availing loan for the specific purpose of setting up enterprise. Only in her absence family members should be interviewed. 
+The enterprise should be at least 2 years old. 
+Tick (✓) the applicable option(s). 
+Where a box for numeric/text entry is shown, record the respondent's exact answer.
+ Italicised text in brackets is a note for the data collectors, not to be read aloud to the respondent.
+Section B: Respondent & Household Profile
+Q1. What is respondent’s relation with SHG member?
+Self
+Husband
+Son
+Daughter
+Any other
+Q2. What is the age of SHG member?
+18-25 
+25-35
+35-45
+45-55
+Above 55
+Q3. What is the marital status of the SHG member?
+Single
+Married
+Widowed
+Separated
+Divorced
+Q4. What is the caste?
+SC
+ST
+OBC
+General
+Q5. What is the education status of SHG member?
+Illiterate
+Illiterate but able to calculate
+5th pass
+8th pass
+10th pass
+12th pass
+Graduate
+Q6. How many members are in the family? -------
+Q7. Give details of the family members?
+Earning members ------
+Members with pension--------
+Non-earning members-------
+Members with disability-------
+Q8. What is your annual household income?
+Less than Rs 1,20,000
+Rs 1,20,000 to Rs 1,60,000
+Rs 1,60,000 to Rs 2,00,000
+Rs 2,00,000 to Rs 2,50,000
+Rs 2,50,000 to Rs 3,00,000
+Rs 3,00,000 to Rs 3,50,000
+Above Rs 3,50,000
+Q9. Give details of the members with monetary contribution (except income from enterprise)?
+#
+Members with monetary contribution
+Self
+Husband
+Son
+Daughter
+Father in law
+Mother in law
+Others
+Type of income
+Agricultural income 
+Fixed Salary
+Wages
+Self employed
+Shop
+NTFP sale
+Dairy
+Sale of animals
+MNREGA/
+Pension
+Annual income
+Q10. What is your role in SHG?
+Member
+Leadership role
+Q11. Duration of SHG association (in years) by role
+Member:-------- years
+Leadership role:--------years
+Q 12. Are you related to any of the SVEP/OSF CRP?
+Yes
+No
+Section C: Enterprise operations
+Q1. Who started the enterprise?
+Self
+Husband
+Family enterprise
+Q2. When was it started?-----
+Q3. Who operates the enterprise? ( Ask in reference to major decision making and operations)
+Self alone
+Self with occasional support from family
+Self with regular support from family
+Only husband
+Husband and wife (joint management)
+Family members 
+Q4. For how many hours in a day the shop remains open?
+Less than 4 hours
+4-5 hours 
+5-8 hours
+8-10 hours
+Q5. Type of business place?
+Own shop
+Operating from own house
+Rented shop
+Operating from rented house
+Q6. If the business was started by SHG member/husband, the reasons for starting the business? (Tick all the relevant reasons)
+My family needed an alternate source of income
+I wanted to own/run my own business
+I/my husband learnt the skill/got trained and wanted to start our own venture.
+I/my husband had prior experience in the same field, so we decided to start our own venture
+The OSF/SVEP CRP encouraged to start the enterprise, hence started the enterprise
+Q7. Which factors helped in starting the business? (Tick all the relevant reasons)
+My family owned the space so it was easy to start.
+My family was supportive of my running the business
+We had sufficient savings to start the business
+The SHG loan was made available
+Loan was available at low interests
+The OSF/SVEP CRP was ready to guide, their guidance was very important. 
+Q8.  Does SHG member maintains written records of business transactions regularly?
+Yes 
+Yes, with help of family member 
+Yes, husband does ( in case of husband running the enterprise or joint management)
+No
+Don’t record regularly 
+Q9. How do you maintain business transactions?
+Receipt book/bills
+Maintain daily diary
+Maintain daily diary as taught by OSF/SVEP CRP
+Don’t record regularly
+Q10 In the first year of your enterprise, what was the amount of  the seed capital? Rs -------
+Q11. How have you arranged capital over the enterprise duration?
+#
+Source
+First year
+Years in-between
+Current year 
+(2026-27)
+Amount
+Amount
+Amount 
+Amount pending
+1
+Own Savings
+2
+Financed by family member
+3
+Profit from business
+4
+Mortgaged gold/silver
+5
+Sold gold/silver
+6
+Loan from family
+7
+Loan from moneylender
+8
+Loan from SHG
+9
+Loan from OSF/SVEP
+10
+Loan from private saving groups/BC
+11
+Loan from NBFC
+Loan from banks
+Q 12.Turnover and income from the enterprise ( If the SHG member is unable to give exact number, ask for rough estimates)
+#
+Head
+Peak season        
+Months #
+Total
+1
+Monthly sales
+2
+Monthly expenses
+3
+Monthly income
+Average season 
+Months #
+Total
+4
+Monthly sales
+5
+Monthly expenses
+6
+Monthly income
+Lean season 
+Months #
+Total
+7
+Monthly sales
+8
+Monthly expenses
+9
+Monthly income
+Q13. How do you manage capital during peak season?
+I borrow money from SHG to purchase material
+I borrow money from moneylender/NBFIs to purchase material
+I borrow money from banks.
+I buy material on credit
+Q14. What changes have happened in your business? ( The SHG member may not be able to give exact number. In such a case ask for rough estimates but don’t pressure )
+#
+Heading
+First year
+Current year
+1
+How much were/are you able to sell in a month?
+2
+What was/is you average monthly income?
+3
+How much inventory/stock you kept?
+4
+What was/is the value of credit sales?
+5
+What was/is the value of credit purchase?
+Section C: Enterprise challenges, coping mechanisms 
+Instruction:  Don’t prompt. Tick whatever answer is given by the SHG member
+Q1. Is the location of you space convenient for your business? 
+Yes, I own the space and I get the clients easily
+Yes, I found the space easily on rent and I get the clients
+Yes, but compared to others I was charged/asked a higher rent 
+No, but I own the space and can’t move to other location 
+No, but I could afford only this space
+Q2. Are you happy with the supplier? 
+Yes, supplier is from nearby town/village and supplies on demand.
+Yes, supplier offers credit purchase and discounts
+I buy from different suppliers as per the need/season
+No, but he is our old supplier and we rely on him. 
+Q3. Are you able to recover money from customers? 
+Yes, I don’t face any issues
+Yes, but I conduct only cash transactions
+Yes, but I have learnt over the years how to negotiate.
+No, but my husband is able to recover
+No, my business has suffered losses due to debt. 
+Q4. Do you ( SHG member) source material from the market independently?
+ 
+Yes, I can visit market and buy material
+No, because I don’t know the sellers.
+No, because transporting goods is difficult for women. 
+No, because my husband doesn’t approve. 
+No, but I can if my husband is unavailable. 
+ 
+Q5. How do you ( SHG member) source material from the market?
+I handle everything on my own
+Husband/ or other male members of the family source the material 
+I pay higher price for door delivery
+I have stopped keeping material even when required. 
+Q6. What strategies do you use to attract more customers?
+Use of signage boards clearly displaying name of the store 
+Use of whastapp to share images of the product with the customers
+Beautifying shop to attract customers
+Use of posters/A-frame announcing discounts or special deals
+Use of comfortable seating/fans for customers
+Q7. Do you have easy access to loan from different sources ?
+Yes, I get required amount easily from SHG
+Yes, I get required loan easily from the moneylender/NBFIs. 
+No, the loan amount is smaller than my demand in case of SHGs
+No, the loan amount is smaller than my demand in case of moneylender/NBFIs
+No, the repayment time is shorter for my convenience in case of moneylender/NBFIs
+No, the instalment amount is higher due to high interest rate in case of moneylender/NBFIs
+Q8.Please share any other challenge you face in conducting business?
+-------------------------------------------------------------------------------------------------
+Section D: Impact of SVEP/OSF schemes on women led enterprises
+Q1. How much loan have you taken under SVEP/OSF scheme? Rs----------
+Q2.  How did you use the loan from SHG for your enterprise?
+Seed capital to buy material and set up the shop
+Buy new machine to increase the production capacity ( eg: sewing machine)
+Buy assets to store and sell new products ( eg: fridge) 
+Get additional space to expand my business ( eg: addition of flour mill)
+Buy more material to increase the product range offered (eg: clothes in a fancy store)
+Buy more material to increase scale of business 
+Buy vehicle to access new market to buy/sell goods 
+Access better transport services to access new market to buy/sell goods
+Buy mobile phone to promote/sell my goods online
+Any other, specify……….
+Q3. After the changes you made with loan from SHG,  did you see any increase in monthly income ?
+Income before the changes: Rs-------
+Income after the changes: Rs---------
+Q4. What has been the contribution of SVEP/OSF CRPs in your enterprise? ( Don’t prompt any specific contribution) 
+They helped in accessing loans to setup the business
+They helped us to understand business plans 
+They gave critical feedback on our business idea which improved our operations. 
+They trained us on maintaining records which we didn’t know earlier
+They gave us new ideas to increase our income from enterprise.
+They helped in accessing loans from bank
+They helped in our communication skills
+They helped in marketing 
+They helped us to understand our competitors and suggested ways to beat the competition.
+Q5. What is your expectations from SVEP/OSF scheme?
+------------------------------------------------------------------------------------------------------------------
+Section E: Use of online transaction and social media
+Q1. Do you (SHG member) own smart phone?
+Yes
+No
+No, but my family owns it
+Q2. Do you use QR code/mobile banking for money transactions?
+Yes
+No
+Q3. If yes, daily how many transactions in your business are done using QR code/mobile banking?
+5-10
+10-20
+20-40
+More than 40
+Q4. If no, reason for not using QR code/mobile banking for money related transactions
+Since I don’t own smart phone, it is difficult to transact
+Not many customers use smart phone for payments
+I don’t know how to use and monitor transactions with QR code/mobile banking
+Q5. Which social media platforms you use for your business?
+Whatsapp
+Instagram
+Pinterest
+Facebook
+Snapchat
+Don’t use social media
+Q6. How do you use these platforms in your business?
+Use texts to ask/share prices and book orders
+Share images to promote business
+Share images to enquire about the availability of products to vendors
+Get new ideas and information about new products/services
+Don’t use social media
+Q7. How often do you use social media for your business?
+Daily
+Twice or thrice a week
+Four-five times a month
+Only on occasions
+Don’t use social media
+Section F: Status of post-exit OSF intervention in Baran 
+Q1 In which year was the OSF intervention made?-------
+Q2. Is your business still operational?
+Yes but the sale has reduced
+Yes but the scale has increased
+No. If no, specify the year when it was closed……..
+Q3. What are the reasons for scaling down of the business/closing the business? ( Don’t prompt) 
+Sales reduced over the years as there was no one guiding us. 
+Needed more capital to source material but there was no source of loan
+Banks refused to give us loan 
+Unable to reach new customers.
+New competitors in the market offering discounts 
+Any other, specify……..
+Don’t know
+Q4. What strategies were adopted by you to maintain your business?
+Q5. What kind of support could have helped you to manage your business?
+ --------------------------------------------------------------------------------------------------

@@ -1,0 +1,117 @@
+﻿ID,Column,Title,Title_hi,Title_raj
+Q_A_01_00,District,Q1. District,Q1. जिला,Q1. जिलो
+Q_A_02_00,Block,Q2. Block,Q2. ब्लॉक,Q2. ब्लॉक
+Q_A_03_00,VillageGP,Q3. Village/GP,Q3. गांव / ग्राम पंचायत,Q3. गांव / ग्राम पंचायत
+Q_A_04_00,RespondentName,Q4. Respondent Name,Q4. उत्तरदाता का नाम,Q4. उत्तरदाता रो नाम
+Q_A_04_01,ContactNumber,Q5. Respondent’s phone number,Q5. उत्तरदाता का फोन नंबर,Q5. उत्तरदाता रो फोन नंबर
+Q_A_04_01_PHONE,RespondentPhone,Q5. Respondent’s phone number,Q5. उत्तरदाता का फोन नंबर,Q5. उत्तरदाता रो फोन नंबर
+Q_A_05_00,SHGName,Q6. SHG Name,Q6. एसएचजी (समूह) का नाम,Q6. समूह रो नाम
+Q_A_06_00,VOName,Q7. VO Name,Q7. ग्राम संगठन (VO) का नाम,Q7. ग्राम संगठन रो नाम
+Q_A_07_00,CLFName,Q8. CLF Name,Q8. क्लस्टर लेवल फेडरेशन (CLF) का नाम,Q8. CLF रो नाम
+Q_A_08_00,SHGMembershipYears,Q9. Years of SHG membership,Q9. एसएचजी सदस्यता के वर्ष,Q9. समूह में कित्ता साल सूं हो?
+Q_A_09_00,LeadershipRole,Q10. Have you been in a leadership role in SHG/CLF/VO?,Q10. क्या आप SHG/CLF/VO में किसी नेतृत्वकारी पद पर रही हैं?,Q10. का थे समूह/VO/CLF में किसी पद माथे रह्या हो?
+Q_A_10_00,LeadershipYears,Q11. Years of experience in leadership roles?,Q11. नेतृत्वकारी पद पर कितने वर्षों का अनुभव है?,Q11. पद माथे कित्ता साल रो अनुभव है?
+Q_A_11_00,RelatedToCRP,Q12. Are you related to any of the SVEP/OSF CRP?,Q12. क्या आप SVEP/OSF CRP की रिश्तेदार/संबंधित हैं?,Q12. का थे SVEP/OSF CRP रा रिश्तेदार हो?
+Q_A_12_00,EPInterventionType,Q13. Type of Enterprise Promotion (EP) intervention,Q13. उद्यम प्रोत्साहन (EP) हस्तक्षेप का प्रकार,Q13. उद्यम प्रोत्साहन रो तरीको
+Q_A_13_00,EnterpriseName,Q14. Enterprise Name,Q14. उद्यम / व्यवसाय का नाम,Q14. काम-धंधे रो नाम
+Q_A_13_01,ParallelEnterpriseName,Parallel Enterprise Name (if running two businesses),समानांतर दूसरे व्यवसाय का नाम (यदि 2 व्यवसाय हैं),दूजे काम-धंधे रो नाम
+Q_A_14_00,EnterpriseSetupYear,Q15. Years of setting up enterprise,Q15. उद्यम स्थापित करने का वर्ष / कितने वर्ष हुए,Q15. धंधो सुरू करयां कित्ता साल होया?
+Q_A_16_00,BusinessType,Q16. Type of business enterprise (Multiselect),Q16. व्यवसाय का प्रकार (बहु-चयन),Q16. काम-धंधे रो तरीको
+Q_A_17_00,BusinessActivities,Q17. Main business activities of the enterprise (Multiselect),Q17. उद्यम की मुख्य व्यावसायिक गतिविधियां (बहु-चयन),Q17. उद्यम री मुख्य गतिविधियां
+Q_A_17_01,BusinessActivitiesOther,Specify other business activity,अन्य व्यावसायिक गतिविधि बताएं,दूजी गतिविधि बताओ
+Q_A_15_00,LoanReceivedYear,Q18. Years of receiving SVEP/OSF loan?,Q18. SVEP/OSF ऋण प्राप्त करने का वर्ष,Q18. SVEP/OSF लोन किण साल मिल्यो?
+Q_A_18_00,MaintainSeparateRecords,Q19. Do you maintain separate records for all the businesses,Q19. क्या आप सभी व्यवसायों के लिए अलग-अलग रिकॉर्ड रखती हैं?,Q19. का थे सगळा धंधां रो अलग-अलग खातो रखो हो?
+Q_A_19_00,RegistrationsDocuments,Q20. Do you have the following registrations/documents?,Q20. क्या आपके पास निम्नलिखित पंजीकरण / दस्तावेज हैं?,Q20. का थारे कनै ये कागज-पत्तर / रजिस्ट्रेशन है?
+Q_B_01_00,RespondentAge,Q1. What is the age of the respondent?,Q1. उत्तरदाता की आयु क्या है?,Q1. उत्तरदाता री उमर कित्ती है?
+Q_B_02_00,MaritalStatus,Q2. What is the marital status?,Q2. वैवाहिक स्थिति क्या है?,Q2. ब्याव री स्थिति काईं है?
+Q_B_03_00,SocialCategory,Q3. What is the social category?,Q3. सामाजिक वर्ग / श्रेणी क्या है?,Q3. सामाजिक वर्ग काईं है?
+Q_B_04_00,EducationStatus,Q4. What is the education status?,Q4. शैक्षणिक योग्यता क्या है?,Q4. पढ़ाई-लिखाई कित्ती है?
+Q_B_05_00,FamilyMemberCount,Q5. How many members are in the family? ------- (count),Q5. परिवार में कुल कितने सदस्य हैं? ------- (संख्या),Q5. कुटुंब में कुल कित्ता जणा है? ------- (गिनती)
+Q_B_05,SubTable_FamilyCount,Q6. Give details of the family members? (count),Q6. परिवार के सदस्यों का विवरण दें? (गिनती),Q6. घर रा जणां रो ब्योरो देवो? (गिनती)
+Q_B_06_01,FamilyAdultsCount,Adults (Above 18)-------,वयस्क (18 वर्ष से अधिक)-------,बड़ा जणा (18 सूं ऊपर)-------
+Q_B_06_02,FamilyChildrenCount,Children —-------,बच्चे (18 वर्ष से कम)-------,टाबर (18 सूं कम)-------
+Q_B_06_03,FamilyTotalEarning,Total earning members ------,कुल कमाने वाले सदस्य ------,कुल कमावणिया जणा ------
+Q_B_06_04,FamilyMaleEarning,Male earning members—----,पुरुष कमाने वाले सदस्य ------,कमावणिया पुरुष ------
+Q_B_06_05,FamilyFemaleEarning,Female earning members—----,महिला कमाने वाली सदस्य ------,कमावणिया लुगायां ------
+Q_B_06_06,FamilyDisabledCount,Members with disability-------,दिव्यांग सदस्य -------,दिव्यांग जणा -------
+Q_B_07_00,FamilyIncomeSources,Q7. What are your family’s sources of income? (Multiselect),Q7. आपके परिवार की आय के स्रोत क्या हैं? (बहु-चयन),Q7. थारे घर री कमाई रा साधन काईं है?
+Q_B_07_01,FamilyIncome_AnimalSale_Specify,Q7.1 Sale of animals (Specify details / type of animals),Q7.1 पशु बिक्री का विवरण (कौन से पशु / विवरण दें),Q7.1 पशु बिक्री रो विवरण (कुणसा पशु / ब्यौरो)
+Q_B_07_02,FamilyIncomeSourcesOther,Q7.2 Any other source of income (Specify),Q7.2 अन्य आय का स्रोत (विवरण दें),Q7.2 दूजी आमदनी रो स्रोत (ब्यौरो दो)
+Q_B_08_00,AnnualHouseholdIncome,Q8. What is your annual household income and monetary benefits from all sources (including respondent’s enterprise)?,Q8. सभी स्रोतों से आपकी वार्षिक पारिवारिक आय कितनी है (उद्यम सहित)?,Q8. सगळा साधनां सूं साल री कुल कमाई कित्ती है?
+Q_C_01_00,ReasonsStartingBusiness,Q1. Reasons for starting the business? (Multiselect),Q1. व्यवसाय शुरू करने के क्या कारण थे? (बहु-चयन),Q1. काम-धंधो सुरू करण रा काईं कारण हा?
+Q_C_02_00,BusinessCycle,Q2. Describe your business cycle?,Q2. अपने व्यवसाय चक्र का विवरण दें?,Q2. काम-धंधो किण चक्र में चालै?
+Q_C_02_01,BusinessCycleOther,Specify other business cycle,अन्य व्यवसाय चक्र बताएं,दूजो तरीको बताओ
+Q_C_03_00,BusinessPlaceType,Q3. What is the type of business place?,Q3. व्यावसायिक स्थान किस प्रकार का है?,Q3. दुकान/काम री जगह किकण री है?
+Q_C_04_00,AnnualRent,"Q4. If rented, what is monthly rent? Rs______( mention in numbers)",Q4. यदि किराए पर है तो मासिक किराया कितना है? (रु),Q4. किराए री है तो महिना रो कित्तो भाड़ो है? (रु)
+Q_C_05_00,LocationConvenience,Q5. Is the location of your premise convenient for your customers?,Q5. क्या आपके परिसर का स्थान ग्राहकों के लिए सुविधाजनक है?,Q5. का दुकान री जगह ग्राहकां खातर ठीक है?
+Q_C_05_01,LocationConvenienceOther,Specify other location convenience remark,अन्य स्थान टिप्पणी बताएं,दूजी बात बताओ
+Q_C_06_00,Related_Q6_Labor,Q6. Involvement of family members and hired help in business operations,Q6. व्यवसाय में परिवार के सदस्यों और hired help की भागीदारी,Q6. काम-धंधे में घर रा जणां अर मजूरां री भागीदारी
+Q_C_07_01,Sourcing_NearbyTown_Pct,Nearby town/district         (0%/25%/50%/75%/100%),आसपास के कस्बे / जिले से कच्चा माल (0%/25%/50%/75%/100%),नेड़े रा कस्बा/जिले सूं माल (0%/25%/50%/75%/100%)
+Q_C_07_02,Sourcing_Jaipur_Pct,Wholesale market within state    (0%/25%/50%/75%/100%),राज्य के भीतर थोक बाजार से कच्चा माल (0%/25%/50%/75%/100%),राजस्थान रा थोक बाजार सूं माल (0%/25%/50%/75%/100%)
+Q_C_07_03,Sourcing_OutsideState_Pct,Wholesale market outside the state    (0%/25%/50%/75%/100%),राज्य के बाहर थोक बाजार से कच्चा माल (0%/25%/50%/75%/100%),बाहर रा थोक बाजार सूं माल (0%/25%/50%/75%/100%)
+Q_C_07_04,Sourcing_Online_Pct,Order online (Amazon/Misho)   (0%/25%/50%/75%/100%),ऑनलाइन ऑर्डर (Amazon/Meesho) से कच्चा माल (0%/25%/50%/75%/100%),ऑनलाइन ऑर्डर सूं माल (0%/25%/50%/75%/100%)
+Q_C_08_00,MarketingMethods,Q8. How do you market your products/services? (Multiselect),Q8. आप अपने उत्पादों / सेवाओं का विपणन (मार्केटिंग) कैसे करती हैं?,Q8. थे आपरे माल री मार्केटिंग किकण करो हो?
+Q_C_08_01,MarketingMethodsOther,Specify other marketing method,अन्य मार्केटिंग तरीका बताएं,दूजो तरीको बताओ
+Q_C_09_00,SeasonalSalesMethod,Q9. How do you sell your products/services?,Q9. आप अपने उत्पादों/सेवाओं को कैसे बेचते हैं?,Q9. थे आपरा उत्पाद/सेवावां किकण बेचो हो?
+Q_C_09_01,SeasonalSalesOnlinePlatform,Specify online platform used,उपयोग किए जाने वाले ऑनलाइन प्लेटफॉर्म बताएं,ऑनलाइन प्लेटफॉर्म रो नाम बताओ
+Q_C_09_02,SeasonalSalesOther,Specify other selling method,अन्य बिक्री तरीका बताएं,दूजो बेचण रो तरीको बताओ
+Q_C_10_01,SalesChannel_Online_Pct,Online platforms ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%),ऑनलाइन प्लेटफॉर्म के माध्यम से बिक्री (%),ऑनलाइन प्लेटफॉर्म सूं बिक्री (%)
+Q_C_10_02,SalesChannel_WhatsApp_Pct,Whatsapp ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%),व्हाट्सएप के माध्यम से बिक्री (%),WhatsApp सूं बिक्री (%)
+Q_C_10_03,SalesChannel_Instagram_Pct,Instagram ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%),इंस्टाग्राम के माध्यम से बिक्री (%),Instagram सूं बिक्री (%)
+Q_C_10_04,SalesChannel_Premise_Pct,Your premise ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%),अपनी दुकान / परिसर से बिक्री (%),खुद री दुकान सूं बिक्री (%)
+Q_C_10_05,SalesChannel_Traders_Pct,Local traders/shopkeepers ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%),स्थानीय व्यापारियों / दुकानदारों को बिक्री (%),व्यापारियां नै बिक्री (%)
+Q_C_10_06,SalesChannel_Haat_Pct,Local haat/market ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%),स्थानीय हाट / साप्ताहिक बाजार में बिक्री (%),हाट बाजार में बिक्री (%)
+Q_C_10_07,SalesChannel_Saras_Pct,Saras fair ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%),सरस मेले में बिक्री (%),सरस मेला में बिक्री (%)
+Q_C_11_00,RecordKeepingHabit,Q11. Do you maintain written records of business transactions?,Q11. क्या आप व्यावसायिक लेन-देन का लिखित रिकॉर्ड रखती हैं?,Q11. का थे हिसाब-किताब लिख र रखो हो?
+Q_C_12_00,RecordKeepingMethod,Q12. How do you maintain business transactions?,Q12. आप व्यावसायिक लेन-देन का रिकॉर्ड कैसे रखती हैं?,Q12. थे हिसाब-किताब किकण रखो हो?
+Q_C_12_01,RecordKeepingOther,Specify other record keeping method,अन्य रिकॉर्ड रखने का तरीका बताएं,दूजो तरीको बताओ
+Q_C_13_00,Related_Q15_Turnover,Q13. Turnover and income from the enterprise,Q13. उद्यम का टर्नओवर और शुद्ध मुनाफा (मासिक),Q13. उद्यम री बिक्री अर नफो
+Q_D_01_00,SHGAssociationAssistance,Q1. How has the SHG association helped in your enterprise? ( Multiselect),Q1. एसएचजी (समूह) से जुड़ने से आपके उद्यम में क्या मदद मिली?,Q1. समूह सूं जुड़ण सूं धंधे में काईं मदद मिली?
+Q_D_02_00,Related_Q19_Capital,Q2. How have you arranged capital over the enterprise duration? ( Ask for each option. Put 0 if the source is not used),Q2. आपने उद्यम के दौरान पूंजी की व्यवस्था कैसे की? (प्रत्येक विकल्प पूछें),Q2. पूंजी रो प्रबंध किकण कियो?
+Q_D_03_00,Related_Q20_Loan_Usage,Q3. How did you use the loans taken from different sources?,Q3. विभिन्न स्रोतों से लिए गए ऋण का उपयोग कैसे किया?,Q3. लोन रो उपयोग किकण कियो?
+Q_D_04_00,FundingExperience,Q4. What has been your experience in funding your business? (Multi select),Q4. व्यवसाय के लिए फंडिंग का आपका अनुभव कैसा रहा?,Q4. फंडिंग रो अनुभव किकण रो रह्यो?
+Q_D_05_00,Related_Q22_Trajectory,Q5. What changes have happened in your business? ( The SHG member may not be able to give an exact number. In such a case ask for rough estimates but don’t pressure ),Q5. आपके व्यवसाय में क्या बदलाव आए हैं? (अनुमानित आंकड़ा पूछें),Q5. काम-धंधे में काईं फेरबदल होया?
+Q_D_06_00,FinancialHelpFromIncome,Q6. How has the income from the enterprise helped you financially? (Multiselect),Q6. उद्यम की आय ने आपको वित्तीय रूप से कैसे मदद की?,Q6. धंधे री कमाई सूं थानै काईं मदद मिली?
+Q_D_06_ED,FinancialHelp_EducationAmt,The income from enterprise is used in covering education related expenses for my children. Specify amount,बच्चों की शिक्षा खर्च राशि (रु),टाबरां री पढ़ाई रो खरचो (रु)
+Q_D_06_DB,FinancialHelp_DebtsAmt,I have been able to pay the family debts. Specify amount,पारिवारिक कर्ज चुकाई गई राशि (रु),कर्ज चुकावण री रकम (रु)
+Q_D_06_AS,FinancialHelp_AssetsAmt,I have contributed money in acquiring assets for my family Specify amount,परिसंपत्तियां (Assets) खरीदने में खर्च (रु),संपत्ति खरीदण में खरचो (रु)
+Q_D_06_MR,FinancialHelp_MarriageAmt,I have contributed money for marriage expenses. Specify amount,शादी / विवाह खर्च राशि (रु),ब्याव-शादी रो खरचो (रु)
+Q_E_01_00,HusbandFamilyResponse,Q1. How has been your husband’s response towards your enterprise? (Multiselect),Q1. आपके उद्यम के प्रति आपके पति/परिवार का क्या रुख रहा है?,Q1. धंधे माथे पति/घर आळां रो काईं रुख रह्यो?
+Q_E_02_00,MaterialSourcingComfort,Q2. What is your level of comfort in sourcing material?,Q2. कच्चा माल खरीदने में आपकी सहूलियत का स्तर क्या है?,Q2. कच्चो माल लावण में कित्ती सहूलियत है?
+Q_E_03_00,CustomerPaymentRecovery,Q3. Are you able to recover money from customers?,Q3. क्या आप ग्राहकों से समय पर भुगतान वसूल पाती हैं?,Q3. का ग्राहकां सूं पईसा वसूल हो जावै?
+Q_E_04_00,CurrentChallenges,Q4. What are the challenges you are facing now? (Multiselect),Q4. वर्तमान में आप किन चुनौतियों का सामना कर रही हैं?,Q4. अबार थानै काईं-काईं दिक्कतां आवे है?
+Q_E_04_01,Challenge_OSFPhasedOutAmt,OSF is phased out now which has affected fund sufficiency. Specify amount,OSF समाप्त होने पर आवश्यक फंड राशि (रु),फंड री जरूरत (रु)
+Q_E_04_02,Challenge_ScaleUpFundAmt,I need timely access to funds to buy inputs before the production/peak season begins. Specify amount,पीक सीजन से पहले आवश्यक फंड राशि (रु),जरूरी फंड री रकम (रु)
+Q_E_04_03,Challenge_TimelyInputsAmt,I need support to access bigger market to source material/inputs at lower cost,दुकान मरम्मत / इनपुट फंड राशि (रु),मरम्मत खातर पईसा (रु)
+Q_E_04_04,Challenge_Other,"Any other, specify",अन्य चुनौती का विवरण,दूजी दिक्कत बताओ
+Q_D_06_01,Competitors_Similar_Scale,Same business scale ______,समान व्यवसाय स्तर वाले लोग (संख्या),बराबर रा धंधे आळा (संख्या)
+Q_D_06_02,Competitors_Smaller_Scale,Smaller business scale than yours_______,आपसे छोटे व्यवसाय स्तर वाले लोग (संख्या),छोटा धंधे आळा (संख्या)
+Q_D_06_03,Competitors_Higher_Scale,Higher business scale than yours_________,आपसे बड़े व्यवसाय स्तर वाले लोग (संख्या),बड़ा धंधे आळा (संख्या)
+Q_E_06_00,CompetitorAdvantages,Q6. What advantage do you have over your competitors? (Multiselect),Q6. प्रतिस्पर्धियों की तुलना में आपको क्या बढ़त/फायदा है?,Q6. दूजां सूं थानै काईं बढ़त/फायदो है?
+Q_F_01_00,FutureExpansionPlans,"Q1. For next one year, what are your plans to increase the scale of your business?",Q1. अगले एक वर्ष में व्यवसाय बढ़ाने की आपकी क्या योजनाएं हैं?,Q1. आगले एक साल में धंधो बढ़ावण री काईं योजना है?
+Q_F_02_00,AspirationBottlenecks,"Q2. What is holding you back from pursuing these aspirations? (Multiselect, don't prompt)",Q2. इन आकांक्षाओं को पूरा करने में क्या बाधा आ रही है?,Q2. योजना पूरी करण में काईं रुकावट है?
+Q_F_03_00,FutureFundsRequired,Q3. How much funds do you need to fund your plan?,Q3. अपनी योजना को पूरा करने के लिए कितने फंड की आवश्यकता है?,Q3. योजना खातर कित्ता पईसां री जरूरत है?
+Q_G_01_00,AttendedTraining,Q1. Have you attended any training under SVEP/OSF?,Q1. क्या आपने SVEP/OSF के तहत कोई प्रशिक्षण लिया है?,Q1. का थे कोई ट्रेनिंग ली है?
+Q_G_02_00,TrainingDetails,"Q2. If Yes, specify__________","Q2. यदि हाँ, तो प्रशिक्षण का विवरण दें",Q2. ट्रेनिंग रो ब्योरो देवो
+Q_G_03_00,UsedTrainingComponent,Q3. Did you use any training component in your enterprise?,Q3. क्या आपने प्रशिक्षण के किसी घटक का उपयोग उद्यम में किया?,Q3. का ट्रेनिंग रो फायदो धंधे में लियो?
+Q_G_04_00,UsedTrainingDetails,"Q4. If Yes, specify__________","Q4. यदि हाँ, तो उपयोग का विवरण दें",Q4. उपयोग रो ब्योरो देवो
+Q_G_05_01,MonthlyIncomeBeforeLoan,Income before the changes: Rs-------,बदलाव से पहले मासिक आय (रु),लोन सूं पहले महिना री कमाई (रु)
+Q_G_05_02,MonthlyIncomeAfterLoan,Income after the changes: Rs---------,बदलाव के बाद मासिक आय (रु),लोन पाछै महिना री कमाई (रु)
+Q_G_06_00,MonthlyIncomeIncreaseByOSFSVEP,Q6. Can you specify the amount by which your average monthly income has increased directly due to changes brought by OSF/SVEP loans?,Q6. OSF/SVEP ऋण से आपकी औसत मासिक आय में कितनी वृद्धि हुई?,Q6. महिना री कमाई में कित्ती बढ़ोतरी होई?
+Q_G_07_00,CRPContributions,Q7. What has been the contribution of SVEP/OSF CRP in your enterprise? ( Multisepect),Q7. आपके उद्यम में SVEP/OSF CRP का क्या योगदान रहा है?,Q7. धंधे में CRP रो काईं योगदान रह्यो?
+Q_G_08_00,ExpectationsFromScheme,Q8. What are your expectations from the SVEP/OSF scheme? (Please prompt),Q8. SVEP/OSF योजना से आपकी क्या अपेक्षाएं हैं?,Q8. योजना सूं थारी काईं उम्मीद है?
+Q_G_08_01,Other_Specify,"Any other, Specify",अन्य अपेक्षाएं बताएं,दूजी उम्मीद बताओ
+Q_H_01_00,SmartphoneOwnership,Q1. Do you own a smart phone?,Q1. क्या आपके पास स्मार्टफोन है?,Q1. का थारे कनै स्मार्टफोन है?
+Q_H_02_00,UseQRUPI,Q2. Do you use QR code/mobile banking for money transactions?,Q2. क्या आप पैसे के लेन-देन के लिए QR कोड/मोबाइल बैंकिंग का उपयोग करती हैं?,Q2. का थे QR कोड सूं लेन-देन करो हो?
+Q_H_03_00,QRDailyTransactions,"Q3. If yes, daily how many transactions in your business are done using QR code/mobile banking?",Q3. QR कोड से रोजाना कितने लेन-देन होते हैं?,Q3. रोज रा कित्ता लेन-देन QR सूं होवे?
+Q_H_04_00,QRNonUseReason,"Q4. If no, reason for not using QR code/mobile banking for money related transactions",Q4. QR कोड/मोबाइल बैंकिंग का उपयोग न करने का कारण,Q4. QR कोड न वापरण रो कारण
+Q_H_05_00,SocialMediaForMarketing,Q5. Do you use social media for marketing?,Q5. क्या आप मार्केटिंग के लिए सोशल मीडिया का उपयोग करती हैं?,Q5. का मार्केटिंग खातर सोशल मीडिया वापरों हो?
+Q_H_06_00,SocialPlatformsUsed,Q6. Which social media platforms do you use for your business? (Multiselect),Q6. व्यवसाय के लिए किन सोशल मीडिया प्लेटफॉर्म का उपयोग करती हैं?,Q6. किण-किण सोशल मीडिया रो उपयोग करो हो?
+Q_H_07_00,SocialPlatformUsageMode,Q7. How do you use these platforms in your business?,Q7. आप अपने व्यवसाय में इन प्लेटफॉर्म का उपयोग कैसे करती हैं?,Q7. सोशल मीडिया रो उपयोग किकण करो हो?
+Q_H_08_00,SocialMediaFrequency,Q8. How often do you use social media for your business?,Q8. आप अपने व्यवसाय के लिए सोशल मीडिया का कितनी बार उपयोग करती हैं?,Q8. सोशल मीडिया कित्ती बार वापरों हो?
+Q_I_01_00,OSFInterventionYear,Q1. In which year was the OSF intervention made?-------,Q1. OSF हस्तक्षेप किस वर्ष किया गया था?,Q1. OSF हस्तक्षेप किण साल होयो हो?
+Q_I_02_00,BusinessOperationalStatus,Q2. Is your business still operational?,Q2. क्या आपका व्यवसाय अभी भी चालू है?,Q2. का थारो धंधो अबै भी चालै है?
+Q_I_03_00,ScalingDownClosingReasons,Q3. What are the reasons for scaling down the business/closing the business? ( Don’t prompt),Q3. व्यवसाय को कम करने / बंद करने के क्या कारण हैं?,Q3. धंधो घटायो या बंद करयो क्यूं?
+Q_I_03_01,ScalingDownOtherReason,"Any other, specify……..",अन्य कारण बताएं,दूजो कारण बताओ
+Q_I_04_00,SupportNeededForSustenance,Q4. What kind of support could have helped you to manage your business?,Q4. किस प्रकार की सहायता से आप व्यवसाय को संभाल सकती थीं?,Q4. किण मदद सूं धंधो संभल सकतो हो?
+Q_I_04_01,SupportNeededOther,"Any other, specify",अन्य सहायता बताएं,दूजी मदद बताओ

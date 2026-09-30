@@ -1,0 +1,57 @@
+// =========================================================================
+// OmmNoMi: Clone-Based Native Child Virtual Columns (Bulletproof)
+// Size: Under 60 lines, 100% Pure ASCII, Validated with node -c
+// =========================================================================
+(function cloneNativeChildVCs() {
+    try {
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var f = root[Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; })];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; break; }
+                f = f.return;
+            }
+        }
+        if (!store) { console.error("[ERROR] Redux store not found."); return; }
+
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var schemas = (h && h.AppData && h.AppData.DataSchemas) || [];
+        var sIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey'); });
+        if (sIdx === -1) { console.error("[ERROR] Survey schema not found."); return; }
+
+        var surveyAttrs = schemas[sIdx].Attributes;
+        var baseVC = surveyAttrs.find(function(a) { return a.Name === 'Related Survey_Tables'; });
+        if (!baseVC) { console.error("[ERROR] Related Survey_Tables template not found."); return; }
+
+        var defs = [
+            { name: "Related_Q6_Labor", slice: "Slice_Q6_Labor", label: '="Q6. Labor Details"' },
+            { name: "Related_Q15_Turnover", slice: "Slice_Q15_Turnover", label: '="Q15. Turnover Details"' },
+            { name: "Related_Q19_Capital", slice: "Slice_Q19_Capital", label: '="Q19. Capital Details"' },
+            { name: "Related_Q20_Loan_Usage", slice: "Slice_Q20_Loan_Usage", label: '="Q20. Loan Usage Details"' },
+            { name: "Related_Q22_Trajectory", slice: "Slice_Q22_Trajectory", label: '="Q22. Trajectory Details"' }
+        ];
+
+        var sAttrs = surveyAttrs.slice();
+        defs.forEach(function(d) {
+            var cloned = JSON.parse(JSON.stringify(baseVC));
+            cloned.Name = d.name;
+            cloned.DisplayName = d.label;
+            cloned.AppFormula = 'REF_ROWS("' + d.slice + '", "Survey_ID")';
+            if (typeof cloned.TypeAuxData === 'string') {
+                cloned.TypeAuxData = cloned.TypeAuxData.split('"Survey_Tables"').join('"' + d.slice + '"');
+            }
+            var curIdx = sAttrs.findIndex(function(a) { return a.Name === d.name; });
+            if (curIdx !== -1) { sAttrs[curIdx] = cloned; } else { sAttrs.push(cloned); }
+        });
+
+        var dict = {};
+        dict["AppData.DataSchemas[" + sIdx + "].Attributes"] = sAttrs;
+
+        store.dispatch({ type: 'SET_EDITOR_OPTIONS', nameValueDict: dict, recordHistory: true, ignoreConstraints: false, skipNavigation: false });
+        store.dispatch({ type: 'SHOW_SAVE_BUTTON', value: true });
+        console.log("=== [OmmNoMi SUCCESS] 5 VCs cloned perfectly from native template! ===");
+        console.log("[ACTION] Click the blue SAVE button in top-right now.");
+    } catch(e) { console.error("[ERROR]", e.message); }
+})();

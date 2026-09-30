@@ -1,0 +1,5 @@
+ID,ViewName,DisplayName,Icon,TargetRole,SortOrder
+VIEW_01,Survey_Primary,Entrepreneur Survey,assignment_turned_in,ROLE_INVESTIGATOR,1
+VIEW_02,Supervisor_Audit,Quality Verification,fact_check,ROLE_SUPERVISOR,2
+VIEW_03,SamplingFrame_View,District Quotas,analytics,ROLE_RESEARCHER,3
+VIEW_04,AppVariables_View,Question Dictionary,menu_book,ROLE_RESEARCHER,4

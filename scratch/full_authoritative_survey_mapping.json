@@ -1,0 +1,930 @@
+[
+  {
+    "Column": "ID",
+    "AppVariable_ID": "-",
+    "Title": "Survey Record Unique ID",
+    "Title_hi": "",
+    "Type": "Text / Key",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Status_Profile",
+    "AppVariable_ID": "Q_STAT_PROFILE",
+    "Title": "Section B: Profile Status",
+    "Title_hi": "",
+    "Type": "Enum",
+    "Valid_If": "Not Started, In Progress, Done, N/A"
+  },
+  {
+    "Column": "Status_Operations",
+    "AppVariable_ID": "Q_STAT_OPERATIONS",
+    "Title": "Section C: Operations Status",
+    "Title_hi": "",
+    "Type": "Enum",
+    "Valid_If": "Not Started, In Progress, Done, N/A"
+  },
+  {
+    "Column": "Status_Challenges",
+    "AppVariable_ID": "Q_STAT_CHALLENGES",
+    "Title": "Section D: Challenges Status",
+    "Title_hi": "",
+    "Type": "Enum",
+    "Valid_If": "Not Started, In Progress, Done, N/A"
+  },
+  {
+    "Column": "Status_SchemeImpact",
+    "AppVariable_ID": "Q_STAT_SCHEME",
+    "Title": "Section E: Scheme Impact Status",
+    "Title_hi": "",
+    "Type": "Enum",
+    "Valid_If": "Not Started, In Progress, Done, N/A"
+  },
+  {
+    "Column": "Status_Digital",
+    "AppVariable_ID": "Q_STAT_DIGITAL",
+    "Title": "Section F: Digital Media Status",
+    "Title_hi": "",
+    "Type": "Enum",
+    "Valid_If": "Not Started, In Progress, Done, N/A"
+  },
+  {
+    "Column": "Status_PostExit",
+    "AppVariable_ID": "Q_STAT_POST_EXIT",
+    "Title": "Section G: Post-Exit Status",
+    "Title_hi": "",
+    "Type": "Enum",
+    "Valid_If": "Not Started, In Progress, Done, N/A"
+  },
+  {
+    "Column": "District",
+    "AppVariable_ID": "Q_A_01",
+    "Title": "Q1. District",
+    "Title_hi": "Q1. जिला",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_01\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "Block",
+    "AppVariable_ID": "Q_A_02",
+    "Title": "Q2. Block",
+    "Title_hi": "Q2. ब्लॉक / खंड",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_02\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "VillageGP",
+    "AppVariable_ID": "Q_A_03",
+    "Title": "Q3. Village/GP",
+    "Title_hi": "Q3. गांव / ग्राम पंचायत",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "RespondentName",
+    "AppVariable_ID": "Q_A_04",
+    "Title": "Q4. Respondent Name",
+    "Title_hi": "Q4. उत्तरदाता का नाम",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "RespondentPhone",
+    "AppVariable_ID": "Q_A_05",
+    "Title": "Q5. Respondent’s phone number",
+    "Title_hi": "Q5. संपर्क नंबर (मोबाइल)",
+    "Type": "Phone",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "SHGName",
+    "AppVariable_ID": "Q_A_06",
+    "Title": "Q6. SHG Name",
+    "Title_hi": "Q6. स्वयं सहायता समूह (SHG) का नाम",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "VOName",
+    "AppVariable_ID": "Q_A_07",
+    "Title": "Q7. VO Name",
+    "Title_hi": "Q7. ग्राम संगठन (VO) का नाम",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "CLFName",
+    "AppVariable_ID": "Q_A_08",
+    "Title": "Q8. CLF Name",
+    "Title_hi": "Q8. क्लस्टर लेवल फेडरेशन (CLF) का नाम",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "SHGMembershipYears",
+    "AppVariable_ID": "Q_A_09",
+    "Title": "Q9. Years of SHG membership",
+    "Title_hi": "Q9. स्वयं सहायता समूह से कितने वर्षों से जुड़ी हैं?",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "LeadershipRole",
+    "AppVariable_ID": "Q_A_10",
+    "Title": "Q10. Have you been in a leadership role in SHG/CLF/VO?",
+    "Title_hi": "Q10. क्या आप SHG/VO/CLF में किसी नेतृत्व पद (अध्यक्ष/सचिव/कोषाध्यक्ष) पर हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_10\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "LeadershipYears",
+    "AppVariable_ID": "Q_A_11",
+    "Title": "Q11. Years of experience in leadership roles?",
+    "Title_hi": "Q11. नेतृत्व पद पर कितने वर्षों का अनुभव है?",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "RelatedToCRP",
+    "AppVariable_ID": "Q_A_12",
+    "Title": "Q12. Are you related to any of the SVEP/OSF CRP?",
+    "Title_hi": "Q12. क्या आप SVEP/OSF के किसी CRP (उद्यम मित्र) की रिश्तेदार हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_12\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "EPInterventionType",
+    "AppVariable_ID": "Q_A_13",
+    "Title": "Q13. Type of Enterprise Promotion (EP) intervention",
+    "Title_hi": "Q13. उद्यम संवर्धन योजना का प्रकार",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_13\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "EnterpriseName",
+    "AppVariable_ID": "Q_A_14",
+    "Title": "Q14. Enterprise Name",
+    "Title_hi": "Q14. उद्यम का नाम",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "ParallelEnterpriseName",
+    "AppVariable_ID": "Q_A_14",
+    "Title": "Parallel Enterprise Name (if running two businesses)",
+    "Title_hi": "Q14. उद्यम का नाम",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "EnterpriseSetupYear",
+    "AppVariable_ID": "Q_A_15",
+    "Title": "Q15. Years of setting up enterprise",
+    "Title_hi": "Q15. उद्यम की स्थापना का वर्ष",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "BusinessType",
+    "AppVariable_ID": "Q_A_16",
+    "Title": "Q16. Type of business enterprise (Multiselect)",
+    "Title_hi": "Q16. व्यवसाय / उद्यम का प्रकार (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_16\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "BusinessActivities",
+    "AppVariable_ID": "Q_A_17",
+    "Title": "Q17. Main business activities of the enterprise (Multiselect)",
+    "Title_hi": "Q17. उद्यम की मुख्य व्यावसायिक गतिविधियां (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_17\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "BusinessActivitiesOther",
+    "AppVariable_ID": "Q_A_17",
+    "Title": "Specify other business activity",
+    "Title_hi": "Q17. उद्यम की मुख्य व्यावसायिक गतिविधियां (बहु-चयन)",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "LoanReceivedYear",
+    "AppVariable_ID": "Q_A_18",
+    "Title": "Q18. Years of receiving SVEP/OSF loan?",
+    "Title_hi": "Q18. SVEP/OSF ऋण किस वर्ष में प्राप्त हुआ?",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "MaintainSeparateRecords",
+    "AppVariable_ID": "Q_A_19",
+    "Title": "Q19. Do you maintain separate records for all the businesses",
+    "Title_hi": "Q19. क्या आप सभी व्यवसायों के अलग-अलग खाते/रिकॉर्ड रखती हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_19\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "RegistrationsDocuments",
+    "AppVariable_ID": "Q_A_20",
+    "Title": "Q20. Do you have the following registrations/documents?",
+    "Title_hi": "Q20. क्या आपके पास निम्नलिखित पंजीकरण / दस्तावेज हैं?",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_A_20\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "RespondentAge",
+    "AppVariable_ID": "Q_B_01",
+    "Title": "Q1. What is the age of the respondent?",
+    "Title_hi": "Q1. उत्तरदाता की आयु क्या है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_B_01\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "MaritalStatus",
+    "AppVariable_ID": "Q_B_02",
+    "Title": "Q2. What is the marital status?",
+    "Title_hi": "Q2. वैवाहिक स्थिति क्या है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_B_02\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SocialCategory",
+    "AppVariable_ID": "Q_B_03",
+    "Title": "Q3. What is the social category?",
+    "Title_hi": "Q3. सामाजिक श्रेणी / जाति वर्ग",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_B_03\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "EducationStatus",
+    "AppVariable_ID": "Q_B_04",
+    "Title": "Q4. What is the education status?",
+    "Title_hi": "Q4. उत्तरदाता की शैक्षिक योग्यता क्या है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_B_04\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "FamilyMemberCount",
+    "AppVariable_ID": "Q_B_05",
+    "Title": "Q5. How many members are in the family? ------- (count)",
+    "Title_hi": "Q5. परिवार में कुल कितने सदस्य हैं? ------- (संख्या)",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "FamilyIncomeSources",
+    "AppVariable_ID": "Q_B_07",
+    "Title": "Q7. What are your family’s sources of income? (Multiselect)",
+    "Title_hi": "Q7. आपके परिवार की आय के मुख्य स्रोत क्या हैं? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_B_07\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "FamilyIncome_AnimalSale_Specify",
+    "AppVariable_ID": "Q_B_07",
+    "Title": "Specify animal sale details",
+    "Title_hi": "Q7. आपके परिवार की आय के मुख्य स्रोत क्या हैं? (बहु-चयन)",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "FamilyIncomeSourcesOther",
+    "AppVariable_ID": "Q_B_07",
+    "Title": "Specify other income source",
+    "Title_hi": "Q7. आपके परिवार की आय के मुख्य स्रोत क्या हैं? (बहु-चयन)",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "AnnualHouseholdIncome",
+    "AppVariable_ID": "Q_B_08",
+    "Title": "Q8. What is your annual household income and monetary benefits?",
+    "Title_hi": "Q8. सभी स्रोतों से आपके परिवार की कुल वार्षिक आय कितनी है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_B_08\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "ReasonsStartingBusiness",
+    "AppVariable_ID": "Q_C_01",
+    "Title": "Q1. Reasons for starting the business? (Multiselect)",
+    "Title_hi": "Q1. व्यवसाय शुरू करने के क्या कारण थे? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_C_01\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "BusinessCycle",
+    "AppVariable_ID": "Q_C_02",
+    "Title": "Q2. Describe your business cycle?",
+    "Title_hi": "Q2. आपके व्यवसाय का चक्र (संचालन अवधि) कैसा है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_C_02\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "BusinessPlaceType",
+    "AppVariable_ID": "Q_C_03",
+    "Title": "Q3. What is the type of business place?",
+    "Title_hi": "Q3. व्यवसाय स्थल का प्रकार क्या है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_C_03\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "AnnualRent",
+    "AppVariable_ID": "Q_C_04",
+    "Title": "Q4. If rented, what is monthly rent? Rs______",
+    "Title_hi": "Q4. यदि किराए पर है, तो मासिक किराया कितना है? ₹______",
+    "Type": "Decimal / Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "LocationConvenience",
+    "AppVariable_ID": "Q_C_05",
+    "Title": "Q5. Is the location of your premise convenient for your customers?",
+    "Title_hi": "Q5. क्या आपका व्यावसायिक स्थान ग्राहकों के लिए सुविधाजनक है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_C_05\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "Material_Percentage",
+    "AppVariable_ID": "Q_C_07_01",
+    "Title": "Q7. What percentage of raw material do you source from these places?",
+    "Title_hi": "आसपास के कस्बे / जिले से",
+    "Type": "Section Header",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "MarketingMethods",
+    "AppVariable_ID": "Q_C_08",
+    "Title": "Q8. How do you market your products/services? (Multiselect)",
+    "Title_hi": "Q8. आप अपने उत्पादों/सेवाओं का प्रचार (मार्केटिंग) कैसे करती हैं? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_C_08\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SeasonalSalesMethod",
+    "AppVariable_ID": "Q_C_09",
+    "Title": "Q9. How do you sell your products/services? (Multiselect)",
+    "Title_hi": "Q9. आप अपने उत्पादों/सेवाओं की बिक्री कैसे करती हैं?",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_C_09\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "Social_OnlinePlatform",
+    "AppVariable_ID": "Q_C_09",
+    "Title": "Specify online platform used",
+    "Title_hi": "Q9. आप अपने उत्पादों/सेवाओं की बिक्री कैसे करती हैं?",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "RecordKeepingHabit",
+    "AppVariable_ID": "Q_C_11",
+    "Title": "Q11. Do you maintain written records of business transactions?",
+    "Title_hi": "Q11. क्या आप व्यावसायिक लेन-देन का लिखित रिकॉर्ड रखती हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_C_11\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "RecordKeepingMethod",
+    "AppVariable_ID": "Q_C_12",
+    "Title": "Q12. How do you maintain business transactions? (Multiselect)",
+    "Title_hi": "Q12. आप व्यावसायिक लेन-देन का हिसाब कैसे रखती हैं?",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_C_12\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SHGAssociationAssistance",
+    "AppVariable_ID": "Q_D_01",
+    "Title": "Q1. How has the SHG association helped in your enterprise? (Multiselect)",
+    "Title_hi": "Q1. स्वयं सहायता समूह से जुड़ने से आपके उद्यम में क्या मदद मिली? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_D_01\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "FundingExperience",
+    "AppVariable_ID": "Q_D_04",
+    "Title": "Q4. What has been your experience in raising funds? (Multiselect)",
+    "Title_hi": "Q4. व्यवसाय के वित्तपोषण (फंडिंग) का आपका क्या अनुभव रहा है? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_D_04\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "FinancialHelpFromIncome",
+    "AppVariable_ID": "Q_D_06",
+    "Title": "Q6. How has income from enterprise helped you financially? (Multiselect)",
+    "Title_hi": "Q6. उद्यम की आय से आपको आर्थिक रूप से क्या मदद मिली है? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_D_06\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "FinancialHelp_EducationAmt",
+    "AppVariable_ID": "Q_D_06",
+    "Title": "Education expenses contribution amount (Rs)",
+    "Title_hi": "Q6. उद्यम की आय से आपको आर्थिक रूप से क्या मदद मिली है? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "FinancialHelp_DebtsAmt",
+    "AppVariable_ID": "Q_D_06",
+    "Title": "Family debts paid amount (Rs)",
+    "Title_hi": "Q6. उद्यम की आय से आपको आर्थिक रूप से क्या मदद मिली है? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "FinancialHelp_AssetsAmt",
+    "AppVariable_ID": "Q_D_06",
+    "Title": "Assets acquisition contribution amount (Rs)",
+    "Title_hi": "Q6. उद्यम की आय से आपको आर्थिक रूप से क्या मदद मिली है? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "FinancialHelp_MarriageAmt",
+    "AppVariable_ID": "Q_D_06",
+    "Title": "Marriage expenses contribution amount (Rs)",
+    "Title_hi": "Q6. उद्यम की आय से आपको आर्थिक रूप से क्या मदद मिली है? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "DebtRepaidAmount",
+    "AppVariable_ID": "Q_D_06",
+    "Title": "Debt Repaid Amount (Rs)",
+    "Title_hi": "Q6. उद्यम की आय से आपको आर्थिक रूप से क्या मदद मिली है? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "AssetsAcquiredAmount",
+    "AppVariable_ID": "Q_D_06",
+    "Title": "Assets Acquired Amount (Rs)",
+    "Title_hi": "Q6. उद्यम की आय से आपको आर्थिक रूप से क्या मदद मिली है? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "MarriageExpensesAmount",
+    "AppVariable_ID": "Q_D_06",
+    "Title": "Marriage Expenses Amount (Rs)",
+    "Title_hi": "Q6. उद्यम की आय से आपको आर्थिक रूप से क्या मदद मिली है? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "HusbandFamilyResponse",
+    "AppVariable_ID": "Q_E_01",
+    "Title": "Q1. How did your husband/family respond when you started enterprise?",
+    "Title_hi": "Q1. आपके उद्यम के प्रति आपके पति/परिवार का क्या रुख रहा है? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_E_01\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "MaterialSourcingComfort",
+    "AppVariable_ID": "Q_E_02",
+    "Title": "Q2. How comfortable are you in sourcing raw material/goods?",
+    "Title_hi": "Q2. कच्चा माल लाने / खरीदने में आपकी सहजता का स्तर क्या है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_E_02\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "CustomerPaymentRecovery",
+    "AppVariable_ID": "Q_E_03",
+    "Title": "Q3. How comfortable are you in recovering payment from customers?",
+    "Title_hi": "Q3. क्या आप ग्राहकों से समय पर अपना पैसा/उधारी वसूल पाती हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_E_03\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "CurrentChallenges",
+    "AppVariable_ID": "Q_E_04",
+    "Title": "Q4. What are your current challenges in running the business? (Multiselect)",
+    "Title_hi": "Q4. वर्तमान में आप किन प्रमुख चुनौतियों का सामना कर रही हैं? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_E_04\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "Challenge_OSFPhasedOutAmt",
+    "AppVariable_ID": "Q_E_04",
+    "Title": "Challenge: OSF Phased Out Amount needed (Rs)",
+    "Title_hi": "Q4. वर्तमान में आप किन प्रमुख चुनौतियों का सामना कर रही हैं? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Challenge_ScaleUpFundAmt",
+    "AppVariable_ID": "Q_E_04",
+    "Title": "Challenge: Scale-up Fund needed (Rs)",
+    "Title_hi": "Q4. वर्तमान में आप किन प्रमुख चुनौतियों का सामना कर रही हैं? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Challenge_TimelyInputsAmt",
+    "AppVariable_ID": "Q_E_04",
+    "Title": "Challenge: Timely Inputs Fund needed (Rs)",
+    "Title_hi": "Q4. वर्तमान में आप किन प्रमुख चुनौतियों का सामना कर रही हैं? (बहु-चयन)",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Challenge_Other",
+    "AppVariable_ID": "Q_E_04",
+    "Title": "Specify other challenge",
+    "Title_hi": "Q4. वर्तमान में आप किन प्रमुख चुनौतियों का सामना कर रही हैं? (बहु-चयन)",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Competitors_Similar_Scale",
+    "AppVariable_ID": "Q_E_05_Count",
+    "Title": "Q5. Number of competitors in same scale (#)",
+    "Title_hi": "",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Competitors_Smaller_Scale",
+    "AppVariable_ID": "Q_E_05_Smaller",
+    "Title": "Q5. Number of competitors in smaller scale (#)",
+    "Title_hi": "",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Competitors_Higher_Scale",
+    "AppVariable_ID": "Q_E_05_Higher",
+    "Title": "Q5. Number of competitors in higher scale (#)",
+    "Title_hi": "",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "CompetitorAdvantages",
+    "AppVariable_ID": "Q_E_06",
+    "Title": "Q6. What advantages do competitors have over your enterprise? (Multiselect)",
+    "Title_hi": "Q6. प्रतिस्पर्धियों (अन्य दुकानदारों) की तुलना में आपकी क्या विशेषताएं/फायदे हैं? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_E_06\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "FutureExpansionPlans",
+    "AppVariable_ID": "Q_F_01",
+    "Title": "Q1. Do you have future expansion plans for your business?",
+    "Title_hi": "Q1. अगले एक वर्ष में अपने व्यवसाय को बढ़ाने के लिए आपकी क्या योजनाएं हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_F_01\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "AspirationBottlenecks",
+    "AppVariable_ID": "Q_F_02",
+    "Title": "Q2. What are the bottlenecks in fulfilling your aspirations? (Multiselect)",
+    "Title_hi": "Q2. इन आकांक्षाओं/योजनाओं को पूरा करने में क्या बाधाएं आ रही हैं? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_F_02\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "FutureFundsRequired",
+    "AppVariable_ID": "Q_F_03",
+    "Title": "Q3. How much funds do you require for future expansion? (Rs)",
+    "Title_hi": "Q3. अपनी योजना को पूरा करने के लिए आपको कितने फंड/पूंजी की आवश्यकता है?",
+    "Type": "Decimal / Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "AttendedTraining",
+    "AppVariable_ID": "Q_G_01",
+    "Title": "Q1. Did you attend any training under SVEP/OSF?",
+    "Title_hi": "Q1. क्या आपने SVEP/OSF के तहत कोई प्रशिक्षण लिया है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_G_01\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "TrainingDetails",
+    "AppVariable_ID": "Q_G_02",
+    "Title": "Q2. Details of training attended",
+    "Title_hi": "Q2. यदि हाँ, तो विवरण दें__________",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "UsedTrainingComponent",
+    "AppVariable_ID": "Q_G_03",
+    "Title": "Q3. Have you used any component of training in business?",
+    "Title_hi": "Q3. क्या आपने प्रशिक्षण की सीख का उपयोग अपने उद्यम में किया?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_G_03\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "UsedTrainingDetails",
+    "AppVariable_ID": "Q_G_04",
+    "Title": "Q4. Details of training components used",
+    "Title_hi": "Q4. यदि हाँ, तो विवरण दें__________",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "MonthlyIncomeBeforeLoan",
+    "AppVariable_ID": "Q_G_05",
+    "Title": "Q5. Did monthly income increase after SVEP/OSF loan?",
+    "Title_hi": "",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_G_05\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "MonthlyIncomeAfterLoan",
+    "AppVariable_ID": "Q_G_06",
+    "Title": "Average monthly income after loan (Rs)",
+    "Title_hi": "Q6. OSF/SVEP ऋण और बदलावों से आपकी औसत मासिक आय में कितनी वृद्धि हुई?",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "MonthlyIncomeIncreaseByOSFSVEP",
+    "AppVariable_ID": "Q_G_06",
+    "Title": "Q6. By how much did monthly income increase due to OSF/SVEP? (Rs)",
+    "Title_hi": "Q6. OSF/SVEP ऋण और बदलावों से आपकी औसत मासिक आय में कितनी वृद्धि हुई?",
+    "Type": "Number / Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "CRPContributions",
+    "AppVariable_ID": "Q_G_07",
+    "Title": "Q7. What was the contribution of CRP in your enterprise? (Multiselect)",
+    "Title_hi": "Q7. आपके उद्यम में SVEP/OSF CRP (उद्यम मित्र) का क्या योगदान रहा है? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_G_07\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "CRPContributionDocDetails",
+    "AppVariable_ID": "Q_G_07",
+    "Title": "CRP documentation support details",
+    "Title_hi": "Q7. आपके उद्यम में SVEP/OSF CRP (उद्यम मित्र) का क्या योगदान रहा है? (बहु-चयन)",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "ExpectationsFromScheme",
+    "AppVariable_ID": "Q_G_08",
+    "Title": "Q8. What are your expectations from the scheme in future? (Multiselect)",
+    "Title_hi": "Q8. SVEP/OSF योजना से आपकी क्या अपेक्षाएं हैं?",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_G_08\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "Other_Specify",
+    "AppVariable_ID": "Q_G_08",
+    "Title": "Specify other expectation",
+    "Title_hi": "Q8. SVEP/OSF योजना से आपकी क्या अपेक्षाएं हैं?",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "SmartphoneOwnership",
+    "AppVariable_ID": "Q_H_01",
+    "Title": "Q1. Do you own or have access to a smartphone?",
+    "Title_hi": "Q1. क्या आपके पास स्मार्टफोन (टच वाला फोन) है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_H_01\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "UseQRUPI",
+    "AppVariable_ID": "Q_H_02",
+    "Title": "Q2. Do you use QR code / UPI for business transactions?",
+    "Title_hi": "Q2. क्या आप पैसों के लेन-देन के लिए QR कोड / UPI (PhonePe, Paytm, GPay) का उपयोग करती हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_H_02\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "QRDailyTransactions",
+    "AppVariable_ID": "Q_H_03",
+    "Title": "Q3. Average number of QR / UPI transactions per day (#)",
+    "Title_hi": "Q3. यदि हाँ, तो रोजाना व्यवसाय में QR कोड / UPI से लगभग कितने लेन-देन होते हैं?",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "QRNonUseReason",
+    "AppVariable_ID": "Q_H_04",
+    "Title": "Q4. Reasons for not using QR code / UPI payment",
+    "Title_hi": "Q4. यदि नहीं, तो QR कोड / मोबाइल बैंकिंग का उपयोग न करने का क्या कारण है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_H_04\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SocialMediaForMarketing",
+    "AppVariable_ID": "Q_H_05",
+    "Title": "Q5. Do you use social media for marketing?",
+    "Title_hi": "Q5. क्या आप प्रचार और मार्केटिंग के लिए सोशल मीडिया का उपयोग करती हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_H_05\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SocialPlatformsUsed",
+    "AppVariable_ID": "Q_H_06",
+    "Title": "Q6. Which social media platforms do you use for your business? (Multiselect)",
+    "Title_hi": "Q6. व्यवसाय के लिए आप किन सोशल मीडिया प्लेटफॉर्म का उपयोग करती हैं? (बहु-चयन)",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_H_06\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SocialPlatformUsageMode",
+    "AppVariable_ID": "Q_H_07",
+    "Title": "Q7. How do you use these platforms in your business? (Multiselect)",
+    "Title_hi": "Q7. व्यवसाय में आप इन प्लेटफॉर्म का उपयोग किस प्रकार करती हैं?",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_H_07\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SocialMediaFrequency",
+    "AppVariable_ID": "Q_H_08",
+    "Title": "Q8. How often do you use social media for your business?",
+    "Title_hi": "Q8. व्यवसाय के लिए आप कितनी बार सोशल मीडिया का उपयोग करती हैं?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_H_08\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "OSFInterventionYear",
+    "AppVariable_ID": "Q_I_01",
+    "Title": "Q1. In which year was the OSF intervention made?",
+    "Title_hi": "Q1. OSF योजना का सहयोग किस वर्ष मिला था?-------",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "BusinessOperationalStatus",
+    "AppVariable_ID": "Q_I_02",
+    "Title": "Q2. Is your business still operational?",
+    "Title_hi": "Q2. क्या आपका व्यवसाय अभी भी चालू है?",
+    "Type": "Enum (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_I_02\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "ScalingDownClosingReasons",
+    "AppVariable_ID": "Q_I_03",
+    "Title": "Q3. What are the reasons for scaling down/closing business? (Multiselect)",
+    "Title_hi": "Q3. व्यवसाय कम होने या बंद होने के क्या प्रमुख कारण रहे हैं?",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_I_03\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "ScalingDownOtherReason",
+    "AppVariable_ID": "Q_I_03",
+    "Title": "Specify other closure reason",
+    "Title_hi": "Q3. व्यवसाय कम होने या बंद होने के क्या प्रमुख कारण रहे हैं?",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "SupportNeededForSustenance",
+    "AppVariable_ID": "Q_I_04",
+    "Title": "Q4. What kind of support could have helped you manage business? (Multiselect)",
+    "Title_hi": "Q4. किस प्रकार के सहयोग से आप अपने व्यवसाय को बेहतर तरीके से चला सकती थीं?",
+    "Type": "EnumList (Ref)",
+    "Valid_If": "=SPLIT(LOOKUP(\"Q_I_04\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SupportNeededOther",
+    "AppVariable_ID": "Q_I_04",
+    "Title": "Specify other support needed",
+    "Title_hi": "Q4. किस प्रकार के सहयोग से आप अपने व्यवसाय को बेहतर तरीके से चला सकती थीं?",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "MarketPlaces",
+    "AppVariable_ID": "-",
+    "Title": "Market Places / Location Remarks",
+    "Title_hi": "",
+    "Type": "Text",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "GPSLocation",
+    "AppVariable_ID": "-",
+    "Title": "GPS Location Coordinate",
+    "Title_hi": "",
+    "Type": "LatLong",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "CreatedBy",
+    "AppVariable_ID": "-",
+    "Title": "Created By User Email",
+    "Title_hi": "",
+    "Type": "Email",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "CreatedOn",
+    "AppVariable_ID": "-",
+    "Title": "Created On Timestamp",
+    "Title_hi": "",
+    "Type": "DateTime",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "LastEditBy",
+    "AppVariable_ID": "-",
+    "Title": "Last Edited By User Email",
+    "Title_hi": "",
+    "Type": "Email",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "LastEditOn",
+    "AppVariable_ID": "-",
+    "Title": "Last Edited On Timestamp",
+    "Title_hi": "",
+    "Type": "DateTime",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Status",
+    "AppVariable_ID": "STAT_DRAFT",
+    "Title": "Survey Submission Status",
+    "Title_hi": "प्रारूप (Draft)",
+    "Type": "Enum",
+    "Valid_If": "Draft, Submitted, Verified"
+  },
+  {
+    "Column": "InvestigatorID",
+    "AppVariable_ID": "-",
+    "Title": "Investigator Email / ID",
+    "Title_hi": "",
+    "Type": "Ref (AppUser)",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Latitude",
+    "AppVariable_ID": "-",
+    "Title": "GPS Latitude",
+    "Title_hi": "",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "Longitude",
+    "AppVariable_ID": "-",
+    "Title": "GPS Longitude",
+    "Title_hi": "",
+    "Type": "Decimal",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "MonthlyRent",
+    "AppVariable_ID": "Q_C_04",
+    "Title": "Monthly rent (Rs)",
+    "Title_hi": "Q4. यदि किराए पर है, तो मासिक किराया कितना है? ₹______",
+    "Type": "Decimal / Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "MaterialSourcingPct",
+    "AppVariable_ID": "MAIN_PCT_SCALE_5",
+    "Title": "Raw Material Sourcing Percentage",
+    "Title_hi": "प्रतिशत पैमाना (0%, 25%, 50%, 75%, 100%)",
+    "Type": "Enum (Buttons)",
+    "Valid_If": "=SPLIT(LOOKUP(\"MAIN_PCT_SCALE_5\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "SalesChannelsPct",
+    "AppVariable_ID": "MAIN_PCT_SCALE_SALES",
+    "Title": "Sales Channels Percentage Scale",
+    "Title_hi": "बिक्री प्रतिशत पैमाना (0% से 100%)",
+    "Type": "Enum (Buttons)",
+    "Valid_If": "=SPLIT(LOOKUP(\"MAIN_PCT_SCALE_SALES\", \"AppVariables\", \"ID\", \"VariableList\"), \" , \")"
+  },
+  {
+    "Column": "Competitors_Same_Scale",
+    "AppVariable_ID": "Q_E_05_Count",
+    "Title": "Q5. Number of competitors in same scale (#)",
+    "Title_hi": "",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "BusinessClosureYear",
+    "AppVariable_ID": "Q_I_02",
+    "Title": "Year when business closed (if closed)",
+    "Title_hi": "Q2. क्या आपका व्यवसाय अभी भी चालू है?",
+    "Type": "Number",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "LastEditedBy",
+    "AppVariable_ID": "-",
+    "Title": "Last Edited By",
+    "Title_hi": "",
+    "Type": "Email",
+    "Valid_If": "-"
+  },
+  {
+    "Column": "LastEditedOn",
+    "AppVariable_ID": "-",
+    "Title": "Last Edited On",
+    "Title_hi": "",
+    "Type": "DateTime",
+    "Valid_If": "-"
+  }
+]

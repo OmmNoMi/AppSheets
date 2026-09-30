@@ -1,0 +1,6 @@
+﻿ID,Name,Email,Role,District,Language,DailyTarget,Status,LastEditBy,LastEditOn
+DevNomi,Nomeshwer Sharma,nomeshwer@ommnomi.in,ROLE_ADMIN,DIST_JAIPUR,LANG_EN,0,Active,DevNomi,09/21/2026 13:23:39
+DevHardi,Hardik Sharma,hardiksharma80912@gmail.com,ROLE_ADMIN,DIST_JAIPUR,LANG_EN,0,Active,DevHardi,09/21/2026 13:23:39
+USR_001,Kavita Meena,surveyor1@ommnomi.in,ROLE_INVESTIGATOR,DIST_BARAN,LANG_HI,10,Active,DevNomi,09/21/2026 13:23:39
+USR_002,Sunita Sharma,surveyor2@ommnomi.in,ROLE_INVESTIGATOR,DIST_CHURU,LANG_RAJ,10,Active,DevNomi,09/21/2026 13:23:39
+USR_003,Shehnaz Jahan,supervisor@ommnomi.in,ROLE_SUPERVISOR,DIST_BARAN,LANG_HI,20,Active,DevNomi,09/21/2026 13:23:39

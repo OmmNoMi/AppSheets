@@ -1,0 +1,2 @@
+ID,SurveyID,SupervisorID,AuditDate,AuditResult,SpotCheckNotes,GPSMatchConfirmed
+AUD_001,SRV_DEMO_001,USER_003,2026-08-16 14:15:00,Approved,Back-check completed. Enterprise age and credit dose verified with CLF register.,TRUE

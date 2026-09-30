@@ -1,0 +1,1467 @@
+<USER_REQUEST>
+// =========================================================================
+// OmmNoMi: AppSheet Live Schema & Error Health Check Inspector
+// =========================================================================
+(function inspectAppSheetHealth() {
+    console.clear();
+    console.log("%c╔════════════════════════════════════════════════════════════════════════════════════════╗", "color:#4285f4;font-weight:bold;");
+    console.log("%c║        🔍 [OmmNoMi] RUNNING LIVE APPSHEET INTEGRITY AUDIT & VERIFICATION...            ║", "color:#4285f4;font-size:13px;font-weight:bold;");
+    console.log("%c╚════════════════════════════════════════════════════════════════════════════════════════╝", "color:#4285f4;font-weight:bold;");
+
+    // 1. Locate Store
+    let store = window.appStore;
+    if (!store) {
+        const candidates = [document.querySelector('.ExpressionControl'), document.querySelector('[role="grid"]'), document.querySelector('#root'), document.body];
+        for (const el of candidates) {
+            if (!el) continue;
+            const fKey = Object.keys(el).find(k => k.startsWith('__reactFiber') || k.startsWith('__reactInternalInstance'));
+            let f = el[fKey];
+            while (f) {
+                if (f.memoizedProps?.store?.dispatch) { store = f.memoizedProps.store; break; }
+                if (f.stateNode?.store?.dispatch) { store = f.stateNode.store; break; }
+                f = f.return;
+            }
+            if (store) break;
+        }
+    }
+
+    if (!store) {
+        console.error("❌ Redux Store nahi mila! Page ko refresh karke dubara run karein.");
+        return;
+    }
+
+    const state = store.getState();
+    const historyItem = state.appTemplate?.history?.[0]?.appTemplate || state.appTemplate?.current;
+    const schemas = historyItem?.AppData?.DataSchemas || [];
+
+    const surveySchema = schemas.find(s => s && (s.Name === 'Survey_Schema' || s.Name === 'Survey' || s.TableName === 'Survey' || s.Attributes?.some(a => a.Name === 'Status_Profile')));
+    const childSchema = schemas.find(s => s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables' || s.TableName === 'Survey_Tables' || s.Attributes?.some(a => a.Name === 'Table_Type')));
+
+    const auditResults = [];
+
+    // TEST 1: Survey_Tables Display Names (Unquoted '/' or '(Rs)' or '(#)')
+    if (childSchema) {
+        const illegalDNs = [];
+        childSchema.Attributes.forEach(a => {
+            if (a.DisplayName) {
+                // Agar DisplayName '=' se start nahi hota aur usme special chars '/' ya '(#)' hain to syntax error deta hai
+                if (!a.DisplayName.startsWith('=') && (a.DisplayName.includes('/') || a.DisplayName.includes('(#)') || a.DisplayName.includes('(Rs)'))) {
+                    illegalDNs.push(`${a.Name} ('${a.DisplayName}')`);
+                }
+            }
+        });
+        auditResults.push({
+            "Test Item": "1. Survey_Tables Display Names",
+            "Status": illegalDNs.length === 0 ? "✅ PASSED (100% Valid)" : "❌ FAILED",
+            "Details": illegalDNs.length === 0 ? "Sabhi DisplayNames properly quoted hain" : `Unquoted: ${illegalDNs.join(', ')}`
+        });
+    } else {
+        auditResults.push({ "Test Item": "1. Survey_Tables Display Names", "Status": "⚠️ NOT FOUND", "Details": "Survey_Tables schema nahi mila" });
+    }
+
+    // TEST 2: Illegal Initial Values (NOW() / TODAY() on Number or Price)
+    if (childSchema) {
+        const badIVs = [];
+        childSchema.Attributes.forEach(a => {
+            if (a.InitialValue && (a.InitialValue.includes('NOW()') || a.InitialValue.includes('TODAY()'))) {
+                badIVs.push(`${a.Name} = ${a.InitialValue}`);
+            }
+        });
+        auditResults.push({
+            "Test Item": "2. Initial Values (No NOW/TODAY)",
+            "Status": badIVs.length === 0 ? "✅ PASSED (Clean)" : "❌ FAILED",
+            "Details": badIVs.length === 0 ? "Koi illegal NOW() ya TODAY() nahi hai" : `Illegal: ${badIVs.join(', ')}`
+        });
+    }
+
+    // TEST 3: Survey_ID Reference & IsPartOf
+    if (childSchema) {
+        const sId = childSchema.Attributes.find(a => a.Name === 'Survey_ID');
+        const isSurveySchemaName = sId?.ReferencedTableName?.toLowerCase().includes('schema');
+        const isPartOf = sId?.IsPartOf === true;
+        const passed = sId && sId.ReferencedTableName && !isSurveySchemaName && isPartOf;
+
+        auditResults.push({
+            "Test Item": "3. Survey_ID Ref & IsPartOf",
+            "Status": passed ? "✅ PASSED (Exact Ref)" : "❌ FAILED",
+            "Details": sId ? `Table='${sId.ReferencedTableName}', IsPartOf=${sId.IsPartOf}` : "Survey_ID column missing!"
+        });
+    }
+
+    // TEST 4: Survey Inline Virtual Columns (5 Sub-Tables)
+    if (surveySchema) {
+        const vcs = ["Related_Q6_Labor", "Related_Q15_Turnover", "Related_Q19_Capital", "Related_Q20_Loan_Usage", "Related_Q22_Trajectory"];
+        const missingVCs = vcs.filter(v => !surveySchema.Attributes.some(a => a.Name === v && a.IsVirtual));
+        auditResults.push({
+            "Test Item": "4. 5 Inline Virtual Columns",
+            "Status": missingVCs.length === 0 ? "✅ PASSED (All 5 Present)" : "❌ FAILED",
+            "Details": missingVCs.length === 0 ? "Q6, Q15, Q19, Q20, Q22 inline tables active" : `Missing: ${missingVCs.join(', ')}`
+        });
+    }
+
+    // TEST 5: Survey Blank Enums without Allowed Values
+    if (surveySchema) {
+        const blankEnums = [];
+        surveySchema.Attributes.forEach(a => {
+            if ((a.Type === 'Enum' || a.Type === 'EnumList') && !a.IsVirtual) {
+                const hasValidIf = !!a.Valid_If || !!a.ValidIf;
+                const hasEnumValues = a.EnumValues && a.EnumValues.length > 0;
+                if (!hasValidIf && !hasEnumValues) {
+                    blankEnums.push(a.Name);
+                }
+            }
+        });
+        auditResults.push({
+            "Test Item": "5. Survey Dropdown Allowed Values",
+            "Status": blankEnums.length === 0 ? "✅ PASSED (All M
+VM1485:115 Uncaught SyntaxError: Invalid or unexpected token (at VM1485:115:49)
+(function inspectAppSheetHealth() {
+    try {
+        console.clear();
+        console.log("================================================================================");
+        console.log("[OmmNoMi] RUNNING LIVE APPSHEET INTEGRITY AUDIT");
+        console.log("================================================================================");
+
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var fKey = Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; });
+            var f = root[fKey];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; window.appStore = store; break; }
+                f = f.return;
+            }
+        }
+
+        if (!store) {
+            console.error("[ERROR] Redux store not found! Please refresh page.");
+            return;
+        }
+
+        var state = store.getState();
+        var historyItem = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate)
+            || (state.appTemplate && state.appTemplate.current);
+        var schemas = (historyItem && historyItem.AppData && historyItem.AppData.DataSchemas) || [];
+
+        var survey = schemas.find(function(s) {
+            return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Status_Profile'; })));
+        });
+        var child = schemas.find(function(s) {
+            return s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Table_Type'; })));
+        });
+
+        var results = [];
+
+        // 1. Survey_Tables Display Names
+        if (child && child.Attributes) {
+            var badDNs = child.Attributes.filter(function(a) {
+                return a.DisplayName && !a.DisplayName.startsWith('=') && (a.DisplayName.indexOf('/') >= 0 || a.DisplayName.indexOf('(#)') >= 0 || a.DisplayName.indexOf('(Rs)') >= 0);
+            }).map(function(a) { return a.Name; });
+            results.push({ Item: "1. Survey_Tables DisplayNames", Status: badDNs.length === 0 ? "[PASSED]" : "[FAILED]", Details: badDNs.length === 0 ? "Properly quoted" : "Unquoted: " + badDNs.join(", ") });
+        } else {
+            results.push({ Item: "1. Survey_Tables DisplayNames", Status: "[WARN]", Details: "Survey_Tables schema not loaded" });
+        }
+
+        // 2. Initial Values (NOW / TODAY)
+        if (child && child.Attributes) {
+            var badIVs = child.Attributes.filter(function(a) {
+                return a.InitialValue && (a.InitialValue.indexOf('NOW()') >= 0 || a.InitialValue.indexOf('TODAY()') >= 0);
+            }).map(function(a) { return a.Name; });
+            results.push({ Item: "2. Clean InitialValues", Status: badIVs.length === 0 ? "[PASSED]" : "[FAILED]", Details: badIVs.length === 0 ? "Zero illegal formulas" : "Illegal: " + badIVs.join(", ") });
+        }
+
+        // 3. Survey_ID Ref & IsPartOf
+        if (child && child.Attributes) {
+            var sId = child.Attributes.find(function(a) { return a.Name === 'Survey_ID'; });
+            var hasSchema = sId && sId.ReferencedTableName && sId.ReferencedTableName.toLowerCase().indexOf('schema') >= 0;
+            var isPartOf = sId && sId.IsPartOf === true;
+            var ok = sId && sId.ReferencedTableName && !hasSchema && isPartOf;
+            results.push({ Item: "3. Survey_ID Ref & IsPartOf", Status: ok ? "[PASSED]" : "[FAILED]", Details: sId ? "Table='" + sId.ReferencedTableName + "', IsPartOf=" + sId.IsPartOf : "Missing Survey_ID" });
+        }
+
+        // 4. Survey 5 Inline Virtual Columns
+        if (survey && survey.Attributes) {
+            var vcs = ["Related_Q6_Labor", "Related_Q15_Turnover", "Related_Q19_Capital", "Related_Q20_Loan_Usage", "Related_Q22_Trajectory"];
+            var missing = vcs.filter(function(v) {
+                return !survey.Attributes.some(function(a) { return a.Name === v && a.IsVirtual; });
+            });
+            results.push({ Item: "4. 5 Inline Virtual Columns", Status: missing.length === 0 ? "[PASSED]" : "[FAILED]", Details: missing.length === 0 ? "All 5 sub-tables active" : "Missing: " + missing.join(", ") });
+        }
+
+        // 5. Survey Enum Allowed Values
+        if (survey && survey.Attributes) {
+            var emptyEnums = survey.Attributes.filter(function(a) {
+                return (a.Type === 'Enum' || a.Type === 'EnumList') && !a.IsVirtual && !a.Valid_If && !a.ValidIf && (!a.EnumValues || a.EnumValues.length === 0);
+            }).map(function(a) { return a.Name; });
+            results.push({ Item: "5. Survey Enum Allowed Values", Status: emptyEnums.length === 0 ? "[PASSED]" : "[FAILED]", Details: emptyEnums.length === 0 ? "All dropdowns mapped to AppVariables" : "Empty: " + emptyEnums.slice(0, 3).join(", ") });
+        }
+
+        // 6. UI Active Errors in DOM
+        var errorBanners = Array.from(document.querySelectorAll('.error-summary, [role="alert"], .banner-error, .ValidationErrorsView')).filter(function(el) {
+            return el.offsetParent !== null && el.textContent.trim().length > 0;
+        });
+        results.push({ Item: "6. Editor UI Error Banners", Status: errorBanners.length === 0 ? "[PASSED]" : "[INFO]", Details: errorBanners.length === 0 ? "Clean UI (0 errors)" : errorBanners.length + " notice element(s) in DOM" });
+
+        console.table(results);
+
+        var allGood = results.every(function(r) { return r.Status === "[PASSED]"; });
+        if (allGood) {
+            console.log("[OmmNoMi SUCCESS] All systems operational. 100% error free!");
+        } else {
+            console.log("[OmmNoMi NOTICE] Check the table above for details.");
+        }
+    } catch (e) {
+        console.error("[OmmNoMi ERROR]", e.message);
+    }
+})();
+VM1488:3 console.clear() was prevented due to 'Keep log'
+VM1488:4 ================================================================================
+VM1488:5 [OmmNoMi] RUNNING LIVE APPSHEET INTEGRITY AUDIT
+VM1488:6 ================================================================================
+VM1488:88 (index)ItemStatusDetails(index)ItemStatusDetails0'1. Survey_Tables DisplayNames''[PASSED]''Properly quoted'1'2. Clean InitialValues''[PASSED]''Zero illegal formulas'2'3. Survey_ID Ref & IsPartOf''[FAILED]'"Table='undefined', IsPartOf=undefined"3'4. 5 Inline Virtual Columns''[FAILED]''Missing: Related_Q6_Labor, Related_Q15_Turnover, R…l, Related_Q20_Loan_Usage, Related_Q22_Trajectory'4'5. Survey Enum Allowed Values''[FAILED]''Empty: Status, InvestigatorID, Status_Profile'5'6. Editor UI Error Banners''[INFO]''1 notice element(s) in DOM'Array(6)
+VM1488:94 [OmmNoMi NOTICE] Check the table above for details.
+undefined
+(function fixAllAppSheetErrors() {
+    try {
+        console.clear();
+        console.log("================================================================================");
+        console.log("[OmmNoMi] FIXING ALL APPSHEET ERRORS & APPLYING MASTER ARCHITECTURE");
+        console.log("================================================================================");
+
+        document.querySelectorAll('button').forEach(function(b) {
+            var txt = b.textContent ? b.textContent.trim().toLowerCase() : '';
+            if (txt === 'done' || txt === 'cancel' || b.getAttribute('aria-label') === 'Close') {
+                try { b.click(); } catch(e) {}
+            }
+        });
+
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var fKey = Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; });
+            var f = root[fKey];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; window.appStore = store; break; }
+                f = f.return;
+            }
+        }
+
+        if (!store) {
+            console.error("[ERROR] Redux store not found! Please refresh page.");
+            return;
+        }
+
+        var state = store.getState();
+        var historyItem = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate)
+            || (state.appTemplate && state.appTemplate.current);
+        var schemas = (historyItem && historyItem.AppData && historyItem.AppData.DataSchemas) || [];
+
+        var surveyIdx = schemas.findIndex(function(s) {
+            return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Status_Profile'; })));
+        });
+        var childTableIdx = schemas.findIndex(function(s) {
+            return s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Table_Type'; })));
+        });
+        var appVarSchemaIdx = schemas.findIndex(function(s) {
+            return s && (s.Name === 'AppVariables_Schema' || s.Name === 'AppVariables' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Title_hi'; })));
+        });
+
+        if (surveyIdx === -1 || childTableIdx === -1) {
+            console.error("[ERROR] Required schemas not found in Redux!");
+            return;
+        }
+
+        var surveySchema = schemas[surveyIdx];
+        var childSchema = schemas[childTableIdx];
+        var parentRealTableName = (surveySchema.TableName || surveySchema.Name || "Survey").replace(/_Schema$/i, '');
+        var childRealTableName = (childSchema.TableName || childSchema.Name || "Survey_Tables").replace(/_Schema$/i, '');
+        var appVarRealTableName = "AppVariables";
+
+        var nameValueDict = {};
+
+        var refTypeQual = JSON.stringify({ MaxLength: null, MinLength: null, LongTextFormatting: "Plain Text", IsMulticolumnKey: false, Valid_If: null, Error_Message_If_Invalid: null, Show_If: null, Required_If: null, Editable_If: null, Reset_If: null, Suggested_Values: null });
+        var appVarBaseQualifierStr = JSON.stringify({ ReferencedTableName: appVarRealTableName, ReferencedRootTableName: appVarRealTableName, ReferencedType: "Text", ReferencedTypeQualifier: refTypeQual, ReferencedKeyColumn: "ID", IsAPartOf: false, RelationshipName: null, InputMode: "Auto", Valid_If: null, Error_Message_If_Invalid: null, Show_If: null, Required_If: null, Editable_If: null, Reset_If: null, Suggested_Values: null });
+        var parentBaseQualifierStr = JSON.stringify({ ReferencedTableName: parentRealTableName, ReferencedRootTableName: parentRealTableName, ReferencedType: "Text", ReferencedTypeQualifier: refTypeQual, ReferencedKeyColumn: "ID", IsAPartOf: true, RelationshipName: null, InputMode: "Auto", Valid_If: null, Error_Message_If_Invalid: null, Show_If: null, Required_If: null, Editable_If: null, Reset_If: null, Suggested_Values: null });
+
+        // 1. Fix Survey_ID in Survey_Tables
+        var sIdIdx = childSchema.Attributes.findIndex(function(a) { return a.Name === 'Survey_ID'; });
+        if (sIdIdx !== -1) {
+            var pSid = "AppData.DataSchemas[" + childTableIdx + "].Attributes[" + sIdIdx + "]";
+            childSchema.Attributes[sIdIdx].Type = "Ref";
+            childSchema.Attributes[sIdIdx].ReferencedTableName = parentRealTableName;
+            childSchema.Attributes[sIdIdx].ReferencedRootTableName = parentRealTableName;
+            childSchema.Attributes[sIdIdx].IsPartOf = true;
+            nameValueDict[pSid + ".Type"] = "Ref";
+            nameValueDict[pSid + ".ReferencedTableName"] = parentRealTableName;
+            nameValueDict[pSid + ".ReferencedRootTableName"] = parentRealTableName;
+            nameValueDict[pSid + ".IsPartOf"] = true;
+        }
+
+        // 2. Fix 5 Inline Virtual Columns in Survey
+        var surveyAttrs = surveySchema.Attributes;
+        var listRefTypeQual = JSON.stringify({ MaxLength: null, MinLength: null, LongTextFormatting: "Plain Text", IsMulticolumnKey: false, Valid_If: null, Error_Message_If_Invalid: null, Show_If: null, Required_If: null, Editable_If: null, Reset_If: null, Suggested_Values: null });
+        var listBaseQual = JSON.stringify({ ReferencedTableName: childRealTableName, ReferencedRootTableName: childRealTableName, ReferencedType: "Text", ReferencedTypeQualifier: listRefTypeQual, ReferencedKeyColumn: "ID", IsAPartOf: false, RelationshipName: null, InputMode: "Auto", Valid_If: null, Error_Message_If_Invalid: null, Show_If: null, Required_If: null, Editable_If: null, Reset_If: null, Suggested_Values: null });
+        var listAuxData = JSON.stringify({ ItemSeparator: " , ", EnumValues: [], AllowOtherValues: false, AutoCompleteOtherValues: false, BaseType: "Ref", BaseTypeQualifier: listBaseQual, ElementType: "Ref", ElementTypeQualifier: listBaseQual, EnumInputMode: "Auto", Valid_If: null });
+
+        var INLINE_VCS = [
+            { name: "Related_Q6_Labor", formula: "=SELECT(" + childRealTableName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q6_Labor\"))", displayName: '="Q6. Involvement of family members and hired help in business operations"' },
+            { name: "Related_Q15_Turnover", formula: "=SELECT(" + childRealTableName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q15_Turnover\"))", displayName: '="Q15. Turnover and income from the enterprise"' },
+            { name: "Related_Q19_Capital", formula: "=SELECT(" + childRealTableName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q19_Capital\"))", displayName: '="Q19. How have you arranged capital over the enterprise duration?"' },
+            { name: "Related_Q20_Loan_Usage", formula: "=SELECT(" + childRealTableName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q20_Loan_Usage\"))", displayName: '="Q20. How did you use the loans taken from different sources?"' },
+            { name: "Related_Q22_Trajectory", formula: "=SELECT(" + childRealTableName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q22_Trajectory\"))", displayName: '="Q22. What changes have happened in your business?"' }
+        ];
+
+        INLINE_VCS.forEach(function(vc) {
+            var aIdx = surveyAttrs.findIndex(function(a) { return a.Name === vc.name; });
+            var attr;
+            if (aIdx === -1) {
+                attr = { Name: vc.name, Type: "List", EnumListElementTypeName: "Ref", ReferencedTableName: childRealTableName, ReferencedRootTableName: childRealTableName, IsVirtual: true, IsKey: false, IsLabel: false, IsReadOnly: true, AppFormula: vc.formula, DisplayName: vc.displayName, TypeAuxData: listAuxData };
+                surveyAttrs.push(attr);
+                aIdx = surveyAttrs.length - 1;
+            } else {
+                attr = surveyAttrs[aIdx];
+                attr.Type = "List"; attr.EnumListElementTypeName = "Ref"; attr.ReferencedTableName = childRealTableName; attr.ReferencedRootTableName = childRealTableName; attr.IsVirtual = true; attr.IsKey = false; attr.IsLabel = false; attr.IsReadOnly = true; attr.AppFormula = vc.formula; attr.DisplayName = vc.displayName; attr.TypeAuxData = listAuxData;
+            }
+
+            var p = "AppData.DataSchemas[" + surveyIdx + "].Attributes[" + aIdx + "]";
+            nameValueDict[p + ".Name"] = vc.name;
+            nameValueDict[p + ".Type"] = "List";
+            nameValueDict[p + ".EnumListElementTypeName"] = "Ref";
+            nameValueDict[p + ".ReferencedTableName"] = childRealTableName;
+            nameValueDict[p + ".ReferencedRootTableName"] = childRealTableName;
+            nameValueDict[p + ".IsVirtual"] = true;
+            nameValueDict[p + ".IsKey"] = false;
+            nameValueDict[p + ".IsLabel"] = false;
+            nameValueDict[p + ".IsReadOnly"] = true;
+            nameValueDict[p + ".AppFormula"] = vc.formula;
+            nameValueDict[p + ".DisplayName"] = vc.displayName;
+            nameValueDict[p + ".TypeAuxData"] = listAuxData;
+        });
+
+        // 3. Fix Survey Enums & Dropdowns
+        var SURVEY_QMAP = {
+            "Status": { "is_custom_enum": true, "enumValues": ["Draft", "Submitted", "Verified"], "initialValue": '="Draft"' },
+            "InvestigatorID": { "type": "Email", "initialValue": "=USEREMAIL()" },
+            "Status_Profile": { "qid": "Q_STAT_PROFILE", "is_multi": false },
+            "Status_Operations": { "qid": "Q_STAT_OPERATIONS", "is_multi": false },
+            "Status_Challenges": { "qid": "Q_STAT_CHALLENGES", "is_multi": false },
+            "Status_SchemeImpact": { "qid": "Q_STAT_SCHEME", "is_multi": false },
+            "Status_Digital": { "qid": "Q_STAT_DIGITAL", "is_multi": false },
+            "Status_PostExit": { "qid": "Q_STAT_POST_EXIT", "is_multi": false },
+            "District": { "qid": "Q_A_01_00", "is_multi": false },
+            "Block": { "qid": "Q_A_02_00", "is_multi": false, "valid_if": "=SELECT(" + appVarRealTableName + "[ID],
+VM1491:129 Uncaught SyntaxError: Invalid or unexpected token (at VM1491:129:110)
+(function fixStep1RefAndVCs() {
+    try {
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var fKey = Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; });
+            var f = root[fKey];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; window.appStore = store; break; }
+                f = f.return;
+            }
+        }
+        if (!store) { console.error("[ERROR] Redux store not accessible"); return; }
+
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var schemas = (h && h.AppData && h.AppData.DataSchemas) || [];
+        var sIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Status_Profile'; }))); });
+        var cIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Table_Type'; }))); });
+
+        var parentName = (schemas[sIdx].TableName || schemas[sIdx].Name || "Survey").replace(/_Schema$/i, '');
+        var childName = (schemas[cIdx].TableName || schemas[cIdx].Name || "Survey_Tables").replace(/_Schema$/i, '');
+
+        var dict = {};
+        // 1. Configure Survey_ID as Ref + IsPartOf
+        var sidIdx = schemas[cIdx].Attributes.findIndex(function(a) { return a.Name === 'Survey_ID'; });
+        if (sidIdx !== -1) {
+            var p = "AppData.DataSchemas[" + cIdx + "].Attributes[" + sidIdx + "]";
+            schemas[cIdx].Attributes[sidIdx].Type = "Ref";
+            schemas[cIdx].Attributes[sidIdx].ReferencedTableName = parentName;
+            schemas[cIdx].Attributes[sidIdx].ReferencedRootTableName = parentName;
+            schemas[cIdx].Attributes[sidIdx].IsPartOf = true;
+            dict[p + ".Type"] = "Ref";
+            dict[p + ".ReferencedTableName"] = parentName;
+            dict[p + ".ReferencedRootTableName"] = parentName;
+            dict[p + ".IsPartOf"] = true;
+        }
+
+        // 2. Configure 5 Inline Virtual Columns
+        var vcs = [
+            { n: "Related_Q6_Labor", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q6_Labor\"))", d: '="Q6. Labor & Family Involvement"' },
+            { n: "Related_Q15_Turnover", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q15_Turnover\"))", d: '="Q15. Turnover & Net Profit"' },
+            { n: "Related_Q19_Capital", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q19_Capital\"))", d: '="Q19. Capital Arranged Over Time"' },
+            { n: "Related_Q20_Loan_Usage", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q20_Loan_Usage\"))", d: '="Q20. Loan Usage in Business"' },
+            { n: "Related_Q22_Trajectory", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q22_Trajectory\"))", d: '="Q22. Business Trajectory & Changes"' }
+        ];
+
+        var sAttrs = schemas[sIdx].Attributes;
+        vcs.forEach(function(vc) {
+            var idx = sAttrs.findIndex(function(a) { return a.Name === vc.n; });
+            if (idx === -1) {
+                sAttrs.push({ Name: vc.n, Type: "List", EnumListElementTypeName: "Ref", ReferencedTableName: childName, ReferencedRootTableName: childName, IsVirtual: true, IsReadOnly: true, AppFormula: vc.f, DisplayName: vc.d });
+                idx = sAttrs.length - 1;
+            } else {
+                sAttrs[idx].Type = "List"; sAttrs[idx].EnumListElementTypeName = "Ref"; sAttrs[idx].ReferencedTableName = childName; sAttrs[idx].ReferencedRootTableName = childName; sAttrs[idx].IsVirtual = true; sAttrs[idx].AppFormula = vc.f; sAttrs[idx].DisplayName = vc.d;
+            }
+            var vp = "AppData.DataSchemas[" + sIdx + "].Attributes[" + idx + "]";
+            dict[vp + ".Name"] = vc.n;
+            dict[vp + ".Type"] = "List";
+            dict[vp + ".EnumListElementTypeName"] = "Ref";
+            dict[vp + ".ReferencedTableName"] = childName;
+            dict[vp + ".ReferencedRootTableName"] = childName;
+            dict[vp + ".IsVirtual"] = true;
+            dict[vp + ".AppFormula"] = vc.f;
+            dict[vp + ".DisplayName"] = vc.d;
+        });
+
+        store.dispatch({ type: 'SET_EDITOR_OPTIONS', nameValueDict: dict, recordHistory: true, ignoreConstraints: false, skipNavigation: false });
+        store.dispatch({ type: 'SHOW_SAVE_BUTTON', value: true });
+        console.log("[OmmNoMi SUCCESS] Step 1 Applied! Survey_ID is now Ref+IsPartOf, and 5 Virtual Columns added.");
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1494:70 [OmmNoMi SUCCESS] Step 1 Applied! Survey_ID is now Ref+IsPartOf, and 5 Virtual Columns added.
+undefined
+(function fixStep1RefAndVCs() {
+    try {
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var fKey = Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; });
+            var f = root[fKey];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; window.appStore = store; break; }
+                f = f.return;
+            }
+        }
+        if (!store) { console.error("[ERROR] Redux store not accessible"); return; }
+
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var schemas = (h && h.AppData && h.AppData.DataSchemas) || [];
+        var sIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Status_Profile'; }))); });
+        var cIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Table_Type'; }))); });
+
+        var parentName = (schemas[sIdx].TableName || schemas[sIdx].Name || "Survey").replace(/_Schema$/i, '');
+        var childName = (schemas[cIdx].TableName || schemas[cIdx].Name || "Survey_Tables").replace(/_Schema$/i, '');
+
+        var dict = {};
+        // 1. Configure Survey_ID as Ref + IsPartOf
+        var sidIdx = schemas[cIdx].Attributes.findIndex(function(a) { return a.Name === 'Survey_ID'; });
+        if (sidIdx !== -1) {
+            var p = "AppData.DataSchemas[" + cIdx + "].Attributes[" + sidIdx + "]";
+            schemas[cIdx].Attributes[sidIdx].Type = "Ref";
+            schemas[cIdx].Attributes[sidIdx].ReferencedTableName = parentName;
+            schemas[cIdx].Attributes[sidIdx].ReferencedRootTableName = parentName;
+            schemas[cIdx].Attributes[sidIdx].IsPartOf = true;
+            dict[p + ".Type"] = "Ref";
+            dict[p + ".ReferencedTableName"] = parentName;
+            dict[p + ".ReferencedRootTableName"] = parentName;
+            dict[p + ".IsPartOf"] = true;
+        }
+
+        // 2. Configure 5 Inline Virtual Columns
+        var vcs = [
+            { n: "Related_Q6_Labor", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q6_Labor\"))", d: '="Q6. Labor & Family Involvement"' },
+            { n: "Related_Q15_Turnover", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q15_Turnover\"))", d: '="Q15. Turnover & Net Profit"' },
+            { n: "Related_Q19_Capital", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q19_Capital\"))", d: '="Q19. Capital Arranged Over Time"' },
+            { n: "Related_Q20_Loan_Usage", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q20_Loan_Usage\"))", d: '="Q20. Loan Usage in Business"' },
+            { n: "Related_Q22_Trajectory", f: "=SELECT(" + childName + "[ID], AND([Survey_ID] = [_THISROW].[ID], [Table_Type] = \"Q22_Trajectory\"))", d: '="Q22. Business Trajectory & Changes"' }
+        ];
+
+        var sAttrs = schemas[sIdx].Attributes;
+        vcs.forEach(function(vc) {
+            var idx = sAttrs.findIndex(function(a) { return a.Name === vc.n; });
+            if (idx === -1) {
+                sAttrs.push({ Name: vc.n, Type: "List", EnumListElementTypeName: "Ref", ReferencedTableName: childName, ReferencedRootTableName: childName, IsVirtual: true, IsReadOnly: true, AppFormula: vc.f, DisplayName: vc.d });
+                idx = sAttrs.length - 1;
+            } else {
+                sAttrs[idx].Type = "List"; sAttrs[idx].EnumListElementTypeName = "Ref"; sAttrs[idx].ReferencedTableName = childName; sAttrs[idx].ReferencedRootTableName = childName; sAttrs[idx].IsVirtual = true; sAttrs[idx].AppFormula = vc.f; sAttrs[idx].DisplayName = vc.d;
+            }
+            var vp = "AppData.DataSchemas[" + sIdx + "].Attributes[" + idx + "]";
+            dict[vp + ".Name"] = vc.n;
+            dict[vp + ".Type"] = "List";
+            dict[vp + ".EnumListElementTypeName"] = "Ref";
+            dict[vp + ".ReferencedTableName"] = childName;
+            dict[vp + ".ReferencedRootTableName"] = childName;
+            dict[vp + ".IsVirtual"] = true;
+            dict[vp + ".AppFormula"] = vc.f;
+            dict[vp + ".DisplayName"] = vc.d;
+        });
+
+        store.dispatch({ type: 'SET_EDITOR_OPTIONS', nameValueDict: dict, recordHistory: true, ignoreConstraints: false, skipNavigation: false });
+        store.dispatch({ type: 'SHOW_SAVE_BUTTON', value: true });
+        console.log("[OmmNoMi SUCCESS] Step 1 Applied! Click SAVE button in top-right.");
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1533:70 [OmmNoMi SUCCESS] Step 1 Applied! Click SAVE button in top-right.
+undefined
+(function checkIsPartOfVisibility() {
+    try {
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var fKey = Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; });
+            var f = root[fKey];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; break; }
+                f = f.return;
+            }
+        }
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var schemas = (h && h.AppData && h.AppData.DataSchemas) || [];
+        var views = (h && h.AppViews) || [];
+
+        var survey = schemas.find(function(s) { return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey'); });
+        var child = schemas.find(function(s) { return s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables'); });
+
+        var sId = child ? child.Attributes.find(function(a) { return a.Name === 'Survey_ID'; }) : null;
+        console.log("[CHECK 1] Survey_ID Type:", sId ? sId.Type : "null", "| RefTable:", sId ? sId.ReferencedTableName : "null", "| IsPartOf:", sId ? sId.IsPartOf : "null");
+
+        var vcs = survey ? survey.Attributes.filter(function(a) { return a.Name.indexOf('Related') >= 0; }).map(function(a) { return a.Name; }) : [];
+        console.log("[CHECK 2] Related VCs in Survey:", vcs);
+
+        var formView = views.find(function(v) { return v && (v.Name === 'Survey_Form' || v.ViewType === 'Form'); });
+        if (formView) {
+            console.log("[CHECK 3] Form View:", formView.Name, "| ColumnOrder length:", formView.ColumnOrder ? formView.ColumnOrder.length : "ALL");
+            if (formView.ColumnOrder) {
+                var hasVCs = formView.ColumnOrder.filter(function(c) { return c.indexOf('Related') >= 0; });
+                console.log("[CHECK 4] Related cols in Form ColumnOrder:", hasVCs);
+            }
+        }
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1571:22 [CHECK 1] Survey_ID Type: Ref | RefTable: undefined | IsPartOf: undefined
+VM1571:25 [CHECK 2] Related VCs in Survey: (2) ['RelatedToCRP', 'Related Survey_Tables']
+undefined
+(function fixIsPartOfAndForm() {
+    try {
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var fKey = Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; });
+            var f = root[fKey];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; break; }
+                f = f.return;
+            }
+        }
+        if (!store) { console.error("[ERROR] Redux store not found"); return; }
+
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var schemas = (h && h.AppData && h.AppData.DataSchemas) || [];
+        var sIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Status_Profile'; }))); });
+        var cIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables' || (s.Attributes && s.Attributes.some(function(a) { return a.Name === 'Table_Type'; }))); });
+
+        var parentName = (schemas[sIdx].TableName || schemas[sIdx].Name || "Survey").replace(/_Schema$/i, '');
+        var childName = (schemas[cIdx].TableName || schemas[cIdx].Name || "Survey_Tables").replace(/_Schema$/i, '');
+
+        var dict = {};
+
+        // 1. In Survey_Tables: Set IsAPartOf = true in BOTH Attribute & TypeAuxData
+        var sidIdx = schemas[cIdx].Attributes.findIndex(function(a) { return a.Name === 'Survey_ID'; });
+        if (sidIdx !== -1) {
+            var p = "AppData.DataSchemas[" + cIdx + "].Attributes[" + sidIdx + "]";
+            var attr = schemas[cIdx].Attributes[sidIdx];
+            attr.Type = "Ref";
+            attr.IsAPartOf = true;
+            attr.IsPartOf = true;
+            attr.ReferencedTableName = parentName;
+            attr.ReferencedRootTableName = parentName;
+
+            var auxObj = {};
+            if (attr.TypeAuxData) {
+                try { auxObj = typeof attr.TypeAuxData === 'string' ? JSON.parse(attr.TypeAuxData) : Object.assign({}, attr.TypeAuxData); } catch(e) {}
+            }
+            auxObj.ReferencedTableName = parentName;
+            auxObj.ReferencedRootTableName = parentName;
+            auxObj.IsAPartOf = true;
+            auxObj.IsPartOf = true;
+            var auxStr = JSON.stringify(auxObj);
+            attr.TypeAuxData = auxStr;
+
+            dict[p + ".Type"] = "Ref";
+            dict[p + ".IsAPartOf"] = true;
+            dict[p + ".IsPartOf"] = true;
+            dict[p + ".ReferencedTableName"] = parentName;
+            dict[p + ".ReferencedRootTableName"] = parentName;
+            dict[p + ".TypeAuxData"] = auxStr;
+        }
+
+        // 2. Ensure Form View includes the related sub-tables
+        var allViews = h.AppViews || (h.AppData && h.AppData.AppViews) || [];
+        var viewsList = Array.isArray(allViews) ? allViews : Object.values(allViews);
+        viewsList.forEach(function(v, vIdx) {
+            if (v && v.TableName === parentName && v.ViewType === 'Form') {
+                if (v.ColumnOrder && v.ColumnOrder.length > 0) {
+                    var vcs = ["Related_Q6_Labor", "Related_Q15_Turnover", "Related_Q19_Capital", "Related_Q20_Loan_Usage", "Related_Q22_Trajectory", "Related Survey_Tables"];
+                    vcs.forEach(function(vc) { if (v.ColumnOrder.indexOf(vc) === -1) v.ColumnOrder.push(vc); });
+                    var vPath = Array.isArray(allViews) ? "AppViews[" + vIdx + "].ColumnOrder" : "AppViews." + v.Name + ".ColumnOrder";
+                    dict[vPath] = v.ColumnOrder;
+                }
+            }
+        });
+
+        store.dispatch({ type: 'SET_EDITOR_OPTIONS', nameValueDict: dict, recordHistory: true, ignoreConstraints: false, skipNavigation: false });
+        store.dispatch({ type: 'SHOW_SAVE_BUTTON', value: true });
+        console.log("[OmmNoMi SUCCESS] IsAPartOf set to TRUE on Survey_ID, and Form View updated! Click SAVE button now.");
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1574:72 [OmmNoMi SUCCESS] IsAPartOf set to TRUE on Survey_ID, and Form View updated! Click SAVE button now.
+undefined
+(function inspectNativeIsPartOfStructure() {
+    try {
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var fKey = Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; });
+            var f = root[fKey];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; break; }
+                f = f.return;
+            }
+        }
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var schemas = (h && h.AppData && h.AppData.DataSchemas) || [];
+
+        var survey = schemas.find(function(s) { return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey'); });
+        var child = schemas.find(function(s) { return s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables'); });
+
+        console.log("=== 1. CHILD Survey_ID DEFINITION ===");
+        var sId = child ? child.Attributes.find(function(a) { return a.Name === 'Survey_ID'; }) : null;
+        if (sId) {
+            console.log("Type:", sId.Type);
+            console.log("ReferencedTableName:", sId.ReferencedTableName);
+            console.log("IsAPartOf:", sId.IsAPartOf, "IsPartOf:", sId.IsPartOf);
+            console.log("TypeAuxData:", sId.TypeAuxData);
+            console.log("TypeQualifier:", sId.TypeQualifier);
+        }
+
+        console.log("=== 2. PARENT AUTO-GENERATED Related VC DEFINITION ===");
+        var relCol = survey ? survey.Attributes.find(function(a) { return a.Name === 'Related Survey_Tables' || a.Name === 'Related Survey_Tabless'; }) : null;
+        if (relCol) {
+            console.log("Name:", relCol.Name);
+            console.log("Type:", relCol.Type);
+            console.log("EnumListElementTypeName:", relCol.EnumListElementTypeName);
+            console.log("AppFormula:", relCol.AppFormula);
+            console.log("ReferencedTableName:", relCol.ReferencedTableName);
+            console.log("TypeAuxData:", relCol.TypeAuxData);
+        } else {
+            console.log("No native 'Related Survey_Tables' found in Survey.");
+        }
+
+        console.log("=== 3. DATA SLICES ===");
+        var slices = (h && h.AppData && h.AppData.DataSlices) || h.DataSlices || [];
+        console.log("Existing Slices count:", Array.isArray(slices) ? slices.length : Object.keys(slices).length);
+        if (Array.isArray(slices)) {
+            slices.forEach(function(sl) { console.log(" - Slice:", sl.Name, "Table:", sl.TableName, "Filter:", sl.FilterCondition); });
+        }
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1613:20 === 1. CHILD Survey_ID DEFINITION ===
+VM1613:23 Type: Ref
+VM1613:24 ReferencedTableName: undefined
+VM1613:25 IsAPartOf: undefined IsPartOf: undefined
+VM1613:26 TypeAuxData: {"ReferencedTableName":"Survey","ReferencedRootTableName":"Survey","ReferencedType":"Text","ReferencedTypeQualifier":"{\"MaxLength\":null,\"MinLength\":null,\"LongTextFormatting\":\"Plain Text\",\"IsMulticolumnKey\":false,\"Valid_If\":null,\"Error_Message_If_Invalid\":null,\"Show_If\":null,\"Required_If\":null,\"Editable_If\":null,\"Reset_If\":null,\"Suggested_Values\":null}","ReferencedKeyColumn":"ID","IsAPartOf":true,"RelationshipName":null,"InputMode":"Auto","Valid_If":null,"Error_Message_If_Invalid":null,"Show_If":null,"Required_If":null,"Editable_If":null,"Reset_If":null,"Suggested_Values":null}
+VM1613:27 TypeQualifier: undefined
+VM1613:30 === 2. PARENT AUTO-GENERATED Related VC DEFINITION ===
+VM1613:33 Name: Related Survey_Tables
+VM1613:34 Type: List
+VM1613:35 EnumListElementTypeName: undefined
+VM1613:36 AppFormula: REF_ROWS("Survey_Tables", "Survey_ID")
+VM1613:37 ReferencedTableName: undefined
+VM1613:38 TypeAuxData: {"ElementType":"Ref","ElementTypeQualifier":"{\"ReferencedTableName\":\"Survey_Tables\",\"ReferencedRootTableName\":\"Survey_Tables\",\"ReferencedType\":\"Text\",\"ReferencedTypeQualifier\":\"{\\\"MaxLength\\\":null,\\\"MinLength\\\":null,\\\"LongTextFormatting\\\":\\\"Plain Text\\\",\\\"IsMulticolumnKey\\\":false,\\\"Valid_If\\\":null,\\\"Error_Message_If_Invalid\\\":null,\\\"Show_If\\\":null,\\\"Required_If\\\":null,\\\"Editable_If\\\":null,\\\"Reset_If\\\":null,\\\"Suggested_Values\\\":null}\",\"ReferencedKeyColumn\":\"ID\",\"IsAPartOf\":false,\"RelationshipName\":null,\"InputMode\":\"Auto\",\"Valid_If\":null,\"Error_Message_If_Invalid\":null,\"Show_If\":null,\"Required_If\":null,\"Editable_If\":null,\"Reset_If\":null,\"Suggested_Values\":null}","ItemSeparator":" , ","Valid_If":null,"Error_Message_If_Invalid":null,"Show_If":null,"Required_If":null,"Editable_If":null,"Reset_If":null,"Suggested_Values":null}
+VM1613:43 === 3. DATA SLICES ===
+VM1613:45 Existing Slices count: 0
+undefined
+(function inspectDataSlicesStructure() {
+    try {
+        var store = window.appStore;
+        if (!store) {
+            var root = document.querySelector('#root') || document.body;
+            var fKey = Object.keys(root).find(function(k) { return k.indexOf('reactFiber') >= 0; });
+            var f = root[fKey];
+            while (f) {
+                if (f.memoizedProps && f.memoizedProps.store) { store = f.memoizedProps.store; break; }
+                f = f.return;
+            }
+        }
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        console.log("DataSlices type:", typeof h.AppData.DataSlices, Array.isArray(h.AppData.DataSlices) ? "Array" : "Object");
+        console.log("DataSlices count:", h.AppData.DataSlices ? (Array.isArray(h.AppData.DataSlices) ? h.AppData.DataSlices.length : Object.keys(h.AppData.DataSlices).length) : 0);
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1620:15 DataSlices type: undefined Object
+VM1620:16 DataSlices count: 0
+undefined
+(function findSliceLocation() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        console.log("h keys:", Object.keys(h));
+        var sliceKeysInH = Object.keys(h).filter(function(k) { return k.toLowerCase().indexOf('slice') >= 0; });
+        console.log("h slice keys:", sliceKeysInH);
+        var sliceKeysInAppData = h.AppData ? Object.keys(h.AppData).filter(function(k) { return k.toLowerCase().indexOf('slice') >= 0; }) : [];
+        console.log("AppData slice keys:", sliceKeysInAppData);
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1624:6 h keys: (48) ['SubsystemVersionConfig', 'Id', 'ShortName', 'Name', 'Title', 'Description', 'DesignComments', 'PrivacyPolicy', 'TermsOfUse', 'UsePublicOwner', 'Category', 'Department', 'Industry', 'Tags', 'DateCreated', 'CreatedFrom', 'LastModified', 'Version', 'StableVersion', 'PercentOnLatestVersion', 'PlatformVersion', 'IsPublic', 'IsTeamPublic', 'OwnerId', 'OriginalOwnerId', 'Status', 'Presentation', 'Behavior', 'AppData', 'UserRoles', 'IsRunnable', 'IsDeployable', 'IsPersonal', 'HasValidPlan', 'PlanViolationLevel', 'OwnerInPremiumPlan', 'OwnerSubscription', 'CloneFrom', 'CloneFromVersion', 'DefnFolderName', 'LastDataModified', 'NumEdits', 'RunnableCheckDate', 'IsValid', 'Visibility', 'DisableAutoUpdate', 'ComponentId', 'ExprLookup']
+VM1624:8 h slice keys: []
+VM1624:10 AppData slice keys: ['TableSlices']
+undefined
+(function inspectTableSlices() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var ts = h.AppData.TableSlices;
+        console.log("=== TableSlices Inspection ===");
+        console.log("Type:", typeof ts);
+        console.log("Is Array:", Array.isArray(ts));
+        if (Array.isArray(ts)) {
+            console.log("Length:", ts.length);
+            if (ts.length > 0) {
+                console.log("Sample Slice:", JSON.stringify(ts[0], null, 2));
+            }
+        } else if (ts && typeof ts === "object") {
+            console.log("Keys:", Object.keys(ts));
+            var firstKey = Object.keys(ts)[0];
+            if (firstKey) {
+                console.log("Sample Slice (" + firstKey + "):", JSON.stringify(ts[firstKey], null, 2));
+            }
+        }
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1628:7 === TableSlices Inspection ===
+VM1628:8 Type: object
+VM1628:9 Is Array: true
+VM1628:11 Length: 1
+VM1628:13 Sample Slice: {
+  "Name": "Me",
+  "SourceTable": "AppUser",
+  "SourceColumn": null,
+  "RowFilterCondition": null,
+  "RowFilterParameter": null,
+  "Columns": [
+    "_RowNumber",
+    "ID",
+    "Email",
+    "Name",
+    "Role",
+    "District",
+    "Language",
+    "DailyTarget",
+    "Status",
+    "CompletedToday",
+    "DraftsPending",
+    "TodayTargetRemaining",
+    "TodayProgress",
+    "LastEditBy",
+    "LastEditOn"
+  ],
+  "Actions": [
+    "**auto**"
+  ],
+  "FilterExpression": {
+    "Expression": "",
+    "Description": {
+      "Content": "",
+      "SystemGenerated": false
+    }
+  },
+  "FilterCondition": "=AND(\n  [Email] = USEREMAIL(),\n  [Status] = \"Active\"\n)",
+  "FilterEvaluatable": {
+    "$type": "Jeenee.DataTypes.CompositeBooleanExpression+Evaluatable, Jeenee.DataTypes",
+    "BoolType": "AND",
+    "EvalType": "BOOLEAN",
+    "IsAtomic": false,
+    "IsSargable": true,
+    "SourceExpr": "AND(([Email] = USEREMAIL()), ([Status] = \"Active\"))",
+    "Children": [
+      {
+        "$type": "Jeenee.DataTypes.AtomicBooleanExpression+Evaluatable, Jeenee.DataTypes",
+        "EvalType": "BOOLEAN",
+        "OperatorName": "Equals",
+        "IsAtomic": true,
+        "IsSargable": true,
+        "SourceExpr": "([Email] = USEREMAIL())",
+        "Children": [
+          {
+            "$type": "Jeenee.DataTypes.ColumnValueExpression+Evaluatable, Jeenee.DataTypes",
+            "EvalType": "COLUMN",
+            "ColIndex": 3,
+            "ColName": "Email",
+            "ContextLevel": 0,
+            "SourceExpr": "[Email]",
+            "Children": [],
+            "ColumnsReferenced": [
+              3
+            ],
+            "AncColumnsReferenced": [],
+            "TablesReferenced": [],
+            "ResultType": "Email",
+            "ResultTypeQualifier": {
+              "Valid_If": null,
+              "Error_Message_If_Invalid": null,
+              "Show_If": null,
+              "Required_If": null,
+              "Editable_If": null,
+              "Reset_If": null,
+              "Suggested_Values": null
+            },
+            "IsPure": true,
+            "MayBeExpensive": false,
+            "EagerEvalChildren": true
+          },
+          {
+            "$type": "Jeenee.DataTypes.BuiltinFunctionExpression+Evaluatable, Jeenee.DataTypes",
+            "EvalType": "FUNCTION",
+            "FunctionName": "USEREMAIL",
+            "IsPure": true,
+            "MayBeExpensive": false,
+            "EagerEvalChildren": true,
+            "ShouldCurry": true,
+            "SourceExpr": "USEREMAIL()",
+            "Children": [],
+            "ColumnsReferenced": [],
+            "AncColumnsReferenced": [],
+            "TablesReferenced": [],
+            "ResultType": "Email",
+            "ResultTypeQualifier": {
+              "Valid_If": null,
+              "Error_Message_If_Invalid": null,
+              "Show_If": null,
+              "Required_If": null,
+              "Editable_If": null,
+              "Reset_If": null,
+              "Suggested_Values": null
+            }
+          }
+        ],
+        "ColumnsReferenced": [
+          3
+        ],
+        "AncColumnsReferenced": [],
+        "TablesReferenced": [],
+        "ResultType": "Yes/No",
+        "ResultTypeQualifier": {
+          "$type": "Jeenee.DataTypes.AppTypeBoolean+BooleanMetaData, Jeenee.DataTypes",
+          "YesLabel": "",
+          "NoLabel": "",
+          "Valid_If": null,
+          "Error_Message_If_Invalid": null,
+          "Show_If": null,
+          "Required_If": null,
+          "Editable_If": null,
+          "Reset_If": null,
+          "Suggested_Values": null
+        },
+        "IsPure": true,
+        "MayBeExpensive": false,
+        "EagerEvalChildren": true
+      },
+      {
+        "$type": "Jeenee.DataTypes.AtomicBooleanExpression+Evaluatable, Jeenee.DataTypes",
+        "EvalType": "BOOLEAN",
+        "OperatorName": "Equals",
+        "IsAtomic": true,
+        "IsSargable": true,
+        "SourceExpr": "([Status] = \"Active\")",
+        "Children": [
+          {
+            "$type": "Jeenee.DataTypes.ColumnValueExpression+Evaluatable, Jeenee.DataTypes",
+            "EvalType": "COLUMN",
+            "ColIndex": 8,
+            "ColName": "Status",
+            "ContextLevel": 0,
+            "SourceExpr": "[Status]",
+            "Children": [],
+            "ColumnsReferenced": [
+              8
+            ],
+            "AncColumnsReferenced": [],
+            "TablesReferenced": [],
+            "ResultType": "Text",
+            "ResultTypeQualifier": {
+              "$type": "Jeenee.DataTypes.AppTypeTextBase+TextMetaData, Jeenee.DataTypes",
+              "MaxLength": null,
+              "MinLength": null,
+              "LongTextFormatting": "Plain Text",
+              "IsMulticolumnKey": false,
+              "Valid_If": null,
+              "Error_Message_If_Invalid": null,
+              "Show_If": null,
+              "Required_If": null,
+              "Editable_If": null,
+              "Reset_If": null,
+              "Suggested_Values": null
+            },
+            "IsPure": true,
+            "MayBeExpensive": false,
+            "EagerEvalChildren": true
+          },
+          {
+            "$type": "Jeenee.DataTypes.ConstantValueExpression+Evaluatable, Jeenee.DataTypes",
+            "EvalType": "CONSTANT",
+            "ConstantValue": "Active",
+            "SourceExpr": "\"Active\"",
+            "Children": [],
+            "ColumnsReferenced": [],
+            "AncColumnsReferenced": [],
+            "TablesReferenced": [],
+            "ResultType": "Text",
+            "ResultTypeQualifier": {
+              "$type": "Jeenee.DataTypes.AppTypeTextBase+TextMetaData, Jeenee.DataTypes",
+              "MaxLength": null,
+              "MinLength": null,
+              "LongTextFormatting": "Plain Text",
+              "IsMulticolumnKey": false,
+              "Valid_If": null,
+              "Error_Message_If_Invalid": null,
+              "Show_If": null,
+              "Required_If": null,
+              "Editable_If": null,
+              "Reset_If": null,
+              "Suggested_Values": null
+            },
+            "IsPure": true,
+            "MayBeExpensive": false,
+            "EagerEvalChildren": true
+          }
+        ],
+        "ColumnsReferenced": [
+          8
+        ],
+        "AncColumnsReferenced": [],
+        "TablesReferenced": [],
+        "ResultType": "Yes/No",
+        "ResultTypeQualifier": {
+          "$type": "Jeenee.DataTypes.AppTypeBoolean+BooleanMetaData, Jeenee.DataTypes",
+          "YesLabel": "",
+          "NoLabel": "",
+          "Valid_If": null,
+          "Error_Message_If_Invalid": null,
+          "Show_If": null,
+          "Required_If": null,
+          "Editable_If": null,
+          "Reset_If": null,
+          "Suggested_Values": null
+        },
+        "IsPure": true,
+        "MayBeExpensive": false,
+        "EagerEvalChildren": true
+      }
+    ],
+    "ColumnsReferenced": [
+      3,
+      8
+    ],
+    "AncColumnsReferenced": [],
+    "TablesReferenced": [],
+    "ResultType": "Yes/No",
+    "ResultTypeQualifier": {
+      "$type": "Jeenee.DataTypes.AppTypeBoolean+BooleanMetaData, Jeenee.DataTypes",
+      "YesLabel": "",
+      "NoLabel": "",
+      "Valid_If": null,
+      "Error_Message_If_Invalid": null,
+      "Show_If": null,
+      "Required_If": null,
+      "Editable_If": null,
+      "Reset_If": null,
+      "Suggested_Values": null
+    },
+    "IsPure": true,
+    "MayBeExpensive": false,
+    "EagerEvalChildren": true
+  },
+  "AllowedUpdates": 0,
+  "UpdateMode": 7,
+  "Comment": null,
+  "IsValid": true,
+  "Visibility": "ALWAYS",
+  "DisableAutoUpdate": false,
+  "ComponentId": "KW6FXPA66AFDARP3VFB45XVW6EY",
+  "ExprLookup": {},
+  "_index": 0,
+  "_path": "AppData.TableSlices[0]"
+}
+undefined
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+(function testSingleSliceQ6() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var schemas = (h && h.AppData && h.AppData.DataSchemas) || [];
+        var sIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey'); });
+        var cIdx = schemas.findIndex(function(s) { return s && (s.Name === 'Survey_Tables_Schema' || s.Name === 'Survey_Tables'); });
+
+        var childCols = schemas[cIdx].Attributes.map(function(a) { return a.Name; });
+
+        // 1. Create Slice_Q6_Labor in AppData.TableSlices
+        var slices = h.AppData.TableSlices || [];
+        var sliceIdx = slices.findIndex(function(sl) { return sl && sl.Name === 'Slice_Q6_Labor'; });
+        var sliceObj = {
+            Name: "Slice_Q6_Labor",
+            SourceTable: "Survey_Tables",
+            SourceColumn: null,
+            RowFilterCondition: null,
+            RowFilterParameter: null,
+            Columns: childCols,
+            Actions: ["**auto**"],
+            FilterExpression: { Expression: "", Description: { Content: "", SystemGenerated: false } },
+            FilterCondition: '=[Table_Type] = "Q6_Labor"',
+            AllowedUpdates: 0,
+            UpdateMode: 7,
+            Comment: "Q6 Labor Inline Slice",
+            IsValid: true,
+            Visibility: "ALWAYS",
+            DisableAutoUpdate: false
+        };
+
+        if (sliceIdx === -1) {
+            slices.push(sliceObj);
+        } else {
+            slices[sliceIdx] = Object.assign(slices[sliceIdx], sliceObj);
+        }
+
+        var dict = {};
+        dict["AppData.TableSlices"] = slices;
+
+        // 2. Add Virtual Column with REF_ROWS to Survey
+        var surveyAttrs = schemas[sIdx].Attributes;
+        var vcIdx = surveyAttrs.findIndex(function(a) { return a.Name === 'Related_Q6_Labor'; });
+        var refQual = JSON.stringify({ MaxLength: null, MinLength: null, LongTextFormatting: "Plain Text", IsMulticolumnKey: false });
+        var elemQual = JSON.stringify({ ReferencedTableName: "Slice_Q6_Labor", ReferencedRootTableName: "Survey_Tables", ReferencedType: "Text", ReferencedTypeQualifier: refQual, ReferencedKeyColumn: "ID", IsAPartOf: false, InputMode: "Auto" });
+        var auxData = JSON.stringify({ ElementType: "Ref", ElementTypeQualifier: elemQual, ItemSeparator: " , " });
+
+        var formula = '=REF_ROWS("Slice_Q6_Labor", "Survey_ID")';
+        var dName = '="Q6. Family members and hired help in business operations"';
+
+        if (vcIdx === -1) {
+            surveyAttrs.push({ Name: "Related_Q6_Labor", Type: "List", EnumListElementTypeName: "Ref", ReferencedTableName: "Slice_Q6_Labor", ReferencedRootTableName: "Survey_Tables", IsVirtual: true, IsReadOnly: true, AppFormula: formula, DisplayName: dName, TypeAuxData: auxData });
+            vcIdx = surveyAttrs.length - 1;
+        } else {
+            var a = surveyAttrs[vcIdx];
+            a.Type = "List"; a.EnumListElementTypeName = "Ref"; a.ReferencedTableName = "Slice_Q6_Labor"; a.ReferencedRootTableName = "Survey_Tables"; a.IsVirtual = true; a.AppFormula = formula; a.DisplayName = dName; a.TypeAuxData = auxData;
+        }
+
+        var p = "AppData.DataSchemas[" + sIdx + "].Attributes[" + vcIdx + "]";
+        dict[p + ".Name"] = "Related_Q6_Labor";
+        dict[p + ".Type"] = "List";
+        dict[p + ".EnumListElementTypeName"] = "Ref";
+        dict[p + ".ReferencedTableName"] = "Slice_Q6_Labor";
+        dict[p + ".ReferencedRootTableName"] = "Survey_Tables";
+        dict[p + ".IsVirtual"] = true;
+        dict[p + ".AppFormula"] = formula;
+        dict[p + ".DisplayName"] = dName;
+        dict[p + ".TypeAuxData"] = auxData;
+
+        // 3. Place into Form ColumnOrder right after LocationConvenience
+        var allViews = h.AppViews || (h.AppData && h.AppData.AppViews) || [];
+        var viewsList = Array.isArray(allViews) ? allViews : Object.values(allViews);
+        var form = viewsList.find(function(v) { return v && (v.Name === 'Survey_Form' || (v.TableName === 'Survey' && v.ViewType === 'Form')); });
+        if (form && form.ColumnOrder) {
+            var cOrder = form.ColumnOrder;
+            var pos = cOrder.indexOf("LocationConvenience");
+            var curPos = cOrder.indexOf("Related_Q6_Labor");
+            if (curPos >= 0) cOrder.splice(curPos, 1);
+            if (pos >= 0) {
+                cOrder.splice(pos + 1, 0, "Related_Q6_Labor");
+            } else {
+                cOrder.push("Related_Q6_Labor");
+            }
+            var formKey = Array.isArray(allViews) ? "AppViews[" + viewsList.indexOf(form) + "].ColumnOrder" : "AppViews." + form.Name + ".ColumnOrder";
+            dict[formKey] = cOrder;
+        }
+
+        store.dispatch({ type: 'SET_EDITOR_OPTIONS', nameValueDict: dict, recordHistory: true, ignoreConstraints: false, skipNavigation: false });
+        store.dispatch({ type: 'SHOW_SAVE_BUTTON', value: true });
+        console.log("[OmmNoMi SUCCESS] Q6 Slice and Inline Form column configured! Save button ready.");
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1637:91 [OmmNoMi SUCCESS] Q6 Slice and Inline Form column configured! Save button ready.
+undefined
+(function inspectAllSurveyForms() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var views = h.AppViews || (h.AppData && h.AppData.AppViews) || [];
+        var viewsList = Array.isArray(views) ? views : Object.values(views);
+        console.log("=== All Form Views for Survey ===");
+        viewsList.forEach(function(v) {
+            if (v && v.ViewType === 'Form') {
+                console.log("Form:", v.Name, "| Table:", v.TableName, "| ColCount:", v.ColumnOrder ? v.ColumnOrder.length : "ALL");
+            }
+        });
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1680:8 === All Form Views for Survey ===
+undefined
+(function findSecCView() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var viewsList = (h.Presentation && h.Presentation.Views) || (h.AppData && h.AppData.Views) || [];
+        console.log("Total Views found:", viewsList.length);
+        var secC = viewsList.find(function(v) { return v && v.Name && v.Name.indexOf('SecC') >= 0; });
+        if (secC) {
+            console.log("Found SecC View:", secC.Name, "Type:", secC.ViewType);
+            console.log("ColumnOrder:", JSON.stringify(secC.ColumnOrder));
+        } else {
+            console.log("Views matching 'Sec':", viewsList.filter(function(v) { return v && v.Name && v.Name.indexOf('Sec') >= 0; }).map(function(v) { return v.Name; }));
+        }
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1684:7 Total Views found: 0
+VM1684:13 Views matching 'Sec': []
+undefined
+(function findSecCPath() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        console.log("state keys:", Object.keys(state));
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        if (h && h.Presentation) {
+            console.log("Presentation keys:", Object.keys(h.Presentation));
+        }
+        // Search where "SecC" appears in h
+        var hits = [];
+        function scan(obj, path, depth) {
+            if (!obj || depth > 5) return;
+            for (var k in obj) {
+                var val = obj[k];
+                if (typeof val === 'string' && val.indexOf('SecC') >= 0) {
+                    hits.push(path + "." + k + " = " + val);
+                } else if (typeof val === 'object' && val !== null) {
+                    scan(val, path + "." + k, depth + 1);
+                }
+            }
+        }
+        scan(h, "h", 0);
+        console.log("SecC hits in h:", hits.slice(0, 10));
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1688:5 state keys: (41) ['announcements', 'apiKeys', 'appData', 'appTemplate', 'authDomains', 'authDomainSources', 'authGroups', 'automation', 'bannerAlert', 'commonApi', 'chatUI', 'cloneApp', 'connectorPlatform', 'dataSources', 'editingEmulator', 'editorHighlighting', 'editorSettings', 'editorViewState', 'emulator', 'expressionEvaluatables', 'externalSources', 'featureCallouts', 'integrationChannels', 'manage', 'messengerState', 'modalSettings', 'notifications', 'readOnly', 'resolvedObjects', 'rightPanelReducer', 'signInAuthProviders', 'sketch', 'sources', 'sideNavigation', 'suggestionApi', 'suggestions', 'suggestionsBackup', 'userFeedback', 'users', 'webhookAppInfo', 'webhookPresets']
+VM1688:8 Presentation keys: (59) ['LogoUrl', 'BackgroundImageUrl', 'PageBackgroundImageUrl', 'DetailsUrl', 'TwitterHandle', 'FacebookHandle', 'DisplayTheme', 'FontSize', 'FontFamily', 'FormPageStyle', 'FormStyle', 'ShowColumnNames', 'ShowLogoOnLaunch', 'DisableUserSorting', 'HorizontalScrolling', 'ShowColumnsInOrder', 'HideFormNumbering', 'AutoAdvanceForms', 'RightAlignNumeric', 'UseAccountingFormat', 'MapPinMax', 'HidePointsOfInterest', 'ShowOverlayActionsInSubViews', 'SlideshowDisplayMode', 'SlideshowImageStyle', 'MaxNestedRows', 'SlideshowDesktopURLBehavior', 'SlideshowMobileURLBehavior', 'PhotoResolution', 'AllowGalleryAccess', 'AllowScanOverride', 'AllowLatLongOverride', 'DefaultStartView', 'StartWithAbout', 'ShowPreviewRollouts', 'UseMobileReactRoot', 'UseDesktopUI', 'ContentDirection', 'ActionNameMappings', 'HideSystemButtons', 'FormatRules', 'RespectShowIfEverywhere', 'ShowViewNameInHeader', 'ShowIconInHeader', 'HeaderStyle', 'FooterStyle', 'ShowNameEmailInSideMenu', 'ShowTypesInSlideshow', 'EnableFeedback', 'EnableAssistant', 'Controls', 'MenuEntries', 'EnableEmailAutoComplete', 'AgenticApps', 'IsValid', 'Visibility', 'DisableAutoUpdate', 'ComponentId', 'ExprLookup']
+VM1688:24 SecC hits in h: (6) ['h.Presentation.Controls.12.Name = Survey_Form_SecC', 'h.Presentation.MenuEntries.12.ViewName = Survey_Form_SecC', 'h.AppData.DataActions.17.ValueEvaluatable.SourceEx…URL("Survey_Form_SecC"),"&row=",ENCODEURL([ID])))', 'h.AppData.DataActions.17.ActionSettings = {"Naviga…":"","ModifiesData":false,"BulkApplicable":false}', 'h.AppData.DataActions.17.Name = Action_SecC', 'h.AppData.DataActions.17.ActionDefinition.NavigateTarget = LINKTOROW([ID], "Survey_Form_SecC")']
+undefined
+(function inspectSecCControl() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var controls = h.Presentation.Controls || [];
+        var secC = controls.find(function(c) { return c && c.Name === 'Survey_Form_SecC'; });
+        if (!secC) {
+            console.log("[ERROR] Survey_Form_SecC not found in Controls");
+            return;
+        }
+        console.log("=== Survey_Form_SecC Control ===");
+        console.log("Name:", secC.Name, "Type:", secC.Type);
+        console.log("Has ColumnOrder:", !!secC.ColumnOrder);
+        console.log("ColumnOrder items:", secC.ColumnOrder);
+        console.log("Controls index:", controls.indexOf(secC));
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1692:12 === Survey_Form_SecC Control ===
+VM1692:13 Name: Survey_Form_SecC Type: undefined
+VM1692:14 Has ColumnOrder: false
+VM1692:15 ColumnOrder items: undefined
+VM1692:16 Controls index: 12
+undefined
+(function inspectSecCAndShowIf() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var secC = h.Presentation.Controls[12];
+        console.log("=== 1. Survey_Form_SecC View ===");
+        console.log("TableName / Source:", secC.TableName || secC.SourceTable || secC.Source);
+        console.log("ViewType:", secC.ViewType || secC.Type);
+
+        console.log("=== 2. Show_If Check in Survey Schema ===");
+        var schemas = (h && h.AppData && h.AppData.DataSchemas) || [];
+        var survey = schemas.find(function(s) { return s && (s.Name === 'Survey_Schema' || s.Name === 'Survey'); });
+        if (survey && survey.Attributes) {
+            var q5 = survey.Attributes.find(function(a) { return a.Name === 'LocationConvenience'; });
+            var q7 = survey.Attributes.find(function(a) { return a.Name === 'AnnualSalaryBill'; });
+            var q6 = survey.Attributes.find(function(a) { return a.Name === 'Related_Q6_Labor'; });
+
+            console.log("Q5 LocationConvenience Show_If:", q5 ? q5.Show_If : "null");
+            console.log("Q7 AnnualSalaryBill Show_If:", q7 ? q7.Show_If : "null");
+            console.log("Q6 Related_Q6_Labor Show_If:", q6 ? q6.Show_If : "null");
+        }
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1696:7 === 1. Survey_Form_SecC View ===
+VM1696:8 TableName / Source: undefined
+VM1696:9 ViewType: undefined
+VM1696:11 === 2. Show_If Check in Survey Schema ===
+VM1696:19 Q5 LocationConvenience Show_If: undefined
+VM1696:20 Q7 AnnualSalaryBill Show_If: undefined
+VM1696:21 Q6 Related_Q6_Labor Show_If: null
+undefined
+(function printSecCJSON() {
+    try {
+        var store = window.appStore;
+        var state = store.getState();
+        var h = (state.appTemplate && state.appTemplate.history && state.appTemplate.history[0] && state.appTemplate.history[0].appTemplate) || (state.appTemplate && state.appTemplate.current);
+        var secC = h.Presentation.Controls[12];
+        console.log("=== Survey_Form_SecC Full JSON ===");
+        console.log(JSON.stringify(secC, null, 2));
+    } catch(e) {
+        console.error("[ERROR]", e.message);
+    }
+})();
+VM1700:7 === Survey_Form_SecC Full JSON ===
+VM1700:8 {
+  "Name": "Survey_Form_SecC",
+  "DisplayName": null,
+  "ShowIf": null,
+  "TableOrFolderName": "Survey",
+  "Action": "form",
+  "Position": "ref",
+  "Description": null,
+  "ActionType": null,
+  "Parameters": [],
+  "Settings": "{\"ColumnOrder\":[\"ReasonsStartingBusiness\",\"BusinessCycle\",\"BusinessCycleOther\",\"BusinessPlaceType\",\"AnnualRent\",\"LocationConvenience\",\"LocationConvenienceOther\",\"Labor_Purchase_Involvement\",\"Labor_Purchase_FamilyCount\",\"Labor_Purchase_HiredCount\",\"Labor_Purchase_AmountPaid\",\"Labor_Prod_Involvement\",\"Labor_Prod_FamilyCount\",\"Labor_Prod_HiredCount\",\"Labor_Prod_AmountPaid\",\"Labor_Serv_Involvement\",\"Labor_Serv_FamilyCount\",\"Labor_Serv_HiredCount\",\"Labor_Serv_AmountPaid\",\"Labor_Mktg_Involvement\",\"Labor_Mktg_FamilyCount\",\"Labor_Mktg_HiredCount\",\"Labor_Mktg_AmountPaid\",\"Labor_Sale_Involvement\",\"Labor_Sale_FamilyCount\",\"Labor_Sale_HiredCount\",\"Labor_Sale_AmountPaid\",\"Labor_Record_Involvement\",\"Labor_Record_FamilyCount\",\"Labor_Record_HiredCount\",\"Labor_Record_AmountPaid\",\"AnnualSalaryBill\",\"Sourcing_NearbyTown_Pct\",\"Sourcing_Jaipur_Pct\",\"Sourcing_OutsideState_Pct\",\"Sourcing_Online_Pct\",\"Sourcing_WhatsApp_Pct\",\"MarketingMethods\",\"MarketingMethodsOther\",\"SeasonalSalesMethod\",\"SeasonalSalesOnlinePlatform\",\"SeasonalSalesOther\",\"SocialMediaForMarketing\",\"SocialMediaForMarketingOther\",\"SalesChannel_Online_Pct\",\"SalesChannel_WhatsApp_Pct\",\"SalesChannel_Instagram_Pct\",\"SalesChannel_Premise_Pct\",\"SalesChannel_Traders_Pct\",\"SalesChannel_Haat_Pct\",\"SalesChannel_Saras_Pct\",\"RecordKeepingHabit\",\"RecordKeepingMethod\",\"RecordKeepingOther\",\"Turnover_Peak_Months\",\"Turnover_Peak_Sales\",\"Turnover_Peak_Profit\",\"Turnover_Avg_Months\",\"Turnover_Avg_Sales\",\"Turnover_Avg_Profit\",\"Turnover_Lean_Months\",\"Turnover_Lean_Sales\",\"Turnover_Lean_Profit\",\"InitialStartCapital\",\"InitialCapitalArranged\",\"SHGAssociationAssistance\",\"Cap_OwnSavings_Yr1\",\"Cap_OwnSavings_Mid\",\"Cap_OwnSavings_Cur\",\"Cap_OwnSavings_Pending\",\"Cap_OwnSavings_Usage\",\"Cap_Family_Yr1\",\"Cap_Family_Mid\",\"Cap_Family_Cur\",\"Cap_Family_Pending\",\"Cap_Family_Usage\",\"Cap_Profit_Yr1\",\"Cap_Profit_Mid\",\"Cap_Profit_Cur\",\"Cap_Profit_Pending\",\"Cap_Profit_Usage\",\"Cap_MortgGold_Yr1\",\"Cap_MortgGold_Mid\",\"Cap_MortgGold_Cur\",\"Cap_MortgGold_Pending\",\"Cap_MortgGold_Usage\",\"Cap_SoldGold_Yr1\",\"Cap_SoldGold_Mid\",\"Cap_SoldGold_Cur\",\"Cap_SoldGold_Pending\",\"Cap_SoldGold_Usage\",\"Cap_FamLoan_Yr1\",\"Cap_FamLoan_Mid\",\"Cap_FamLoan_Cur\",\"Cap_FamLoan_Pending\",\"Cap_FamLoan_Usage\",\"Cap_Moneylender_Yr1\",\"Cap_Moneylender_Mid\",\"Cap_Moneylender_Cur\",\"Cap_Moneylender_Pending\",\"Cap_Moneylender_Usage\",\"Cap_SHGLoan_Yr1\",\"Cap_SHGLoan_Mid\",\"Cap_SHGLoan_Cur\",\"Cap_SHGLoan_Pending\",\"Cap_SHGLoan_Usage\",\"Cap_OSFSVEPLoan_Yr1\",\"Cap_OSFSVEPLoan_Mid\",\"Cap_OSFSVEPLoan_Cur\",\"Cap_OSFSVEPLoan_Pending\",\"Cap_OSFSVEPLoan_Usage\",\"Cap_OSFSubsidy_Yr1\",\"Cap_OSFSubsidy_Mid\",\"Cap_OSFSubsidy_Cur\",\"Cap_OSFSubsidy_Pending\",\"Cap_OSFSubsidy_Usage\",\"Cap_PrivSaving_Yr1\",\"Cap_PrivSaving_Mid\",\"Cap_PrivSaving_Cur\",\"Cap_PrivSaving_Pending\",\"Cap_PrivSaving_Usage\",\"Cap_NBFC_Yr1\",\"Cap_NBFC_Mid\",\"Cap_NBFC_Cur\",\"Cap_NBFC_Pending\",\"Cap_NBFC_Usage\",\"Cap_Mudra_Yr1\",\"Cap_Mudra_Mid\",\"Cap_Mudra_Cur\",\"Cap_Mudra_Pending\",\"Cap_Mudra_Usage\",\"Cap_BankLoan_Yr1\",\"Cap_BankLoan_Mid\",\"Cap_BankLoan_Cur\",\"Cap_BankLoan_Pending\",\"Cap_BankLoan_Usage\",\"MonthlyIncomeIncreaseByOSFSVEP\",\"Trajectory_Sales_Yr1\",\"Trajectory_Sales_Cur\",\"Trajectory_Income_Yr1\",\"Trajectory_Income_Cur\",\"Trajectory_TradeStock_Yr1\",\"Trajectory_TradeStock_Cur\",\"Trajectory_ProdInputs_Yr1\",\"Trajectory_ProdInputs_Cur\",\"Trajectory_ProdFinished_Yr1\",\"Trajectory_ProdFinished_Cur\",\"Trajectory_ServAssets_Yr1\",\"Trajectory_ServAssets_Cur\",\"FinancialHelpFromIncome\",\"FinancialHelp_EducationAmt\",\"FinancialHelp_DebtsAmt\",\"FinancialHelp_AssetsAmt\",\"FinancialHelp_MarriageAmt\"],\"AutoSave\":false,\"AutoReopen\":false,\"FinishView\":\"**Automatic**\",\"RowKey\":\"\",\"FormStyle\":\"Automatic\",\"PageStyle\":\"Automatic\",\"FormFooterStyle\":\"Bottom\",\"MaxNestedRows\":5,\"AudioInput\":false,\"Events\":[{\"EventType\":\"Form Saved\",\"EventAction\":\"**auto**\"}],\"Icon\":\"fa-edit\",\"IconRunnerUps\":null,\"MenuOrder\":1}",
+  "ViewDefinition": {
+    "$type": "Jeenee.DataTypes.FormViewSettings, Jeenee.DataTypes",
+    "ColumnOrder": [
+      "ReasonsStartingBusiness",
+      "BusinessCycle",
+      "BusinessCycleOther",
+      "BusinessPlaceType",
+      "AnnualRent",
+      "LocationConvenience",
+      "LocationConvenienceOther",
+      "Labor_Purchase_Involvement",
+      "Labor_Purchase_FamilyCount",
+      "Labor_Purchase_HiredCount",
+      "Labor_Purchase_AmountPaid",
+      "Labor_Prod_Involvement",
+      "Labor_Prod_FamilyCount",
+      "Labor_Prod_HiredCount",
+      "Labor_Prod_AmountPaid",
+      "Labor_Serv_Involvement",
+      "Labor_Serv_FamilyCount",
+      "Labor_Serv_HiredCount",
+      "Labor_Serv_AmountPaid",
+      "Labor_Mktg_Involvement",
+      "Labor_Mktg_FamilyCount",
+      "Labor_Mktg_HiredCount",
+      "Labor_Mktg_AmountPaid",
+      "Labor_Sale_Involvement",
+      "Labor_Sale_FamilyCount",
+      "Labor_Sale_HiredCount",
+      "Labor_Sale_AmountPaid",
+      "Labor_Record_Involvement",
+      "Labor_Record_FamilyCount",
+      "Labor_Record_HiredCount",
+      "Labor_Record_AmountPaid",
+      "AnnualSalaryBill",
+      "Sourcing_NearbyTown_Pct",
+      "Sourcing_Jaipur_Pct",
+      "Sourcing_OutsideState_Pct",
+      "Sourcing_Online_Pct",
+      "Sourcing_WhatsApp_Pct",
+      "MarketingMethods",
+      "MarketingMethodsOther",
+      "SeasonalSalesMethod",
+      "SeasonalSalesOnlinePlatform",
+      "SeasonalSalesOther",
+      "SocialMediaForMarketing",
+      "SocialMediaForMarketingOther",
+      "SalesChannel_Online_Pct",
+      "SalesChannel_WhatsApp_Pct",
+      "SalesChannel_Instagram_Pct",
+      "SalesChannel_Premise_Pct",
+      "SalesChannel_Traders_Pct",
+      "SalesChannel_Haat_Pct",
+      "SalesChannel_Saras_Pct",
+      "RecordKeepingHabit",
+      "RecordKeepingMethod",
+      "RecordKeepingOther",
+      "Turnover_Peak_Months",
+      "Turnover_Peak_Sales",
+      "Turnover_Peak_Profit",
+      "Turnover_Avg_Months",
+      "Turnover_Avg_Sales",
+      "Turnover_Avg_Profit",
+      "Turnover_Lean_Months",
+      "Turnover_Lean_Sales",
+      "Turnover_Lean_Profit",
+      "InitialStartCapital",
+      "InitialCapitalArranged",
+      "SHGAssociationAssistance",
+      "Cap_OwnSavings_Yr1",
+      "Cap_OwnSavings_Mid",
+      "Cap_OwnSavings_Cur",
+      "Cap_OwnSavings_Pending",
+      "Cap_OwnSavings_Usage",
+      "Cap_Family_Yr1",
+      "Cap_Family_Mid",
+      "Cap_Family_Cur",
+      "Cap_Family_Pending",
+      "Cap_Family_Usage",
+      "Cap_Profit_Yr1",
+      "Cap_Profit_Mid",
+      "Cap_Profit_Cur",
+      "Cap_Profit_Pending",
+      "Cap_Profit_Usage",
+      "Cap_MortgGold_Yr1",
+      "Cap_MortgGold_Mid",
+      "Cap_MortgGold_Cur",
+      "Cap_MortgGold_Pending",
+      "Cap_MortgGold_Usage",
+      "Cap_SoldGold_Yr1",
+      "Cap_SoldGold_Mid",
+      "Cap_SoldGold_Cur",
+      "Cap_SoldGold_Pending",
+      "Cap_SoldGold_Usage",
+      "Cap_FamLoan_Yr1",
+      "Cap_FamLoan_Mid",
+      "Cap_FamLoan_Cur",
+      "Cap_FamLoan_Pending",
+      "Cap_FamLoan_Usage",
+      "Cap_Moneylender_Yr1",
+      "Cap_Moneylender_Mid",
+      "Cap_Moneylender_Cur",
+      "Cap_Moneylender_Pending",
+      "Cap_Moneylender_Usage",
+      "Cap_SHGLoan_Yr1",
+      "Cap_SHGLoan_Mid",
+      "Cap_SHGLoan_Cur",
+      "Cap_SHGLoan_Pending",
+      "Cap_SHGLoan_Usage",
+      "Cap_OSFSVEPLoan_Yr1",
+      "Cap_OSFSVEPLoan_Mid",
+      "Cap_OSFSVEPLoan_Cur",
+      "Cap_OSFSVEPLoan_Pending",
+      "Cap_OSFSVEPLoan_Usage",
+      "Cap_OSFSubsidy_Yr1",
+      "Cap_OSFSubsidy_Mid",
+      "Cap_OSFSubsidy_Cur",
+      "Cap_OSFSubsidy_Pending",
+      "Cap_OSFSubsidy_Usage",
+      "Cap_PrivSaving_Yr1",
+      "Cap_PrivSaving_Mid",
+      "Cap_PrivSaving_Cur",
+      "Cap_PrivSaving_Pending",
+      "Cap_PrivSaving_Usage",
+      "Cap_NBFC_Yr1",
+      "Cap_NBFC_Mid",
+      "Cap_NBFC_Cur",
+      "Cap_NBFC_Pending",
+      "Cap_NBFC_Usage",
+      "Cap_Mudra_Yr1",
+      "Cap_Mudra_Mid",
+      "Cap_Mudra_Cur",
+      "Cap_Mudra_Pending",
+      "Cap_Mudra_Usage",
+      "Cap_BankLoan_Yr1",
+      "Cap_BankLoan_Mid",
+      "Cap_BankLoan_Cur",
+      "Cap_BankLoan_Pending",
+      "Cap_BankLoan_Usage",
+      "MonthlyIncomeIncreaseByOSFSVEP",
+      "Trajectory_Sales_Yr1",
+      "Trajectory_Sales_Cur",
+      "Trajectory_Income_Yr1",
+      "Trajectory_Income_Cur",
+      "Trajectory_TradeStock_Yr1",
+      "Trajectory_TradeStock_Cur",
+      "Trajectory_ProdInputs_Yr1",
+      "Trajectory_ProdInputs_Cur",
+      "Trajectory_ProdFinished_Yr1",
+      "Trajectory_ProdFinished_Cur",
+      "Trajectory_ServAssets_Yr1",
+      "Trajectory_ServAssets_Cur",
+      "FinancialHelpFromIncome",
+      "FinancialHelp_EducationAmt",
+      "FinancialHelp_DebtsAmt",
+      "FinancialHelp_AssetsAmt",
+      "FinancialHelp_MarriageAmt"
+    ],
+    "AutoSave": false,
+    "AutoReopen": false,
+    "FinishView": "**Automatic**",
+    "RowKey": "",
+    "FormStyle": "Automatic",
+    "PageStyle": "Automatic",
+    "FormFooterStyle": "Bottom",
+    "MaxNestedRows": 5,
+    "AudioInput": false,
+    "Events": [
+      {
+        "EventType": "Form Saved",
+        "EventAction": "**auto**"
+      }
+    ],
+    "Icon": "fa-edit",
+    "IconRunnerUps": null,
+    "MenuOrder": 1
+  },
+  "CreatedBy": "App owner",
+  "Comment": null,
+  "IsValid": true,
+  "Visibility": "ALWAYS",
+  "DisableAutoUpdate": false,
+  "ComponentId": "KVIEW_C_1790022914762",
+  "ExprLookup": {},
+  "_index": 12,
+  "_path": "Presentation.Controls[12]",
+  "_isSystemGenerated": false,
+  "_isMinor": false
+}
+undefined
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-22T18:45:15+05:30.
+</ADDITIONAL_METADATA>

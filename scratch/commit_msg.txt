@@ -1,0 +1,35 @@
+feat(cmf-automation): reverse-engineer c# backend schemas, solve error 400 & task null bug, one-hit 15-row matrix bot creation via redux
+
+### Context & Executive Summary
+During the engineering of the Centre for microFinance (CmF) & RAJEEVIKA Study on SHG-led Women Entrepreneurs in Rajasthan App, auto-populating 15 fixed child matrix rows in Survey_Tables (Q15 Turnover 3 rows, Q6 Labor 6 rows, Q22 Trajectory 6 rows) required an error-free Automation Bot. Creating this manually through AppSheet GUI requires dozens of dialogs and hours of repetitive clicking. Leveraging DevTools Redux console automation enabled instant, programmatic creation.
+
+### Root Causes Diagnosed & Permanent Solutions
+
+1. C# Backend Deserializer Rejection (Error 400 Bad Request):
+   - Cause: Injected action payloads used speculative class/property names. AppSheet's .NET cloud backend (Jeenee.DataTypes.dll) deserializes via Newtonsoft.Json; invalid types trigger TypeNotFoundException and HTTP 400.
+   - Solution: Reverse-engineered AppSheet Webpack client bundles (Module 663518). Uncovered exact authentic C# schemas:
+     * Add Row Action: ActionType='ADD_RECORD_TO', ActionDefinition.$type='Jeenee.DataTypes.DataActionAddRowTo, Jeenee.DataTypes', properties 'ReferencedTable' and 'Assignments'.
+     * Root Action Object: $type must NEVER exist at top-level; belongs strictly inside ActionDefinition.
+     * Composite Action: ActionType='COMPOSITE', ActionDefinition.$type='Jeenee.DataTypes.DataActionComposite, Jeenee.DataTypes', property 'Actions'.
+     * Process Step Node: NodeType='RUN_ACTION', $type='Jeenee.DataTypes.ProcessNodes.RunActionNode, Jeenee.DataTypes' with required fields ExprLookup: {}, InputAssignments: [], OutputTableName: null.
+
+2. Canvas Click Crash ('Cannot read properties of null (reading Task)'):
+   - Cause: Simulating mouse/pointer clicks on canvas (+) buttons triggered updateAppProcessNode, which dereferences Behavior.Tasks. Because Tasks was empty [], it threw a null pointer exception.
+   - Solution: Never rely on visual canvas DOM clicks. Mutate the Redux state tree directly (Behavior.AppProcesses) via SET_EDITOR_OPTIONS.
+
+3. Redux Store Resolution on Reload:
+   - Cause: Top-level elements do not always retain .store after reload or routing.
+   - Solution: Implemented universal 4-tier React Fiber walker scanning document.querySelectorAll('*') for __reactFiber and walking f.return until memoizedProps.store.dispatch is found.
+
+4. Form View ColumnOrder Isolation:
+   - Cause: AppSheet Form views store explicit field lists in Presentation.Controls[idx].ViewDefinition.ColumnOrder and serialized Settings.ColumnOrder. Virtual Columns outside this list are completely ignored.
+   - Solution: Synchronize both properties simultaneously when injecting child subtable VCs.
+
+### Master Composite Action Architecture
+Created 15 atomic ADD_RECORD_TO actions and grouped them into 1 master COMPOSITE action (Action_Auto_Create_All_Matrix_Rows), triggered by 1 single RUN_ACTION step on the YES branch of Check_Zero_Existing_Rows condition. Saved in <0.5s with zero errors.
+
+### Codification & Long-Term Memory
+- Updated .agents/AGENTS.md with Rule A7 (Automation Bot Redux Protocol) & Rule A8 (Full-App Generation from SRS).
+- Updated .agents/skills/sop-console-automation/SKILL.md with production template & SRS blueprint.
+- Appended comprehensive entries to .agents/LEARNINGS_LOG.md and Projects/CmF_SHG_Women_Entrepreneurs/Learnings.md.
+- Created architectural pattern AU-014 and deep-dive technical document APPSHEET_CONSOLE_AUTOMATION_DEEP_DIVE.md.

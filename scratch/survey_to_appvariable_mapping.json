@@ -1,0 +1,1046 @@
+[
+  {
+    "Survey_Column": "ID",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Status_Profile",
+    "AppVariable_ID": "Q_STAT_PROFILE",
+    "Title": "Profile Section Status",
+    "ValueControl": "Enum",
+    "VariableList": "SEC_NOT_STARTED , SEC_IN_PROGRESS , SEC_DONE , SEC_NA",
+    "Title_hi": "प्रोफ़ाइल भाग स्थिति",
+    "Title_raj": "प्रोफ़ाइल भाग स्थिति"
+  },
+  {
+    "Survey_Column": "Status_Operations",
+    "AppVariable_ID": "Q_STAT_OPERATIONS",
+    "Title": "Operations Section Status",
+    "ValueControl": "Enum",
+    "VariableList": "SEC_NOT_STARTED , SEC_IN_PROGRESS , SEC_DONE , SEC_NA",
+    "Title_hi": "उद्यम संचालन भाग स्थिति",
+    "Title_raj": "उद्यम संचालन भाग स्थिति"
+  },
+  {
+    "Survey_Column": "Status_Challenges",
+    "AppVariable_ID": "Q_STAT_CHALLENGES",
+    "Title": "Challenges Section Status",
+    "ValueControl": "Enum",
+    "VariableList": "SEC_NOT_STARTED , SEC_IN_PROGRESS , SEC_DONE , SEC_NA",
+    "Title_hi": "चुनौतियां भाग स्थिति",
+    "Title_raj": "अड़चनां भाग स्थिति"
+  },
+  {
+    "Survey_Column": "Status_SchemeImpact",
+    "AppVariable_ID": "Q_STAT_SCHEME",
+    "Title": "Scheme Impact Section Status",
+    "ValueControl": "Enum",
+    "VariableList": "SEC_NOT_STARTED , SEC_IN_PROGRESS , SEC_DONE , SEC_NA",
+    "Title_hi": "योजना प्रभाव भाग स्थिति",
+    "Title_raj": "योजना प्रभाव भाग स्थिति"
+  },
+  {
+    "Survey_Column": "Status_Digital",
+    "AppVariable_ID": "Q_STAT_DIGITAL",
+    "Title": "Digital Media Section Status",
+    "ValueControl": "Enum",
+    "VariableList": "SEC_NOT_STARTED , SEC_IN_PROGRESS , SEC_DONE , SEC_NA",
+    "Title_hi": "डिजिटल मीडिया भाग स्थिति",
+    "Title_raj": "डिजिटल मीडिया भाग स्थिति"
+  },
+  {
+    "Survey_Column": "Status_PostExit",
+    "AppVariable_ID": "Q_STAT_POST_EXIT",
+    "Title": "Post-Exit OSF Section Status",
+    "ValueControl": "Enum",
+    "VariableList": "SEC_NOT_STARTED , SEC_IN_PROGRESS , SEC_DONE , SEC_NA",
+    "Title_hi": "पोस्ट-एग्जिट OSF भाग स्थिति",
+    "Title_raj": "पोस्ट-एग्जिट OSF भाग स्थिति"
+  },
+  {
+    "Survey_Column": "District",
+    "AppVariable_ID": "Q_A_01_00",
+    "Title": "Q1. District",
+    "ValueControl": "VariableList",
+    "VariableList": "DIST_BARAN , DIST_CHURU , DIST_DAUSA , DIST_DUNGARPUR , DIST_JODHPUR",
+    "Title_hi": "Q1. जिला",
+    "Title_raj": "Q1. जिलो"
+  },
+  {
+    "Survey_Column": "Block",
+    "AppVariable_ID": "Q_A_02_00",
+    "Title": "Q2. Block",
+    "ValueControl": "VariableList",
+    "VariableList": "BLK_CHHIPABAROD , BLK_BARAN , BLK_RATANGARH , BLK_SUJANGARH , BLK_SIKANDRA , BLK_SAGWARA , BLK_GALIAKOT , BLK_MANDOR , BLK_LUNI , BLK_SHERGADH",
+    "Title_hi": "Q2. ब्लॉक",
+    "Title_raj": "Q2. ब्लॉक"
+  },
+  {
+    "Survey_Column": "VillageGP",
+    "AppVariable_ID": "Q_A_03_00",
+    "Title": "Q3. Village/GP",
+    "ValueControl": "Text",
+    "VariableList": "",
+    "Title_hi": "Q3. गांव / ग्राम पंचायत",
+    "Title_raj": "Q3. गांव / ग्राम पंचायत"
+  },
+  {
+    "Survey_Column": "RespondentName",
+    "AppVariable_ID": "Q_A_04_00",
+    "Title": "Q4. Respondent Name",
+    "ValueControl": "Name",
+    "VariableList": "",
+    "Title_hi": "Q4. उत्तरदाता का नाम",
+    "Title_raj": "Q4. उत्तरदाता रो नाम"
+  },
+  {
+    "Survey_Column": "RespondentPhone",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "SHGName",
+    "AppVariable_ID": "Q_A_05_00",
+    "Title": "Q6. SHG Name",
+    "ValueControl": "Text",
+    "VariableList": "",
+    "Title_hi": "Q6. एसएचजी (समूह) का नाम",
+    "Title_raj": "Q6. समूह रो नाम"
+  },
+  {
+    "Survey_Column": "VOName",
+    "AppVariable_ID": "Q_A_06_00",
+    "Title": "Q7. VO Name",
+    "ValueControl": "Text",
+    "VariableList": "",
+    "Title_hi": "Q7. ग्राम संगठन (VO) का नाम",
+    "Title_raj": "Q7. ग्राम संगठन रो नाम"
+  },
+  {
+    "Survey_Column": "CLFName",
+    "AppVariable_ID": "Q_A_07_00",
+    "Title": "Q8. CLF Name",
+    "ValueControl": "Text",
+    "VariableList": "",
+    "Title_hi": "Q8. क्लस्टर लेवल फेडरेशन (CLF) का नाम",
+    "Title_raj": "Q8. CLF रो नाम"
+  },
+  {
+    "Survey_Column": "SHGMembershipYears",
+    "AppVariable_ID": "Q_A_08_00",
+    "Title": "Q9. Years of SHG membership",
+    "ValueControl": "Number",
+    "VariableList": "",
+    "Title_hi": "Q9. एसएचजी सदस्यता के वर्ष",
+    "Title_raj": "Q9. समूह में कित्ता साल सूं हो?"
+  },
+  {
+    "Survey_Column": "LeadershipRole",
+    "AppVariable_ID": "Q_A_09_00",
+    "Title": "Q10. Have you been in a leadership role in SHG/CLF/VO?",
+    "ValueControl": "Enum",
+    "VariableList": "OPT_YES , OPT_NO",
+    "Title_hi": "Q10. क्या आप SHG/CLF/VO में किसी नेतृत्वकारी पद पर रही हैं?",
+    "Title_raj": "Q10. का थे समूह/VO/CLF में किसी पद माथे रह्या हो?"
+  },
+  {
+    "Survey_Column": "LeadershipYears",
+    "AppVariable_ID": "Q_A_10_00",
+    "Title": "Q11. Years of experience in leadership roles?",
+    "ValueControl": "Number",
+    "VariableList": "",
+    "Title_hi": "Q11. नेतृत्वकारी पद पर कितने वर्षों का अनुभव है?",
+    "Title_raj": "Q11. पद माथे कित्ता साल रो अनुभव है?"
+  },
+  {
+    "Survey_Column": "RelatedToCRP",
+    "AppVariable_ID": "Q_A_11_00",
+    "Title": "Q12. Are you related to any of the SVEP/OSF CRP?",
+    "ValueControl": "Enum",
+    "VariableList": "OPT_YES , OPT_NO",
+    "Title_hi": "Q12. क्या आप SVEP/OSF CRP की रिश्तेदार/संबंधित हैं?",
+    "Title_raj": "Q12. का थे SVEP/OSF CRP रा रिश्तेदार हो?"
+  },
+  {
+    "Survey_Column": "EPInterventionType",
+    "AppVariable_ID": "Q_A_12_00",
+    "Title": "Q13. Type of Enterprise Promotion (EP) intervention",
+    "ValueControl": "Enum",
+    "VariableList": "INT_SVEP , INT_OSF , INT_OSF_PHASED , INT_DONT_KNOW",
+    "Title_hi": "Q13. उद्यम प्रोत्साहन (EP) हस्तक्षेप का प्रकार",
+    "Title_raj": "Q13. उद्यम प्रोत्साहन रो तरीको"
+  },
+  {
+    "Survey_Column": "EnterpriseName",
+    "AppVariable_ID": "Q_A_13_00",
+    "Title": "Q14. Enterprise Name",
+    "ValueControl": "Text",
+    "VariableList": "",
+    "Title_hi": "Q14. उद्यम / व्यवसाय का नाम",
+    "Title_raj": "Q14. काम-धंधे रो नाम"
+  },
+  {
+    "Survey_Column": "ParallelEnterpriseName",
+    "AppVariable_ID": "Q_A_13_01",
+    "Title": "Parallel Enterprise Name (if running two businesses)",
+    "ValueControl": "Text",
+    "VariableList": "",
+    "Title_hi": "समानांतर दूसरे व्यवसाय का नाम (यदि 2 व्यवसाय हैं)",
+    "Title_raj": "दूजे काम-धंधे रो नाम"
+  },
+  {
+    "Survey_Column": "EnterpriseSetupYear",
+    "AppVariable_ID": "Q_A_14_00",
+    "Title": "Q15. Years of setting up enterprise",
+    "ValueControl": "Number",
+    "VariableList": "",
+    "Title_hi": "Q15. उद्यम स्थापित करने का वर्ष / कितने वर्ष हुए",
+    "Title_raj": "Q15. धंधो सुरू करयां कित्ता साल होया?"
+  },
+  {
+    "Survey_Column": "BusinessType",
+    "AppVariable_ID": "Q_A_16_00",
+    "Title": "Q16. Type of business enterprise (Multiselect)",
+    "ValueControl": "EnumList",
+    "VariableList": "BTY_TRADING , BTY_SERVICING , BTY_MANUFACTURING",
+    "Title_hi": "Q16. व्यवसाय का प्रकार (बहु-चयन)",
+    "Title_raj": "Q16. काम-धंधे रो तरीको"
+  },
+  {
+    "Survey_Column": "BusinessActivities",
+    "AppVariable_ID": "ACT_AGRI_INPUT",
+    "Title": "[T] Agri-input retail",
+    "ValueControl": "Enum",
+    "VariableList": "",
+    "Title_hi": "[T] कृषि आदान खुदरा (Agri-input retail)",
+    "Title_raj": "[T] खाद-बीज री दुकान"
+  },
+  {
+    "Survey_Column": "BusinessActivitiesOther",
+    "AppVariable_ID": "Q_A_17_01",
+    "Title": "Specify other business activity",
+    "ValueControl": "Text",
+    "VariableList": "",
+    "Title_hi": "अन्य व्यावसायिक गतिविधि बताएं",
+    "Title_raj": "दूजी गतिविधि बताओ"
+  },
+  {
+    "Survey_Column": "LoanReceivedYear",
+    "AppVariable_ID": "Q_A_15_00",
+    "Title": "Q18. Years of receiving SVEP/OSF loan?",
+    "ValueControl": "Number",
+    "VariableList": "",
+    "Title_hi": "Q18. SVEP/OSF ऋण प्राप्त करने का वर्ष",
+    "Title_raj": "Q18. SVEP/OSF लोन किण साल मिल्यो?"
+  },
+  {
+    "Survey_Column": "MaintainSeparateRecords",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "RegistrationsDocuments",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "RespondentAge",
+    "AppVariable_ID": "Q_B_01_00",
+    "Title": "Q1. What is the age of the respondent?",
+    "ValueControl": "Enum",
+    "VariableList": "AGE_18_25 , AGE_26_35 , AGE_36_45 , AGE_46_55 , AGE_ABOVE_55",
+    "Title_hi": "Q1. उत्तरदाता की आयु क्या है?",
+    "Title_raj": "Q1. उत्तरदाता री उमर कित्ती है?"
+  },
+  {
+    "Survey_Column": "MaritalStatus",
+    "AppVariable_ID": "Q_B_02_00",
+    "Title": "Q2. What is the marital status?",
+    "ValueControl": "Enum",
+    "VariableList": "MAR_SINGLE , MAR_MARRIED , MAR_WIDOWED , MAR_SEPARATED , MAR_DIVORCED",
+    "Title_hi": "Q2. वैवाहिक स्थिति क्या है?",
+    "Title_raj": "Q2. ब्याव री स्थिति काईं है?"
+  },
+  {
+    "Survey_Column": "SocialCategory",
+    "AppVariable_ID": "Q_B_03_00",
+    "Title": "Q3. What is the social category?",
+    "ValueControl": "Enum",
+    "VariableList": "CST_SC , CST_ST , CST_OBC , CST_GEN",
+    "Title_hi": "Q3. सामाजिक वर्ग / श्रेणी क्या है?",
+    "Title_raj": "Q3. सामाजिक वर्ग काईं है?"
+  },
+  {
+    "Survey_Column": "EducationStatus",
+    "AppVariable_ID": "Q_B_04_00",
+    "Title": "Q4. What is the education status?",
+    "ValueControl": "Enum",
+    "VariableList": "EDU_ILLITERATE , EDU_ILLITERATE_CALC , EDU_5TH , EDU_8TH , EDU_10TH , EDU_12TH , EDU_DIPLOMA , EDU_GRADUATE , EDU_BED",
+    "Title_hi": "Q4. शैक्षणिक योग्यता क्या है?",
+    "Title_raj": "Q4. पढ़ाई-लिखाई कित्ती है?"
+  },
+  {
+    "Survey_Column": "FamilyMemberCount",
+    "AppVariable_ID": "Q_B_05_00",
+    "Title": "Q5. How many members are in the family? ------- (count)",
+    "ValueControl": "Number",
+    "VariableList": "",
+    "Title_hi": "Q5. परिवार में कुल कितने सदस्य हैं? ------- (संख्या)",
+    "Title_raj": "Q5. कुटुंब में कुल कित्ता जणा है? ------- (गिनती)"
+  },
+  {
+    "Survey_Column": "FamilyIncomeSources",
+    "AppVariable_ID": "Q_B_07_00",
+    "Title": "Q7. What are your family’s sources of income? (Multiselect)",
+    "ValueControl": "EnumList",
+    "VariableList": "INC_AGRI , INC_SALARY , INC_WAGES , INC_SELF_EMP , INC_NTFP , INC_DAIRY , INC_ANIMAL_SALE , INC_ANIMAL_PROD , INC_FAMILY_ENT , INC_RESP_ENT , INC_MNREGA , INC_PENSION , INC_RENT , INC_OTHER",
+    "Title_hi": "Q7. आपके परिवार की आय के स्रोत क्या हैं? (बहु-चयन)",
+    "Title_raj": "Q7. थारे घर री कमाई रा साधन काईं है?"
+  },
+  {
+    "Survey_Column": "FamilyIncome_AnimalSale_Specify",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "FamilyIncomeSourcesOther",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "AnnualHouseholdIncome",
+    "AppVariable_ID": "Q_B_08_00",
+    "Title": "Q8. What is your annual household income and monetary benefits from all sources (including respondent’s enterprise)?",
+    "ValueControl": "Enum",
+    "VariableList": "INC_LT_80K , INC_80K_120K , INC_120K_160K , INC_160K_200K , INC_200K_240K , INC_240K_280K , INC_280K_320K , INC_320K_360K , INC_GT_360K_400k , INC_GT_400K",
+    "Title_hi": "Q8. सभी स्रोतों से आपकी वार्षिक पारिवारिक आय कितनी है (उद्यम सहित)?",
+    "Title_raj": "Q8. सगळा साधनां सूं साल री कुल कमाई कित्ती है?"
+  },
+  {
+    "Survey_Column": "ReasonsStartingBusiness",
+    "AppVariable_ID": "Q_C_01_00",
+    "Title": "Q1. Reasons for starting the business? (Multiselect)",
+    "ValueControl": "EnumList",
+    "VariableList": "RSN_SETBACK , RSN_RISING_EXP , RSN_OWN_VENTURE , RSN_LEARNT_SKILL , RSN_FROM_WAGE , RSN_ALL_SHG_LOAN , RSN_CRP_ENCOURAGED , RSN_CLF_ENCOURAGED , RSN_OTHER",
+    "Title_hi": "Q1. व्यवसाय शुरू करने के क्या कारण थे? (बहु-चयन)",
+    "Title_raj": "Q1. काम-धंधो सुरू करण रा काईं कारण हा?"
+  },
+  {
+    "Survey_Column": "BusinessCycle",
+    "AppVariable_ID": "Q_C_02_00",
+    "Title": "Q2. Describe your business cycle?",
+    "ValueControl": "Enum",
+    "VariableList": "CYC_REGULAR_HOURS , CYC_WHENEVER_CUSTOMER , CYC_BOTH_ROUND_YEAR , CYC_ON_ORDER_ONLY , CYC_SEASONAL_ROUND , CYC_FEW_MONTHS , CYC_OTHER",
+    "Title_hi": "Q2. अपने व्यवसाय चक्र का विवरण दें?",
+    "Title_raj": "Q2. काम-धंधो किण चक्र में चालै?"
+  },
+  {
+    "Survey_Column": "BusinessPlaceType",
+    "AppVariable_ID": "Q_C_03_00",
+    "Title": "Q3. What is the type of business place?",
+    "ValueControl": "Enum",
+    "VariableList": "PLC_OWN , PLC_RENTED",
+    "Title_hi": "Q3. व्यावसायिक स्थान किस प्रकार का है?",
+    "Title_raj": "Q3. दुकान/काम री जगह किकण री है?"
+  },
+  {
+    "Survey_Column": "AnnualRent",
+    "AppVariable_ID": "Q_C_04_00",
+    "Title": "Q4. If rented, what is monthly rent? Rs______( mention in numbers)",
+    "ValueControl": "Decimal",
+    "VariableList": "",
+    "Title_hi": "Q4. यदि किराए पर है तो मासिक किराया कितना है? (रु)",
+    "Title_raj": "Q4. किराए री है तो महिना रो कित्तो भाड़ो है? (रु)"
+  },
+  {
+    "Survey_Column": "LocationConvenience",
+    "AppVariable_ID": "Q_C_05_00",
+    "Title": "Q5. Is the location of your premise convenient for your customers?",
+    "ValueControl": "Enum",
+    "VariableList": "LOC_CONVENIENT , LOC_CHANGED_LOC , LOC_HOME_CANT_MOVE , LOC_AFFORD_ONLY , LOC_OTHER",
+    "Title_hi": "Q5. क्या आपके परिसर का स्थान ग्राहकों के लिए सुविधाजनक है?",
+    "Title_raj": "Q5. का दुकान री जगह ग्राहकां खातर ठीक है?"
+  },
+  {
+    "Survey_Column": "Material_Percentage",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MarketingMethods",
+    "AppVariable_ID": "MKT_INSTA_WHATSAPP",
+    "Title": "I market actively on instagram and whatsapp",
+    "ValueControl": "Enum",
+    "VariableList": "",
+    "Title_hi": "मैं इंस्टाग्राम और व्हाट्सएप पर सक्रिय रूप से प्रचार/मार्केटिंग करती हूँ",
+    "Title_raj": "म्हे इंस्टाग्राम अर व्हाट्सएप पै प्रचार करां"
+  },
+  {
+    "Survey_Column": "SeasonalSalesMethod",
+    "AppVariable_ID": "SEL_NOT_REL",
+    "Title": "Not relevant",
+    "ValueControl": "Enum",
+    "VariableList": "",
+    "Title_hi": "लागू नहीं / प्रासंगिक नहीं",
+    "Title_raj": "लागू कोनी"
+  },
+  {
+    "Survey_Column": "Social_OnlinePlatform",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "RecordKeepingHabit",
+    "AppVariable_ID": "Q_C_11_00",
+    "Title": "Q11. Do you maintain written records of business transactions?",
+    "ValueControl": "Enum",
+    "VariableList": "OPT_YES , OPT_NO",
+    "Title_hi": "Q11. क्या आप व्यावसायिक लेन-देन का लिखित रिकॉर्ड रखती हैं?",
+    "Title_raj": "Q11. का थे हिसाब-किताब लिख र रखो हो?"
+  },
+  {
+    "Survey_Column": "RecordKeepingMethod",
+    "AppVariable_ID": "RKT_PURCHASE_SALE_REG",
+    "Title": "purchase and sale register",
+    "ValueControl": "Enum",
+    "VariableList": "",
+    "Title_hi": "क्रय-विक्रय (खरीद-बिक्री) रजिस्टर",
+    "Title_raj": "खरीद-बेचान रो रजिस्टर"
+  },
+  {
+    "Survey_Column": "SHGAssociationAssistance",
+    "AppVariable_ID": "Q_C_18_00",
+    "Title": "How has the SHG association helped in your enterprise? (Multiselect)",
+    "ValueControl": "EnumList",
+    "VariableList": "SHG_TRAINING , SHG_MEETINGS_SCOPE , SHG_SUBSIDY , SHG_INITIATE_LOAN , SHG_REGULAR_LOANS , SHG_CRP_GUIDED , SHG_MUDRA_LOAN , SHG_BANK_LOAN",
+    "Title_hi": "SHG से जुड़ाव ने आपके उद्यम में किस प्रकार सहायता की?",
+    "Title_raj": "समूह सूं जुड़बा सूं थारे काम-धंधे में कांई मदद मिली?"
+  },
+  {
+    "Survey_Column": "FundingExperience",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "FinancialHelpFromIncome",
+    "AppVariable_ID": "Q_C_23_00",
+    "Title": "How has income from enterprise helped you financially? (Multiselect)",
+    "ValueControl": "EnumList",
+    "VariableList": "HLP_NO_ASK_HUSBAND , HLP_BIGGEST_SOURCE , HLP_CHILD_EDUCATION , HLP_PAY_DEBTS , HLP_ACQUIRE_ASSETS , HLP_MARRIAGE_EXP",
+    "Title_hi": "उद्यम से हुई आय ने आपकी आर्थिक रूप से कैसे मदद की?",
+    "Title_raj": "धंधे री कमाई सूं थारी आर्थिक हालत में कांई सुधार हुयो?"
+  },
+  {
+    "Survey_Column": "FinancialHelp_EducationAmt",
+    "AppVariable_ID": "Q_C_23_01",
+    "Title": "Education expenses contribution amount (Rs)",
+    "ValueControl": "Decimal",
+    "VariableList": "",
+    "Title_hi": "शिक्षा में योगदान राशि (रु)",
+    "Title_raj": "पढ़ाई में कित्ता पीसा लगाया (रु)"
+  },
+  {
+    "Survey_Column": "FinancialHelp_DebtsAmt",
+    "AppVariable_ID": "Q_C_23_02",
+    "Title": "Family debts paid amount (Rs)",
+    "ValueControl": "Decimal",
+    "VariableList": "",
+    "Title_hi": "कर्ज चुकाने में योगदान राशि (रु)",
+    "Title_raj": "कर्ज उतारण में कित्ता पीसा लगाया (रु)"
+  },
+  {
+    "Survey_Column": "FinancialHelp_AssetsAmt",
+    "AppVariable_ID": "Q_C_23_03",
+    "Title": "Assets acquisition contribution amount (Rs)",
+    "ValueControl": "Decimal",
+    "VariableList": "",
+    "Title_hi": "परिसंपत्ति निर्माण में योगदान राशि (रु)",
+    "Title_raj": "सम्पत्ति लेवण में कित्ता पीसा लगाया (रु)"
+  },
+  {
+    "Survey_Column": "FinancialHelp_MarriageAmt",
+    "AppVariable_ID": "Q_C_23_04",
+    "Title": "Marriage expenses contribution amount (Rs)",
+    "ValueControl": "Decimal",
+    "VariableList": "",
+    "Title_hi": "विवाह खर्च में योगदान राशि (रु)",
+    "Title_raj": "ब्याव-शादी में कित्ता पीसा लगाया (रु)"
+  },
+  {
+    "Survey_Column": "DebtRepaidAmount",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "AssetsAcquiredAmount",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MarriageExpensesAmount",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "HusbandFamilyResponse",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MaterialSourcingComfort",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "CustomerPaymentRecovery",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "CurrentChallenges",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Challenge_OSFPhasedOutAmt",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Challenge_ScaleUpFundAmt",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Challenge_TimelyInputsAmt",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Challenge_Other",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Competitors_Similar_Scale",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Competitors_Smaller_Scale",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Competitors_Higher_Scale",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "CompetitorAdvantages",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "FutureExpansionPlans",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "AspirationBottlenecks",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "FutureFundsRequired",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "AttendedTraining",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "TrainingDetails",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "UsedTrainingComponent",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "UsedTrainingDetails",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MonthlyIncomeBeforeLoan",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MonthlyIncomeAfterLoan",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MonthlyIncomeIncreaseByOSFSVEP",
+    "AppVariable_ID": "Q_C_21_00",
+    "Title": "Amount by which monthly income increased directly due to OSF/SVEP loans",
+    "ValueControl": "Enum",
+    "VariableList": "INC_UPTO_2K , INC_2K_3K , INC_3K_4K , INC_4K_5K , INC_5K_6K , INC_GT_6K , INC_CANT_SAY",
+    "Title_hi": "OSF/SVEP ऋण से हुए बदलावों के कारण औसत मासिक आय में कितनी वृद्धि हुई?",
+    "Title_raj": "लोन मिल्या पाछै महिना री कमाई कित्ती बढ़गी?"
+  },
+  {
+    "Survey_Column": "CRPContributions",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "CRPContributionDocDetails",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "ExpectationsFromScheme",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Other_Specify",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "SmartphoneOwnership",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "UseQRUPI",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "QRDailyTransactions",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "QRNonUseReason",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "SocialMediaForMarketing",
+    "AppVariable_ID": "SMM_WHATSAPP_ORDERS",
+    "Title": "I regularly share images on whatsapp to get orders",
+    "ValueControl": "Enum",
+    "VariableList": "",
+    "Title_hi": "ऑर्डर पाने के लिए नियमित व्हाट्सएप पर फोटो भेजती हूँ",
+    "Title_raj": "व्हाट्सएप पर फोटो भेज र आर्डर लेवां"
+  },
+  {
+    "Survey_Column": "SocialPlatformsUsed",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "SocialPlatformUsageMode",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "SocialMediaFrequency",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "OSFInterventionYear",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "BusinessOperationalStatus",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "ScalingDownClosingReasons",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "ScalingDownOtherReason",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "SupportNeededForSustenance",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "SupportNeededOther",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MarketPlaces",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "GPSLocation",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "CreatedBy",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "CreatedOn",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "LastEditBy",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "LastEditOn",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Status",
+    "AppVariable_ID": "STAT_DRAFT",
+    "Title": "Draft",
+    "ValueControl": "Enum",
+    "VariableList": "",
+    "Title_hi": "ड्राफ्ट / अधूरा",
+    "Title_raj": "कच्चो / अधूरो"
+  },
+  {
+    "Survey_Column": "InvestigatorID",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Latitude",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "Longitude",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MonthlyRent",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "MaterialSourcingPct",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "SalesChannelsPct",
+    "AppVariable_ID": "PCT15_0",
+    "Title": "0%",
+    "ValueControl": "Enum",
+    "VariableList": "",
+    "Title_hi": "0%",
+    "Title_raj": "0%"
+  },
+  {
+    "Survey_Column": "Competitors_Same_Scale",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "BusinessClosureYear",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "LastEditedBy",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  },
+  {
+    "Survey_Column": "LastEditedOn",
+    "AppVariable_ID": "-",
+    "Title": "-",
+    "ValueControl": "-",
+    "VariableList": "-",
+    "Title_hi": "-",
+    "Title_raj": "-"
+  }
+]

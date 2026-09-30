@@ -1,0 +1,177 @@
+BLR GSC Timesheet Submission
+Functional Requirements & Design Brief
+1. Purpose
+BLR requires a simple weekly timesheet submission process for GSC employees, incorporated into Orbit (AppSheet)
+The purpose of this phase is to:
+enable GSC employees to record and submit weekly time against controlled activities and major projects;
+maintain a clear record of weekly submissions;
+enrich submitted records using controlled employee and activity/project master data;
+write finance-ready timesheet data into Google Sheets for downstream processing.
+The objective is to minimise manual Finance processing after submission – but not perform the processing itself at this stage.
+2. Overall Process
+Orbit employee master + controlled activity/project master→ Employee enters weekly timesheet→ Orbit enriches submitted lines using controlled master data→ Submission Log + finance-ready Timesheet Archive written to Google Sheets→ Finance uses output for invoicing/reporting
+The target employee workflow is:
+Open Orbit → Timesheets → select week → enter days → submit
+3. Employee Master Requirements
+Existing Orbit employee master data should be used.
+BLR requires the following additional controlled fields to be added to the Employee Master:
+Billable (Yes / No)
+Day Rate AED
+Team (TBC may already be a column for team?)
+Existing employee fields used by the solution will include at least:
+Employee ID
+Employee Name
+Employee Email
+Active / Inactive status
+Employee ID should remain the permanent employee key.
+Day Rate and organisational attributes should be pulled automatically into submitted records. Employees should not manually enter these values in their timesheet.
+4. Activity / Major Project Master
+BLR will provide a controlled Activity / Major Project master.
+The master should provide the information required to enrich submitted records, including as applicable:
+Activity ID
+Activity / Major Project Name
+Cost Centre / Project
+Billable Status
+Entity
+Active / Inactive status
+Only active activities/projects should normally be selectable.
+The employee should select a friendly Activity / Major Project description, while the underlying controlled ID should be retained by the application.
+5. Weekly Timesheet Entry
+Each weekly timesheet relates to a Week Ending Friday.
+Employees should be able to add multiple lines.
+Each line requires only:
+Activity / Major Project
+Actual Days Worked
+The employee should not manually enter financial or organisational classifications.
+The employee should be able to see the description for each Activity / Major Project (via hover over, query button or similar).
+There is no requirement to save drafts of timesheets
+The application should automatically derive these from the Employee and Activity/Project masters.
+Employees should be able to:
+add lines;
+edit lines before submission;
+remove lines before submission;
+edit Actual days worked 
+Employees should be able to see which timesheets they have submitted. 
+They should not be able to submit more than 1 timesheet for a particular week. 
+They should be able to edit timesheets within a defined period (TBC).
+Edited timesheets should update the value in the Finance Ready Output
+6. Validation
+Before submission:
+Activity / Major Project must be selected.
+Actual Days Worked must be numeric and non-negative.
+Blank rows must not be submitted.
+Duplicate activity/project entries for the same week should be prevented or appropriately consolidated.
+The employee should see the weekly total before submission.
+The employee should confirm final submission.
+Additional warnings for unusual weekly totals may be added if straightforward.
+7. Submission Log
+Each weekly submission should create one Submission Log record in a controlled Google Sheet.
+Required fields:
+Field
+Submission ID
+Employee ID
+Employee Name
+Week Ending Friday
+Submission Date
+Status – May not be required?
+Submission ID must uniquely identify the weekly submission.
+8. Finance-Ready Timesheet Output
+Each submitted timesheet line should create one row in a controlled Google Sheet using the following schema:
+Field
+Billing Month
+Week Ending Friday
+Submission Date
+Employee Name
+Team
+Activity / Major Project
+Cost Centre / Project
+Billable Status
+Entity
+Actual Days Worked
+Day Rate AED
+Total
+Invoice Status
+Field Logic
+Billing MonthDerived from the applicable billing period for the Week Ending Friday.
+Week Ending FridayThe week selected by the employee.
+Date Added to ArchiveTimestamp/date when the submitted row is written to the finance-ready output.
+Employee NamePulled from the Employee Master.
+TeamPulled from the Employee Master.
+Activity / Major ProjectPulled from the controlled Activity / Project Master based on the employee's selection.
+Cost Centre / ProjectPulled automatically from the Activity / Project Master.
+Billable StatusPulled automatically from the Activity / Project Master.
+EntityPulled automatically from the relevant controlled master data.
+Actual Days WorkedEntered by the employee.
+Day Rate AEDPulled from the Employee Master at the time the submitted record is created.
+TotalCalculated as:
+Actual Days Worked × Day Rate AED
+Invoice StatusShould initially be populated with a defined default status, for example Not Invoiced, unless BLR specifies another value. At this stage this is intended to be used as a manual method of keeping track of which line items have been billed
+9. Historical Integrity
+The finance-ready output should store values as snapshots at the time of submission/archive creation.
+For example:
+Day Rate AED should be written into the record, not maintained as a live lookup.
+Team, Entity, Cost Centre / Project and Billable Status should likewise be written as values.
+If the underlying master data changes later, historical timesheet records must not change retrospectively.
+This is important for auditability and Finance reconciliation.
+10. Submission Status
+Employees should be able to see recent weekly submission status:
+Submitted
+Not Submitted
+Not Submitted should be derived from the absence of a Submission Log record.
+11. Process Owner Monitoring
+The authorised process owner should have a simple compliance view showing:
+employees expected to submit;
+relevant week-ending dates;
+Submitted / Missing status;
+number expected;
+number submitted;
+number outstanding;
+submission percentage.
+No detailed Finance dashboard is required in this phase.
+12. Corrections / Resubmissions
+The developer should propose the simplest robust mechanism for handling corrections to previously submitted timesheets.
+The preferred principle is that historical submissions remain traceable rather than being silently overwritten.
+Any corrected finance-ready output must not create duplicate billing without clear status handling.
+13. Access and Security
+Employees should:
+use their existing Orbit login;
+see and submit only their own timesheet information;
+not edit other employees' records.
+Process owners may have broader monitoring access.
+Existing Orbit/AppSheet security controls should be used where practical.
+14. Out of Scope
+The following are outside the scope of this phase:
+invoice generation;
+invoice document creation;
+accounting-system posting;
+payroll;
+approval workflows;
+detailed utilisation reporting;
+detailed financial reporting;
+intercompany accounting entries.
+The app should, however, generate sufficiently complete output data to minimise subsequent Finance processing.
+16. Developer Response Requested
+Before development, please confirm/propose:
+Recommended AppSheet table and relationship structure.
+Any required changes to the existing Employee Master.
+How corrections / resubmissions / late timesheets should be handled.
+How submitted records will be protected from unintended editing.
+Estimated development effort for this first phase, and associated costs
+Appendix A – Future GSC Organisational Structure
+BLR is in the process of establishing a clearer organisational distinction between:
+HoldCo / Corporate functions
+Global Service Company (GSC)
+Country operating companies / OpCos
+The GSC is intended to act as the shared service and capability organisation supporting BLR operating companies. GSC resources may work across multiple countries, activities and major projects, with their time subsequently used for management reporting and intercompany charging.
+This organisational model may have future implications for Orbit's (or Frappe’s) data structure, including:
+employee organisational assignment;
+entity definitions;
+employing entity versus service-delivery entity;
+function ownership;
+cost-centre structures;
+intercompany charging and reporting.
+At present, however, the timesheet project should not require changes to Orbit's existing Entity structure unless specifically agreed with BLR.
+Existing Entity definitions and functionality should be preserved.
+I have used the term Entity (New) in the timesheet reference material. At this stage it can be a simple text field.
+The proposed future creation of a separate "GSC" entity should therefore be treated as a potential future requirement rather than a dependency of this phase.
+The developer should highlight any areas of the proposed timesheet design that could make a future GSC organisational split materially more difficult, but should not redesign existing Entity functionality as part of the current scope.

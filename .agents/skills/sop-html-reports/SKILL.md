@@ -17,36 +17,62 @@ Never create two separate files for the same day's deliverable. All work updates
 ### Rule 2 — USE THE TEMPLATE BELOW
 Always use the embedded template as your structural base. Do **not** invent a new layout. Copy it, then fill in the content.
 
-### Rule 3 — LOGO: Use `<img>` tag with repo-relative path
-The logo image is at `.agents/brand/icon_logo.jpg` from the workspace root.  
-When writing HTML files inside `Projects/Orbit/`, use:
+### Rule 3 — LOGO: Exclusively Official Logo
+Always reference `.agents/brand/ommnomi_logo.png` (the mandatory lifetime logo).
+When writing HTML files inside `projects/Orbit/`, use:
 ```html
-<img class="logo-img" src="../../.agents/brand/icon_logo.jpg" alt="OmmNoMi Logo" />
+<img class="logo-img" src="../../.agents/brand/ommnomi_logo.png" alt="OmmNoMi Automation LLP" />
 ```
+Never use `.agents/brand/icon_logo.jpg` or placeholder icons.
 
-### Rule 4 — PDF COMPILATION: Always use `--print-to-pdf-no-header`
+### Rule 3.1 — ZERO DUPLICATE WORDMARK (NEVER USE INLINE TEXT BESIDE LOGO)
+* **STRICTLY NEVER** place inline wordmark text (`<span class="wm">...</span>` or text `OmmNoMi Automation LLP`) next to `ommnomi_logo.png`.
+* `ommnomi_logo.png` is the official full-color horizontal lockup which **already contains** both the colorful icon AND the typography "OmmNoMi Automation LLP".
+* Putting inline text beside the image creates an amateur, redundant double logo (`[OmmNoMi Automation LLP] OmmNoMi Automation LLP`).
+* In headers and hero sections, display **ONLY** the logo image:
+  ```html
+  <div class="logo-row">
+    <img class="logo-img" src="../../.agents/brand/ommnomi_logo.png" alt="OmmNoMi Automation LLP" />
+  </div>
+  ```
+* NEVER include `.wm` CSS classes or `<span class="wm">` blocks in exported reports.
+
+### Rule 4 — PDF COMPILATION: Always use `--no-pdf-header-footer` & `--print-to-pdf-no-header`
 ```bash
+# macOS:
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
   --headless --disable-gpu \
-  --print-to-pdf-no-header \
+  --no-pdf-header-footer --print-to-pdf-no-header \
   --print-to-pdf="/path/to/output.pdf" \
   "/path/to/input.html"
-```
-Never use `--run-all-compositor-stages-before-draw`. Always use `--print-to-pdf-no-header` to remove the browser timestamp and URL from the PDF output.
 
-### Rule 5 — FOOTER SOCIAL LINKS
-Always include all 7 social icons in the footer: Website, LinkedIn, YouTube, GitHub, Instagram, X (Twitter), Discord.
+# Windows (PowerShell):
+Start-Process -FilePath "C:\Program Files\Google\Chrome\Application\chrome.exe" `
+  -ArgumentList @("--headless", "--disable-gpu", "--no-pdf-header-footer", "--print-to-pdf-no-header", "--print-to-pdf=C:\path\to\output.pdf", "C:\path\to\input.html") -Wait
+```
+Never use `--run-all-compositor-stages-before-draw`. Always include both `--no-pdf-header-footer` and `--print-to-pdf-no-header` to guarantee the complete elimination of browser timestamps and URLs on all Chrome versions (including Chrome 128+).
+
+### Rule 5 — TWO-ROW SYMMETRICAL FOOTER ("AAMNE SAAMNE")
+The final footer must strictly follow a 2-row center-aligned flex layout:
+- **Row 1**: Logo on left, Registered Address (`Karsog, Mandi, Himachal Pradesh, India`) on right. Center-aligned (`min-height: 24px; align-items: center;`).
+- **Row 2**: Tagline (`Unlocking Business Potential Through Automation`) on left, 7 Social Media Icon Circles on right. Center-aligned (`min-height: 24px; align-items: center;`).
+- Vertical: Logo above Tagline; Address above Social Icons. No staggered ("upar-neeche") layout!
 
 ### Rule 6 — SIGNATURES
 Both signatories:
 - **Nomeshwer Sharma** → `https://ommnomi.in/associate/nomeshwer` — Business Process Developer & Implementor
 - **Hardik Sharma** → `https://ommnomi.in/associate/whardiksharma` — Assistant Developer · Product Research & Development
 
-### Rule 7 — HEADER STRIPE POSITIONING & SPACING
+### Rule 7 — SECTION INTEGRITY & ANTI-CRAMMING ("NO HALF-HALF")
+- Never split a section, table, or topic across page breaks ("no half-half").
+- Never cram content to fit an arbitrary page count ("no chipku-chipku"); maintain breathing room (10.5px min body, 12-15px padding).
+- Never allow solitary words in labels or metrics to wrap onto a line alone (use `white-space: nowrap;`).
+
+### Rule 8 — HEADER STRIPE POSITIONING & SPACING
 - The 4-color OmmNoMi stripe (`#4285F4`, `#34A853`, `#EA4335`, `#FBBC05`) must sit **strictly below** the logo lockup and page header block as an underline/divider.
 - Always include explicit breathing room (`14px`–`20px` margin) below the colored bar before the first section heading or hero element.
 
-### Rule 8 — MULTI-COLUMN CARDS & VERTICAL FILL QA
+### Rule 9 — MULTI-COLUMN CARDS & VERTICAL FILL QA
 - In multi-column grids (like 2x2 Pillar Cards), ensure cards are **100% structurally identical**:
   1. Equal header and image dimensions (`58px`–`68px` thumbnail).
   2. A concise definition paragraph (`10px`–`11px`, `1.45` line-height).
@@ -54,11 +80,11 @@ Both signatories:
   4. Single-line tech badges (`flex-wrap: nowrap`, `overflow: hidden`, `white-space: nowrap`) to guarantee symmetrical card heights across columns.
   5. Never enclose bullet items in cramped, undersized sub-boxes that create trailing internal whitespace.
 
-### Rule 9 — ZERO TEXT OVERFLOW & FOOTER CLEARANCE
+### Rule 10 — ZERO TEXT OVERFLOW & FOOTER CLEARANCE
 - **Ribbons & Badges**: Set `overflow: hidden` and test printable width (A4 printable width is ~`178mm` after padding). Keep pill badge text concise (e.g., `Logistics & Trade`, `Field Ops & Research`) so badges never clip or spill over container borders.
 - **Footer Clearance**: Always apply `margin-top: 16px–20px` and `padding-top: 10px` above the footer border to ensure bottom cards never touch or crowd the footer.
 
-### Rule 10 — GROUNDED TRUTHFUL METRICS ONLY
+### Rule 11 — GROUNDED TRUTHFUL METRICS ONLY
 - Never fabricate unrealistic or unverifiable KPIs (e.g. "99.999% SLA across 500 apps").
 - Anchor all metrics to verified project realities in the workspace:
   - Multi-company ERPNext architecture (Singapore 9% GST, Australia 10% GST, 9 physical branches).
@@ -111,11 +137,8 @@ Copy this template exactly. Replace only: `{{TITLE}}`, `{{DOC_REF}}`, `{{DATE}}`
 
     /* HERO */
     .hero { background: #ffffff; padding: 24px 32px 20px; border-bottom: 1px solid #dadce0; display: flex; justify-content: space-between; align-items: flex-start; }
-    .logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .logo-img { height: 32px; border-radius: 4px; }
-    .wm { font-size: 18px; font-weight: 900; font-family: 'Roboto', sans-serif; }
-    .wm .o { color: #4285F4; } .wm .n { color: #34A853; } .wm .m { color: #EA4335; } .wm .i { color: #FBBC05; }
-    .wm .rest { font-size: 12px; font-weight: 300; color: #80868b; margin-left: 5px; }
+    .logo-row { display: flex; align-items: center; margin-bottom: 8px; }
+    .logo-img { height: 32px; width: auto; display: block; }
     .hero-title { font-family: 'Roboto', sans-serif; font-size: 26px; font-weight: 900; color: #202124; margin-bottom: 4px; }
     .hero-sub { font-size: 11px; color: #5f6368; font-style: italic; }
     .doc-control { text-align: right; display: flex; flex-direction: column; gap: 3px; }
@@ -186,17 +209,30 @@ Copy this template exactly. Replace only: `{{TITLE}}`, `{{DOC_REF}}`, `{{DATE}}`
     .sig-sub { font-size: 9px; color: #5f6368; }
     .sig-quote { font-size: 8.5px; color: #80868b; font-style: italic; max-width: 250px; line-height: 1.3; margin-top: 2px; }
 
-    /* FOOTER */
-    .footer { background: #ffffff; color: #202124; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #dadce0; }
-    .fbrand { font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
-    .fbrand .o { color: #4285F4; } .fbrand .n { color: #34A853; } .fbrand .m { color: #EA4335; } .fbrand .i { color: #FBBC05; }
-    .fbrand .rest { font-size: 11px; font-weight: 300; color: #5f6368; margin-left: 4px; }
-    .faddr { font-size: 9px; color: #5f6368; }
-    .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-    .footer-tagline { font-size: 10px; font-weight: 500; color: #5f6368; font-style: italic; }
-    .social-links { display: flex; flex-wrap: nowrap; gap: 6px; align-items: center; justify-content: flex-end; }
-    .social-link { color: #5f6368; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #f1f3f4; text-decoration: none; flex-shrink: 0; }
-    .social-link svg { width: 11px; height: 11px; fill: currentColor; }
+    /* FOOTER - TWO BALANCED HORIZONTAL ROWS (PERFECT SYMMETRICAL ALIGNMENT) */
+    .footer {
+      background: #ffffff;
+      color: #202124;
+      padding: 14px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 1.5px solid #dadce0;
+      width: 100%;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      min-height: 24px;
+    }
+    .footer-logo-img { height: 23px; width: auto; display: block; }
+    .footer-address { font-family: 'Roboto', sans-serif; font-size: 10px; color: #5f6368; font-weight: 500; white-space: nowrap; text-align: right; line-height: 1; }
+    .footer-tagline { font-family: 'Roboto', sans-serif; font-size: 10px; color: #5f6368; font-style: italic; letter-spacing: 0.2px; white-space: nowrap; line-height: 1; }
+    .social-links { display: flex; flex-wrap: nowrap; gap: 7px; align-items: center; justify-content: flex-end; }
+    .social-link { color: #5f6368; display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: #f1f3f4; border: 1px solid #e5e7eb; text-decoration: none; flex-shrink: 0; box-sizing: border-box; }
+    .social-link svg { width: 12px; height: 12px; fill: currentColor; }
   </style>
 </head>
 <body>
@@ -206,11 +242,7 @@ Copy this template exactly. Replace only: `{{TITLE}}`, `{{DOC_REF}}`, `{{DATE}}`
     <div class="hero">
       <div>
         <div class="logo-row">
-          <img class="logo-img" src="../../.agents/brand/icon_logo.jpg" alt="OmmNoMi Logo" />
-          <span class="wm">
-            <span class="o">Omm</span><span class="n">No</span><span class="m">M</span><span class="i">i</span>
-            <span class="rest">Automation LLP</span>
-          </span>
+          <img class="logo-img" src="../../.agents/brand/ommnomi_logo.png" alt="OmmNoMi Automation LLP" />
         </div>
         <div class="hero-title">{{TITLE}}</div>
         <div class="hero-sub">Orbit HRMS &nbsp;·&nbsp; BLR World &nbsp;·&nbsp; {{SUBTITLE}}</div>
@@ -326,13 +358,13 @@ Copy this template exactly. Replace only: `{{TITLE}}`, `{{DOC_REF}}`, `{{DATE}}`
 
     </div><!-- /.body -->
 
-    <!-- ═══════════ FOOTER ═══════════ -->
+    <!-- ═══════════ FINAL FOOTER (ROW 1: LOGO & ADDRESS; ROW 2: TAGLINE & SOCIALS) ═══════════ -->
     <div class="footer">
-      <div class="footer-left">
-        <div class="fbrand"><span class="o">Omm</span><span class="n">No</span><span class="m">M</span><span class="i">i</span><span class="rest">Automation LLP</span></div>
-        <div class="faddr">Karsog, Mandi, Himachal Pradesh</div>
+      <div class="footer-row">
+        <img class="footer-logo-img" src="../../.agents/brand/ommnomi_logo.png" alt="OmmNoMi Automation LLP" />
+        <div class="footer-address">Karsog, Mandi, Himachal Pradesh, India</div>
       </div>
-      <div class="footer-right">
+      <div class="footer-row">
         <div class="footer-tagline">Unlocking Business Potential Through Automation</div>
         <div class="social-links">
           <a href="https://ommnomi.in" target="_blank" class="social-link" title="Website" style="color:#4285F4;">
@@ -341,7 +373,7 @@ Copy this template exactly. Replace only: `{{TITLE}}`, `{{DOC_REF}}`, `{{DATE}}`
           <a href="https://www.linkedin.com/company/ommnomi/" target="_blank" class="social-link" title="LinkedIn" style="color:#0A66C2;">
             <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </a>
-          <a href="https://www.youtube.com/@OmmNoMi" target="_blank" class="social-link" title="YouTube" style="color:#FF0000;">
+          <a href="https://youtube.com/@OmmNoMi" target="_blank" class="social-link" title="YouTube" style="color:#FF0000;">
             <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           </a>
           <a href="https://github.com/OmmNoMi" target="_blank" class="social-link" title="GitHub" style="color:#181717;">

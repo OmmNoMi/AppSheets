@@ -1,0 +1,598 @@
+0: Questionnaire for the Study on Performance of SHG-led Women Entrepreneurs in Rajasthan
+1: An assessment of enterprise financing among SHG members and its impact on women-led livelihoods
+2: Instructions to Data Collectors:
+3: The respondent should be the SHG member availing loan for the specific purpose of setting up enterprise. Only in her absence family members should be interviewed.
+4: The enterprise should be at least 2 years old.
+5: Where a box for numeric/text entry is shown, record the respondent's exact answer.
+6: Italicised text in brackets is a note for the data collectors, not to be read aloud to the respondent.
+7: Section A: Basic details
+8: Q1. District
+9: Baran
+10: Churu
+11: Dausa
+12: Dungarpur
+13: Jodhpur
+14: Q2. Block
+15: Chhipabarod
+16: Baran
+17: Ratangarh
+18: Sujangarh
+19: Sikandra
+20: Sagwara
+21: Galiakot
+22: Mandor
+23: Luni Shergadh
+24: Q3. Village/GP
+25: ( Need to add the village/GP names in relevant blocks)
+26: https://rajasthan.villagecodes.in/
+27: https://rajmasters.rajasthan.gov.in/
+28: https://rajmasters.rajasthan.gov.in/Home/List?master=GRAM%20PANCHAYAT%20RAJASTHAN
+29: https://rajmasters.rajasthan.gov.in/Home/List?master=VILLAGE%20RAJASTHAN
+30: Q4. Respondent Name
+31: Q5. Respondent’s phone number
+32: Q6. SHG Name
+33: Q7. VO Name
+34: Q8. CLF Name
+35: Q9. Years of SHG membership
+36: Q10. Have you been in a leadership role in SHG/CLF/VO?
+37: Yes
+38: No
+39: Q11. Years of experience in leadership roles?
+40: Q12. Are you related to any of the SVEP/OSF CRP?
+41: Yes
+42: No
+43: Q13. Type of Enterprise Promotion (EP) intervention
+44: SVEP
+45: OSF
+46: OSF phased out
+47: Don't know
+48: Q14. Enterprise Name
+49: Q15. Years of setting up enterprise
+50: Q16. Type of business enterprise (Multiselect)
+51: Trading
+52: Servicing
+53: Manufacturing/
+54: production
+55: Q17. Main business activities of the enterprise (Multiselect)
+56: Trading
+57: Vegetable/Fruit
+58: Grocery
+59: Fancy/Cosmetic/General store
+60: Apparel/fabric
+61: Electric goods
+62: Stone shop
+63: Agri-input retail,
+64: AI/breeding kits
+65: Goat trading
+66: Service
+67: Flour mill
+68: Tailoring
+69: Beauty parlour
+70: Auto-mechanic/ two-wheeler repair
+71: E-mitra
+72: Transport
+73: Tent house
+74: Mobile repair shop
+75: Stone cutting
+76: Production
+77: Sanitary napkin making
+78: Handicraft
+79: Dairy shop/Milk collection centre
+80: Juice
+81: Food processing (pickle/badi/papad making)
+82: Food making (Sweets/Namkeen/hotel)
+83: Sweet box making
+84: Flag making
+85: Leather products
+86: Stone idols
+87: Any other
+88: Q18. Years of receiving SVEP/OSF loan?
+89: Q19. Do you maintain separate records for all the businesses
+90: Yes
+91: No
+92: Q20. Do you have the following registrations/documents?
+93: PAN card
+94: Aadhar card
+95: Udyam Aadhar
+96: Shop and Establishment registration
+97: FSSAI
+98: Caste certificate
+99: Income certificate
+100: *If a member is running two business parallel then both enterprises should come in drop down option
+101: Section B: Respondent & Household Profile
+102: Q1. What is the age of the respondent?
+103: 18-25
+104: 26-35
+105: 36-45
+106: 46-55
+107: Above 55
+108: Q2. What is the marital status?
+109: Single
+110: Married
+111: Widowed
+112: Separated
+113: Divorced
+114: Q3. What is the social category?
+115: SC
+116: ST
+117: OBC
+118: General
+119: Q4. What is the education status?
+120: Illiterate
+121: Illiterate but able to calculate
+122: Upto 5th
+123: Upto 8th
+124: Upto 10th
+125: Upto 12th
+126: Diploma
+127: Graduate
+128: B.Ed
+129: Q5. How many members are in the family? ------- (count)
+130: Q6. Give details of the family members? (count)
+131: Adults (Above 18)-------
+132: Children —-------
+133: Total earning members ------
+134: Male earning members—----
+135: Female earning members—----
+136: Members with disability-------
+137: Q7. What are your family’s sources of income? (Multiselect)
+138: Agricultural income
+139: Fixed Salary
+140: Wages
+141: Self employed
+142: NTFP sale
+143: Dairying
+144: Sale of animals
+145: Animal products
+146: Family/husband’s enterprise
+147: Respondent’s enterprise
+148: MNREGA
+149: Pension
+150: Rent from properties
+151: Any other, specify
+152: Q8. What is your annual household income and monetary benefits from all sources (including respondent’s enterprise)?
+153: Less than Rs 80,000
+154: Rs 80,000 to Rs 1,20,000
+155: Rs 1,20,001 to Rs 1,60,000
+156: Rs 1,60,001 to Rs 2,00,000
+157: Rs 2,00,001 to Rs 2,40,000
+158: Rs 2,40,001 to Rs 2,80,000
+159: Rs 2,80,001 to Rs 3,20,000
+160: Rs 3,20,001 to Rs 3,60,000
+161: Rs 3,60,001 to Rs 4,00,000
+162: Above Rs 4,00,001
+163: Section C: Enterprise operations
+164: Q1. Reasons for starting the business? (Multiselect)
+165: My family faced a financial setback, and I needed to earn
+166: Our expenses were rising, and my family needed an alternate source of income
+167: I always wanted to own/run my own business
+168: I learnt the skill and wanted to start my own venture.
+169: I was doing the same work as wage labour and later decided to start own venture
+170: All SHG members were getting loans for enterprise so I also decided to take and start enterprise
+171: The OSF/SVEP CRP encouraged me to start the enterprise
+172: The CLF encouraged me to start the enterprise
+173: Any other (Specify)
+174: Q2. Describe your business cycle?
+175: Operational for regular hours throughout the year
+176: Operational whenever the customer arrives throughout the year
+177: Both production and sales operational throughout the year
+178: Production and sale only on receiving order
+179: Seasonal production and sale throughout the year
+180: Production and sale is limited to few months
+181: Any other, specify
+182: Q3. What is the type of business place?
+183: Own
+184: Rented
+185: Q4. If rented, what is monthly rent? Rs______( mention in numbers)
+186: Q5. Is the location of your premise convenient for your customers?
+187: Yes
+188: No
+189: Yes, my location is very convenient to attract customers
+190: Yes, I changed my location to get the clients
+191: No, but I operate from home and can’t move to other location
+192: No, but I can afford only this space
+193: Any other, specify
+194: Q6. Involvement of family members and hired help in business operations
+195: #
+196: Activity
+197: Involvement of family members
+198: Regular
+199: Occasional
+200: Only respondent
+201: Not relevant
+202: Family members involved #
+203: Hired help #
+204: Amount you paid in last one year
+205: Not relevant
+206: Upto Rs 5000
+207: Rs 6000 Rs 10,000
+208: Rs 11,000 to Rs 30,000
+209: Rs 31,000 to Rs 50,000
+210: Rs 51,000 to Rs 70,000
+211: Rs 71000 to Rs 90,000
+212: Rs 90,0000 to Rs 1,10,000
+213: Rs 1,11,000 to Rs 1,30,000
+214: Rs, 1,31,000 to Rs 1,50,000
+215: Above Rs 1,50,000
+216: 1
+217: Purchase of material
+218: 2
+219: Production
+220: 3
+221: Servicing
+222: 4
+223: Social media marketing
+224: 5
+225: Sale (from shop/door to door/Saras fair/haat)
+226: 6
+227: Record keeping
+228: 7
+229: Q7. What percentage of material do you source from these places?
+230: Nearby town/district         (0%/25%/50%/75%/100%)
+231: Wholesale market within state    (0%/25%/50%/75%/100%)
+232: Wholesale market outside the state    (0%/25%/50%/75%/100%)
+233: Order online (Amazon/Misho)   (0%/25%/50%/75%/100%)
+234: Q8. How do you market your products/services? (Multiselect)
+235: My shop is the only place where I talk about my products/services
+236: I have name board outside my premises with details of my products/services
+237: I visit local traders/shopkeepers with my samples
+238: I talk about my products/services in SHG meetings
+239: I visit local traders/shopkeepers with samples of my products
+240: I market actively on instagram and whatsapp
+241: I wait for people to make enquiries
+242: I do not know how to market my products/services
+243: I don't feel the need to market my products/services
+244: Any other, specify
+245: Q9. How do you sell your products/services?
+246: Not relevant
+247: In case of production related business, I  produce slightly more than my last year sales and wait for orders
+248: I visit local traders/shopkeepers with my products and do door to door selling
+249: I take orders from my usual clients few weeks prior to production/peak season and then sell
+250: I sell in local haat/weekly market
+251: I sell in Saras fair
+252: I get orders via instagram
+253: I get orders via whatsapp
+254: I use online platforms like Amazon
+255: I use online platform like Meesho
+256: I use any other online platform
+257: I use RAJEEVIKA website
+258: Any other, specify
+259: Q10. What percentage of your products/services get sold through following channels?
+260: Online platforms ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+261: Whatsapp ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+262: Instagram ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+263: Your premise ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+264: Local traders/shopkeepers ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+265: Local haat/market ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+266: Saras fair ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+267: Q11. Do you maintain written records of business transactions?
+268: Yes, I have always been doing it
+269: Yes, I started doing after being trained by OSF/SVEP CRP
+270: Yes, my family member maintains  but i dont check
+271: Yes, I have hired help to do that
+272: I don't record regularly
+273: I don't maintain any records at all
+274: Q12. How do you maintain business transactions?
+275: Receipt book/bills
+276: purchase and sale register
+277: Only debt register
+278: Maintain daily diary
+279: Maintain daily diary as taught by OSF/SVEP CRP
+280: Maintain digital records using Mera Bill, Bahi Khata
+281: Don’t record regularly
+282: My family member maintains a book
+283: I don't maintain any record
+284: Any other, specify
+285: Q13. Turnover and income from the enterprise
+286: Season
+287: Duration in months (count)
+288: Monthly sales
+289: Monthly income profit (Net profit excluding all cost & expenditures)
+290: Peak season
+291: Average
+292: Lean
+293: Section D: Enterprise financing and income
+294: Q1. How has the SHG association helped in your enterprise? ( Multiselect)
+295: Attended the skill training offered by SHG
+296: Got information about the scope of business from SHG meetings
+297: Got required registration/documents made
+298: Got subsidy/grant due to SHG.
+299: Took loan from SHG to buy material to initiate the business
+300: Take loans from SHG regularly as per business requirements
+301: OSF/SVEP CRP guided me in setting up the business
+302: OSF/SVEP CRP helped me to get Mudra loan
+303: OSF/SVEP CRP helped me to get bank loan
+304: Q2. How have you arranged capital over the enterprise duration? ( Ask for each option. Put 0 if the source is not used)
+305: #
+306: Source
+307: First year
+308: Years in-between
+309: Calendar year
+310: (2026-27)
+311: Amount
+312: Amount
+313: Amount
+314: Amount pending
+315: 1
+316: Own Savings
+317: 2
+318: Financed by family member
+319: 3
+320: Profit from business
+321: 4
+322: Mortgaged gold/silver
+323: 5
+324: Sold gold/silver
+325: 6
+326: Loan from family
+327: 7
+328: Loan from moneylender
+329: 8
+330: Loan from SHG
+331: 9
+332: Loan from OSF/SVEP
+333: 10
+334: Subsidy/grant under OSF/SVEP
+335: 11
+336: Loan from private saving groups/BC
+337: 12
+338: Loan from NBFC
+339: 13
+340: Mudra loan
+341: 14
+342: Loan from banks
+343: Q3. How did you use the loans taken from different sources?
+344: #
+345: Source
+346: Usage in business
+347: Seed capital to buy material and set up the shop
+348: Buy new machine to increase the production capacity ( eg: sewing machine)
+349: Buy assets to store and sell new products ( eg: fridge)
+350: Get additional space to expand my business ( eg: addition of flour mill)
+351: Buy more material to increase the product range offered (eg: clothes in a fancy store)
+352: Buy more material/inputs to increase scale of business/production
+353: Buy vehicle to access new market to buy/sell goods
+354: Access better transport services to access new market to buy/sell goods
+355: Buy mobile phone to promote/sell my goods online
+356: Any other, specify……….
+357: Not used the source
+358: 1
+359: Own Savings
+360: 2
+361: Financed by family member
+362: 3
+363: Profit from business
+364: 4
+365: Mortgaged gold/silver
+366: 5
+367: Sold gold/silver
+368: 6
+369: Loan from family
+370: 7
+371: Loan from moneylender
+372: 8
+373: Loan from SHG
+374: 9
+375: Loan from OSF/SVEP
+376: 10
+377: Subsidy/grant under OSF/SVEP
+378: 11
+379: Loan from private saving groups/BC
+380: 12
+381: Loan from NBFC
+382: 13
+383: Mudra loan
+384: 14
+385: Loan from banks
+386: Q4. What has been your experience in funding your business? (Multi select)
+387: SHG loan is sufficient for the current scale of my business
+388: I regularly plough in my business earnings
+389: SHG loan size is smaller than my requirement
+390: I get the required loan easily from the moneylender/NBFIs.
+391: My family members help me with funds and loans
+392: I don't prefer money lender or NBFIs as the interest rate is high
+393: I don't prefer money lender or NBFIs as the repayment time is shorter for my convenience
+394: Q5. What changes have happened in your business? ( The SHG member may not be able to give an exact number. In such a case ask for rough estimates but don’t pressure )
+395: #
+396: Heading
+397: First year
+398: Don't remember
+399: Rs
+400: Current year
+401: 1
+402: Average sales/month
+403: 2
+404: Average monthly income
+405: 3
+406: Value of stock/finished goods
+407: 4
+408: In case of servicing, value of enterprise related assets
+409: Q6. How has the income from the enterprise helped you financially? (Multiselect)
+410: I don’t need to ask money from my husband/family for my needs.
+411: The income from enterprise is the biggest source of income for my family
+412: The income from enterprise is used in covering education related expenses for my children. Specify amount
+413: I have been able to pay the family debts. Specify amount
+414: I have contributed money in acquiring assets for my family Specify amount
+415: I have contributed money for marriage expenses. Specify amount
+416: Any other (Please specify)
+417: Section E: Ease of doing business and challenges
+418: Instruction:  Don’t prompt. Tick whatever answer is given by the SHG member
+419: Q1. How has been your husband’s response towards your enterprise? (Multiselect)
+420: I need help from my family in running my enterprise more effectively
+421: My husband was not supportive initially, but now helps when required
+422: My husband supports/supported me financially
+423: I have full support of my husband/family and helped me in every possible way
+424: I am running my enterprise without anyone’s support
+425: Q2. What is your level of comfort in sourcing material?
+426: I travel alone and I handle negotiations independently
+427: I need travel companion but I handle negotiations independently
+428: My family member handles the purchase
+429: OSF/SVEP CRP helps in sourcing material
+430: I want to source material from different places but I need support
+431: I am content to source material from nearby market
+432: Q3. Are you able to recover money from customers?
+433: Yes, I don’t face any issues
+434: Yes, but I conduct only cash transactions
+435: Yes, eventually everyone pays
+436: Yes, but I have learnt over the years how to negotiate.
+437: No, but my husband is able to recover
+438: No, my business has suffered losses due to debt.
+439: Q4. What are the challenges you are facing now? (Multiselect)
+440: OSF is phased out now which has affected fund sufficiency. Specify amount
+441: I need timely access to funds to buy inputs before the production/peak season begins. Specify amount
+442: I need support to access bigger market to source material/inputs at lower cost
+443: I need help in selling my inventory.
+444: I need help in learning use of social media
+445: Any other, specify
+446: Q5. How many people in your village are in the same business as yours?
+447: Same business scale ______
+448: Smaller business scale than yours_______
+449: Higher business scale than yours_________
+450: Q6. What advantage do you have over your competitors? (Multiselect)
+451: I operate from a better location
+452: I operate from a shop while they operate from home
+453: I offer a wide variety of products/services
+454: I offer discounts and still able to make profit
+455: I offer better quality of products/services
+456: I sell my products/services on credit
+457: I take less time to supply products/deliver services
+458: I use social media to market my products/services
+459: Any other, specify
+460: I don't have any advantage
+461: Section F: Growth plans and aspirations
+462: Q1. For next one year, what are your plans to increase the scale of your business?
+463: I want to shift to a better location
+464: I want to make my shop/premise more attractive to customers
+465: I want to expand my current business at the same location (more stock/customers/scale)
+466: I want to open a branch/second unit of the same business elsewhere
+467: I want to diversify into a related product/service (e.g., add new items to sell)
+468: I want to start a completely different, second enterprise
+469: I want to formalise my business (registration, GST, etc.) to access more/larger customers
+470: I want to move from local/door-to-door sales to online or wider markets
+471: I want to hire more people to help run the business
+472: I want to hand over the business to a family member and reduce my own involvement
+473: I am satisfied with the current scale and don't want to expand
+474: I want to shut down or exit this enterprise
+475: Any other, specify
+476: Can't say / haven't thought about it
+477: Q2. What is holding you back from pursuing these aspirations? (Multiselect, don't prompt)
+478: Lack of capital/funds
+479: Lack of family support/time due to household responsibilities
+480: Lack of market access/demand beyond current customer base
+481: Lack of skills/training needed for the next step
+482: Health or personal constraints
+483: Nothing is holding me back, I am already working towards it
+484: Any other, specify
+485: Q3. How much funds do you need to fund your plan?
+486: Upto Rs 1,00,000
+487: Rs 1,00,001-Rs 3,00,000
+488: Rs 3,00,001-Rs 5,00,000
+489: Rs 5,00,001-Rs 7,00,000
+490: Rs 7,00,001-Rs 9,00,000
+491: More than 9,00,000
+492: Section G: Impact of SVEP/OSF schemes on women-led enterprises
+493: Q1. Have you attended any training under SVEP/OSF?
+494: Yes
+495: No
+496: Q2. If Yes, specify__________
+497: Q3. Did you use any training component in your enterprise?
+498: Yes
+499: No
+500: Q4. If Yes, specify__________
+501: Q5. After the changes you made with the loan from SHG (SVEP/OSF),  did you see any increase in monthly income ?
+502: Income before the changes: Rs-------
+503: Income after the changes: Rs---------
+504: Q6. Can you specify the amount by which your average monthly income has increased directly due to changes brought by OSF/SVEP loans?
+505: Upto Rs 2000
+506: Rs 2000 to Rs 3000
+507: Rs 3000 to Rs 4000
+508: Rs 4000 to Rs 5000
+509: Rs 5000 to Rs 6000
+510: Above Rs 6000
+511: Cant say
+512: Q7. What has been the contribution of SVEP/OSF CRP in your enterprise? ( Multisepect)
+513: Accessing subsidy
+514: Getting necessary documents. Specify Aadhar/PAN Card/Income certificate/Caste certificate/Udhayam aadhar/ FSSAI certificate/Shop registration/
+515: They helped us to understand business plans
+516: They gave us new ideas to improve our profit.
+517: They trained us on maintaining records which we didn’t know earlier
+518: They helped in accessing loans from bank
+519: They helped in our communication skills
+520: They helped in marketing
+521: They helped in learning use of instagram
+522: They helped us to understand our competitors and suggested ways to beat the competition.
+523: Q8. What are your expectations from the SVEP/OSF scheme? (Please prompt)
+524: Need bigger loan amount
+525: Need help in accessing Mudra loan
+526: Need more guidance of SBDP/SVEP CRPs
+527: Need help to access bigger markets
+528: Need help with online purchase
+529: Need help with instagram
+530: Need my business specific trainings
+531: Any other, Specify
+532: Section H: Use of online transactions and social media
+533: Q1. Do you own a smart phone?
+534: Yes
+535: No
+536: No, but i have access to smart phone
+537: Q2. Do you use QR code/mobile banking for money transactions?
+538: Yes
+539: No
+540: Q3. If yes, daily how many transactions in your business are done using QR code/mobile banking?
+541: 1-4
+542: 5-10
+543: 10-20
+544: 20-40
+545: More than 40
+546: Q4. If no, reason for not using QR code/mobile banking for money related transactions
+547: Since I don’t own smart phone, it is difficult to transact
+548: Not many customers use smart phone for payments
+549: I don’t know how to use and monitor transactions with QR code/mobile banking
+550: Not applicable
+551: Q5. Do you use social media for marketing?
+552: I regularly share images on whatsapp to get orders
+553: I regularly share images/reels on instagram to get orders
+554: It is important but I don’t have access to smart phone
+555: I do not use because I don't know how to use whatsapp/ instagram
+556: I don't have time to learn and use social media
+557: I don't want to use social media
+558: Any other, specify
+559: Q6. Which social media platforms do you use for your business? (Multiselect)
+560: Whatsapp
+561: Instagram
+562: Pinterest
+563: Facebook
+564: Snapchat
+565: Don’t use social media
+566: Q7. How do you use these platforms in your business?
+567: Use texts to ask/share prices and book orders
+568: Share images to promote business
+569: Share images to enquire about the availability of products to vendors
+570: Get new ideas and information about new products/services
+571: Don’t use social media
+572: Q8. How often do you use social media for your business?
+573: Daily
+574: Twice or thrice a week
+575: Four-five times a month
+576: Only on occasions
+577: Don’t use social media
+578: Section I: Status of post-exit OSF intervention in Baran and Ratangadh
+579: Q1. In which year was the OSF intervention made?-------
+580: Q2. Is your business still operational?
+581: Yes but the sale has reduced
+582: Yes but the scale has increased
+583: Yes, but the scale has remained the same.
+584: No. If no, specify the year when it was closed……..
+585: Q3. What are the reasons for scaling down the business/closing the business? ( Don’t prompt)
+586: Sales reduced over the years as there was no one guiding us.
+587: Needed more capital to source material but there was no source of loan
+588: Banks refused to give us loan
+589: Unable to reach new customers.
+590: New competitors in the market offering discounts
+591: Any other, specify……..
+592: Don’t know
+593: Q4. What kind of support could have helped you to manage your business?
+594: Continued access to OSF loan
+595: Continued support by OSF CRPs
+596: Any other, specify
+597: --------------------------------------------------------------------------------------------------

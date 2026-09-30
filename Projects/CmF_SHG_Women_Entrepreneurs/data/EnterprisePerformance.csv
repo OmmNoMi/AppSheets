@@ -1,0 +1,2 @@
+ID,SurveyID,InitialStartCapital,CurrentTotalCapital,FinancingSourcesReceived,MonthlySalesAvg,MonthlyProfitAvg,ProfitAllocation,GrowthTrajectoryTag
+PRF_PERF_001,SRV_DEMO_001,25000,75000,"SHG loan, CIF",18000,6500,"Children's education, Reinvested in own enterprise",High Growth

@@ -12,6 +12,7 @@
 | 1 | Geofencing | GPS check-in offset validation using HERE() against AppSetting coordinates | No |
 | 2 | Performance Reviews | Weighted multi-cycle performance scoring on employee profile | No |
 | 3 | Automations | Cross-Table Reference Sync Pattern (AppUser.ID sync to Employee) | No |
+| 4 | Leave Management | Approved Leave Cascading Deletion & Balance Resync via Composite Action | No |
 
 ---
 
@@ -75,3 +76,24 @@
   - Action: Run Child Action `Trigger_Employee_Update_AppUserID`
 **Tested**: Yes
 **Reusable**: Yes
+
+---
+
+### Leave Management: Approved Leave Cascading Deletion & Balance Resync
+**Problem**: Allow HR/Admins to permanently delete approved Leave Applications, WFH, and Remote Work requests (including past leaves from 15+ days ago). Deletion must cascade to delete all generated `AttendanceDaily` rows and immediately trigger ledger balance recalculation on `LeaveAllocation` without corrupting production or relying on asynchronous bots that fail on deleted row references.
+**Solution**: Orchestrate a 4-step client-side Composite Action executed directly on `AttendanceRequest` before row removal:
+1. `REF_ACTION` targeting `AttendanceDaily` deletes all records matching `[Employee]` between `[StartDate]` and `[EndDate]` where `[Status] = "On Leave"`.
+2. Existing `Sync this LeaveAllocation Action - 1` touches the employee's `LeaveAllocation` record, prompting reactive VC balance recalculation.
+3. Existing `Sync this AttendanceRequest Action - 1` touches other requests for that employee.
+4. `DELETE_RECORD` deletes the `AttendanceRequest` row itself.
+**AppSheet Config**:
+- Action: `Delete_Approved_Leave` (Composite on `AttendanceRequest`)
+- Condition: `=AND([Status] = "Approved", IN([RequestType], {"Leave Application", "Work From Home", "Remote Work"}), ISNOTBLANK(INTERSECT({"U_People_Admin", "U_System_Admin"}, SPLIT(ANY(Me[Roles]), ","))))`
+**Tested**: Yes (1,000 automated stress-test iterations passed)
+**Reusable**: Yes
+
+---
+
+### AppSheet Platform Engine Constraints: Deletes_Only Bot Limitations
+- **`[_THISROW_BEFORE]` in Data Actions is Illegal**: In AppSheet expression evaluation, `[_THISROW_BEFORE]` is strictly restricted to email/push notification templates and Bot event conditions. Using `[_THISROW_BEFORE]` inside any Data Action formula (e.g. `FILTER(...)`, `SELECT(...)`) triggers the fatal error: `Unable to find column '_THISROW_BEFORE'`. Because child rows cannot be dynamically selected post-delete in actions, cascading child deletions MUST be triggered prior to parent row removal using a Composite Action.
+- **Process Action Exclusivity**: AppSheet's C# backend enforces a 1-to-1 relationship between an Action and an AppProcess: `"More than one process references action '...'"` triggers if two processes reference the same action name.

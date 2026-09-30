@@ -5,10 +5,10 @@ Pre-deployment verification checklist to ensure zero data loss, exact schema ali
 ---
 
 ## 1. Schema & Data Model Readiness
-- [ ] All Google Sheet tabs created with exact column header spelling (`Survey`, `ProfileAgency`, `BusinessInclination`, `EnterprisePerformance`, `InstitutionalSupport`, `MultiSelect`, `AppVariables`, `SamplingFrame`, `SupervisorAudit`).
-- [ ] `AppVariables` pre-seeded with all 40+ questionnaire prompts (`Q_*`) and answer options (`OPT_*`) in English, Hindi, and local dialects.
+- [x] All Google Sheet tabs created with exact column header spelling (`Survey`, `ProfileAgency`, `BusinessInclination`, `GenderObstacles`, `EnterprisePerformance`, `InstitutionalSupport`, `MultiSelect`, `AppVariables`, `SamplingFrame`, `SupervisorAudit`, `AppUser`, `AppViews`, `AppSettings`).
+- [x] `AppVariables` pre-seeded with all 67+ questionnaire prompts (`Q_*`) and answer options (`OPT_*`) in English, Hindi, and local dialects.
 - [ ] Virtual Column `Label` configured on `AppVariables` with dynamic language resolution.
-- [ ] `SamplingFrame` pre-loaded with Churu, Dausa, Dungarpur, and Baran district baseline metrics.
+- [x] `SamplingFrame` pre-loaded with Churu, Dausa, Dungarpur, and Baran district baseline metrics.
 
 ## 2. AppSheet Configuration & Security
 - [ ] `Ref` columns linked correctly with `IsPartOf=TRUE` on sub-module tables.
