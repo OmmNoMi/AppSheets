@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GSC Timesheet Module — Technical Implementation Plan &amp; Engineering Quotation — OmmNoMi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: #e5e7eb;
+      color: #111827; /* WCAG AAA high contrast */
+      font-size: 10.5px;
+      line-height: 1.45;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Physical A4 sheet with natural flex fitting */
+    .sheet {
+      width: 210mm;
+      height: 297mm;
+      margin: 0 auto 15px auto;
+      background: #ffffff;
+      padding: 10mm 14mm 9mm 14mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        break-after: page;
+        height: 297mm;
+        max-height: 297mm;
+        overflow: hidden;
+      }
+    }
+
+    /* HEADER & HERO */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #d1d5db;
+    }
+
+    .logo-img-main {
+      height: 38px;
+      width: auto;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .hero-title {
+      font-size: 21px;
+      font-weight: 900;
+      color: #111827;
+      margin-top: 2px;
+      letter-spacing: -0.3px;
+    }
+
+    .hero-sub {
+      font-size: 10.5px;
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    .doc-control {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: flex-end;
+    }
+
+    .control-badge {
+      font-size: 8.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #e8f0fe;
+      color: #1a56db;
+      border: 1px solid #bfdbfe;
+    }
+
+    .control-text {
+      font-size: 9px;
+      color: #4b5563;
+      font-weight: 600;
+    }
+
+    /* RUNNING HEADER (PAGES 2, 3, 4) */
+    .running-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 7px;
+      border-bottom: 1.5px solid #e5e7eb;
+      margin-bottom: 10px;
+    }
+
+    .running-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .running-brand img {
+      height: 22px;
+      width: auto;
+    }
+
+    .running-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .running-page-num {
+      font-size: 9px;
+      font-weight: 700;
+      color: #4b5563;
+      background: #f3f4f6;
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .stripe {
+      height: 4.5px;
+      background: linear-gradient(to right, #4285F4 25%, #34A853 25% 50%, #EA4335 50% 75%, #FBBC05 75%);
+      margin-bottom: 10px;
+    }
+
+    /* METADATA GRID */
+    .meta-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .meta-row-top {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      column-gap: 14px;
+      align-items: baseline;
+    }
+
+    .meta-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: #6b7280;
+    }
+
+    .meta-value {
+      font-size: 11px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .meta-cards-row {
+      display: flex;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed #d1d5db;
+    }
+
+    .meta-mini-card {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 5px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .status-pill {
+      color: #1e40af;
+      background: #dbeafe;
+      padding: 1.5px 7px;
+      border-radius: 8px;
+      font-size: 9px;
+      font-weight: 700;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    /* EXECUTIVE SUMMARY */
+    .executive-summary {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid #16a34a;
+      border-radius: 6px;
+      padding: 11px 15px;
+      margin-bottom: 11px;
+    }
+
+    .summary-title {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #15803d;
+      margin-bottom: 4px;
+    }
+
+    .summary-text {
+      font-size: 10.5px;
+      color: #111827;
+      line-height: 1.48;
+    }
+
+    /* KPI CARDS */
+    .kpi-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 11px;
+    }
+
+    .kpi-card {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border-top: 4px solid #4285F4;
+    }
+
+    .kpi-card.green { border-top-color: #16a34a; }
+    .kpi-card.purple { border-top-color: #7c3aed; }
+    .kpi-card.red { border-top-color: #dc2626; }
+
+    .kpi-num {
+      font-size: 18px;
+      font-weight: 900;
+      color: #111827;
+    }
+
+    .kpi-desc {
+      font-size: 8px;
+      color: #4b5563;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+
+    /* SECTION HEADERS */
+    .sh {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #111827;
+      margin-top: 8px;
+      margin-bottom: 5px;
+      padding-bottom: 2px;
+      border-bottom: 1.5px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sh::before {
+      content: '';
+      display: inline-block;
+      width: 3.5px;
+      height: 11px;
+      background: #4285F4;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .sh:first-of-type {
+      margin-top: 0;
+    }
+
+    .callout {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 4px solid #2563eb;
+      border-radius: 5px;
+      padding: 6px 10px;
+      margin-bottom: 7px;
+      font-size: 10px;
+      color: #1e3a8a;
+      line-height: 1.40;
+    }
+
+    /* TABLES */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 7px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table thead tr {
+      background: #374151; /* High contrast WCAG AAA */
+    }
+
+    table th {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      padding: 5.5px 8.5px;
+      text-align: left;
+    }
+
+    table tbody td {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 5px 8.5px;
+      font-size: 10px;
+      vertical-align: top;
+      color: #1f2937;
+      line-height: 1.40;
+    }
+
+    table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    table tbody tr:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    /* STRICT SINGLE-LINE TITLE COLUMN */
+    table td.col-title {
+      font-weight: 700;
+      color: #111827;
+      white-space: nowrap;
+      width: 25%;
+    }
+
+    table td code {
+      background: #f3f4f6;
+      color: #111827;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 9.5px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      border: 1px solid #d1d5db;
+      word-break: break-all;
+    }
+
+    /* PROTOCOL 4-BOX GRID */
+    .protocol-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .protocol-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .protocol-header {
+      font-size: 10px;
+      font-weight: 800;
+      color: #1e40af;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 3px;
+    }
+
+    .protocol-body {
+      font-size: 9.5px;
+      color: #374151;
+      line-height: 1.42;
+    }
+
+    /* CHIPS */
+    .chip {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 1.5px 6px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      border: 1px solid transparent;
+    }
+
+    .chip.yes {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #86efac;
+    }
+
+    .chip.no {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-color: #fca5a5;
+    }
+
+    .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+    }
+
+    .chip.yes .dot { background: #16a34a; }
+    .chip.no .dot { background: #dc2626; }
+
+    /* COMMERCIAL CARDS GRID */
+    .terms-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .term-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-left: 4px solid #16a34a;
+      border-radius: 5px;
+      padding: 9px 12px;
+    }
+
+    .term-card.alert {
+      border-left-color: #dc2626;
+    }
+
+    .term-card.blue {
+      border-left-color: #2563eb;
+    }
+
+    .term-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .term-desc {
+      font-size: 10px;
+      color: #374151;
+      line-height: 1.42;
+    }
+
+    /* SIGNATURE BLOCK - STRICTLY TWO OMMNOMI SIGNATORIES ONLY */
+    .signature-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 30px;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      padding-top: 10px;
+      border-top: 1px solid #d1d5db;
+    }
+
+    .sig-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 11px 14px;
+    }
+
+    .sig-line {
+      height: 24px;
+      border-bottom: 1px dashed #9ca3af;
+      margin-bottom: 5px;
+    }
+
+    .sig-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #1a56db;
+      text-decoration: none;
+    }
+
+    .sig-sub {
+      font-size: 9.5px;
+      color: #4b5563;
+      font-weight: 600;
+    }
+
+    .sig-quote {
+      font-size: 8.5px;
+      color: #6b7280;
+      font-style: italic;
+      line-height: 1.3;
+      margin-top: 2px;
+    }
+
+    /* RUNNING FOOTER */
+    .running-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 7px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 9px;
+      color: #6b7280;
+    }
+
+    .running-footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .running-footer-brand img {
+      height: 18px;
+      width: auto;
+    }
+
+    /* FINAL FOOTER WITH SOCIAL LINKS */
+    .final-footer {
+      background: #ffffff;
+      border-top: 1.5px solid #e5e7eb;
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .footer-left img {
+      height: 24px;
+      width: auto;
+    }
+
+    .faddr {
+      font-size: 9px;
+      color: #6b7280;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      text-decoration: none;
+    }
+
+    .social-link svg {
+      width: 10.5px;
+      height: 10.5px;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- PAGE 1: EXECUTIVE BRIEFING, METRICS & PROJECT PRINCIPLES          -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <div class="sheet">
+    <div>
+      <!-- HERO -->
+      <div class="hero">
+        <div>
+          <img class="logo-img-main" src="[IMAGE]" alt="OmmNoMi Automation LLP" />
+          <div class="hero-title">GSC Timesheet Submission Module</div>
+          <div class="hero-sub">Orbit HRMS &nbsp;·&nbsp; BLR World &nbsp;·&nbsp; Technical Implementation Plan &amp; Engineering Quotation</div>
+        </div>
+        <div class="doc-control">
+          <span class="control-badge">Technical Proposal</span>
+          <span class="control-text">Doc Ref: ONM-PLN-ORBIT-TS-001</span>
+          <span class="control-text">Version: v2.3.0 &nbsp;|&nbsp; 20/09/2026</span>
+        </div>
+      </div>
+
+      <div class="stripe"></div>
+
+      <!-- METADATA BOX -->
+      <div class="meta-box">
+        <div class="meta-row-top">
+          <div class="meta-label">Client Organization</div>
+          <div class="meta-value">BLR World</div>
+        </div>
+        <div class="meta-row-top">
+          <div class="meta-label">Project Scope</div>
+          <div class="meta-value">GSC Weekly Timesheet Submission, Master Extension &amp; Finance Output Engine</div>
+        </div>
+        <div class="meta-cards-row">
+          <div class="meta-mini-card">
+            <div class="meta-label">Target Delivery</div>
+            <div class="meta-value">5–7 Business Days</div>
+          </div>
+          <div class="meta-mini-card">
+            <div class="meta-label">Status</div>
+            <div><span class="status-pill">Scope Approved (24.0h)</span></div>
+          </div>
+          <div class="meta-mini-card">
+            <div class="meta-label">Standard Rate</div>
+            <div class="meta-value"><b>$25.00 / Hour</b> (Fixed)</div>
+          </div>
+          <div class="meta-mini-card">
+            <div class="meta-label">Total Engineering Scope</div>
+            <div class="meta-value"><b>24.0 Hours &nbsp;|&nbsp; $600.00</b></div>
+          </div>
+          <div class="meta-mini-card">
+            <div class="meta-label">Engineering Leads</div>
+            <div class="meta-value">Nomeshwer &amp; Hardik Sharma</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: EXECUTIVE SUMMARY -->
+      <div class="executive-summary">
+        <div class="summary-title">1. Executive Summary &amp; Scope Acceptance</div>
+        <div class="summary-text">
+          BLR World is commissioning a streamlined, automated <b>Weekly Timesheet Submission Module</b> for its Global Service Company (GSC) personnel, natively embedded within <b>Orbit HRMS (AppSheet)</b>. The objective is to provide a frictionless time-tracking experience for staff recording actual days worked against pre-approved internal activities and external projects, while establishing an audit-proof financial data pipeline that snapshots point-in-time day rates, enforces rigorous validation rules, and produces clean Google Sheets output for direct client billing and intercompany charging.
+          <br><br>
+          <b>OmmNoMi Automation LLP</b> formally accepts the requirements defined in <code>BLR GSC Timesheet Submission.docx</code> and <code>Timesheet Tables.xlsx</code>. Applying our <i>Reuse-First Engineering Architecture</i>, we design an additive, zero-disruption system that delivers the full production-ready capability in exactly <b>24.0 engineering hours ($600.00)</b>.
+        </div>
+      </div>
+
+      <!-- KPI METRIC HIGHLIGHTS -->
+      <div class="kpi-container">
+        <div class="kpi-card">
+          <div class="kpi-num">24.0 hrs</div>
+          <div class="kpi-desc">Total Quoted Effort</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-num">$600.00</div>
+          <div class="kpi-desc">Total Cost (@ $25/hr)</div>
+        </div>
+        <div class="kpi-card purple">
+          <div class="kpi-num">4 Tables</div>
+          <div class="kpi-desc">Additive Architecture</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-num">100% Frozen</div>
+          <div class="kpi-desc">Point-in-Time Finance Rates</div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: OBJECTIVES & SUCCESS CRITERIA -->
+      <div class="sh">2. Operational Objectives &amp; Architectural Design Principles</div>
+      <div class="callout">
+        The timesheet module adheres strictly to OmmNoMi enterprise engineering standards, optimizing user experience while guaranteeing downstream accounting integrity:
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%;">Engineering Principle</th>
+            <th style="width:45%;">System Design &amp; Architectural Standard</th>
+            <th style="width:30%;">Business Benefit for BLR World</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-title">Frictionless Submission</td>
+            <td>Auto-snapping to the current working Friday, pre-filtered activities, dynamic 5-day inline totals, and mobile-first PWA responsiveness.</td>
+            <td>Minimizes logging friction and eliminates user confusion around billing weeks.</td>
+          </tr>
+          <tr>
+            <td class="col-title">Immutable Rate Snapshotting</td>
+            <td>Physical snapshotting of employee day rate cards and cost codes at the exact moment of submission into <code>TimesheetOutput</code>.</td>
+            <td>Past historical financial records remain 100% protected if rates change in the future.</td>
+          </tr>
+          <tr>
+            <td class="col-title">Zero-Disruption Additive Build</td>
+            <td>Non-breaking extension of the existing <code>Employee</code> master; timesheet tables exist as independent modular schemas.</td>
+            <td>Zero operational downtime or regression risk for active Orbit HRMS users.</td>
+          </tr>
+          <tr>
+            <td class="col-title">Automated HR Governance</td>
+            <td>Live Process Owner compliance dashboard paired with automated Friday submission reminders and Monday escalation alerts.</td>
+            <td>Reduces manual HR follow-up time by over 90% each payroll cycle.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RUNNING FOOTER -->
+    <div class="running-footer">
+      <div class="running-footer-brand">
+        <img src="[IMAGE]" alt="OmmNoMi" />
+        <span>Orbit HRMS Timesheet Module &nbsp;·&nbsp; Technical Implementation Plan</span>
+      </div>
+      <div>Page 1 of 4</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- PAGE 2: CLIENT BRIEF CONFIRMATION & APPSHEET SOP PROTOCOL          -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <div class="sheet">
+    <div>
+      <!-- RUNNING HEADER -->
+      <div class="running-header">
+        <div class="running-brand">
+          <img src="[IMAGE]" alt="OmmNoMi" />
+          <span class="running-title">Orbit HRMS Timesheet Specification</span>
+        </div>
+        <div class="running-page-num">Page 2 of 4</div>
+      </div>
+
+      <!-- SECTION 3: DEVELOPER RESPONSES TO CLIENT BRIEF -->
+      <div class="sh">3. Developer Responses to Client Brief (Section 16 Confirmation)</div>
+      <div class="callout">
+        OmmNoMi provides definitive technical specifications for the 5 key architectural decisions requested in Section 16 of the client brief:
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%;">Topic</th>
+            <th style="width:45%;">OmmNoMi Proposed Technical Architecture</th>
+            <th style="width:30%;">Operational Impact &amp; Benefit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-title">1. Table Architecture</td>
+            <td>
+              Implement a <b>Two-Tier Header-Detail Pattern</b>:
+              <br>• <code>TimesheetSubmission</code> (Parent: Week Ending, Employee, Total Days, Status).
+              <br>• <code>TimesheetEntry</code> (Child: Activity, Actual Days, Notes).
+              <br>• <code>TimesheetOutput</code> (Finance Archive: Denormalized flat snapshot rows).
+              <br>• <code>TimesheetActivity</code> (Controlled Catalog Master).
+            </td>
+            <td>
+              Guarantees relational data integrity, enables real-time sum validations, prevents orphan records, and isolates financial archives from UI operations.
+            </td>
+          </tr>
+          <tr>
+            <td class="col-title">2. Employee Master</td>
+            <td>
+              Extend Orbit's existing <code>Employee</code> table with 3 physical columns:
+              <br>• <code>IsBillable</code> (Yes/No)
+              <br>• <code>DayRateAED</code> (Price / Decimal, e.g. 2500, 3500, 4000)
+              <br>• <code>Team</code> (Enum: Business Development, Recruitment, SET, Finance, Performance)
+            </td>
+            <td>
+              Zero disruption to live profiles. Controlled fields editable exclusively by HR/Finance Admins. Rates are auto-fetched and never manually typed.
+            </td>
+          </tr>
+          <tr>
+            <td class="col-title">3. Revisions &amp; Voids</td>
+            <td>
+              <b>Audit-Safe Voiding Workflow:</b>
+              <br>• Submissions are strictly locked upon submission.
+              <br>• Authorized reopen marks original <code>TimesheetOutput</code> rows as <code>Invoice Status = "Superseded"</code>.
+              <br>• Resubmission (e.g. v2) captures corrected days and appends fresh finance rows.
+            </td>
+            <td>
+              <b>Zero Duplicate Billing risk in Finance.</b> Forensic historical audit trail remains 100% intact without silent overwrites or data loss.
+            </td>
+          </tr>
+          <tr>
+            <td class="col-title">4. Submission Lock</td>
+            <td>
+              • <code>Editable_If</code> rule: <code>AND([Status] = "Draft", [EmployeeID].[Email] = USEREMAIL())</code>.
+              <br>• Slices hide Edit/Delete actions once <code>[Status] = "Submitted"</code>.
+              <br>• <code>TimesheetOutput</code> table set to <b>Read-Only / System-Append Only</b>.
+            </td>
+            <td>
+              End-users cannot tamper with historical timesheets once submitted. Creates a legally robust, audit-proof billing pipeline.
+            </td>
+          </tr>
+          <tr>
+            <td class="col-title">5. Future GSC Split</td>
+            <td>
+              The <code>Entity</code> field in <code>TimesheetActivity</code> is designed as an extensible controlled tag (UAE, Qatar, KSA, HoldCo, GSC).
+            </td>
+            <td>
+              Fully forward-compatible with BLR's upcoming entity reorganization without requiring structural database schema redesigns later.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SECTION 4: APPSHEET CONFIGURATION PROTOCOL -->
+      <div class="sh">4. AppSheet Configuration Protocol (Rule A2 Strict SOP Adherence)</div>
+      <div class="callout">
+        In strict accordance with <b>OmmNoMi Rule A2</b>, database and application configurations are delineated across four distinct levels:
+      </div>
+
+      <div class="protocol-grid">
+        <div class="protocol-card">
+          <div class="protocol-header">Level 1: Google Sheets Level (Physical Columns)</div>
+          <div class="protocol-body">
+            <b>Employee:</b> Add <code>IsBillable</code>, <code>DayRateAED</code>, <code>Team</code>.<br>
+            <b>TimesheetActivity:</b> <code>ID</code>, <code>Name</code>, <code>Description</code>, <code>CostCentre</code>, <code>BillableStatus</code>, <code>Entity</code>, <code>ProjectOwner</code>, <code>Status</code>, System Audit.<br>
+            <b>TimesheetSubmission:</b> <code>ID</code>, <code>EmployeeID</code>, <code>WeekEndingFriday</code>, <code>SubmissionDate</code>, <code>Status</code>, <code>TotalDaysWorked</code>, <code>Notes</code>, System Audit.<br>
+            <b>TimesheetEntry:</b> <code>ID</code>, <code>SubmissionID</code>, <code>ActivityID</code>, <code>ActualDaysWorked</code>, <code>LineNotes</code>, System Audit.<br>
+            <b>TimesheetOutput:</b> Exact 14 columns matching client Excel template.
+          </div>
+        </div>
+
+        <div class="protocol-card">
+          <div class="protocol-header">Level 2: AppSheet Table Level (Structure &amp; Modes)</div>
+          <div class="protocol-body">
+            <b>Schema Regeneration:</b> Regenerate existing <code>Employee</code> table.<br>
+            <b>New AppSheet Tables:</b> Add <code>TimesheetActivity</code>, <code>TimesheetSubmission</code>, <code>TimesheetEntry</code>, <code>TimesheetOutput</code>.<br>
+            <b>Update Permissions:</b><br>
+            • <code>TimesheetSubmission</code>: Adds, Updates.<br>
+            • <code>TimesheetEntry</code>: Adds, Updates, Deletes (Parent <code>IsPartOf = TRUE</code>).<br>
+            • <code>TimesheetOutput</code>: Read_Only (System action append).<br>
+            • <code>TimesheetActivity</code>: Updates_Only (Admin full CRUD).
+          </div>
+        </div>
+
+        <div class="protocol-card">
+          <div class="protocol-header">Level 3: Column Type Level (Types, Refs &amp; Rules)</div>
+          <div class="protocol-body">
+            <b>Enum Refs:</b> <code>TimesheetSubmission.EmployeeID</code> (Enum Ref → Employee), <code>TimesheetEntry.ActivityID</code> (Enum Ref → TimesheetActivity).<br>
+            <b>Friday Validation:</b> <code>WEEKDAY([WeekEndingFriday]) = 6</code>.<br>
+            <b>Numeric Constraints:</b> <code>AND([ActualDaysWorked] &gt; 0, [ActualDaysWorked] &lt;= 7)</code>.<br>
+            <b>Initial Value Formulas:</b><br>
+            • <code>WeekEndingFriday</code>: <code>TODAY() + (6 - WEEKDAY(TODAY()))</code><br>
+            • <code>EmployeeID</code>: <code>ANY(SELECT(Employee[ID], [Email] = USEREMAIL()))</code><br>
+            • <code>InvoiceStatus</code>: <code>"Not Invoiced"</code>
+          </div>
+        </div>
+
+        <div class="protocol-card">
+          <div class="protocol-header">Level 4: Virtual Column Level (Strict In-Memory)</div>
+          <div class="protocol-body">
+            <b>TimesheetSubmission.CalculatedWeeklyTotal:</b><br>
+            <code>SUM([Related TimesheetEntrys][ActualDaysWorked])</code><br>
+            <b>TimesheetSubmission.DuplicateCheck:</b><br>
+            <code>COUNT([Related TimesheetEntrys][ID]) &lt;&gt; COUNT(UNIQUE([Related TimesheetEntrys][ActivityID]))</code><br>
+            <b>TimesheetEntry.ActivityDescription:</b><br>
+            <code>[ActivityID].[Description]</code> (Hover / detail query)<br>
+            <b>Employee.IsTimesheetSubmittedThisWeek:</b><br>
+            Dynamically computes current weekly compliance state.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUNNING FOOTER -->
+    <div class="running-footer">
+      <div class="running-footer-brand">
+        <img src="[IMAGE]" alt="OmmNoMi" />
+        <span>Orbit HRMS Timesheet Module &nbsp;·&nbsp; Technical Implementation Plan</span>
+      </div>
+      <div>Page 2 of 4</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- PAGE 3: UX WORKFLOWS, ITEMIZED QUOTATION & QA MATRIX              -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <div class="sheet">
+    <div>
+      <!-- RUNNING HEADER -->
+      <div class="running-header">
+        <div class="running-brand">
+          <img src="[IMAGE]" alt="OmmNoMi" />
+          <span class="running-title">Orbit HRMS Timesheet Specification</span>
+        </div>
+        <div class="running-page-num">Page 3 of 4</div>
+      </div>
+
+      <!-- SECTION 5: UX ARCHITECTURE -->
+      <div class="sh">5. User Interface Architecture &amp; Compliance Cockpit</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%;">View Component</th>
+            <th style="width:22%;">Target Role</th>
+            <th style="width:53%;">UX Design &amp; Functional Behavior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-title">Weekly Timesheet Form</td>
+            <td>GSC Employees<br><code>U_Employee</code></td>
+            <td>Dynamic entry form. Auto-snaps to current Friday. Child line table allows logging multiple activities. Real-time indicator tallies weekly days (e.g. <code>5.0 / 5.0 Days</code>). Warns if total deviates from standard week. Duplicate check blocks double-logging.</td>
+          </tr>
+          <tr>
+            <td class="col-title">My Submissions View</td>
+            <td>GSC Employees<br><code>U_Employee</code></td>
+            <td>Interactive history card list. Displays recent weeks with visual status chips: <span class="chip yes"><span class="dot"></span> Submitted</span> or <span class="chip no"><span class="dot"></span> Missing</span>. Provides read-only breakdown of logged days and activities.</td>
+          </tr>
+          <tr>
+            <td class="col-title">Process Owner Cockpit</td>
+            <td>Line Managers / HR<br><code>U_System_Admin</code></td>
+            <td>Management compliance dashboard displaying real-time KPI summary (Expected, Submitted, Outstanding, % Compliance), interactive team filters, and one-click nudge reminder notifications.</td>
+          </tr>
+          <tr>
+            <td class="col-title">Finance Output Grid</td>
+            <td>Finance Admins<br><code>U_Finance_Admin</code></td>
+            <td>Denormalized tabular view of <code>TimesheetOutput</code> matching client finance sheet format. Displays frozen day rates, billable tags, calculated totals, and manual <code>Invoice Status</code> tracking dropdown.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SECTION 6: PHASED DELIVERY PLAN & QUOTATION -->
+      <div class="sh">6. Phased Delivery Plan &amp; Itemized Hourly Quotation ($25.00/hr)</div>
+      <div class="callout">
+        In accordance with OmmNoMi Commercial SOP, engineering tasks are itemized by deliverable. The complete module is quoted at our standard <b>$25.00 / hour</b> rate, fixed to exactly <b>24.0 Hours</b> total effort.
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%;">Module &amp; Scope</th>
+            <th style="width:51%;">Detailed Engineering Tasks &amp; SOP Deliverables</th>
+            <th style="width:12%; text-align:center;">Hours</th>
+            <th style="width:12%; text-align:right;">Cost ($)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-title">Mod 1: Database Setup</td>
+            <td>Extend Employee table; seed 25 Activity catalog records; build Submission &amp; Entry tables with UUID keys; configure table regeneration, Enum Refs, and cascading deletes.</td>
+            <td style="text-align:center;">4.0 hrs</td>
+            <td style="text-align:right;"><b>$100.00</b></td>
+          </tr>
+          <tr>
+            <td class="col-title">Mod 2: Entry UX &amp; Rules</td>
+            <td>Friday ISO auto-snapping logic &amp; rejection validation; multi-row entry form UX; daily limits (<code>&gt; 0</code> and <code>&lt;= 7</code>); duplicate activity blocker; real-time weekly total calculator.</td>
+            <td style="text-align:center;">5.5 hrs</td>
+            <td style="text-align:right;"><b>$137.50</b></td>
+          </tr>
+          <tr>
+            <td class="col-title">Mod 3: Finance Archive</td>
+            <td>Create 14-column <code>TimesheetOutput</code> sheet; build atomic action stack (<code>Submit</code> → <code>ArchiveLines</code> → <code>FreezeRates</code>); billing month derivation; immutability verification.</td>
+            <td style="text-align:center;">5.0 hrs</td>
+            <td style="text-align:right;"><b>$125.00</b></td>
+          </tr>
+          <tr>
+            <td class="col-title">Mod 4: Revisions &amp; Voids</td>
+            <td>Row-level lock expressions (<code>Editable_If</code>) sealing submitted records; authorized reopen workflow; automatic superseded voiding; versioned resubmission mechanism (v2, v3).</td>
+            <td style="text-align:center;">3.5 hrs</td>
+            <td style="text-align:right;"><b>$87.50</b></td>
+          </tr>
+          <tr>
+            <td class="col-title">Mod 5: Compliance Cockpit</td>
+            <td>Process Owner compliance summary dashboard (Expected vs Submitted vs Missing); submission matrix; Friday 2:00 PM GST reminder bot; Monday 10:00 AM GST escalation bot.</td>
+            <td style="text-align:center;">3.5 hrs</td>
+            <td style="text-align:right;"><b>$87.50</b></td>
+          </tr>
+          <tr>
+            <td class="col-title">Mod 6: QA, Guide &amp; UAT</td>
+            <td>Pre-seed test scenarios across personas; author in-app documentation guide in <code>AppResources</code>; facilitate client UAT review window and deliver implementation walkthrough.</td>
+            <td style="text-align:center;">2.5 hrs</td>
+            <td style="text-align:right;"><b>$62.50</b></td>
+          </tr>
+          <tr style="background:#e8f0fe; font-weight:700;">
+            <td colspan="2" style="text-align:right; font-family:'Roboto',sans-serif; color:#1a56db;">TOTAL ENGINEERING SCOPE &amp; QUOTATION</td>
+            <td style="text-align:center; font-family:'Roboto',sans-serif; color:#1a56db;">24.0 hrs</td>
+            <td style="text-align:right; font-family:'Roboto',sans-serif; color:#1a56db;">$600.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SECTION 7: VERIFICATION PLAN -->
+      <div class="sh">7. Quality Assurance &amp; Acceptance Test Matrix</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%;">Scenario</th>
+            <th style="width:45%;">Verification Test Procedure</th>
+            <th style="width:30%;">Expected Acceptance Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-title">1. Friday Snapping</td>
+            <td>Select date in form; attempt saving non-Friday dates.</td>
+            <td>Non-Fridays rejected; auto-snaps to current Friday.</td>
+          </tr>
+          <tr>
+            <td class="col-title">2. Input Validation</td>
+            <td>Enter negative/zero days or duplicate activity rows.</td>
+            <td>Form blocks saving with explicit inline error.</td>
+          </tr>
+          <tr>
+            <td class="col-title">3. Rate Freeze Test</td>
+            <td>Submit timesheet, then change employee day rate in master.</td>
+            <td>Historical archive record remains 100% frozen.</td>
+          </tr>
+          <tr>
+            <td class="col-title">4. Lock Enforcement</td>
+            <td>Attempt editing a submitted timesheet as employee.</td>
+            <td>Edit and delete buttons hidden; row is read-only.</td>
+          </tr>
+          <tr>
+            <td class="col-title">5. Revision &amp; Void</td>
+            <td>Trigger authorized reopen; submit corrected timesheet.</td>
+            <td>Old row marked "Superseded"; new row saved.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RUNNING FOOTER -->
+    <div class="running-footer">
+      <div class="running-footer-brand">
+        <img src="[IMAGE]" alt="OmmNoMi" />
+        <span>Orbit HRMS Timesheet Module &nbsp;·&nbsp; Technical Implementation Plan</span>
+      </div>
+      <div>Page 3 of 4</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- PAGE 4: AUTOMATIONS, ROADMAP, TERMS & TWO OMMNOMI SIGNATORIES      -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <div class="sheet">
+    <div>
+      <!-- RUNNING HEADER -->
+      <div class="running-header">
+        <div class="running-brand">
+          <img src="[IMAGE]" alt="OmmNoMi" />
+          <span class="running-title">Orbit HRMS Timesheet Specification</span>
+        </div>
+        <div class="running-page-num">Page 4 of 4</div>
+      </div>
+
+      <!-- SECTION 8: AUTOMATION BOTS & ATOMIC ACTION PIPELINE -->
+      <div class="sh">8. AppSheet Automation Bots &amp; Atomic Action Pipelines</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%;">Automation Component</th>
+            <th style="width:22%;">Trigger Mechanism</th>
+            <th style="width:53%;">Technical Implementation &amp; Execution Stack</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-title">Atomic Archive Stack</td>
+            <td>Submission Save<br><code>[Status] = "Submitted"</code></td>
+            <td>Executes atomic grouped action: (1) Set Status to Submitted → (2) Iterate child <code>TimesheetEntry</code> rows → (3) Append denormalized records into <code>TimesheetOutput</code> with snapshot <code>DayRateAED</code> and <code>BillingMonth</code> → (4) Apply permanent row lock.</td>
+          </tr>
+          <tr>
+            <td class="col-title">Friday Reminder Bot</td>
+            <td>Weekly Scheduled<br><code>Friday 2:00 PM GST</code></td>
+            <td>Evaluates all active billable employees where <code>IsTimesheetSubmittedThisWeek = FALSE</code>. Dispatches targeted in-app push notification and email reminder to submit weekly hours before cutoff.</td>
+          </tr>
+          <tr>
+            <td class="col-title">Monday Escalation Bot</td>
+            <td>Weekly Scheduled<br><code>Monday 10:00 AM GST</code></td>
+            <td>Evaluates unresolved missing timesheets for prior week. Dispatches consolidated summary report to Line Managers and HR Admins with one-click escalation nudges.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SECTION 9: IMPLEMENTATION ROADMAP -->
+      <div class="sh">9. Implementation Roadmap &amp; Milestones (5–7 Business Days)</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%;">Milestone Phase</th>
+            <th style="width:51%;">Engineering Deliverables &amp; Technical Focus</th>
+            <th style="width:24%;">Target Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-title">Phase 1: Database Setup</td>
+            <td>Employee master extension, TimesheetActivity catalog seeding, Google Sheets schema build.</td>
+            <td>Days 1 – 2</td>
+          </tr>
+          <tr>
+            <td class="col-title">Phase 2: UX &amp; Rules</td>
+            <td>Dynamic submission form, auto-Friday snapping, daily limits, duplicate activity validation.</td>
+            <td>Days 3 – 4</td>
+          </tr>
+          <tr>
+            <td class="col-title">Phase 3: Finance Engine</td>
+            <td>Append-only archive action stack, point-in-time rate freeze, revisions &amp; voiding workflow.</td>
+            <td>Day 5</td>
+          </tr>
+          <tr>
+            <td class="col-title">Phase 4: Cockpit &amp; Bots</td>
+            <td>Process Owner compliance grid, Friday reminder bot, Monday escalation notification.</td>
+            <td>Day 6</td>
+          </tr>
+          <tr>
+            <td class="col-title">Phase 5: QA &amp; Handover</td>
+            <td>Comprehensive scenario validation, in-app documentation guide, client UAT walkthrough.</td>
+            <td>Day 7 (UAT Sign-off)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SECTION 10: COMMERCIAL TERMS & GOVERNANCE -->
+      <div class="sh">10. Commercial Engagement Terms &amp; Scope Boundaries</div>
+      <div class="terms-grid">
+        <div class="term-card">
+          <div class="term-title">✓ Standard Commercial Rate</div>
+          <div class="term-desc">All engineering effort is billed at our standard rate of <b>$25.00 per hour</b>, totaling <b>$600.00</b> for the agreed 24.0-hour scope.</div>
+        </div>
+        <div class="term-card">
+          <div class="term-title">✓ Milestone Payment Structure</div>
+          <div class="term-desc">50% mobilization advance (<b>$300.00</b>) required to initiate build; balance 50% (<b>$300.00</b>) payable upon final UAT sign-off.</div>
+        </div>
+        <div class="term-card blue">
+          <div class="term-title">✓ Delivery Schedule &amp; Hypercare</div>
+          <div class="term-desc">Deployment completed within <b>5–7 business days</b>. Includes <b>14 days of post-go-live warranty</b> covering calibration and minor tweaks.</div>
+        </div>
+        <div class="term-card alert">
+          <div class="term-title">✕ Confirmed Out-of-Scope</div>
+          <div class="term-desc">PDF invoice generation, accounting ERP API sync (Xero/QuickBooks), payroll calculations, and multi-tier manager routing are excluded.</div>
+        </div>
+      </div>
+
+      <!-- SECTION 11: PROFESSIONAL SIGNATURES - STRICTLY TWO OMMNOMI DEVELOPERS -->
+      <div class="sh">11. Professional Engineering Signatures &amp; Authorization</div>
+      <div class="signature-section">
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <a href="https://ommnomi.in/associate/nomeshwer" target="_blank" class="sig-title">
+            Nomeshwer Sharma
+          </a>
+          <div class="sig-sub">Business Process Developer &amp; Implementor</div>
+          <div class="sig-quote">OmmNoMi Automation LLP &nbsp;·&nbsp; To engineer self-sustaining, intelligent operational ecosystems that empower human creativity and eliminate friction.</div>
+        </div>
+
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <a href="https://ommnomi.in/associate/whardiksharma" target="_blank" class="sig-title">
+            Hardik Sharma
+          </a>
+          <div class="sig-sub">Assistant Developer · Product Research &amp; Development</div>
+          <div class="sig-quote">OmmNoMi Automation LLP &nbsp;·&nbsp; To build technical solutions that keep the product at the cutting edge of innovation.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINAL FOOTER WITH ALL 7 SOCIAL LINKS -->
+    <div class="final-footer">
+      <div class="footer-left">
+        <img src="[IMAGE]" alt="OmmNoMi Automation LLP" />
+        <div class="faddr">Karsog, Mandi, Himachal Pradesh, India &nbsp;·&nbsp; Unlocking Business Potential Through Automation</div>
+      </div>
+      <div class="social-links">
+        <a href="https://ommnomi.in" target="_blank" class="social-link" title="Website" style="color:#4285F4;">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/ommnomi/" target="_blank" class="social-link" title="LinkedIn" style="color:#0A66C2;">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@OmmNoMi" target="_blank" class="social-link" title="YouTube" style="color:#FF0000;">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://github.com/OmmNoMi" target="_blank" class="social-link" title="GitHub" style="color:#181717;">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </a>
+        <a href="https://www.instagram.com/ommnomi_automation/" target="_blank" class="social-link" title="Instagram" style="color:#E4405F;">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://x.com/ommnomi" target="_blank" class="social-link" title="X (Twitter)" style="color:#000000;">
+          <svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+        </a>
+        <a href="https://discord.com/users/ommnomi" target="_blank" class="social-link" title="Discord" style="color:#5865F2;">
+          <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
