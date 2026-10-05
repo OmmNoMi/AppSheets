@@ -42,11 +42,26 @@ def get_master_dashboard_css(auth_styles: str) -> str:
     .kpi-num {{ font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 900; color: #1a73e8; }}
     .kpi-desc {{ font-size: 9.5px; color: #5f6368; margin-top: 2px; }}
 
-    /* View Switcher Bar */
-    .view-switcher-bar {{ display: flex; gap: 6px; margin-bottom: 18px; padding: 5px; background: #f1f3f4; border-radius: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }}
-    .view-tab-btn {{ flex: 1; min-width: 135px; padding: 8px 12px; background: transparent; border: none; border-radius: 6px; font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: 700; color: #5f6368; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap; transition: all 0.2s ease; }}
-    .view-tab-btn:hover {{ background: rgba(255,255,255,0.6); color: #202124; }}
-    .view-tab-btn.active {{ background: #ffffff; color: #1a73e8; box-shadow: 0 1px 4px rgba(0,0,0,0.12); }}
+    /* Executive 4-Card View Switcher Bar */
+    .view-switcher-bar {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; padding: 6px; background: #f8f9fa; border: 1px solid #dadce0; border-radius: 10px; }}
+    .view-tab-btn {{ display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: #ffffff; border: 1px solid #dadce0; border-radius: 8px; cursor: pointer; text-align: left; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }}
+    .view-tab-btn:hover {{ border-color: #4285f4; background: #f8fafd; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(66, 133, 244, 0.08); }}
+    .view-tab-btn.active {{ background: #ffffff; border: 2px solid #4285F4; box-shadow: 0 4px 12px rgba(66, 133, 244, 0.16); transform: translateY(-1px); }}
+    .view-tab-btn.active::after {{ content: ''; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%); width: 28px; height: 3px; background: #4285F4; border-radius: 2px; }}
+    .vtab-icon-box {{ width: 32px; height: 32px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f1f3f4; color: #5f6368; transition: all 0.2s ease; }}
+    .vtab-icon-box svg {{ width: 16px; height: 16px; }}
+    .vtab-ico-blue {{ background: #e8f0fe; color: #1a73e8; }}
+    .vtab-ico-green {{ background: #e6f4ea; color: #137333; }}
+    .vtab-ico-purple {{ background: #f3e8fd; color: #673ab7; }}
+    .vtab-ico-amber {{ background: #fef7e0; color: #b06000; }}
+    .view-tab-btn.active .vtab-icon-box {{ box-shadow: 0 1px 3px rgba(0,0,0,0.12); }}
+    .vtab-content {{ display: flex; flex-direction: column; gap: 2px; min-width: 0; overflow: hidden; }}
+    .vtab-title {{ font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: 700; color: #202124; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.2s ease; }}
+    .view-tab-btn.active .vtab-title {{ color: #1a73e8; }}
+    .vtab-sub {{ display: flex; align-items: center; }}
+    .vtab-badge {{ font-family: 'Roboto', sans-serif; font-size: 8px; font-weight: 600; color: #5f6368; background: #f1f3f4; padding: 1px 5px; border-radius: 3px; white-space: nowrap; }}
+    .view-tab-btn.active .vtab-badge {{ background: #e8f0fe; color: #174ea6; font-weight: 700; }}
+
 
     /* View Headers & Containers */
     .view-header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 8px; }}
@@ -120,8 +135,9 @@ def get_master_dashboard_css(auth_styles: str) -> str:
       .kpi-grid {{ grid-template-columns: repeat(2, 1fr); gap: 8px; }}
       .kpi-card {{ padding: 10px; }}
       .kpi-num {{ font-size: 16px; }}
-      .view-switcher-bar {{ flex-wrap: nowrap; overflow-x: auto; }}
-      .view-tab-btn {{ min-width: 130px; font-size: 10px; padding: 6px 10px; }}
+      .view-switcher-bar {{ grid-template-columns: repeat(2, 1fr); gap: 8px; }}
+      .view-tab-btn {{ padding: 8px 10px; }}
+
       .analysis-grid {{ grid-template-columns: repeat(2, 1fr); gap: 8px; }}
       .view-header {{ flex-direction: column; gap: 8px; }}
       .cat-bar {{ flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }}
@@ -143,7 +159,9 @@ def get_master_dashboard_css(auth_styles: str) -> str:
       .page {{ border-radius: 0; box-shadow: none; }}
       .kpi-grid {{ grid-template-columns: 1fr; }}
       .meta-grid {{ grid-template-columns: 1fr; }}
+      .view-switcher-bar {{ grid-template-columns: 1fr; gap: 6px; }}
       .analysis-grid {{ grid-template-columns: 1fr; }}
+
       .auth-card {{ max-width: 95vw; }}
       .auth-body {{ padding: 22px 18px; }}
       .auth-input {{ font-size: 16px; }}

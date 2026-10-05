@@ -23,6 +23,8 @@ from .dashboard_views_script import get_views_client_script
 from .dashboard_provenance import get_provenance_registry
 from .dashboard_auth import get_auth_styles, render_auth_overlay_html, get_auth_client_script
 from .dashboard_styles import get_master_dashboard_css
+from .html_components import render_view_switcher_bar_html
+
 
 
 
@@ -150,20 +152,8 @@ def build_master_dashboard_html(
 
   <div class="body">
     <!-- 4-TAB TOP VIEW SWITCHER -->
-    <div class="view-switcher-bar">
-      <button type="button" class="view-tab-btn active" id="btn_view_sheet4" onclick="switchDashboardView('sheet4')">
-        Sheet 4: Survey Indicators (Q1–Q28)
-      </button>
-      <button type="button" class="view-tab-btn" id="btn_view_sheet2" onclick="switchDashboardView('sheet2')">
-        Sheet 2: Social Category Matrix
-      </button>
-      <button type="button" class="view-tab-btn" id="btn_view_sheet3" onclick="switchDashboardView('sheet3')">
-        Sheet 3: Agency &amp; Sourcing
-      </button>
-      <button type="button" class="view-tab-btn" id="btn_view_finance" onclick="switchDashboardView('finance')">
-        Finance: Capital &amp; Credit
-      </button>
-    </div>
+    {render_view_switcher_bar_html()}
+
 
     <!-- VIEW 1: SHEET 4 SURVEY INDICATORS (Q1–Q28) -->
     <div id="view_sheet4" class="dash-view" style="display:block;">

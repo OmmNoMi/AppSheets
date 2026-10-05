@@ -134,3 +134,68 @@ def get_client_dashboard_script() -> str:
       });
     }
     """
+
+
+def render_view_switcher_bar_html() -> str:
+    """Renders the executive 4-dimension module navigation bar."""
+    return """
+    <div class="view-switcher-bar">
+      <button type="button" class="view-tab-btn active" id="btn_view_sheet4" onclick="switchDashboardView('sheet4')">
+        <div class="vtab-icon-box vtab-ico-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <div class="vtab-content">
+          <div class="vtab-title">Survey Indicators</div>
+          <div class="vtab-sub"><span class="vtab-badge">Q1–Q28 Findings</span></div>
+        </div>
+      </button>
+
+      <button type="button" class="view-tab-btn" id="btn_view_sheet2" onclick="switchDashboardView('sheet2')">
+        <div class="vtab-icon-box vtab-ico-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <div class="vtab-content">
+          <div class="vtab-title">Social Category Matrix</div>
+          <div class="vtab-sub"><span class="vtab-badge">29 Activities × Caste</span></div>
+        </div>
+      </button>
+
+      <button type="button" class="view-tab-btn" id="btn_view_sheet3" onclick="switchDashboardView('sheet3')">
+        <div class="vtab-icon-box vtab-ico-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <div class="vtab-content">
+          <div class="vtab-title">Agency &amp; Sourcing</div>
+          <div class="vtab-sub"><span class="vtab-badge">Support &amp; Mobility</span></div>
+        </div>
+      </button>
+
+      <button type="button" class="view-tab-btn" id="btn_view_finance" onclick="switchDashboardView('finance')">
+        <div class="vtab-icon-box vtab-ico-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <div class="vtab-content">
+          <div class="vtab-title">Capital &amp; Credit</div>
+          <div class="vtab-sub"><span class="vtab-badge">14 Sources &amp; Usages</span></div>
+        </div>
+      </button>
+    </div>
+    """
+
