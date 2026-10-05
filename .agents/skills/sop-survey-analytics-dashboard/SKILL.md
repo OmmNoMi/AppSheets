@@ -161,3 +161,23 @@ When presenting multi-dimensional survey datasets spanning cross-tabulations, em
 - **Modular View Decoupling**:
   Keep view HTML builders in dedicated modules (`dashboard_matrix_view.py`, `dashboard_agency_view.py`, `dashboard_finance_view.py`) and scripts in `dashboard_views_script.py` to maintain strict $\le 300$ line bounds.
 
+---
+
+## 8. Mathematical Integrity & Cross-Tabulation Balance Protocol
+
+Survey analytical tools delivered to leadership must guarantee 100% mathematical precision across all tables, exports, and dashboards:
+- **Strict Horizontal & Vertical Balance**: In any cross-tabulation matrix (e.g. 29 Business Activities $\times$ Social Category), the row total must strictly equal the horizontal sum of its constituent columns:
+  $$\text{SC} + \text{ST} + \text{OBC} + \text{Gen} \equiv \text{Activity Row Total}$$
+  Never allow unclassified `NaN` records to create discrepancies where row totals exceed the sum of visible columns.
+- **Handling Incomplete / Unclassified Field Records**:
+  If raw survey entries lack a classification field (e.g., 2 respondents with missing caste), calculate row totals strictly from categorized counts (`tot = sc + st + obc + gen`) and embed an explicit audit footnote below the table:
+  `* Note: Cross-tabulation covers the 54 classified enterprise profiles (57 activities). 2 field entries did not record social category.`
+- **Executive View Switcher Architecture (Zero Raw Sheet Labels)**:
+  Replace plain raw spreadsheet buttons ("Sheet 2", "Sheet 3", "Sheet 1 · Finance Master") with high-impact, branded 4-card interactive modules featuring SVG icon boxes, bold dimension titles, and sub-badges (`Q1–Q28 Findings`, `29 Activities × Caste`, `Support & Mobility`, `14 Sources & Usages`).
+- **Exhaustive Sample Denominators (Zero Omission)**:
+  In single-select and multi-select questions (e.g., Table 17 Sourcing Comfort):
+  - Always account for all $N$ surveyed entrepreneurs. If only 52 answered, explicitly display `Skipped / Not Recorded (4 WE, 7.1%)` to balance the table to exactly $N$ (100.0%).
+  - In multi-select tables (Table 16 Family Support), display both total affirmation mentions (e.g. 79 Mentions) and unique responding entrepreneurs (52 Responding WE) to prevent confusion.
+- **All Financing Sources Represented**:
+  Always list all institutional and informal credit sources (all 14 sources) in rank order of capital mobilized, styling inactive/zero-capital options with muted typography so leadership immediately grasps both utilized credit and unpenetrated funding avenues.
+
