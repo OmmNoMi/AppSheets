@@ -12,7 +12,7 @@ Trading,1,Vegetable/Fruit,0,0,1,1,2
 ,9,Goat trading,0,0,0,0,0
 Trading TOTAL,,TOTAL TRADING,=SUM(D4:D12),=SUM(E4:E12),=SUM(F4:F12),=SUM(G4:G12),=SUM(H4:H12)
 Service,10,Flour mill,4,0,0,0,4
-,11,Tailoring,3,0,7,5,17
+,11,Tailoring,3,0,7,5,15
 ,12,Beauty parlour,2,0,1,0,3
 ,13,Auto-mechanic/ two-wheeler repair,0,0,0,0,0
 ,14,E-mitra,0,0,0,0,0

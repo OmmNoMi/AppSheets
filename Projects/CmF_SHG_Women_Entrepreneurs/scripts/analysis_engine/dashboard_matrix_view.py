@@ -12,11 +12,11 @@ def render_matrix_view_html() -> str:
   <div id="view_sheet2" class="dash-view" style="display:none;">
     <div class="view-header">
       <div>
-        <div class="view-title">Sheet 2: Distribution of Enterprises Across Business Activities by Social Category</div>
+        <div class="view-title">Distribution of Enterprises Across Business Activities by Social Category</div>
         <div class="view-sub">Cross-tabulation of 29 activities across SC, ST, OBC, and General categories with sector subtotals</div>
       </div>
       <div class="view-actions">
-        <span class="prov-badge">MATRIX 2.0</span>
+        <span class="prov-badge">SECTOR CROSS-TABULATION</span>
         <button type="button" class="btn-copy-tbl" onclick="copyMatrixTable(this)">Copy Matrix Table</button>
       </div>
     </div>
@@ -43,6 +43,7 @@ def render_matrix_view_html() -> str:
           <!-- Dynamically populated by client JavaScript -->
         </tbody>
       </table>
+      <div style="font-size:11px;color:#5f6368;margin-top:8px;font-style:italic;">* Note: Cross-tabulation covers the 54 classified enterprise profiles (57 activities). 2 field entries did not record social category.</div>
     </div>
 
     <!-- EXECUTIVE ANALYTICAL INTERPRETATION CARD -->

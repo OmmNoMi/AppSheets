@@ -53,7 +53,7 @@ def get_views_client_script() -> str:
         const st = matching.filter(r => r.q7 === 'CST_ST').length;
         const obc = matching.filter(r => r.q7 === 'CST_OBC').length;
         const gen = matching.filter(r => r.q7 === 'CST_GEN').length;
-        const tot = matching.length;
+        const tot = sc + st + obc + gen;
 
         secSC += sc; secST += st; secOBC += obc; secGEN += gen; secTot += tot;
         grandSC += sc; grandST += st; grandOBC += obc; grandGEN += gen; grandTot += tot;
@@ -61,10 +61,10 @@ def get_views_client_script() -> str:
         if (tot > 0) topActivityTracker.push({ title: act.title, count: tot, sector: act.sector });
 
         const isNewSector = idx === 0 || window.ACTIVITIES_CONFIG[idx - 1].sector !== act.sector;
-        const sectorSpan = isNewSector ? '<td rowspan="10" class="sector-td">' + act.sector + '</td>' : '';
+        const sectorTd = isNewSector ? '<td style="text-align:center;font-weight:700;color:#1a73e8;background:#f8fafd;border-bottom:1px solid #dadce0;">' + act.sector + '</td>' : '<td style="background:#ffffff;border-bottom:1px solid #e8eaed;"></td>';
 
         html += '<tr>' +
-          '<td style="text-align:center;font-weight:700;color:#5f6368;">' + act.sector + '</td>' +
+          sectorTd +
           '<td style="text-align:center;color:#5f6368;">' + act.num + '</td>' +
           '<td style="font-weight:500;">' + act.title + '</td>' +
           '<td style="text-align:right;' + (sc > 0 ? 'font-weight:700;color:#137333;' : 'color:#9aa0a6;') + '">' + sc + '</td>' +
@@ -138,7 +138,8 @@ def get_views_client_script() -> str:
           const pct = n > 0 ? (cnt / n * 100).toFixed(1) : '0.0';
           fHtml += '<tr><td>' + fd.label + '</td><td style="text-align:right;font-weight:600;">' + cnt + '</td><td style="text-align:right;">' + pct + '%</td></tr>';
         });
-        fHtml += '<tr style="background:#f1f3f4;font-weight:700;"><td>TOTAL RESPONSES</td><td style="text-align:right;">' + fTot + '</td><td style="text-align:right;">-</td></tr>';
+        const fRespondents = rows.filter(r => (r.family_support || []).length > 0).length;
+        fHtml += '<tr style="background:#e8f0fe;font-weight:700;"><td>TOTAL AFFIRMATIONS</td><td style="text-align:right;">' + fTot + '</td><td style="text-align:right;">' + fRespondents + ' WE answered</td></tr>';
         fBody.innerHTML = fHtml;
       }
 
@@ -161,7 +162,10 @@ def get_views_client_script() -> str:
           const pct = n > 0 ? (cnt / n * 100).toFixed(1) : '0.0';
           sHtml += '<tr><td>' + sd.label + '</td><td style="text-align:right;font-weight:600;">' + cnt + '</td><td style="text-align:right;">' + pct + '%</td></tr>';
         });
-        sHtml += '<tr style="background:#f1f3f4;font-weight:700;"><td>TOTAL RESPONSES</td><td style="text-align:right;">' + sTot + '</td><td style="text-align:right;">-</td></tr>';
+        const skippedCnt = Math.max(0, n - sTot);
+        const skippedPct = n > 0 ? (skippedCnt / n * 100).toFixed(1) : '0.0';
+        sHtml += '<tr style="color:#70757a;font-style:italic;"><td>Skipped / Not Recorded</td><td style="text-align:right;">' + skippedCnt + '</td><td style="text-align:right;">' + skippedPct + '%</td></tr>';
+        sHtml += '<tr style="background:#e8f0fe;font-weight:700;"><td>TOTAL SURVEYED</td><td style="text-align:right;">' + n + '</td><td style="text-align:right;">100.0%</td></tr>';
         sBody.innerHTML = sHtml;
       }
 
@@ -188,6 +192,8 @@ def get_views_client_script() -> str:
       const srcAgg = {};
       let totalAllCap = 0;
 
+      (window.CONFIG_SOURCES || []).forEach(s => srcAgg[s] = { count: 0, amount: 0 });
+
       rows.forEach(r => {
         Object.entries(r.cap_sources || {}).forEach(([src, amt]) => {
           if (!srcAgg[src]) srcAgg[src] = { count: 0, amount: 0 };
@@ -200,16 +206,23 @@ def get_views_client_script() -> str:
       const capBody = document.getElementById('tblCapitalSourcesBody');
       if (capBody) {
         let capHtml = '';
-        const sortedSrcs = Object.entries(srcAgg).sort((a,b) => b[1].amount - a[1].amount);
+        const sortedSrcs = Object.entries(srcAgg).sort((a,b) => {
+          if (b[1].amount !== a[1].amount) return b[1].amount - a[1].amount;
+          return b[1].count - a[1].count;
+        });
         sortedSrcs.forEach(([src, data]) => {
           const avg = data.count > 0 ? (data.amount / data.count) : 0;
           const pct = totalAllCap > 0 ? (data.amount / totalAllCap * 100).toFixed(1) : '0.0';
-          capHtml += '<tr>' +
-            '<td style="font-weight:600;">' + src + '</td>' +
+          const isZero = data.amount === 0;
+          const rowStyle = isZero ? 'style="color:#80868b;"' : '';
+          const amtStyle = isZero ? 'style="text-align:right;color:#80868b;"' : 'style="text-align:right;font-weight:700;"';
+          const pctStyle = isZero ? 'style="text-align:right;color:#80868b;"' : 'style="text-align:right;font-weight:600;color:#1a73e8;"';
+          capHtml += '<tr ' + rowStyle + '>' +
+            '<td style="' + (isZero ? 'color:#80868b;' : 'font-weight:600;') + '">' + src + '</td>' +
             '<td style="text-align:right;">' + data.count + '</td>' +
-            '<td style="text-align:right;font-weight:700;">Rs ' + Math.round(data.amount).toLocaleString() + '</td>' +
+            '<td ' + amtStyle + '>Rs ' + Math.round(data.amount).toLocaleString() + '</td>' +
             '<td style="text-align:right;">Rs ' + Math.round(avg).toLocaleString() + '</td>' +
-            '<td style="text-align:right;font-weight:600;color:#1a73e8;">' + pct + '%</td>' +
+            '<td ' + pctStyle + '>' + pct + '%</td>' +
           '</tr>';
         });
         capHtml += '<tr style="background:#e8f0fe;font-weight:700;">' +
@@ -219,7 +232,7 @@ def get_views_client_script() -> str:
           '<td style="text-align:right;">Rs ' + (n > 0 ? Math.round(totalAllCap / n).toLocaleString() : '0') + '</td>' +
           '<td style="text-align:right;">100.0%</td>' +
         '</tr>';
-        capBody.innerHTML = capHtml || '<tr><td colspan="5">No capital data logged.</td></tr>';
+        capBody.innerHTML = capHtml;
       }
 
       // Table 13: Loan Usages
@@ -228,11 +241,18 @@ def get_views_client_script() -> str:
       const uBody = document.getElementById('tblLoanUsagesBody');
       if (uBody) {
         let uHtml = '';
-        const sortedU = Object.entries(uMap).sort((a,b) => b[1] - a[1]);
-        sortedU.forEach(([u, cnt]) => {
+        const notUsedCnt = uMap['Not used the source'] || 0;
+        const sortedU = Object.entries(uMap)
+          .filter(([u]) => u !== 'Not used the source')
+          .sort((a,b) => b[1] - a[1]);
+        sortedU.forEach(([u, cnt], uIdx) => {
           const pct = n > 0 ? (cnt / n * 100).toFixed(1) : '0.0';
-          uHtml += '<tr><td>' + u + '</td><td style="text-align:right;font-weight:600;">' + cnt + '</td><td style="text-align:right;">' + pct + '%</td></tr>';
+          uHtml += '<tr><td><span style="font-size:8.5px;color:#5f6368;font-weight:600;margin-right:4px;">#' + (uIdx + 1) + '</span> ' + u + '</td><td style="text-align:right;font-weight:600;">' + cnt + '</td><td style="text-align:right;">' + pct + '%</td></tr>';
         });
+        if (notUsedCnt > 0) {
+          const notUsedPct = n > 0 ? (notUsedCnt / n * 100).toFixed(1) : '0.0';
+          uHtml += '<tr style="color:#70757a;font-style:italic;background:#fcfcfc;"><td>Not used the source (Unallocated / Inactive Debt)</td><td style="text-align:right;">' + notUsedCnt + '</td><td style="text-align:right;">' + notUsedPct + '%</td></tr>';
+        }
         uBody.innerHTML = uHtml || '<tr><td colspan="3">No loan usage logged.</td></tr>';
       }
 
@@ -256,4 +276,5 @@ def get_views_client_script() -> str:
           '<p><strong>Commercial Banking Gap:</strong> Formal banking institutions (including Mudra schemes) account for only <strong>' + bankPct + '%</strong> of deployed capital. Enterprise growth is largely buffered by reinvested profits (<strong>' + profitPct + '%</strong>) and family assistance. Critical intervention: bridge the collateral and paperwork gap to unlock formal bank branch credit.</p>';
       }
     }
+
 """

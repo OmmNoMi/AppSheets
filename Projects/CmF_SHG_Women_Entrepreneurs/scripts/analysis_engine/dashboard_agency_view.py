@@ -12,11 +12,11 @@ def render_agency_view_html() -> str:
   <div id="view_sheet3" class="dash-view" style="display:none;">
     <div class="view-header">
       <div>
-        <div class="view-title">Sheet 3: Empowerment, Agency &amp; Sourcing Independence</div>
+        <div class="view-title">Empowerment, Agency &amp; Sourcing Independence</div>
         <div class="view-sub">Assessment of intra-household support dynamics, travel mobility, and supply-chain negotiation autonomy</div>
       </div>
       <div class="view-actions">
-        <span class="prov-badge">SHEET 3 · TABLES 16 &amp; 17</span>
+        <span class="prov-badge">HOUSEHOLD DYNAMICS &amp; SOURCING</span>
       </div>
     </div>
 

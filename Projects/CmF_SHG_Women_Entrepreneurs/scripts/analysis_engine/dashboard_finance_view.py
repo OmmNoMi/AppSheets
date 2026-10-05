@@ -16,7 +16,7 @@ def render_finance_view_html() -> str:
         <div class="view-sub">Deconstruction of capital sources, debt vs equity structure, and working capital utilization across enterprises</div>
       </div>
       <div class="view-actions">
-        <span class="prov-badge">SHEET 1 · FINANCE MASTER</span>
+        <span class="prov-badge">14 FINANCING SOURCES AUDITED</span>
       </div>
     </div>
 

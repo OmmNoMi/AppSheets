@@ -48,13 +48,13 @@ def build_social_matrix_sheet(ws, df_survey: pd.DataFrame, schema, district_name
             sector_ranges[sector] = []
         r_matches = df_survey[df_survey['BusinessActivities'].apply(lambda x, c=codes: matches_activity(x, c))]
 
-        counts = [
-            len(r_matches[r_matches['SocialCategory'] == 'CST_SC']),
-            len(r_matches[r_matches['SocialCategory'] == 'CST_ST']),
-            len(r_matches[r_matches['SocialCategory'] == 'CST_OBC']),
-            len(r_matches[r_matches['SocialCategory'] == 'CST_GEN']),
-            len(r_matches)
-        ]
+        sc_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_SC'])
+        st_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_ST'])
+        obc_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_OBC'])
+        gen_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_GEN'])
+        tot_cnt = sc_cnt + st_cnt + obc_cnt + gen_cnt
+        counts = [sc_cnt, st_cnt, obc_cnt, gen_cnt, tot_cnt]
+
 
         ws.cell(row=cur_r, column=1, value=sector if not sector_ranges[sector] else "").font = font_bold
         ws.cell(row=cur_r, column=2, value=num).font = font_regular
