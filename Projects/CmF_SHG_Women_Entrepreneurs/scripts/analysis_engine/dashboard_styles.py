@@ -41,6 +41,35 @@ def get_master_dashboard_css(auth_styles: str) -> str:
     .kpi-card {{ background: #f8f9fa; border: 1px solid #dadce0; border-radius: 6px; padding: 12px; border-top: 3px solid #4285F4; }}
     .kpi-num {{ font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 900; color: #1a73e8; }}
     .kpi-desc {{ font-size: 9.5px; color: #5f6368; margin-top: 2px; }}
+
+    /* View Switcher Bar */
+    .view-switcher-bar {{ display: flex; gap: 6px; margin-bottom: 18px; padding: 5px; background: #f1f3f4; border-radius: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }}
+    .view-tab-btn {{ flex: 1; min-width: 135px; padding: 8px 12px; background: transparent; border: none; border-radius: 6px; font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: 700; color: #5f6368; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap; transition: all 0.2s ease; }}
+    .view-tab-btn:hover {{ background: rgba(255,255,255,0.6); color: #202124; }}
+    .view-tab-btn.active {{ background: #ffffff; color: #1a73e8; box-shadow: 0 1px 4px rgba(0,0,0,0.12); }}
+
+    /* View Headers & Containers */
+    .view-header {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 8px; }}
+    .view-title {{ font-family: 'Roboto', sans-serif; font-size: 13.5px; font-weight: 700; color: #202124; }}
+    .view-sub {{ font-size: 10px; color: #5f6368; margin-top: 2px; }}
+    .view-actions {{ display: flex; align-items: center; gap: 6px; }}
+
+    /* Analysis Interpretation Cards */
+    .analysis-card {{ background: #f8fafd; border: 1px solid #dadce0; border-left: 4px solid #4285F4; border-radius: 6px; padding: 14px 16px; margin-top: 16px; }}
+    .analysis-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e8eaed; }}
+    .analysis-title {{ font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 700; color: #202124; }}
+    .analysis-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }}
+    .analysis-kpi-box {{ background: #ffffff; border: 1px solid #dadce0; border-radius: 6px; padding: 9px 12px; }}
+    .analysis-kpi-lbl {{ font-family: 'Roboto', sans-serif; font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #5f6368; }}
+    .analysis-kpi-val {{ font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; color: #202124; margin: 2px 0; }}
+    .analysis-kpi-sub {{ font-size: 9px; color: #70757a; }}
+    .analysis-narrative p {{ font-size: 10.5px; line-height: 1.55; color: #3c4043; margin-bottom: 6px; }}
+    .analysis-narrative p:last-child {{ margin-bottom: 0; }}
+
+    /* Matrix Subtotals & Grand Totals */
+    .tr-subtotal td {{ background: #e8f0fe !important; font-weight: 700 !important; border-top: 1.5px solid #1a73e8 !important; border-bottom: 1.5px solid #1a73e8 !important; color: #174ea6 !important; }}
+    .tr-grandtotal td {{ background: #1a73e8 !important; color: #ffffff !important; font-weight: 900 !important; font-size: 10px !important; }}
+
     .sh {{ font-family: 'Roboto', sans-serif; font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #202124; margin: 16px 0 8px; padding-bottom: 3px; border-bottom: 1.5px solid #dadce0; display: flex; align-items: center; gap: 6px; }}
     .sh::before {{ content: ''; width: 3px; height: 11px; background: #4285f4; border-radius: 2px; }}
     .cat-bar {{ display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #e8eaed; }}
@@ -91,6 +120,10 @@ def get_master_dashboard_css(auth_styles: str) -> str:
       .kpi-grid {{ grid-template-columns: repeat(2, 1fr); gap: 8px; }}
       .kpi-card {{ padding: 10px; }}
       .kpi-num {{ font-size: 16px; }}
+      .view-switcher-bar {{ flex-wrap: nowrap; overflow-x: auto; }}
+      .view-tab-btn {{ min-width: 130px; font-size: 10px; padding: 6px 10px; }}
+      .analysis-grid {{ grid-template-columns: repeat(2, 1fr); gap: 8px; }}
+      .view-header {{ flex-direction: column; gap: 8px; }}
       .cat-bar {{ flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }}
       .cat-btn {{ white-space: nowrap; flex-shrink: 0; padding: 4px 10px; font-size: 10px; }}
       .grid-2, .grid-3 {{ grid-template-columns: 1fr; gap: 10px; }}
@@ -110,6 +143,7 @@ def get_master_dashboard_css(auth_styles: str) -> str:
       .page {{ border-radius: 0; box-shadow: none; }}
       .kpi-grid {{ grid-template-columns: 1fr; }}
       .meta-grid {{ grid-template-columns: 1fr; }}
+      .analysis-grid {{ grid-template-columns: 1fr; }}
       .auth-card {{ max-width: 95vw; }}
       .auth-body {{ padding: 22px 18px; }}
       .auth-input {{ font-size: 16px; }}

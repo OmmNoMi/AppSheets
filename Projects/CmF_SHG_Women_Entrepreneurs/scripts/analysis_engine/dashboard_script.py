@@ -254,6 +254,10 @@ def get_master_client_script() -> str:
         cHtml += '<tr><td>' + c.label + '</td><td>' + cnt + '</td><td>' + pct.toFixed(1) + '%</td></tr>';
       });
       document.getElementById('tblCasteMatrix').innerHTML = cHtml;
+      if (typeof updateSocialMatrix === 'function') updateSocialMatrix(rows);
+      if (typeof updateAgencyView === 'function') updateAgencyView(rows);
+      if (typeof updateFinanceView === 'function') updateFinanceView(rows);
     }
     """
     return filter_js + "\n" + get_copy_client_script()
+

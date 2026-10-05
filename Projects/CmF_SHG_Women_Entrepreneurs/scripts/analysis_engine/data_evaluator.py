@@ -182,12 +182,16 @@ def extract_respondent_records(
         for sid, grp in cq.groupby('Survey'):
             cap_map[sid] = float(grp['Answer_Number'].dropna().sum())
 
+        cap_src_map = {}
         for src_name, src_qg in schema.get_capital_sources():
             sst_src = df_subsub[(df_subsub['Question_Group'] == src_qg) & (df_subsub['Question'].isin([
                 'SubSubTable_CapitalArranged_FirstYear', 'SubSubTable_CapitalArranged_MidYear', 'SubSubTable_CapitalArranged_ThisYear'
             ]))]
-            for sid in sst_src[sst_src['Answer_Number'] > 0]['Survey'].unique():
-                q12_map.setdefault(sid, []).append(src_name)
+            for sid, grp in sst_src.groupby('Survey'):
+                s_amt = float(grp['Answer_Number'].dropna().sum())
+                if s_amt > 0:
+                    q12_map.setdefault(sid, []).append(src_name)
+                    cap_src_map.setdefault(sid, {})[src_name] = s_amt
 
         for _, u_title, u_code in schema.get_loan_usages():
             urecs = df_subsub[(df_subsub['Question'] == 'SubTable_CapitalLoanUsage_LoanUsage') & (df_subsub['Answer_Enum'] == u_code)]
@@ -212,6 +216,7 @@ def extract_respondent_records(
             'district': str(row.get('District', '')),
             'block': str(row.get('Block', '')),
             'tot_cap': cap_map.get(sid, 0.0),
+            'cap_sources': cap_src_map.get(sid, {}),
             'q1': str(row.get('LeadershipRole', '')),
             'q2': str(row.get('RelatedToCRP', '')),
             'q3': [c for c in ['BTY_TRADING', 'BTY_SERVICING', 'BTY_MANUFACTURING'] if c in str(row.get('BusinessType', ''))],
@@ -243,6 +248,8 @@ def extract_respondent_records(
             't28_loan': _num(row.get('LoanReceivedYear')),
             't28_shg': _num(row.get('SHGMembershipYears')),
             'activities': [c.strip() for c in str(row.get('BusinessActivities', '')).split(',') if c.strip()],
+            'family_support': [c.strip() for c in str(row.get('HusbandFamilyResponse', '')).split(',') if c.strip()],
+            'sourcing_comfort': [c.strip() for c in str(row.get('MaterialSourcingComfort', '')).split(',') if c.strip()],
         }
         respondents.append(r)
 

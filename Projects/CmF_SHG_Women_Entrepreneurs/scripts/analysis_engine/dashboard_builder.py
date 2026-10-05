@@ -15,10 +15,15 @@ from .indicators_config import (
     T20_CRP, T21_EXP, T24_TXNS, T25_SM, T26_PLAT, T27_MODES
 )
 from .dashboard_questions import render_all_question_cards_html
+from .dashboard_matrix_view import render_matrix_view_html
+from .dashboard_agency_view import render_agency_view_html
+from .dashboard_finance_view import render_finance_view_html
 from .dashboard_script import get_master_client_script
+from .dashboard_views_script import get_views_client_script
 from .dashboard_provenance import get_provenance_registry
 from .dashboard_auth import get_auth_styles, render_auth_overlay_html, get_auth_client_script
 from .dashboard_styles import get_master_dashboard_css
+
 
 
 def build_master_dashboard_html(
@@ -58,6 +63,11 @@ def build_master_dashboard_html(
     json_plat = json.dumps([{'label': lbl, 'code': c} for lbl, c in T26_PLAT])
     json_modes = json.dumps([{'label': lbl, 'code': c} for lbl, c in T27_MODES])
     json_prov = json.dumps(get_provenance_registry())
+    json_act = json.dumps([
+        {'sector': item[0], 'num': item[1], 'title': item[2], 'codes': item[3]}
+        for item in schema.get_business_activities()
+    ])
+
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -139,27 +149,55 @@ def build_master_dashboard_html(
   </div>
 
   <div class="body">
-    <!-- 4 TOP KPI CARDS -->
-    <div class="kpi-grid">
-      <div class="kpi-card"><div class="kpi-num" id="kpiTotalWE">56</div><div class="kpi-desc">Total Entrepreneurs</div></div>
-      <div class="kpi-card"><div class="kpi-num" id="kpiTotalFunds">Rs 0</div><div class="kpi-desc">Total Funds Mobilized</div></div>
-      <div class="kpi-card"><div class="kpi-num" id="kpiAvgFunds">Rs 0</div><div class="kpi-desc">Avg Investment / Enterprise</div></div>
-      <div class="kpi-card"><div class="kpi-num" id="kpiDigitalQR">0.0%</div><div class="kpi-desc">Digital Payment Adoption</div></div>
+    <!-- 4-TAB TOP VIEW SWITCHER -->
+    <div class="view-switcher-bar">
+      <button type="button" class="view-tab-btn active" id="btn_view_sheet4" onclick="switchDashboardView('sheet4')">
+        Sheet 4: Survey Indicators (Q1–Q28)
+      </button>
+      <button type="button" class="view-tab-btn" id="btn_view_sheet2" onclick="switchDashboardView('sheet2')">
+        Sheet 2: Social Category Matrix
+      </button>
+      <button type="button" class="view-tab-btn" id="btn_view_sheet3" onclick="switchDashboardView('sheet3')">
+        Sheet 3: Agency &amp; Sourcing
+      </button>
+      <button type="button" class="view-tab-btn" id="btn_view_finance" onclick="switchDashboardView('finance')">
+        Finance: Capital &amp; Credit
+      </button>
     </div>
 
-    <!-- THEMATIC CATEGORY NAVIGATION TABS -->
-    <div class="cat-bar">
-      <button onclick="filterCategory('all')" class="cat-btn active-btn" id="btn_cat_all">All Questions (1–28)</button>
-      <button onclick="filterCategory('sec-gov')" class="cat-btn" id="btn_cat_sec-gov">Governance &amp; SVEP</button>
-      <button onclick="filterCategory('sec-demo')" class="cat-btn" id="btn_cat_sec-demo">Demographics</button>
-      <button onclick="filterCategory('sec-ent')" class="cat-btn" id="btn_cat_sec-ent">Sectors &amp; Docs</button>
-      <button onclick="filterCategory('sec-fin')" class="cat-btn" id="btn_cat_sec-fin">Capital &amp; Relief</button>
-      <button onclick="filterCategory('sec-dig')" class="cat-btn" id="btn_cat_sec-dig">Digital &amp; Social</button>
-      <button onclick="filterCategory('sec-vin')" class="cat-btn" id="btn_cat_sec-vin">Tenure &amp; Matrix</button>
+    <!-- VIEW 1: SHEET 4 SURVEY INDICATORS (Q1–Q28) -->
+    <div id="view_sheet4" class="dash-view" style="display:block;">
+      <!-- 4 TOP KPI CARDS -->
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-num" id="kpiTotalWE">56</div><div class="kpi-desc">Total Entrepreneurs</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiTotalFunds">Rs 0</div><div class="kpi-desc">Total Funds Mobilized</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiAvgFunds">Rs 0</div><div class="kpi-desc">Avg Investment / Enterprise</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiDigitalQR">0.0%</div><div class="kpi-desc">Digital Payment Adoption</div></div>
+      </div>
+
+      <!-- THEMATIC CATEGORY NAVIGATION TABS -->
+      <div class="cat-bar">
+        <button onclick="filterCategory('all')" class="cat-btn active-btn" id="btn_cat_all">All Questions (1–28)</button>
+        <button onclick="filterCategory('sec-gov')" class="cat-btn" id="btn_cat_sec-gov">Governance &amp; SVEP</button>
+        <button onclick="filterCategory('sec-demo')" class="cat-btn" id="btn_cat_sec-demo">Demographics</button>
+        <button onclick="filterCategory('sec-ent')" class="cat-btn" id="btn_cat_sec-ent">Sectors &amp; Docs</button>
+        <button onclick="filterCategory('sec-fin')" class="cat-btn" id="btn_cat_sec-fin">Capital &amp; Relief</button>
+        <button onclick="filterCategory('sec-dig')" class="cat-btn" id="btn_cat_sec-dig">Digital &amp; Social</button>
+        <button onclick="filterCategory('sec-vin')" class="cat-btn" id="btn_cat_sec-vin">Tenure &amp; Matrix</button>
+      </div>
+
+      <!-- ALL 28 QUESTIONS -->
+      {render_all_question_cards_html()}
     </div>
 
-    <!-- ALL 28 QUESTIONS -->
-    {render_all_question_cards_html()}
+    <!-- VIEW 2: SHEET 2 SOCIAL CATEGORY MATRIX -->
+    {render_matrix_view_html()}
+
+    <!-- VIEW 3: SHEET 3 AGENCY & SOURCING -->
+    {render_agency_view_html()}
+
+    <!-- VIEW 4: FINANCE CAPITAL & CREDIT MOBILIZATION -->
+    {render_finance_view_html()}
 
     <div class="sig-section">
       <div><a href="https://ommnomi.in/associate/nomeshwer" target="_blank" class="sig-title">Nomeshwer Sharma</a><div style="font-size:8.5px;color:#5f6368;">Business Process Developer & Implementor</div></div>
@@ -204,9 +242,12 @@ window.CONFIG_SMM = {json_smm};
 window.CONFIG_PLAT = {json_plat};
 window.CONFIG_MODES = {json_modes};
 window.PROVENANCE_MAP = {json_prov};
+window.ACTIVITIES_CONFIG = {json_act};
 
 {get_master_client_script()}
+{get_views_client_script()}
 {get_auth_client_script()}
+
 
 window.addEventListener('DOMContentLoaded', checkExistingAuth);
 </script>

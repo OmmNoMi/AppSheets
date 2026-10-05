@@ -160,4 +160,31 @@ def get_copy_client_script() -> str:
         btnEl.classList.remove('copied');
       }, 1800);
     }
+
+    function copyGenericTable(tableId, btnEl) {
+      const tbl = document.getElementById(tableId);
+      if (!tbl) return;
+      const rows = getActiveRows();
+      const n = rows.length;
+      const distNames = [...new Set(rows.map(r => r.district))].map(d => d.replace('DIST_', '').replace('_', ' '));
+      const blkNames = [...new Set(rows.map(r => r.block))].map(b => b.replace('BLK_', '').replace('_', ' '));
+      const scopeStr = n + ' Women Entrepreneurs (' + distNames.length + ' Districts · ' + blkNames.length + ' Blocks selected)';
+
+      let tsv = 'Table Export · Scope: ' + scopeStr + '\\n\\n';
+      let html = '<table border="1" style="border-collapse:collapse;font-family:sans-serif;">';
+
+      Array.from(tbl.querySelectorAll('tr')).forEach(tr => {
+        const rowCells = Array.from(tr.querySelectorAll('th, td'));
+        if (rowCells.length > 0) {
+          tsv += rowCells.map(c => c.innerText.trim().replace(/\\t/g, ' ')).join('\\t') + '\\n';
+          html += '<tr>' + rowCells.map(c => '<td style="padding:6px 10px;">' + c.innerText.trim() + '</td>').join('') + '</tr>';
+        }
+      });
+      html += '</table>';
+      writeClipboardData(tsv, html, btnEl);
+    }
+
+    function copyMatrixTable(btnEl) {
+      copyGenericTable('tblSocialMatrixComplete', btnEl);
+    }
     """

@@ -136,5 +136,28 @@ Executive clients frequently inspect dashboards from smartphones (iOS / Android)
   - Desktop ($> 768\text{px}$): 4-column KPI grid, 4-column metadata grid, 2/3-column card layouts, 230px dropdowns.
   - Tablet/Mobile ($\le 768\text{px}$): 2-column KPI grid, 2-column metadata, 1-column card layouts, 100% width dropdowns with $\ge 38\text{px}$ touch targets.
   - Small Mobile ($\le 480\text{px}$): 1-column KPI grid, 0 body padding (app-like container), and $\ge 16\text{px}$ input font size on login overlay to prevent iOS Safari auto-zoom bugs.
-- **Touch-Friendly Horizontal Scrolling**: Tab navigation (`.cat-bar`) must use `overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch;` to allow smooth native swipe gesture navigation across question lenses.
+- **Touch-Friendly Horizontal Scrolling**: Tab navigation (`.cat-bar`, `.view-switcher-bar`) must use `overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch;` to allow smooth native swipe gesture navigation across question lenses.
+
+---
+
+## 7. Multi-Sheet View Switcher Architecture (Cross-Tabulation & Dimension Switching)
+
+When presenting multi-dimensional survey datasets spanning cross-tabulations, empowerment matrices, and financial flows:
+- **Top-Level View Switcher Tabs (`.view-switcher-bar`)**:
+  Provide prominent, easily switchable tab buttons above analytical content:
+  1. `Sheet 4: Survey Indicators (Q1–Q28)`: Standard thematic category lenses (Governance, Demographics, Sectors, Capital, Digital, Tenure).
+  2. `Sheet 2: Social Category Matrix`: The 29 Business Activities $\times$ Caste Group (SC, ST, OBC, Gen) cross-tabulation with subtotals for Trading (1–9), Service (10–18), Production (19–29), and Grand Total.
+  3. `Sheet 3: Agency & Sourcing`: Intra-household support dynamics (Table 16) and wholesale procurement / mobility comfort (Table 17).
+  4. `Finance: Capital & Credit Mobilization`: Granular breakdown across 14 capital sources (own savings, SHG, bank, moneylender, OSF/SVEP, etc.) and loan utilization purposes (Table 13).
+- **Universal Filter Reactivity**:
+  The active District and Block filter dropdowns MUST synchronously update all 4 analytical dimensions. In `applyFilters()`, seamlessly execute:
+  ```javascript
+  if (typeof updateSocialMatrix === 'function') updateSocialMatrix(rows);
+  if (typeof updateAgencyView === 'function') updateAgencyView(rows);
+  if (typeof updateFinanceView === 'function') updateFinanceView(rows);
+  ```
+- **Executive Analytical Narrative Cards**:
+  Accompany tabular cross-tabulations with dynamic narrative cards (`#cardMatrixAnalysis`, `#cardAgencyAnalysis`, `#cardFinanceAnalysis`) summarizing sectoral concentration, marginalized community participation (SC/ST/OBC shares), mobility empowerment, and community institutional debt reliance.
+- **Modular View Decoupling**:
+  Keep view HTML builders in dedicated modules (`dashboard_matrix_view.py`, `dashboard_agency_view.py`, `dashboard_finance_view.py`) and scripts in `dashboard_views_script.py` to maintain strict $\le 300$ line bounds.
 
