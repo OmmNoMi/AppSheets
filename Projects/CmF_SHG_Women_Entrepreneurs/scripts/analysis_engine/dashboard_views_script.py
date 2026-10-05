@@ -36,23 +36,22 @@ def get_views_client_script() -> str:
 
       window.ACTIVITIES_CONFIG.forEach((act, idx) => {
         if (curSector && curSector !== act.sector) {
-          html += '<tr class="tr-subtotal">' +
-            '<td colspan="3" style="font-weight:700;text-transform:uppercase;">TOTAL ' + curSector + '</td>' +
-            '<td style="text-align:right;font-weight:700;">' + secSC + '</td>' +
-            '<td style="text-align:right;font-weight:700;">' + secST + '</td>' +
-            '<td style="text-align:right;font-weight:700;">' + secOBC + '</td>' +
-            '<td style="text-align:right;font-weight:700;">' + secGEN + '</td>' +
-            '<td style="text-align:right;font-weight:700;">' + secTot + '</td>' +
+          const sClass = 'tr-subtotal-' + curSector.toLowerCase();
+          html += '<tr class="tr-subtotal ' + sClass + '">' +
+            '<td colspan="3" style="text-transform:uppercase;">TOTAL ' + curSector + '</td>' +
+            '<td style="text-align:right;">' + secSC + '</td>' +
+            '<td style="text-align:right;">' + secST + '</td>' +
+            '<td style="text-align:right;">' + secOBC + '</td>' +
+            '<td style="text-align:right;">' + secGEN + '</td>' +
+            '<td style="text-align:right;">' + secTot + '</td>' +
           '</tr>';
           secSC = 0; secST = 0; secOBC = 0; secGEN = 0; secTot = 0;
         }
 
         curSector = act.sector;
         const matching = rows.filter(r => (r.activities || []).some(c => act.codes.includes(c)));
-        const sc = matching.filter(r => r.q7 === 'CST_SC').length;
-        const st = matching.filter(r => r.q7 === 'CST_ST').length;
-        const obc = matching.filter(r => r.q7 === 'CST_OBC').length;
-        const gen = matching.filter(r => r.q7 === 'CST_GEN').length;
+        const sc = matching.filter(r => r.q7 === 'CST_SC').length, st = matching.filter(r => r.q7 === 'CST_ST').length;
+        const obc = matching.filter(r => r.q7 === 'CST_OBC').length, gen = matching.filter(r => r.q7 === 'CST_GEN').length;
         const tot = sc + st + obc + gen;
 
         secSC += sc; secST += st; secOBC += obc; secGEN += gen; secTot += tot;
@@ -61,28 +60,30 @@ def get_views_client_script() -> str:
         if (tot > 0) topActivityTracker.push({ title: act.title, count: tot, sector: act.sector });
 
         const isNewSector = idx === 0 || window.ACTIVITIES_CONFIG[idx - 1].sector !== act.sector;
-        const sectorTd = isNewSector ? '<td style="text-align:center;font-weight:700;color:#1a73e8;background:#f8fafd;border-bottom:1px solid #dadce0;">' + act.sector + '</td>' : '<td style="background:#ffffff;border-bottom:1px solid #e8eaed;"></td>';
+        const secTd = isNewSector ? '<td style="text-align:center;background:#fff;border-bottom:1px solid #dadce0;vertical-align:middle;"><span class="sec-badge sec-badge-' + act.sector.toLowerCase() + '">' + act.sector + '</span></td>' : '<td style="background:#fff;border-bottom:1px solid #f1f3f4;"></td>';
+        const pill = (v, cls) => v > 0 ? '<span class="pill-cnt ' + cls + '">' + v + '</span>' : '<span class="cell-zero">0</span>';
 
         html += '<tr>' +
-          sectorTd +
-          '<td style="text-align:center;color:#5f6368;">' + act.num + '</td>' +
+          secTd +
+          '<td style="text-align:center;color:#5f6368;font-weight:600;">' + act.num + '</td>' +
           '<td style="font-weight:500;">' + act.title + '</td>' +
-          '<td style="text-align:right;' + (sc > 0 ? 'font-weight:700;color:#137333;' : 'color:#9aa0a6;') + '">' + sc + '</td>' +
-          '<td style="text-align:right;' + (st > 0 ? 'font-weight:700;color:#137333;' : 'color:#9aa0a6;') + '">' + st + '</td>' +
-          '<td style="text-align:right;' + (obc > 0 ? 'font-weight:700;color:#b06000;' : 'color:#9aa0a6;') + '">' + obc + '</td>' +
-          '<td style="text-align:right;' + (gen > 0 ? 'font-weight:700;color:#1a73e8;' : 'color:#9aa0a6;') + '">' + gen + '</td>' +
-          '<td style="text-align:right;' + (tot > 0 ? 'font-weight:700;background:#f8f9fa;' : 'color:#9aa0a6;') + '">' + tot + '</td>' +
+          '<td style="text-align:right;">' + pill(sc, 'pill-sc') + '</td>' +
+          '<td style="text-align:right;">' + pill(st, 'pill-st') + '</td>' +
+          '<td style="text-align:right;">' + pill(obc, 'pill-obc') + '</td>' +
+          '<td style="text-align:right;">' + pill(gen, 'pill-gen') + '</td>' +
+          '<td style="text-align:right;">' + pill(tot, 'pill-tot') + '</td>' +
         '</tr>';
       });
 
       if (curSector) {
-        html += '<tr class="tr-subtotal">' +
-          '<td colspan="3" style="font-weight:700;text-transform:uppercase;">TOTAL ' + curSector + '</td>' +
-          '<td style="text-align:right;font-weight:700;">' + secSC + '</td>' +
-          '<td style="text-align:right;font-weight:700;">' + secST + '</td>' +
-          '<td style="text-align:right;font-weight:700;">' + secOBC + '</td>' +
-          '<td style="text-align:right;font-weight:700;">' + secGEN + '</td>' +
-          '<td style="text-align:right;font-weight:700;">' + secTot + '</td>' +
+        const sClass = 'tr-subtotal-' + curSector.toLowerCase();
+        html += '<tr class="tr-subtotal ' + sClass + '">' +
+          '<td colspan="3" style="text-transform:uppercase;">TOTAL ' + curSector + '</td>' +
+          '<td style="text-align:right;">' + secSC + '</td>' +
+          '<td style="text-align:right;">' + secST + '</td>' +
+          '<td style="text-align:right;">' + secOBC + '</td>' +
+          '<td style="text-align:right;">' + secGEN + '</td>' +
+          '<td style="text-align:right;">' + secTot + '</td>' +
         '</tr>';
       }
 
@@ -136,10 +137,11 @@ def get_views_client_script() -> str:
           const cnt = rows.filter(r => (r.family_support || []).some(c => c.includes(fd.code))).length;
           fTot += cnt;
           const pct = n > 0 ? (cnt / n * 100).toFixed(1) : '0.0';
-          fHtml += '<tr><td>' + fd.label + '</td><td style="text-align:right;font-weight:600;">' + cnt + '</td><td style="text-align:right;">' + pct + '%</td></tr>';
+          const fProg = '<div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill" style="width:' + pct + '%;background:#34a853;"></div></div><span class="mini-bar-lbl" style="color:#137333;">' + pct + '%</span></div>';
+          fHtml += '<tr><td>' + fd.label + '</td><td style="text-align:right;font-weight:700;">' + cnt + '</td><td style="text-align:right;">' + fProg + '</td></tr>';
         });
         const fRespondents = rows.filter(r => (r.family_support || []).length > 0).length;
-        fHtml += '<tr style="background:#e8f0fe;font-weight:700;"><td>TOTAL AFFIRMATIONS</td><td style="text-align:right;">' + fTot + '</td><td style="text-align:right;">' + fRespondents + ' WE answered</td></tr>';
+        fHtml += '<tr style="background:#eaf7ed;color:#137333;font-weight:800;border-top:2px solid #34a853;"><td>TOTAL AFFIRMATIONS</td><td style="text-align:right;">' + fTot + '</td><td style="text-align:right;font-size:9.5px;">' + fRespondents + ' WE answered</td></tr>';
         fBody.innerHTML = fHtml;
       }
 
@@ -160,12 +162,13 @@ def get_views_client_script() -> str:
           const cnt = rows.filter(r => (r.sourcing_comfort || []).some(c => c.includes(sd.code))).length;
           sTot += cnt;
           const pct = n > 0 ? (cnt / n * 100).toFixed(1) : '0.0';
-          sHtml += '<tr><td>' + sd.label + '</td><td style="text-align:right;font-weight:600;">' + cnt + '</td><td style="text-align:right;">' + pct + '%</td></tr>';
+          const sProg = '<div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill" style="width:' + pct + '%;background:#4285f4;"></div></div><span class="mini-bar-lbl" style="color:#1a73e8;">' + pct + '%</span></div>';
+          sHtml += '<tr><td>' + sd.label + '</td><td style="text-align:right;font-weight:700;">' + cnt + '</td><td style="text-align:right;">' + sProg + '</td></tr>';
         });
         const skippedCnt = Math.max(0, n - sTot);
         const skippedPct = n > 0 ? (skippedCnt / n * 100).toFixed(1) : '0.0';
         sHtml += '<tr style="color:#70757a;font-style:italic;"><td>Skipped / Not Recorded</td><td style="text-align:right;">' + skippedCnt + '</td><td style="text-align:right;">' + skippedPct + '%</td></tr>';
-        sHtml += '<tr style="background:#e8f0fe;font-weight:700;"><td>TOTAL SURVEYED</td><td style="text-align:right;">' + n + '</td><td style="text-align:right;">100.0%</td></tr>';
+        sHtml += '<tr style="background:#ebf3fe;color:#1a73e8;font-weight:800;border-top:2px solid #4285f4;"><td>TOTAL SURVEYED</td><td style="text-align:right;">' + n + '</td><td style="text-align:right;font-weight:800;">100.0%</td></tr>';
         sBody.innerHTML = sHtml;
       }
 
@@ -210,27 +213,36 @@ def get_views_client_script() -> str:
           if (b[1].amount !== a[1].amount) return b[1].amount - a[1].amount;
           return b[1].count - a[1].count;
         });
+        const catMap = {
+          'Profit from business': '<span class="cat-tag tag-green">Equity</span>', 'Own Savings': '<span class="cat-tag tag-green">Equity</span>',
+          'SHG': '<span class="cat-tag tag-blue">Community</span>', 'OSF/SVEP': '<span class="cat-tag tag-blue">Community</span>',
+          'Banks': '<span class="cat-tag tag-purple">Formal</span>', 'Mudra loan': '<span class="cat-tag tag-purple">Govt Scheme</span>',
+          'Loan from family': '<span class="cat-tag tag-amber">Family</span>', 'Financed by family member': '<span class="cat-tag tag-amber">Family</span>',
+          'Subsidy/grant': '<span class="cat-tag tag-green">Subsidy</span>', 'Private saving groups/BC': '<span class="cat-tag tag-grey">Informal</span>'
+        };
         sortedSrcs.forEach(([src, data]) => {
           const avg = data.count > 0 ? (data.amount / data.count) : 0;
           const pct = totalAllCap > 0 ? (data.amount / totalAllCap * 100).toFixed(1) : '0.0';
           const isZero = data.amount === 0;
           const rowStyle = isZero ? 'style="color:#80868b;"' : '';
           const amtStyle = isZero ? 'style="text-align:right;color:#80868b;"' : 'style="text-align:right;font-weight:700;"';
-          const pctStyle = isZero ? 'style="text-align:right;color:#80868b;"' : 'style="text-align:right;font-weight:600;color:#1a73e8;"';
+          const barColor = isZero ? '#dadce0' : '#1a73e8';
+          const capProg = '<div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill" style="width:' + pct + '%;background:' + barColor + ';"></div></div><span class="mini-bar-lbl" style="' + (isZero ? 'color:#80868b;' : 'color:#1a73e8;') + '">' + pct + '%</span></div>';
+          const tagHtml = catMap[src] || '';
           capHtml += '<tr ' + rowStyle + '>' +
-            '<td style="' + (isZero ? 'color:#80868b;' : 'font-weight:600;') + '">' + src + '</td>' +
-            '<td style="text-align:right;">' + data.count + '</td>' +
+            '<td style="' + (isZero ? 'color:#80868b;' : 'font-weight:600;') + '">' + src + tagHtml + '</td>' +
+            '<td style="text-align:right;font-weight:600;">' + data.count + '</td>' +
             '<td ' + amtStyle + '>Rs ' + Math.round(data.amount).toLocaleString() + '</td>' +
             '<td style="text-align:right;">Rs ' + Math.round(avg).toLocaleString() + '</td>' +
-            '<td ' + pctStyle + '>' + pct + '%</td>' +
+            '<td style="text-align:right;">' + capProg + '</td>' +
           '</tr>';
         });
-        capHtml += '<tr style="background:#e8f0fe;font-weight:700;">' +
+        capHtml += '<tr style="background:#ebf3fe;color:#1a73e8;font-weight:800;border-top:2px solid #4285f4;">' +
           '<td>TOTAL CAPITAL MOBILIZED</td>' +
           '<td style="text-align:right;">' + n + '</td>' +
           '<td style="text-align:right;font-weight:900;">Rs ' + Math.round(totalAllCap).toLocaleString() + '</td>' +
           '<td style="text-align:right;">Rs ' + (n > 0 ? Math.round(totalAllCap / n).toLocaleString() : '0') + '</td>' +
-          '<td style="text-align:right;">100.0%</td>' +
+          '<td style="text-align:right;font-weight:800;">100.0%</td>' +
         '</tr>';
         capBody.innerHTML = capHtml;
       }
@@ -247,7 +259,10 @@ def get_views_client_script() -> str:
           .sort((a,b) => b[1] - a[1]);
         sortedU.forEach(([u, cnt], uIdx) => {
           const pct = n > 0 ? (cnt / n * 100).toFixed(1) : '0.0';
-          uHtml += '<tr><td><span style="font-size:8.5px;color:#5f6368;font-weight:600;margin-right:4px;">#' + (uIdx + 1) + '</span> ' + u + '</td><td style="text-align:right;font-weight:600;">' + cnt + '</td><td style="text-align:right;">' + pct + '%</td></tr>';
+          const rClass = uIdx === 0 ? 'rank-1' : (uIdx === 1 ? 'rank-2' : (uIdx === 2 ? 'rank-3' : 'rank-sub'));
+          const rBadge = '<span class="rank-badge ' + rClass + '">#' + (uIdx + 1) + '</span>';
+          const uProg = '<div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill" style="width:' + pct + '%;background:#fbbc05;"></div></div><span class="mini-bar-lbl" style="color:#b06000;">' + pct + '%</span></div>';
+          uHtml += '<tr><td>' + rBadge + ' ' + u + '</td><td style="text-align:right;font-weight:600;">' + cnt + '</td><td style="text-align:right;">' + uProg + '</td></tr>';
         });
         if (notUsedCnt > 0) {
           const notUsedPct = n > 0 ? (notUsedCnt / n * 100).toFixed(1) : '0.0';

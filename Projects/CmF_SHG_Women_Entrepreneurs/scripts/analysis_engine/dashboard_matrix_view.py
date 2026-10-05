@@ -30,13 +30,13 @@ def render_matrix_view_html() -> str:
             <th rowspan="2" style="vertical-align:middle;text-align:center;width:30px;">#</th>
             <th rowspan="2" style="vertical-align:middle;min-width:210px;">Business activities</th>
             <th colspan="4" style="text-align:center;border-bottom:1px solid rgba(255,255,255,0.2);">Social Category #</th>
-            <th rowspan="2" style="vertical-align:middle;text-align:right;width:120px;">Total number of enterprises</th>
+            <th rowspan="2" class="col-tot" style="vertical-align:middle;text-align:right;width:120px;">Total Enterprises</th>
           </tr>
           <tr>
-            <th style="text-align:right;width:55px;">SC</th>
-            <th style="text-align:right;width:55px;">ST</th>
-            <th style="text-align:right;width:55px;">OBC</th>
-            <th style="text-align:right;width:55px;">Gen</th>
+            <th class="col-sc" style="text-align:right;width:55px;">SC</th>
+            <th class="col-st" style="text-align:right;width:55px;">ST</th>
+            <th class="col-obc" style="text-align:right;width:55px;">OBC</th>
+            <th class="col-gen" style="text-align:right;width:55px;">Gen</th>
           </tr>
         </thead>
         <tbody id="tblMatrixBody">

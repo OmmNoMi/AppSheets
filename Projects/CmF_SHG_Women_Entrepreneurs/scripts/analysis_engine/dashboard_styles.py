@@ -82,8 +82,46 @@ def get_master_dashboard_css(auth_styles: str) -> str:
     .analysis-narrative p:last-child {{ margin-bottom: 0; }}
 
     /* Matrix Subtotals & Grand Totals */
-    .tr-subtotal td {{ background: #e8f0fe !important; font-weight: 700 !important; border-top: 1.5px solid #1a73e8 !important; border-bottom: 1.5px solid #1a73e8 !important; color: #174ea6 !important; }}
-    .tr-grandtotal td {{ background: #1a73e8 !important; color: #ffffff !important; font-weight: 900 !important; font-size: 10px !important; }}
+    .tr-subtotal td {{ font-weight: 800 !important; font-size: 10px; }}
+    .tr-subtotal-trading td {{ background: #eaf7ed !important; color: #137333 !important; border-top: 2px solid #34a853 !important; border-bottom: 2px solid #34a853 !important; }}
+    .tr-subtotal-service td {{ background: #ebf3fe !important; color: #1a73e8 !important; border-top: 2px solid #4285f4 !important; border-bottom: 2px solid #4285f4 !important; }}
+    .tr-subtotal-production td {{ background: #fef8e7 !important; color: #b06000 !important; border-top: 2px solid #fbbc05 !important; border-bottom: 2px solid #fbbc05 !important; }}
+    .tr-grandtotal td {{ background: linear-gradient(90deg, #1a73e8, #673ab7) !important; color: #ffffff !important; font-weight: 900 !important; font-size: 10.5px !important; border: none !important; }}
+
+    /* Sector & Matrix Badges */
+    .sec-badge {{ display: inline-block; padding: 2px 7px; border-radius: 10px; font-family: 'Roboto', sans-serif; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }}
+    .sec-badge-trading {{ background: #e6f4ea; color: #137333; border: 1px solid #a8dab5; }}
+    .sec-badge-service {{ background: #e8f0fe; color: #1a73e8; border: 1px solid #b3d1ff; }}
+    .sec-badge-production {{ background: #fef7e0; color: #b06000; border: 1px solid #fedc9b; }}
+
+    .cell-zero {{ color: #bdc1c6; font-size: 9px; }}
+    .pill-cnt {{ display: inline-block; min-width: 20px; text-align: center; padding: 1px 5px; border-radius: 4px; font-weight: 700; font-size: 9.5px; }}
+    .pill-sc {{ background: #e6f4ea; color: #137333; }}
+    .pill-st {{ background: #e0f2fe; color: #0284c7; }}
+    .pill-obc {{ background: #fef7e0; color: #b06000; }}
+    .pill-gen {{ background: #e8f0fe; color: #1a73e8; }}
+    .pill-tot {{ background: #f1f3f4; color: #202124; font-weight: 800; border: 1px solid #dadce0; }}
+
+    /* Mini Progress Bar for Table Columns */
+    .mini-bar-wrap {{ display: flex; align-items: center; justify-content: flex-end; gap: 7px; }}
+    .mini-bar-track {{ width: 50px; height: 6px; background: #e8eaed; border-radius: 3px; overflow: hidden; display: inline-block; flex-shrink: 0; }}
+    .mini-bar-fill {{ height: 100%; border-radius: 3px; }}
+    .mini-bar-lbl {{ font-size: 9.5px; font-weight: 700; min-width: 38px; text-align: right; }}
+
+    /* Category & Rank Badges */
+    .cat-tag {{ display: inline-block; font-family: 'Roboto', sans-serif; font-size: 7.5px; font-weight: 700; text-transform: uppercase; padding: 1px 5px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }}
+    .tag-green {{ background: #e6f4ea; color: #137333; }}
+    .tag-blue {{ background: #e8f0fe; color: #1a73e8; }}
+    .tag-amber {{ background: #fef7e0; color: #b06000; }}
+    .tag-purple {{ background: #f3e8fd; color: #673ab7; }}
+    .tag-red {{ background: #fce8e6; color: #c5221f; }}
+    .tag-grey {{ background: #f1f3f4; color: #5f6368; }}
+
+    .rank-badge {{ display: inline-block; width: 18px; height: 18px; line-height: 18px; border-radius: 50%; text-align: center; font-family: 'Roboto', sans-serif; font-size: 8px; font-weight: 800; margin-right: 5px; vertical-align: middle; }}
+    .rank-1 {{ background: #fef7e0; color: #b06000; border: 1px solid #fbbc05; box-shadow: 0 1px 2px rgba(251,188,5,0.2); }}
+    .rank-2 {{ background: #f1f3f4; color: #3c4043; border: 1px solid #dadce0; }}
+    .rank-3 {{ background: #fce8e6; color: #c5221f; border: 1px solid #ea4335; }}
+    .rank-sub {{ background: #e8f0fe; color: #1a73e8; border: 1px solid #d2e3fc; }}
 
     .sh {{ font-family: 'Roboto', sans-serif; font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #202124; margin: 16px 0 8px; padding-bottom: 3px; border-bottom: 1.5px solid #dadce0; display: flex; align-items: center; gap: 6px; }}
     .sh::before {{ content: ''; width: 3px; height: 11px; background: #4285f4; border-radius: 2px; }}
@@ -92,7 +130,7 @@ def get_master_dashboard_css(auth_styles: str) -> str:
     .active-btn {{ background: #e8f0fe !important; border-color: #1a73e8 !important; color: #1a73e8 !important; font-weight: 700 !important; }}
     .grid-2 {{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }}
     .grid-3 {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }}
-    .q-card {{ background: #fff; border: 1px solid #dadce0; border-radius: 6px; padding: 12px; }}
+    .q-card {{ background: #fff; border: 1px solid #dadce0; border-radius: 6px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }}
     .q-card-top {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 6px; }}
     .q-header {{ font-family: 'Roboto', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 0; }}
     .q-actions {{ display: flex; align-items: center; gap: 6px; }}
@@ -101,11 +139,26 @@ def get_master_dashboard_css(auth_styles: str) -> str:
     .btn-copy-tbl:hover {{ background: #e8f0fe; border-color: #4285F4; color: #1967d2; }}
     .btn-copy-tbl.copied {{ background: #e6f4ea !important; border-color: #34A853 !important; color: #137333 !important; font-weight: 700; }}
     .table-container {{ width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 14px; }}
-    table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 14px; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; }}
-    th {{ font-family: 'Roboto', sans-serif; font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #fff; background: #5f6368; padding: 6px 10px; text-align: left; }}
-    td {{ padding: 6px 10px; font-size: 10px; border-bottom: 1px solid #e8eaed; color: #3c4043; }}
+    table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 14px; border: 1.5px solid #d2d6dc; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.03); }}
+    th {{ font-family: 'Roboto', sans-serif; font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #fff; background: #1e293b; padding: 7px 10px; text-align: left; letter-spacing: 0.3px; }}
+    td {{ padding: 6px 10px; font-size: 10px; border-bottom: 1px solid #e8eaed; color: #3c4043; vertical-align: middle; }}
     tr:last-child td {{ border-bottom: none; }}
-    tr:nth-child(even) {{ background: #f8f9fa; }}
+    tbody tr:nth-child(even) {{ background: #f9fafb; }}
+    tbody tr:hover {{ background: #f0f7ff !important; transition: background 0.15s ease; }}
+
+    /* Specific Branded Table Headers */
+    #tblSocialMatrixComplete thead tr:first-child th {{ background: #1e293b; color: #f8fafc; border-right: 1px solid rgba(255,255,255,0.08); }}
+    #tblSocialMatrixComplete thead tr:nth-child(2) th {{ background: #334155; color: #f8fafc; border-right: 1px solid rgba(255,255,255,0.08); }}
+    #tblSocialMatrixComplete th.col-sc {{ background: #137333 !important; color: #ffffff !important; }}
+    #tblSocialMatrixComplete th.col-st {{ background: #0284c7 !important; color: #ffffff !important; }}
+    #tblSocialMatrixComplete th.col-obc {{ background: #b06000 !important; color: #ffffff !important; }}
+    #tblSocialMatrixComplete th.col-gen {{ background: #1a73e8 !important; color: #ffffff !important; }}
+    #tblSocialMatrixComplete th.col-tot {{ background: #4338ca !important; color: #ffffff !important; }}
+
+    #tblCapitalSources thead th {{ background: linear-gradient(135deg, #1a73e8, #1557b0); color: #ffffff; }}
+    #tblLoanUsages thead th {{ background: linear-gradient(135deg, #b06000, #d97706); color: #ffffff; }}
+    #tblFamilySupport thead th {{ background: linear-gradient(135deg, #137333, #188038); color: #ffffff; }}
+    #tblSourcingComfort thead th {{ background: linear-gradient(135deg, #1a73e8, #185abc); color: #ffffff; }}
     .sig-section {{ display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; padding-top: 14px; border-top: 1px solid #dadce0; }}
     .sig-title {{ font-family: 'Roboto', sans-serif; font-size: 9px; font-weight: 700; color: #1a73e8; text-decoration: none; }}
     .footer {{ background: #fff; padding: 12px 28px; border-top: 1.5px solid #dadce0; display: flex; flex-direction: column; gap: 6px; }}
