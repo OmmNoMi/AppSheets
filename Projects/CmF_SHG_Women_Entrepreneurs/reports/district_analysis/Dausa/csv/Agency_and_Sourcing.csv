@@ -1,0 +1,16 @@
+"Empowerment, Agency & Sourcing Independence (Dausa District)",,,
+Table 16,Family Support (Husband & Household),Number of WE,% of Total WE
+,I need help from my family in running my enterprise more effectively,11,0.20754716981132076
+,"My husband was not supportive initially, but now helps when required",15,0.2830188679245283
+,My husband supports/supported me financially,15,0.2830188679245283
+,I have full support of my husband/family and helped me in every possible way,15,0.2830188679245283
+,I am running my enterprise without anyone’s support,21,0.39622641509433965
+,TOTAL RESPONSES,=SUM(C4:C8),=SUM(D4:D8)
+Table 17,Comfort with Existing Sourcing Method & Negotiation,Number of WE,% of Total WE
+,I travel alone and I handle negotiations independently,12,0.22641509433962265
+,I need travel companion but I handle negotiations independently,17,0.32075471698113206
+,My family member handles the purchase,12,0.22641509433962265
+,OSF/SVEP CRP helps in sourcing material,0,0.0
+,I want to source material from different places but I need support,0,0.0
+,I am content to source material from nearby market,9,0.16981132075471697
+,TOTAL RESPONDENTS,=SUM(C13:C18),=SUM(D13:D18)

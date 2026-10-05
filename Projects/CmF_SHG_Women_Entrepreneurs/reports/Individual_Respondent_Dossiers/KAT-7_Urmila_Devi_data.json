@@ -1,0 +1,296 @@
+{
+  "SurveyID": "KAT-7",
+  "Summary": {
+    "SurveyID": "KAT-7",
+    "RespondentName": "urmila devi",
+    "Phone": 7976664628,
+    "EnterpriseName": "Pandit Ji",
+    "District": "Dausa",
+    "Block": "Sikandra",
+    "VillageGP": "chovethdi",
+    "SHGName": "jobner mata",
+    "VOName": "somnaath",
+    "CLFName": "prakash",
+    "SHGMembershipYears": 5,
+    "LeadershipRole": "Yes",
+    "LeadershipYears": 6.0,
+    "RelatedToCRP": "Yes",
+    "EPInterventionType": "SVEP",
+    "EnterpriseSetupYear": 4,
+    "BusinessType": "Manufacturing/ production",
+    "BusinessActivities": "Food making (Sweets/Namkeen/hotel)",
+    "LoanReceivedYear": 5,
+    "MaintainSeparateRecords": "Yes",
+    "RegistrationsDocuments": "PAN card, Aadhar card, Udyam Aadhar, Income certificate",
+    "Age": "Above 55",
+    "MaritalStatus": "Widowed",
+    "SocialCategory": "General",
+    "Education": "Upto 10th",
+    "FamilyMembersCount": 5.0,
+    "FamilyIncomeSources": "Agricultural income, Respondent’s enterprise",
+    "AnnualHouseholdIncome": "Rs 1,60,001 to Rs 2,00,000",
+    "BusinessCycle": "Operational for regular hours throughout the year",
+    "BusinessPlaceType": "Own",
+    "MonthlyRent": 4500.0,
+    "LocationConvenience": "Yes, my location is very convenient to attract customers",
+    "MarketingMethods": "My shop is the only place where I talk about my products/services, I talk about my products/services in SHG meetings, I visit local traders/shopkeepers with samples of my products",
+    "SellingMethods": "Any other, specify",
+    "RecordKeepingHabit": "Yes, I have always been doing it",
+    "RecordKeepingMethod": "I don't maintain any record",
+    "SHGAssociationAssistance": "Got information about the scope of business from SHG meetings, Got required registration/documents made, Took loan from SHG to buy material to initiate the business, Take loans from SHG regularly as per business requirements, OSF/SVEP CRP helped me to get Mudra loan, OSF/SVEP CRP helped me to get bank loan",
+    "FundingExperience": "SHG loan is sufficient for the current scale of my business, SHG loan size is smaller than my requirement, My family members help me with funds and loans, I don't prefer money lender or NBFIs as the repayment time is shorter for my convenience",
+    "HusbandFamilyResponse": "I need help from my family in running my enterprise more effectively, I have full support of my husband/family and helped me in every possible way, I am running my enterprise without anyone’s support",
+    "MaterialSourcingComfort": "I need travel companion but I handle negotiations independently",
+    "CustomerPaymentRecovery": "Yes, I don’t face any issues",
+    "CurrentChallenges": "OSF is phased out now which has affected fund sufficiency. Specify amount, I need timely access to funds to buy inputs before the production/peak season begins. Specify amount, I need support to access bigger market to source material/inputs at lower cost, Any other, specify",
+    "CompetitorAdvantages": "I operate from a better location, I offer a wide variety of products/services, I offer better quality of products/services",
+    "FutureExpansionPlans": "I want to make my shop/premise more attractive to customers, I want to expand my current business at the same location (more stock/customers/scale), I want to diversify into a related product/service (e.g., add new items to sell), I want to hire more people to help run the business",
+    "AspirationBottlenecks": "Lack of capital/funds, Lack of market access/demand beyond current customer base, Health or personal constraints",
+    "FutureFundsRequired": "Rs 1,00,001-Rs 3,00,000",
+    "AttendedTraining": "No",
+    "MonthlyIncomeIncreaseByOSFSVEP": "Rs 10000 to Rs 12000",
+    "CRPContributions": "Getting necessary documents. Specify Aadhar/PAN Card/Income certificate/Caste certificate/Udhayam aadhar/ FSSAI certificate/Shop registration, They helped us to understand business plans, They trained us on maintaining records which we didn’t know earlier",
+    "ExpectationsFromScheme": "Need bigger loan amount, Need more guidance of SBDP/SVEP CRPs, Any other, Specify",
+    "SmartphoneOwnership": "No",
+    "UseQRUPI": "Yes",
+    "QRDailyTransactions": "20-40",
+    "SocialPlatformsUsed": "Don’t use social media",
+    "SocialMediaFrequency": "",
+    "BusinessOperationalStatus": "Yes but the scale has increased"
+  },
+  "SectionC_LaborInvolvement": [
+    {
+      "SurveyID": "KAT-7",
+      "Activity": "Purchase of material",
+      "FamilyInvolvement": "Only respondent",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Activity": "Production",
+      "FamilyInvolvement": "Not relevant",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Activity": "Servicing",
+      "FamilyInvolvement": "Not relevant",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Activity": "Social media marketing",
+      "FamilyInvolvement": "Not relevant",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Activity": "Sale",
+      "FamilyInvolvement": "Not relevant",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Activity": "Record keeping",
+      "FamilyInvolvement": "Only respondent",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    }
+  ],
+  "SectionC_TurnoverAndIncome": [
+    {
+      "SurveyID": "KAT-7",
+      "Season": "Peak",
+      "DurationMonths": 0.0,
+      "MonthlySales": 0.0,
+      "MonthlyNetProfit": 0.0
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Season": "Average",
+      "DurationMonths": 0.0,
+      "MonthlySales": 0.0,
+      "MonthlyNetProfit": 0.0
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Season": "Lean",
+      "DurationMonths": 0.0,
+      "MonthlySales": 0.0,
+      "MonthlyNetProfit": 0.0
+    }
+  ],
+  "SectionD_CapitalArrangedAndLoanUsage": [
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Own Savings",
+      "FirstYearAmount": 40000.0,
+      "MidYearsAmount": 100000.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Financed by family member",
+      "FirstYearAmount": 100000.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 6600.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Profit from business",
+      "FirstYearAmount": 40000.0,
+      "MidYearsAmount": 100000.0,
+      "CurrentYearAmount": 6600.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Buy more material/inputs to increase scale of business/production"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Mortgaged gold/silver",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Sold gold/silver",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Loan from family",
+      "FirstYearAmount": 100000.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Buy assets to store and sell new products ( eg: fridge)"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Loan from moneylender",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Loan from SHG",
+      "FirstYearAmount": 40000.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Buy assets to store and sell new products ( eg: fridge)"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Loan from OSF/SVEP",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Subsidy/grant under OSF/SVEP",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 1.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Buy assets to store and sell new products ( eg: fridge)"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Loan from private saving groups/BC",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Loan from NBFC",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Mudra loan",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Source": "Loan from banks",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    }
+  ],
+  "SectionD_BusinessTrajectory": [
+    {
+      "SurveyID": "KAT-7",
+      "Metric": "Average sales / month",
+      "FirstYearAmount": 10000.0,
+      "CurrentYearAmount": 200000.0,
+      "AbsoluteGrowth": 190000.0,
+      "PercentageGrowth": 1900.0
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Metric": "Average monthly income / net profit",
+      "FirstYearAmount": 150000.0,
+      "CurrentYearAmount": 200000.0,
+      "AbsoluteGrowth": 50000.0,
+      "PercentageGrowth": 33.3
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Metric": "Value of stock / finished goods",
+      "FirstYearAmount": 25000.0,
+      "CurrentYearAmount": 100000.0,
+      "AbsoluteGrowth": 75000.0,
+      "PercentageGrowth": 300.0
+    },
+    {
+      "SurveyID": "KAT-7",
+      "Metric": "Value of enterprise assets",
+      "FirstYearAmount": 50000.0,
+      "CurrentYearAmount": 100000.0,
+      "AbsoluteGrowth": 50000.0,
+      "PercentageGrowth": 100.0
+    }
+  ]
+}

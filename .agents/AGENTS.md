@@ -72,11 +72,20 @@ The final footer on all exported documents and reports MUST follow a strict 2-ro
   - **Alignment**: `display: flex; justify-content: space-between; align-items: center; min-height: 24px;` (Logo & Address on the exact same horizontal baseline).
 * **Row 2 (Bottom Row)**:
   - **Left**: Tagline (`Unlocking Business Potential Through Automation`, font-size: ~10px, italic).
-  - **Right**: 7 Social Media Icon Circles (Website, LinkedIn, YouTube, GitHub, Instagram, X, Discord, diameter: 22px).
+  - **Right**: 7 Official Social Media Icon Circles (Website, LinkedIn, YouTube, GitHub, Instagram, X, Discord, diameter: 22px).
+  - **Mandatory Official SVGs (Strictly Zero Emojis)**: Strictly **NEVER** use unicode emojis or text letters (`🌐`, `in`, `▶`, `GH`, `📸`, `𝕏`, `💬`) as placeholders. Always use the official OmmNoMi inline `<svg>` vector icons with their exact brand colors: Website (`#4285F4`), LinkedIn (`#0A66C2`), YouTube (`#FF0000`), GitHub (`#181717`), Instagram (`#E4405F`), X (`#000000`), Discord (`#5865F2`) as defined in `sop-html-reports`.
   - **Alignment**: `display: flex; justify-content: space-between; align-items: center; min-height: 24px;` (Tagline & Social Icons on the exact same horizontal baseline).
 * **Hierarchy**: Left Column = Logo on top, Tagline below; Right Column = Address on top, Social Icons below.
 
+### B9. Survey PDF Option Selection & Strict Normalized Equality Protocol
+When rendering filled survey questionnaires and ballot-box options (`[☑]`/`[☐]`):
+* **Zero Empty-String Match**: Filter out `None`, `NaN`, and empty strings `""` before evaluating option choices. In Python/JS, empty strings are substrings of all strings (`"" in "Yes"` is True), which erroneously checks both `Yes` and `No` on unanswered or skipped questions.
+* **Strict Normalized Equality (Zero Substring / Prefix Matching)**: Always compare options using strict normalized equality (`norm_opt == s` or alphanumeric cleaned `c_opt == c_s`). Strictly **NEVER** use substring containment (`s in opt` or `opt in s`) or prefix slicing (`[:20]`) for ANY string length, short or long. Substrings cause catastrophic false positives where one option contains another (e.g., `"Maintain daily diary"` erroneously checking `"Maintain daily diary as taught by OSF/SVEP CRP"`, or `"I regularly share images..."` checking both WhatsApp and Instagram).
+* **Bucket Overflow Normalization**: When application enums expand options beyond standard questionnaire buckets (e.g., `INC_440K-480K` or `INC_18K_20K`), map them directly to their parent questionnaire category (`Above Rs 4,00,001` or `Above Rs 6000`) before evaluation.
+* **Annotate Skipped Dependent Questions**: When a question is conditionally skipped by survey logic (e.g. Q1 is "No", so Q2/Q3/Q4 are skipped), leave all checkboxes unchecked and explicitly annotate with the skip rationale: `(Not applicable — Respondent answered 'No' to Q1)`.
+
 ---
+
 
 ## AppSheet Rules
 
@@ -163,6 +172,14 @@ When an SRS (Software Requirement Specification) is provided, the complete AppSh
 1. **Stage 1 (Schema & Columns)**: Inject tables, physical/virtual columns, types, AppFormulas, and multilingual `=LOOKUP(...)` DisplayNames into `AppData.DataSchemas`.
 2. **Stage 2 (Presentation & Views)**: Inject Form, Detail, Deck, and Table controls into `Presentation.Controls`. Synchronize both `control.ViewDefinition.ColumnOrder` array and serialized `control.Settings.ColumnOrder` string.
 3. **Stage 3 (Behavior & Automation)**: Inject all atomic DataActions (`ADD_RECORD_TO`, `SET_COLUMN_VALUE`), Composite actions, AppEvents (`ADDS_ONLY`), AppProcesses (`IF_ELSE`, `RUN_ACTION`), and AppBots. Single cloud save commits the entire enterprise app in seconds.
+
+### A9. Interactive Dashboard Dual-MIME Table Clipboard Protocol
+When generating executive dashboards or analytical reports with client copy features:
+- **1-Click Copy on Every Table / Indicator**: Provide a compact `Copy Table` button on every card with immediate visual feedback (`Copied!` in `#34A853` for 1.8s).
+- **Dual-MIME Clipboard Engine**: Dispatch both `text/html` (clean table with borders, padding, headers) and `text/plain` (TSV with `\t` and `\n`). This guarantees cell-by-cell pasting in Google Sheets / Excel, and formatted visual tables in Docs / Word / PDF drafts.
+- **Mandatory Provenance Header**: Every copied payload MUST embed metadata rows: Table Number & Title, original Google Sheet / AppSheet source column, Master Excel sheet name, and active filter scope (selected districts/blocks and sample $N$).
+- **Zero Inline Quote Interpolation**: Never interpolate string literals into event handlers (`onchange="toggleDistrict(\'' + code + '\')"`); always pass `this.value` or bind event listeners to eliminate escaping syntax errors.
+- **Strict <= 300 Lines Limit**: Decouple clipboard formatters, provenance registries, and script engines into dedicated modules (`dashboard_provenance.py`, `dashboard_copy_script.py`, etc.) so no file exceeds 300 lines.
 
 ---
 

@@ -1,0 +1,117 @@
+"""
+Master Responsive Stylesheet Module for CmF Rajasthan Analytics Dashboard.
+Provides pixel-perfect desktop and mobile responsive CSS, touch-friendly UI,
+and brand styling. Strictly adheres to <= 300 lines rule.
+"""
+
+
+def get_master_dashboard_css(auth_styles: str) -> str:
+    """Returns complete CSS styles including media queries for mobile responsiveness."""
+    return f"""
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    html {{ -webkit-text-size-adjust: 100%; }}
+    body {{ font-family: 'Roboto Serif', Georgia, serif; background: #f0f2f5; color: #202124; font-size: 11px; line-height: 1.5; padding: 30px 15px; -webkit-print-color-adjust: exact; }}
+    .page {{ display: none; width: 100%; max-width: 210mm; margin: 0 auto; background: #fff; border-radius: 6px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; }}
+    {auth_styles}
+    .stripe {{ height: 5px; background: linear-gradient(to right, #4285F4 25%, #34A853 25% 50%, #EA4335 50% 75%, #FBBC05 75%); }}
+    .hero {{ padding: 20px 28px 16px; border-bottom: 1px solid #dadce0; display: flex; justify-content: space-between; align-items: flex-start; }}
+    .logo-img {{ height: 26px; width: auto; display: block; }}
+    .hero-title {{ font-family: 'Roboto', sans-serif; font-size: 20px; font-weight: 900; color: #202124; line-height: 1.25; }}
+    .badge {{ font-family: 'Roboto', sans-serif; font-size: 8px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; background: #e8f0fe; color: #1a73e8; }}
+    .f-panel {{ background: #f8fafd; padding: 12px 28px; border-bottom: 1px solid #dadce0; }}
+    .dropdown-wrapper {{ display: flex; align-items: center; gap: 8px; }}
+    .dd-label {{ font-family: 'Roboto', sans-serif; font-size: 10px; font-weight: 700; color: #174ea6; text-transform: uppercase; }}
+    .custom-dropdown {{ position: relative; width: 230px; }}
+    .dd-btn {{ width: 100%; display: flex; justify-content: space-between; align-items: center; background: #fff; border: 1.5px solid #1a73e8; border-radius: 6px; padding: 6px 12px; font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: 700; color: #1a73e8; cursor: pointer; text-align: left; }}
+    .dd-arrow {{ font-size: 9px; margin-left: 6px; }}
+    .dd-menu {{ display: none; position: absolute; top: calc(100% + 4px); left: 0; width: 100%; background: #fff; border: 1px solid #dadce0; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); z-index: 1000; padding: 6px; }}
+    .dd-menu.open {{ display: block; }}
+    .dd-actions {{ display: flex; justify-content: space-between; padding: 4px 6px 6px; border-bottom: 1px solid #f1f3f4; margin-bottom: 4px; }}
+    .dd-act-btn {{ font-size: 9px; font-weight: 600; color: #1a73e8; background: none; border: none; cursor: pointer; text-decoration: underline; }}
+    .dd-list {{ max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }}
+    .dd-item {{ display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-family: 'Roboto', sans-serif; font-size: 10.5px; font-weight: 500; color: #3c4043; }}
+    .dd-item:hover {{ background: #f8f9fa; }}
+    .dd-item input {{ cursor: pointer; }}
+    .filter-badge {{ display: inline-block; font-family: 'Roboto', sans-serif; font-size: 9px; font-weight: 700; background: #ceead6; color: #137333; padding: 5px 12px; border-radius: 12px; }}
+    .meta-grid {{ background: #f8f9fa; border-bottom: 1px solid #dadce0; padding: 10px 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }}
+    .meta-lbl {{ font-family: 'Roboto', sans-serif; font-size: 8px; font-weight: 700; text-transform: uppercase; color: #5f6368; }}
+    .meta-val {{ font-size: 11px; font-weight: 600; color: #202124; }}
+    .body {{ padding: 20px 28px; }}
+    .kpi-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }}
+    .kpi-card {{ background: #f8f9fa; border: 1px solid #dadce0; border-radius: 6px; padding: 12px; border-top: 3px solid #4285F4; }}
+    .kpi-num {{ font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 900; color: #1a73e8; }}
+    .kpi-desc {{ font-size: 9.5px; color: #5f6368; margin-top: 2px; }}
+    .sh {{ font-family: 'Roboto', sans-serif; font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #202124; margin: 16px 0 8px; padding-bottom: 3px; border-bottom: 1.5px solid #dadce0; display: flex; align-items: center; gap: 6px; }}
+    .sh::before {{ content: ''; width: 3px; height: 11px; background: #4285f4; border-radius: 2px; }}
+    .cat-bar {{ display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #e8eaed; }}
+    .cat-btn {{ background: #f1f3f4; border: 1px solid #dadce0; border-radius: 14px; font-size: 9.5px; font-weight: 600; padding: 3px 10px; cursor: pointer; color: #5f6368; }}
+    .active-btn {{ background: #e8f0fe !important; border-color: #1a73e8 !important; color: #1a73e8 !important; font-weight: 700 !important; }}
+    .grid-2 {{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }}
+    .grid-3 {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }}
+    .q-card {{ background: #fff; border: 1px solid #dadce0; border-radius: 6px; padding: 12px; }}
+    .q-card-top {{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 6px; }}
+    .q-header {{ font-family: 'Roboto', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 0; }}
+    .q-actions {{ display: flex; align-items: center; gap: 6px; }}
+    .prov-badge {{ font-family: 'Roboto', sans-serif; font-size: 8.5px; font-weight: 700; color: #5f6368; background: #e8eaed; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px; }}
+    .btn-copy-tbl {{ font-family: 'Roboto', sans-serif; font-size: 8.5px; font-weight: 600; color: #1a73e8; background: #f8f9fa; border: 1px solid #dadce0; padding: 2px 7px; border-radius: 4px; cursor: pointer; transition: all 0.15s ease; white-space: nowrap; }}
+    .btn-copy-tbl:hover {{ background: #e8f0fe; border-color: #4285F4; color: #1967d2; }}
+    .btn-copy-tbl.copied {{ background: #e6f4ea !important; border-color: #34A853 !important; color: #137333 !important; font-weight: 700; }}
+    .table-container {{ width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 14px; }}
+    table {{ width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 14px; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; }}
+    th {{ font-family: 'Roboto', sans-serif; font-size: 8.5px; font-weight: 700; text-transform: uppercase; color: #fff; background: #5f6368; padding: 6px 10px; text-align: left; }}
+    td {{ padding: 6px 10px; font-size: 10px; border-bottom: 1px solid #e8eaed; color: #3c4043; }}
+    tr:last-child td {{ border-bottom: none; }}
+    tr:nth-child(even) {{ background: #f8f9fa; }}
+    .sig-section {{ display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; padding-top: 14px; border-top: 1px solid #dadce0; }}
+    .sig-title {{ font-family: 'Roboto', sans-serif; font-size: 9px; font-weight: 700; color: #1a73e8; text-decoration: none; }}
+    .footer {{ background: #fff; padding: 12px 28px; border-top: 1.5px solid #dadce0; display: flex; flex-direction: column; gap: 6px; }}
+    .footer-row {{ display: flex; justify-content: space-between; align-items: center; min-height: 22px; }}
+    .footer-logo {{ height: 20px; }}
+    .footer-txt {{ font-family: 'Roboto', sans-serif; font-size: 9.5px; color: #5f6368; }}
+    .socials {{ display: flex; gap: 6px; }}
+    .s-link {{ width: 20px; height: 20px; border-radius: 50%; background: #f1f3f4; display: inline-flex; align-items: center; justify-content: center; }}
+    .s-link svg {{ width: 11px; height: 11px; fill: currentColor; }}
+
+    /* Mobile & Tablet Responsive Media Queries */
+    @media (max-width: 768px) {{
+      body {{ padding: 8px 6px; }}
+      .page {{ border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }}
+      .hero {{ padding: 14px 16px 12px; flex-direction: column; gap: 12px; align-items: stretch; }}
+      .hero-title {{ font-size: 17px; }}
+      .hero > div:last-child {{ display: flex; justify-content: space-between; align-items: center; text-align: left; }}
+      .f-panel {{ padding: 10px 14px; }}
+      .f-panel > div {{ flex-direction: column; align-items: stretch !important; gap: 10px !important; }}
+      .dropdown-wrapper {{ flex-direction: column; align-items: stretch; gap: 4px; width: 100%; }}
+      .custom-dropdown {{ width: 100%; }}
+      .dd-btn {{ padding: 8px 12px; min-height: 38px; }}
+      .dd-menu {{ width: 100%; }}
+      .filter-badge {{ width: 100%; text-align: center; padding: 6px 10px; font-size: 10px; }}
+      .meta-grid {{ padding: 10px 14px; grid-template-columns: repeat(2, 1fr); gap: 8px; }}
+      .body {{ padding: 14px 12px; }}
+      .kpi-grid {{ grid-template-columns: repeat(2, 1fr); gap: 8px; }}
+      .kpi-card {{ padding: 10px; }}
+      .kpi-num {{ font-size: 16px; }}
+      .cat-bar {{ flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }}
+      .cat-btn {{ white-space: nowrap; flex-shrink: 0; padding: 4px 10px; font-size: 10px; }}
+      .grid-2, .grid-3 {{ grid-template-columns: 1fr; gap: 10px; }}
+      .q-card {{ padding: 10px; }}
+      .q-card-top {{ flex-direction: column; gap: 6px; align-items: flex-start; }}
+      .q-actions {{ width: 100%; justify-content: space-between; }}
+      .sig-section {{ grid-template-columns: 1fr; gap: 16px; }}
+      .footer {{ padding: 12px 14px; }}
+      .footer-row {{ flex-direction: column; gap: 6px; align-items: flex-start; }}
+      .footer-row:last-child {{ flex-direction: row; justify-content: space-between; align-items: center; }}
+      table {{ font-size: 9.5px; }}
+      th, td {{ padding: 5px 8px; }}
+    }}
+
+    @media (max-width: 480px) {{
+      body {{ padding: 0; background: #fff; }}
+      .page {{ border-radius: 0; box-shadow: none; }}
+      .kpi-grid {{ grid-template-columns: 1fr; }}
+      .meta-grid {{ grid-template-columns: 1fr; }}
+      .auth-card {{ max-width: 95vw; }}
+      .auth-body {{ padding: 22px 18px; }}
+      .auth-input {{ font-size: 16px; }}
+    }}
+    """

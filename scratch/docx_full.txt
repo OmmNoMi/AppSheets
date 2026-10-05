@@ -1,0 +1,443 @@
+[P] Questionnaire for the Study on Performance of SHG-led Women Entrepreneurs in Rajasthan
+[P] An assessment of enterprise financing among SHG members and its impact on women-led livelihoods
+[P] Instructions to Data Collectors:
+[P] The respondent should be the SHG member availing loan for the specific purpose of setting up enterprise. Only in her absence family members should be interviewed.
+[P] The enterprise should be at least 2 years old.
+[P] Where a box for numeric/text entry is shown, record the respondent's exact answer.
+[P] Italicised text in brackets is a note for the data collectors, not to be read aloud to the respondent.
+[P] Section A: Basic details
+[TABLE START]
+  | Q1.  District   Baran Churu Dausa Dungarpur Jodhpur | Q2.  Block Chhipabarod Baran Ratangarh Sujangarh S ikandra Sagwara Galiakot Mandor Luni Shergadh | Q3.  Village/GP  ( Need to add the village/GP names in relevant blocks) https://rajasthan.villagecodes.in/ https://rajmasters.rajasthan.gov.in/ https://rajmasters.rajasthan.gov.in/Home/List?master=GRAM%20PANCHAYAT%20RAJASTHAN https://rajmasters.rajasthan.gov.in/Home/List?master=VILLAGE%20RAJASTHAN |
+  | Q4.  Respondent Name | Q5.  Respondent’s  phone number | Q6.  SHG Name |
+  | Q7. VO Name | Q8. CLF Name | Q9.  Years of SHG membership |
+  | Q10. Have you been in a leadership role in SHG/CLF/VO? Yes No | Q11.  Years of experience in leadership roles? | Q12.  Are you related to any of the SVEP/OSF CRP? Yes No |
+  | Q13. Type of Enterprise Promotion (EP)  intervention   SVEP OSF OSF phased out Don't know | Q14. Enterprise Name | Q15. Years of setting up  enterprise |
+  | Q16. Type of business enterprise (Multiselect) Trading Servicing Manufacturing/ production | Q17. Main business activities of the enterprise (Multiselect) Trading Vegetable/Fruit Grocery  Fancy/Cosmetic/General store Apparel/fabric  Electric goods  Stone shop Agri-input retail,  AI/breeding kits Goat trading Service Flour mill Tailoring Beauty parlour Auto-mechanic/ two-wheeler repair E-mitra Transport Tent house Mobile repair shop Stone cutting Production Sanitary napkin making Handicraft Dairy shop/Milk collection centre Juice Food processing (pickle/badi/papad making) Food making (Sweets/Namkeen/hotel) Sweet box making Flag making Leather  products Stone idols Any other |
+  | Q18. Years of receiving SVEP/OSF loan? | Q19. Do you maintain separate records for all the businesses Yes No |
+  | Q20. Do you have the following registrations/documents? PAN card Aadhar card Udyam Aadhar Shop and Establishment registration FSSAI Caste certificate Income certificate |  |
+[TABLE END]
+[P] *If a member is running two business parallel then both enterprises should come in drop down option
+[P] Section B: Respondent & Household Profile
+[P] Q1. What is the age of the respondent?
+[P] 18-25
+[P] 26-35
+[P] 36-45
+[P] 46-55
+[P] Above 55
+[P] Q2. What is the marital status?
+[P] Single
+[P] Married
+[P] Widowed
+[P] Separated
+[P] Divorced
+[P] Q3. What is the social category?
+[P] SC
+[P] ST
+[P] OBC
+[P] General
+[P] Q4. What is the education status?
+[P] Illiterate
+[P] Illiterate but able to calculate
+[P] Upto 5th
+[P] Upto 8th
+[P] Upto 10th
+[P] Upto 12th
+[P] Diploma
+[P] Graduate
+[P] B.Ed
+[P] Q5. How many members are in the family? ------- (count)
+[P] Q6. Give details of the family members? (count)
+[P] Adults (Above 18)-------
+[P] Children —-------
+[P] Total earning members ------
+[P] Male earning members—----
+[P] Female earning members—----
+[P] Members with disability-------
+[P] Q7. What are your family’s sources of income? (Multiselect)
+[P] Agricultural income
+[P] Fixed Salary
+[P] Wages
+[P] Self employed
+[P] NTFP sale
+[P] Dairying
+[P] Sale of animals
+[P] Animal products
+[P] Family/husband’s enterprise
+[P] Respondent’s enterprise
+[P] MNREGA
+[P] Pension
+[P] Rent from properties
+[P] Any other, specify
+[P] Q8. What is your annual household income and monetary benefits from all sources (including respondent’s enterprise)?
+[P] Less than Rs 80,000
+[P] Rs 80,000 to Rs 1,20,000
+[P] Rs 1,20,001 to Rs 1,60,000
+[P] Rs 1,60,001 to Rs 2,00,000
+[P] Rs 2,00,001 to Rs 2,40,000
+[P] Rs 2,40,001 to Rs 2,80,000
+[P] Rs 2,80,001 to Rs 3,20,000
+[P] Rs 3,20,001 to Rs 3,60,000
+[P] Rs 3,60,001 to Rs 4,00,000
+[P] Above Rs 4,00,001
+[P] Section C: Enterprise operations
+[P] Q1. Reasons for starting the business? (Multiselect)
+[P] My family faced a financial setback, and I needed to earn
+[P] Our expenses were rising, and my family needed an alternate source of income
+[P] I always wanted to own/run my own business
+[P] I learnt the skill and wanted to start my own venture.
+[P] I was doing the same work as wage labour and later decided to start own venture
+[P] All SHG members were getting loans for enterprise so I also decided to take and start enterprise
+[P] The OSF/SVEP CRP encouraged me to start the enterprise
+[P] The CLF encouraged me to start the enterprise
+[P] Any other (Specify)
+[P] Q2. Describe your business cycle?
+[P] Operational for regular hours throughout the year
+[P] Operational whenever the customer arrives throughout the year
+[P] Both production and sales operational throughout the year
+[P] Production and sale only on receiving order
+[P] Seasonal production and sale throughout the year
+[P] Production and sale is limited to few months
+[P] Any other, specify
+[P] Q3. What is the type of business place?
+[P] Own
+[P] Rented
+[P] Q4. If rented, what is monthly rent? Rs______( mention in numbers)
+[P] Q5. Is the location of your premise convenient for your customers?
+[P] Yes
+[P] No
+[P] Yes, my location is very convenient to attract customers
+[P] Yes, I changed my location to get the clients
+[P] No, but I operate from home and can’t move to other location
+[P] No, but I can afford only this space
+[P] Any other, specify
+[P] Q6. Involvement of family members and hired help in business operations
+[TABLE START]
+  | # | Activity | Involvement of family members Regular Occasional Only respondent Not relevant | Family members involved # | Hired help # | Amount you paid in last one year Not relevant Upto Rs 5000 Rs 6000 Rs 10,000 Rs 11,000 to Rs 30,000 Rs 31,000 to Rs 50,000 Rs 51,000 to Rs 70,000 Rs 71000 to Rs 90,000 Rs 90,0000 to Rs 1,10,000 Rs 1,11,000 to Rs 1,30,000 Rs, 1,31,000 to Rs 1,50,000 Above Rs 1,50,000 |
+  | 1 | Purchase of material |  |  |  |  |
+  | 2 | Production |  |  |  |  |
+  | 3 | Servicing |  |  |  |  |
+  | 4 | Social media marketing |  |  |  |  |
+  | 5 | Sale (from shop/door to door/Saras fair/haat) |  |  |  |  |
+  | 6 | Record keeping |  |  |  |  |
+  | 7 |  |  |  |  |  |
+[TABLE END]
+[P] Q7. What percentage of material do you source from these places?
+[P] Nearby town/district         (0%/25%/50%/75%/100%)
+[P] Wholesale market within state    (0%/25%/50%/75%/100%)
+[P] Wholesale market outside the state    (0%/25%/50%/75%/100%)
+[P] Order online (Amazon/Misho)   (0%/25%/50%/75%/100%)
+[P] Q8. How do you market your products/services? (Multiselect)
+[P] My shop is the only place where I talk about my products/services
+[P] I have name board outside my premises with details of my products/services
+[P] I visit local traders/shopkeepers with my samples
+[P] I talk about my products/services in SHG meetings
+[P] I visit local traders/shopkeepers with samples of my products
+[P] I market actively on instagram and whatsapp
+[P] I wait for people to make enquiries
+[P] I do not know how to market my products/services
+[P] I don't feel the need to market my products/services
+[P] Any other, specify
+[P] Q9. How do you sell your products/services?
+[P] Not relevant
+[P] In case of production related business, I  produce slightly more than my last year sales and wait for orders
+[P] I visit local traders/shopkeepers with my products and do door to door selling
+[P] I take orders from my usual clients few weeks prior to production/peak season and then sell
+[P] I sell in local haat/weekly market
+[P] I sell in Saras fair
+[P] I get orders via instagram
+[P] I get orders via whatsapp
+[P] I use online platforms like Amazon
+[P] I use online platform like Meesho
+[P] I use any other online platform
+[P] I use RAJEEVIKA website
+[P] Any other, specify
+[P] Q10. What percentage of your products/services get sold through following channels?
+[P] Online platforms ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+[P] Whatsapp ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+[P] Instagram ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+[P] Your premise ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+[P] Local traders/shopkeepers ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+[P] Local haat/market ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+[P] Saras fair ( 0%/ upto 15%/upto 30%/upto 45%/upto 60%/upto 75%/upto 90%/100%)
+[P] Q11. Do you maintain written records of business transactions?
+[P] Yes, I have always been doing it
+[P] Yes, I started doing after being trained by OSF/SVEP CRP
+[P] Yes, my family member maintains  but i dont check
+[P] Yes, I have hired help to do that
+[P] I don't record regularly
+[P] I don't maintain any records at all
+[P] Q12. How do you maintain business transactions?
+[P] Receipt book/bills
+[P] purchase and sale register
+[P] Only debt register
+[P] Maintain daily diary
+[P] Maintain daily diary as taught by OSF/SVEP CRP
+[P] Maintain digital records using Mera Bill, Bahi Khata
+[P] Don’t record regularly
+[P] My family member maintains a book
+[P] I don't maintain any record
+[P] Any other, specify
+[P] Q13. Turnover and income from the enterprise
+[TABLE START]
+  | Season | Duration in months (count) | Monthly sales | Monthly income profit  (Net profit excluding all cost & expenditures) |
+  | Peak season |  |  |  |
+  | Average |  |  |  |
+  | Lean |  |  |  |
+[TABLE END]
+[P] Section D: Enterprise financing and income
+[P] Q1. How has the SHG association helped in your enterprise? ( Multiselect)
+[P] Attended the skill training offered by SHG
+[P] Got information about the scope of business from SHG meetings
+[P] Got required registration/documents made
+[P] Got subsidy/grant due to SHG.
+[P] Took loan from SHG to buy material to initiate the business
+[P] Take loans from SHG regularly as per business requirements
+[P] OSF/SVEP CRP guided me in setting up the business
+[P] OSF/SVEP CRP helped me to get Mudra loan
+[P] OSF/SVEP CRP helped me to get bank loan
+[P] Q2. How have you arranged capital over the enterprise duration? ( Ask for each option. Put 0 if the source is not used)
+[TABLE START]
+  | # | Source | First year | Years in-between | Calendar year (2026-27) |
+  |  |  | Amount | Amount | Amount | Amount pending |
+  |  |  |  |  |  |  |
+  | 1 | Own Savings |  |  |  |  |
+  | 2 | Financed by family member |  |  |  |  |
+  |  |  |  |  |  |  |
+  | 3 | Profit from business |  |  |  |  |
+  | 4 | Mortgaged gold/silver |  |  |  |  |
+  | 5 | Sold gold/silver |  |  |  |  |
+  | 6 | Loan from family |  |  |  |  |
+  | 7 | Loan from moneylender |  |  |  |  |
+  | 8 | Loan from SHG |  |  |  |  |
+  | 9 | Loan from OSF/SVEP |  |  |  |  |
+  | 10 | Subsidy/grant under OSF/SVEP |  |  |  |  |
+  | 11 | Loan from private saving groups/BC |  |  |  |  |
+  | 12 | Loan from NBFC |  |  |  |  |
+  | 13 | Mudra loan |  |  |  |  |
+  | 14 | Loan from banks |  |  |  |  |
+[TABLE END]
+[P] Q3. How did you use the loans taken from different sources?
+[TABLE START]
+  | # | Source | Usage in business Seed capital to buy material and set up the shop Buy new machine to increase the production capacity ( eg: sewing machine) Buy assets to store and sell new products ( eg: fridge)  Get additional space to expand my business ( eg: addition of flour mill) Buy more material to increase the product range offered (eg: clothes in a fancy store) Buy more material/inputs to increase scale of business/production  Buy vehicle to access new market to buy/sell goods  Access better transport services to access new market to buy/sell goods Buy mobile phone to promote/sell my goods online Any other, specify………. Not used the source |
+  |  |  |  |
+  |  |  |  |
+  | 1 | Own Savings |  |
+  | 2 | Financed by family member |  |
+  | 3 | Profit from business |  |
+  | 4 | Mortgaged gold/silver |  |
+  | 5 | Sold gold/silver |  |
+  | 6 | Loan from family |  |
+  | 7 | Loan from moneylender |  |
+  | 8 | Loan from SHG |  |
+  | 9 | Loan from OSF/SVEP |  |
+  | 10 | Subsidy/grant under OSF/SVEP |  |
+  | 11 | Loan from private saving groups/BC |  |
+  | 12 | Loan from NBFC |  |
+  | 13 | Mudra loan |  |
+  | 14 | Loan from banks |  |
+[TABLE END]
+[P] Q4. What has been your experience in funding your business? (Multi select)
+[P] SHG loan is sufficient for the current scale of my business
+[P] I regularly plough in my business earnings
+[P] SHG loan size is smaller than my requirement
+[P] I get the required loan easily from the moneylender/NBFIs.
+[P] My family members help me with funds and loans
+[P] I don't prefer money lender or NBFIs as the interest rate is high
+[P] I don't prefer money lender or NBFIs as the repayment time is shorter for my convenience
+[P] Q5. What changes have happened in your business? ( The SHG member may not be able to give an exact number. In such a case ask for rough estimates but don’t pressure )
+[TABLE START]
+  | # | Heading | First year Don't  remember Rs | Current year |
+  | 1 | Average sales/month |  |  |
+  | 2 | Average monthly income |  |  |
+  | 3 | Value of stock/finished goods |  |  |
+  | 4 | In case of servicing, value of enterprise related assets |  |  |
+[TABLE END]
+[P] Q6. How has the income from the enterprise helped you financially? (Multiselect)
+[P] I don’t need to ask money from my husband/family for my needs.
+[P] The income from enterprise is the biggest source of income for my family
+[P] The income from enterprise is used in covering education related expenses for my children. Specify amount
+[P] I have been able to pay the family debts. Specify amount
+[P] I have contributed money in acquiring assets for my family Specify amount
+[P] I have contributed money for marriage expenses. Specify amount
+[P] Any other (Please specify)
+[P] Section E: Ease of doing business and challenges
+[P] Instruction:  Don’t prompt. Tick whatever answer is given by the SHG member
+[P] Q1. How has been your husband’s response towards your enterprise? (Multiselect)
+[P] I need help from my family in running my enterprise more effectively
+[P] My husband was not supportive initially, but now helps when required
+[P] My husband supports/supported me financially
+[P] I have full support of my husband/family and helped me in every possible way
+[P] I am running my enterprise without anyone’s support
+[P] Q2. What is your level of comfort in sourcing material?
+[P] I travel alone and I handle negotiations independently
+[P] I need travel companion but I handle negotiations independently
+[P] My family member handles the purchase
+[P] OSF/SVEP CRP helps in sourcing material
+[P] I want to source material from different places but I need support
+[P] I am content to source material from nearby market
+[P] Q3. Are you able to recover money from customers?
+[P] Yes, I don’t face any issues
+[P] Yes, but I conduct only cash transactions
+[P] Yes, eventually everyone pays
+[P] Yes, but I have learnt over the years how to negotiate.
+[P] No, but my husband is able to recover
+[P] No, my business has suffered losses due to debt.
+[P] Q4. What are the challenges you are facing now? (Multiselect)
+[P] OSF is phased out now which has affected fund sufficiency. Specify amount
+[P] I need timely access to funds to buy inputs before the production/peak season begins. Specify amount
+[P] I need support to access bigger market to source material/inputs at lower cost
+[P] I need help in selling my inventory.
+[P] I need help in learning use of social media
+[P] Any other, specify
+[P] Q5. How many people in your village are in the same business as yours?
+[P] Same business scale ______
+[P] Smaller business scale than yours_______
+[P] Higher business scale than yours_________
+[P] Q6. What advantage do you have over your competitors? (Multiselect)
+[P] I operate from a better location
+[P] I operate from a shop while they operate from home
+[P] I offer a wide variety of products/services
+[P] I offer discounts and still able to make profit
+[P] I offer better quality of products/services
+[P] I sell my products/services on credit
+[P] I take less time to supply products/deliver services
+[P] I use social media to market my products/services
+[P] Any other, specify
+[P] I don't have any advantage
+[P] Section F: Growth plans and aspirations
+[P] Q1. For next one year, what are your plans to increase the scale of your business?
+[P] I want to shift to a better location
+[P] I want to make my shop/premise more attractive to customers
+[P] I want to expand my current business at the same location (more stock/customers/scale)
+[P] I want to open a branch/second unit of the same business elsewhere
+[P] I want to diversify into a related product/service (e.g., add new items to sell)
+[P] I want to start a completely different, second enterprise
+[P] I want to formalise my business (registration, GST, etc.) to access more/larger customers
+[P] I want to move from local/door-to-door sales to online or wider markets
+[P] I want to hire more people to help run the business
+[P] I want to hand over the business to a family member and reduce my own involvement
+[P] I am satisfied with the current scale and don't want to expand
+[P] I want to shut down or exit this enterprise
+[P] Any other, specify
+[P] Can't say / haven't thought about it
+[P] Q2. What is holding you back from pursuing these aspirations? (Multiselect, don't prompt)
+[P] Lack of capital/funds
+[P] Lack of family support/time due to household responsibilities
+[P] Lack of market access/demand beyond current customer base
+[P] Lack of skills/training needed for the next step
+[P] Health or personal constraints
+[P] Nothing is holding me back, I am already working towards it
+[P] Any other, specify
+[P] Q3. How much funds do you need to fund your plan?
+[P] Upto Rs 1,00,000
+[P] Rs 1,00,001-Rs 3,00,000
+[P] Rs 3,00,001-Rs 5,00,000
+[P] Rs 5,00,001-Rs 7,00,000
+[P] Rs 7,00,001-Rs 9,00,000
+[P] More than 9,00,000
+[P] Section G: Impact of SVEP/OSF schemes on women-led enterprises
+[P] Q1. Have you attended any training under SVEP/OSF?
+[P] Yes
+[P] No
+[P] Q2. If Yes, specify__________
+[P] Q3. Did you use any training component in your enterprise?
+[P] Yes
+[P] No
+[P] Q4. If Yes, specify__________
+[P] Q5. After the changes you made with the loan from SHG (SVEP/OSF),  did you see any increase in monthly income ?
+[P] Income before the changes: Rs-------
+[P] Income after the changes: Rs---------
+[P] Q6. Can you specify the amount by which your average monthly income has increased directly due to changes brought by OSF/SVEP loans?
+[P] Upto Rs 2000
+[P] Rs 2000 to Rs 3000
+[P] Rs 3000 to Rs 4000
+[P] Rs 4000 to Rs 5000
+[P] Rs 5000 to Rs 6000
+[P] Above Rs 6000
+[P] Cant say
+[P] Q7. What has been the contribution of SVEP/OSF CRP in your enterprise? ( Multisepect)
+[P] Accessing subsidy
+[P] Getting necessary documents. Specify Aadhar/PAN Card/Income certificate/Caste certificate/Udhayam aadhar/ FSSAI certificate/Shop registration/
+[P] They helped us to understand business plans
+[P] They gave us new ideas to improve our profit.
+[P] They trained us on maintaining records which we didn’t know earlier
+[P] They helped in accessing loans from bank
+[P] They helped in our communication skills
+[P] They helped in marketing
+[P] They helped in learning use of instagram
+[P] They helped us to understand our competitors and suggested ways to beat the competition.
+[P] Q8. What are your expectations from the SVEP/OSF scheme? (Please prompt)
+[P] Need bigger loan amount
+[P] Need help in accessing Mudra loan
+[P] Need more guidance of SBDP/SVEP CRPs
+[P] Need help to access bigger markets
+[P] Need help with online purchase
+[P] Need help with instagram
+[P] Need my business specific trainings
+[P] Any other, Specify
+[P] Section H: Use of online transactions and social media
+[P] Q1. Do you own a smart phone?
+[P] Yes
+[P] No
+[P] No, but i have access to smart phone
+[P] Q2. Do you use QR code/mobile banking for money transactions?
+[P] Yes
+[P] No
+[P] Q3. If yes, daily how many transactions in your business are done using QR code/mobile banking?
+[P] 1-4
+[P] 5-10
+[P] 10-20
+[P] 20-40
+[P] More than 40
+[P] Q4. If no, reason for not using QR code/mobile banking for money related transactions
+[P] Since I don’t own smart phone, it is difficult to transact
+[P] Not many customers use smart phone for payments
+[P] I don’t know how to use and monitor transactions with QR code/mobile banking
+[P] Not applicable
+[P] Q5. Do you use social media for marketing?
+[P] I regularly share images on whatsapp to get orders
+[P] I regularly share images/reels on instagram to get orders
+[P] It is important but I don’t have access to smart phone
+[P] I do not use because I don't know how to use whatsapp/ instagram
+[P] I don't have time to learn and use social media
+[P] I don't want to use social media
+[P] Any other, specify
+[P] Q6. Which social media platforms do you use for your business? (Multiselect)
+[P] Whatsapp
+[P] Instagram
+[P] Pinterest
+[P] Facebook
+[P] Snapchat
+[P] Don’t use social media
+[P] Q7. How do you use these platforms in your business?
+[P] Use texts to ask/share prices and book orders
+[P] Share images to promote business
+[P] Share images to enquire about the availability of products to vendors
+[P] Get new ideas and information about new products/services
+[P] Don’t use social media
+[P] Q8. How often do you use social media for your business?
+[P] Daily
+[P] Twice or thrice a week
+[P] Four-five times a month
+[P] Only on occasions
+[P] Don’t use social media
+[P] Section I: Status of post-exit OSF intervention in Baran and Ratangadh
+[P] Q1. In which year was the OSF intervention made?-------
+[P] Q2. Is your business still operational?
+[P] Yes but the sale has reduced
+[P] Yes but the scale has increased
+[P] Yes, but the scale has remained the same.
+[P] No. If no, specify the year when it was closed……..
+[P] Q3. What are the reasons for scaling down the business/closing the business? ( Don’t prompt)
+[P] Sales reduced over the years as there was no one guiding us.
+[P] Needed more capital to source material but there was no source of loan
+[P] Banks refused to give us loan
+[P] Unable to reach new customers.
+[P] New competitors in the market offering discounts
+[P] Any other, specify……..
+[P] Don’t know
+[P] Q4. What kind of support could have helped you to manage your business?
+[P] Continued access to OSF loan
+[P] Continued support by OSF CRPs
+[P] Any other, specify
+[P] --------------------------------------------------------------------------------------------------

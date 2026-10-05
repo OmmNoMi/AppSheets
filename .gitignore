@@ -8,3 +8,8 @@ edge_log.txt
 # Generated Reports & Documentation
 projects/Orbit/feature_release_report.pdf
 projects/Orbit/_AppDoc/Orbit_parsed.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo

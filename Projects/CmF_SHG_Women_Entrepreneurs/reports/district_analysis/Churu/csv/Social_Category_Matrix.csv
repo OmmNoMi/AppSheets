@@ -1,0 +1,36 @@
+Distribution of Enterprises Across Business Activities by Social Category (Churu District),,,,,,,
+,,,Social Category #,,,,Total number of enterprises
+Sector,#,Business activities,SC,ST,OBC,Gen,Total
+Trading,1,Vegetable/Fruit,0,0,0,0,0
+,2,Grocery,1,0,0,0,1
+,3,Fancy/Cosmetic/General store,0,0,0,1,1
+,4,Apparel/fabric,0,0,0,1,1
+,5,Electric goods,0,0,0,0,0
+,6,Stone shop,0,0,0,0,0
+,7,"Agri-input retail,",0,0,0,0,0
+,8,AI/breeding kits,0,0,0,0,0
+,9,Goat trading,0,0,0,0,0
+Trading TOTAL,,TOTAL TRADING,=SUM(D4:D12),=SUM(E4:E12),=SUM(F4:F12),=SUM(G4:G12),=SUM(H4:H12)
+Service,10,Flour mill,0,0,0,0,0
+,11,Tailoring,0,0,0,0,0
+,12,Beauty parlour,0,0,0,0,0
+,13,Auto-mechanic/ two-wheeler repair,0,0,0,0,0
+,14,E-mitra,0,0,0,0,0
+,15,Transport,0,0,0,0,0
+,16,Tent house,0,0,0,0,0
+,17,Mobile repair shop,0,0,0,0,0
+,18,Stone cutting,0,0,0,0,0
+Service TOTAL,,TOTAL SERVICE,=SUM(D14:D22),=SUM(E14:E22),=SUM(F14:F22),=SUM(G14:G22),=SUM(H14:H22)
+Production,19,Sanitary napkin making,0,0,0,0,0
+,20,Handicraft,0,0,0,0,0
+,21,Dairy shop/Milk collection centre,0,0,0,0,0
+,22,Juice,0,0,0,0,0
+,23,Food processing (pickle/badi/papad making),0,0,0,0,0
+,24,Food making (Sweets/Namkeen/hotel),0,0,0,0,0
+,25,Sweet box making,0,0,0,0,0
+,26,Flag making,0,0,0,0,0
+,27,Leather products,0,0,0,0,0
+,28,Stone idols,0,0,0,0,0
+,29,Any other,0,0,0,0,0
+Production TOTAL,,TOTAL PRODUCTION,=SUM(D24:D34),=SUM(E24:E34),=SUM(F24:F34),=SUM(G24:G34),=SUM(H24:H34)
+GRAND TOTAL,,TOTAL ALL ENTERPRISES,=D13+D23+D35,=E13+E23+E35,=F13+F23+F35,=G13+G23+G35,=H13+H23+H35

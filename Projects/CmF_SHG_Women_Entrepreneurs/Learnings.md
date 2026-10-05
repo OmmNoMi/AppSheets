@@ -202,4 +202,70 @@ This document captures field learnings, architectural patterns, DevTools automat
     - Trigger `SHOW_SAVE_BUTTON: true` and execute a single cloud save.
 - **Speed & Reliability**: A process that normally takes 8 to 12 hours of manual clicking executes in **under 2 seconds** with **zero human error**.
 
+---
+
+### 19. Survey PDF Option Selection & Empty-String Checkbox Immunity Protocol
+- **Root Cause**: When a question is skipped or unpopulated (`NaN` in survey data), resolving it to an empty string `""` causes Python substring matching (`"" in opt_label`) to evaluate to `True` for every option in the question. This resulted in both "Yes" and "No" checkboxes (`☑ Yes ☑ No`) being marked on unanswered questions (e.g., Section G Q3). Furthermore, loose substring checks like `"Illiterate" in "Illiterate but able to calculate"` caused dual selections.
+- **Permanent Preventive Protocol**:
+  1. Filter out all empty, whitespace, and `'nan'` strings from `selected_list`. If `clean_selected` is empty, return `False` immediately.
+  2. Perform strict normalized exact matching (`norm_opt == s` or alphanumeric cleaned `c_opt == c_s`).
+  3. Never use loose substring containment (`s in opt` or `opt in s`) on short words (<15 chars) or categorical labels (`Yes`, `No`, `Own`, `Illiterate`, `Single`, `SC`, `ST`).
+  4. For skipped conditional questions, display both options unchecked and annotate with explicit reason: `(Not applicable — Respondent answered 'No' to Q1: Did not attend training)`.
+
+---
+
+### 20. Elimination of Substring Containment & Prefix Matching Across Long Sentences (Section C Q12 Fix)
+- **The Incident**: In Section C, Question 12 (*"How do you maintain business transactions?"*), respondent `KAT-3` answered with 2 options in AppSheet: `RKT_RECEIPT_BILLS` (`"Receipt book/bills"`) and `RKT_DAILY_DIARY` (`"Maintain daily diary"`). However, the generated PDF rendered THREE checked boxes:
+  - `[☑] Receipt book/bills`
+  - `[☑] Maintain daily diary`
+  - `[☑] Maintain daily diary as taught by OSF/SVEP CRP` (FALSE POSITIVE!)
+- **Root Cause**: The script permitted substring containment (`c_s in c_opt` or `c_opt in c_s`) and prefix slicing (`[:20]`) for strings `>= 15` characters. Because `"Maintain daily diary"` (18 chars) is a strict substring of `"Maintain daily diary as taught by OSF/SVEP CRP"` (38 chars), the third option erroneously evaluated to `True`. Similarly, common prefixes caused collisions in marketing (`"I regularly share images on whatsapp..."` vs `"I regularly share images/reels on instagram..."`) and CRP contributions (`"They helped us to understand..."`).
+- **Permanent Architectural Rule**:
+  1. **Strict Normalized Equality ONLY**: Strictly NEVER use `in`, `startswith`, or prefix slices for any option string of ANY length. Always enforce `c_opt == c_s`.
+  2. **EnumList Multi-Select Handling**: In AppSheet, comma-separated enums (e.g. `'RKT_RECEIPT_BILLS , RKT_DAILY_DIARY'`) represent distinct discrete choices. Each code resolves to exactly one title/enum value, which matches exactly one option label.
+  3. **Bucket Overflow Mapping**: When surveys expand option ranges beyond the questionnaire (e.g., `INC_440K-480K` or `INC_18K_20K`), map them cleanly to the top-level bucket (`Above Rs 4,00,001` or `Above Rs 6000`) inside `resolve_val`.
+  4. **Exhaustive Automated Verification**: Before any report compilation, run an exhaustive assertion checking that `len(checked_options) == len(raw_selected_items)` across all 123 questions for all respondents.
+### 21. SubTable Recognition Protocol for Mixed-Input Matrix Questions (Section D Q6 Fix)
+- **The Discovery**: In Section D, Question 6 (*"How has the income from the enterprise helped you financially?"*), the Word document originally styled the question as a multiselect ballot list. However, because statements c, d, e, and f require specific currency amounts ("Specify amount") while statements a, b, and g are Yes/No confirmations, the AppSheet application implemented this as an inline child subtable (`Question_Group = 'SubTable_BuisenesHelp'`) rather than storing it in the parent `Survey` table (`FinancialHelpFromIncome` column was left `NaN`).
+- **The Issue**: When generating survey dossiers, inspecting only parent columns caused Q6 to render with completely blank checkboxes, omitting the respondent's actual recorded entries (`No`, `No`, `Rs 0`, `Rs 0`, `Rs 0`, `Rs 0`, `No`).
+- **Permanent Preventive Protocol**:
+  1. **Cross-Source Schema Audit**: Whenever a parent survey column evaluates to `NaN` across multiple respondents, immediately query `WCH - SubTable.csv` and `WCH - SubSubTable.csv` by matching question keywords or `ID` in `WCH - AppVariables.csv`.
+  2. **Render as Data Matrix**: Render mixed-input and amount-specifying survey questions as structured 2-column or 3-column data tables (`<table class="survey-tbl">`) displaying statement text alongside formatted values (`Yes`/`No` or `Rs X,XX,XXX`).
+  3. **Preserve Subtable Values**: Pull values dynamically using `st[(st['Question_Group'] == 'SubTable_BuisenesHelp') & (st['Question'] == q_id)]`, ensuring zero data loss and exact 1-to-1 parity with the mobile AppSheet application.
+
+---
+
+### 22. Mandatory Official SVGs for Footer Social Circles (Zero Emoji Hack Protocol)
+- **The Issue**: In the initial report generator script, the 7 social media icon circles in the footer were rendered using unicode emojis (`🌐`, `in`, `▶`, `GH`, `📸`, `𝕏`, `💬`). In headless PDF generation, these emojis rendered inconsistently, producing generic or amateur glyphs rather than the clean, brand-approved OmmNoMi social icons.
+- **Root Cause**: Reliance on unicode glyphs rather than embedding the official inline `<svg>` elements defined in `sop-html-reports`.
+- **Permanent Preventive Protocol**:
+  1. Strictly NEVER use unicode emoji characters or text letters inside footer social circles.
+  2. Always use the official OmmNoMi inline `<svg>` vector icons with their exact brand colors:
+     - **Website**: `#4285F4` (`viewBox="0 0 24 24"`)
+     - **LinkedIn**: `#0A66C2` (`viewBox="0 0 24 24"`)
+     - **YouTube**: `#FF0000` (`viewBox="0 0 24 24"`)
+     - **GitHub**: `#181717` (`viewBox="0 0 24 24"`)
+     - **Instagram**: `#E4405F` (`viewBox="0 0 24 24"`)
+     - **X (Twitter)**: `#000000` (`viewBox="0 0 24 24"`)
+     - **Discord**: `#5865F2` (`viewBox="0 0 24 24"`)
+  3. Style with `width: 22px; height: 22px; border-radius: 50%; background: #f1f3f4; border: 1px solid #e5e7eb;` and `svg { width: 12px; height: 12px; fill: currentColor; }`.
+  4. Vector SVGs produce razor-sharp print rendering and reduce PDF file size significantly compared to heavy emoji font embeds.
+
+---
+
+### 23. Dynamic Modular Survey Analysis Engine & Strict <= 300 Lines Limit Protocol
+- **The Requirement**: The client requested a fully automated, dynamic survey analysis system that can adapt to live data updates across any district (starting with Dausa) and export to multiple formats (`.xlsx`, `.html`, `.csv`). A strict code quality invariant was set: **NO SINGLE FILE may exceed 300 lines**.
+- **Architecture & Modular Decomposition**:
+  1. `analysis_engine/file_resolver.py` (115 lines): Auto-detects survey files across CLI args, custom directories, `data/`, or `Downloads/`, and strips browser duplicate suffixes `(1)`.
+  2. `analysis_engine/schema_loader.py` (164 lines): Dynamically parses `WCH - AppVariables.csv` to resolve questions, enterprise activities, capital sources, and handles bucket overflow normalization.
+  3. `analysis_engine/excel_styler.py` (144 lines): Encapsulates brand fonts, fills, borders, number formatting (`FMT_CURRENCY = '"Rs " #,##0'`), table block rendering, and auto-fit columns.
+  4. `analysis_engine/finance_builder.py` (224 lines): Builds Part A (29 activities x 14 sources) and Part B (11 usages x 14 sources) with dynamic sector subtotals and grand totals.
+  5. `analysis_engine/matrix_builder.py` (214 lines): Builds the Social Category Matrix and Agency & Sourcing sheets.
+  6. `analysis_engine/indicators_config.py` (103 lines) & `indicators_builder.py` (154 lines): Decoupled declarative configuration from computational rendering for Tables 1.0 to 28.0.
+  7. `analysis_engine/html_report_builder.py` (183 lines): Generates the executive single-page HTML report following `sop-html-reports` with KPI cards and the symmetrical 2-row vector SVG footer.
+  8. `generate_survey_analysis_dynamic.py` (156 lines): Unified CLI orchestrator for any target district.
+  9. `analysis_engine/test_engine.py` (91 lines): Automated test suite verifying that every file is <= 300 lines, schema loading integrity, and verified deliverable outputs.
+- **Permanent File Segregation Protocol**:
+  - District analysis deliverables: `reports/district_analysis/<District>/` containing dedicated `excel/`, `html/`, and `csv/` subfolders.
+  - Individual respondent questionnaires: `reports/Individual_Respondent_Dossiers/` (isolated from high-level district reports).
 

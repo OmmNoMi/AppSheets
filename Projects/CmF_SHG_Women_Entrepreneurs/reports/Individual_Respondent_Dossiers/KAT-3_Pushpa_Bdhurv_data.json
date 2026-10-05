@@ -1,0 +1,296 @@
+{
+  "SurveyID": "KAT-3",
+  "Summary": {
+    "SurveyID": "KAT-3",
+    "RespondentName": "pushpa bdhurv",
+    "Phone": 9680464052,
+    "EnterpriseName": "Sanvariya Seth Rajputi poshak",
+    "District": "Dausa",
+    "Block": "Sikandra",
+    "VillageGP": "Brahman berada",
+    "SHGName": "Shri Vinayak",
+    "VOName": "Shri Ganesh",
+    "CLFName": "Prakash",
+    "SHGMembershipYears": 4,
+    "LeadershipRole": "Yes",
+    "LeadershipYears": 7.0,
+    "RelatedToCRP": "Yes",
+    "EPInterventionType": "SVEP",
+    "EnterpriseSetupYear": 5,
+    "BusinessType": "Servicing",
+    "BusinessActivities": "Tailoring",
+    "LoanReceivedYear": 5,
+    "MaintainSeparateRecords": "No",
+    "RegistrationsDocuments": "Aadhar card, Caste certificate, Income certificate",
+    "Age": "26-35",
+    "MaritalStatus": "Married",
+    "SocialCategory": "General",
+    "Education": "Illiterate",
+    "FamilyMembersCount": 4.0,
+    "FamilyIncomeSources": "Respondent’s enterprise",
+    "AnnualHouseholdIncome": "Less than Rs 80,000",
+    "BusinessCycle": "Operational for regular hours throughout the year",
+    "BusinessPlaceType": "Rented",
+    "MonthlyRent": 14000.0,
+    "LocationConvenience": "Yes, my location is very convenient to attract customers",
+    "MarketingMethods": "My shop is the only place where I talk about my products/services, I have name board outside my premises with details of my products/services, I talk about my products/services in SHG meetings, I market actively on instagram and whatsapp, I wait for people to make enquiries",
+    "SellingMethods": "I take orders from my usual clients few weeks prior to production/peak season and then sell, I get orders via instagram, I get orders via whatsapp, I use online platform like Meesho, I use any other online platform",
+    "RecordKeepingHabit": "Yes, I have always been doing it",
+    "RecordKeepingMethod": "Receipt book/bills, Maintain daily diary",
+    "SHGAssociationAssistance": "Attended the skill training offered by SHG, Got required registration/documents made, OSF/SVEP CRP guided me in setting up the business",
+    "FundingExperience": "SHG loan is sufficient for the current scale of my business, I regularly plough in my business earnings",
+    "HusbandFamilyResponse": "I need help from my family in running my enterprise more effectively, My husband supports/supported me financially, I have full support of my husband/family and helped me in every possible way",
+    "MaterialSourcingComfort": "I need travel companion but I handle negotiations independently",
+    "CustomerPaymentRecovery": "Yes, I don’t face any issues",
+    "CurrentChallenges": "I need timely access to funds to buy inputs before the production/peak season begins. Specify amount, I need help in learning use of social media",
+    "CompetitorAdvantages": "I operate from a better location, I offer a wide variety of products/services, I offer better quality of products/services, I take less time to supply products/deliver services, I use social media to market my products/services",
+    "FutureExpansionPlans": "I want to make my shop/premise more attractive to customers, I want to open a branch/second unit of the same business elsewhere, I want to formalise my business (registration, GST, etc.) to access more/larger customers, I want to move from local/door-to-door sales to online or wider markets",
+    "AspirationBottlenecks": "Lack of capital/funds, Lack of family support/time due to household responsibilities, Nothing is holding me back, I am already working towards it",
+    "FutureFundsRequired": "Rs 1,00,001-Rs 3,00,000",
+    "AttendedTraining": "No",
+    "MonthlyIncomeIncreaseByOSFSVEP": "Rs 2000 to Rs 3000",
+    "CRPContributions": "Getting necessary documents. Specify Aadhar/PAN Card/Income certificate/Caste certificate/Udhayam aadhar/ FSSAI certificate/Shop registration, They helped in accessing loans from bank, They helped in marketing, They helped in learning use of instagram",
+    "ExpectationsFromScheme": "Need bigger loan amount, Need more guidance of SBDP/SVEP CRPs, Need help with online purchase, Need help with instagram",
+    "SmartphoneOwnership": "Yes",
+    "UseQRUPI": "Yes",
+    "QRDailyTransactions": "10-20",
+    "SocialPlatformsUsed": "Whatsapp, Instagram",
+    "SocialMediaFrequency": "Twice or thrice a week",
+    "BusinessOperationalStatus": ""
+  },
+  "SectionC_LaborInvolvement": [
+    {
+      "SurveyID": "KAT-3",
+      "Activity": "Purchase of material",
+      "FamilyInvolvement": "Regular",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Activity": "Production",
+      "FamilyInvolvement": "Regular",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Activity": "Servicing",
+      "FamilyInvolvement": "Regular",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Activity": "Social media marketing",
+      "FamilyInvolvement": "Not relevant",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Activity": "Sale",
+      "FamilyInvolvement": "Only respondent",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Activity": "Record keeping",
+      "FamilyInvolvement": "Only respondent",
+      "FamilyMembersCount": 0.0,
+      "HiredHelpCount": 0.0,
+      "AmountPaidLast1Year": "Not relevant"
+    }
+  ],
+  "SectionC_TurnoverAndIncome": [
+    {
+      "SurveyID": "KAT-3",
+      "Season": "Peak",
+      "DurationMonths": 9.0,
+      "MonthlySales": 75000.0,
+      "MonthlyNetProfit": 50000.0
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Season": "Average",
+      "DurationMonths": 24.0,
+      "MonthlySales": 50000.0,
+      "MonthlyNetProfit": 30000.0
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Season": "Lean",
+      "DurationMonths": 12.0,
+      "MonthlySales": 50000.0,
+      "MonthlyNetProfit": 30000.0
+    }
+  ],
+  "SectionD_CapitalArrangedAndLoanUsage": [
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Own Savings",
+      "FirstYearAmount": 500000.0,
+      "MidYearsAmount": 500000.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Financed by family member",
+      "FirstYearAmount": 50000.0,
+      "MidYearsAmount": 100000.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Profit from business",
+      "FirstYearAmount": 50000.0,
+      "MidYearsAmount": 100000.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Buy new machine to increase the production capacity ( eg: sewing machine)"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Mortgaged gold/silver",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Sold gold/silver",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Loan from family",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Any other, specify………."
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Loan from moneylender",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Not used the source"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Loan from SHG",
+      "FirstYearAmount": 50000.0,
+      "MidYearsAmount": 100000.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Loan from OSF/SVEP",
+      "FirstYearAmount": 50000.0,
+      "MidYearsAmount": 100000.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Buy more material/inputs to increase scale of business/production"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Subsidy/grant under OSF/SVEP",
+      "FirstYearAmount": 50000.0,
+      "MidYearsAmount": 100000.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Buy more material/inputs to increase scale of business/production"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Loan from private saving groups/BC",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Loan from NBFC",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Buy new machine to increase the production capacity ( eg: sewing machine)"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Mudra loan",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Source": "Loan from banks",
+      "FirstYearAmount": 0.0,
+      "MidYearsAmount": 0.0,
+      "CurrentYearAmount": 0.0,
+      "PendingAmount": 0.0,
+      "LoanUsage": "Seed capital to buy material and set up the shop"
+    }
+  ],
+  "SectionD_BusinessTrajectory": [
+    {
+      "SurveyID": "KAT-3",
+      "Metric": "Average sales / month",
+      "FirstYearAmount": 60000.0,
+      "CurrentYearAmount": 55000.0,
+      "AbsoluteGrowth": -5000.0,
+      "PercentageGrowth": -8.3
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Metric": "Average monthly income / net profit",
+      "FirstYearAmount": 5000.0,
+      "CurrentYearAmount": 5600.0,
+      "AbsoluteGrowth": 600.0,
+      "PercentageGrowth": 12.0
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Metric": "Value of stock / finished goods",
+      "FirstYearAmount": 75000.0,
+      "CurrentYearAmount": 900000.0,
+      "AbsoluteGrowth": 825000.0,
+      "PercentageGrowth": 1100.0
+    },
+    {
+      "SurveyID": "KAT-3",
+      "Metric": "Value of enterprise assets",
+      "FirstYearAmount": 40000.0,
+      "CurrentYearAmount": 45000.0,
+      "AbsoluteGrowth": 5000.0,
+      "PercentageGrowth": 12.5
+    }
+  ]
+}

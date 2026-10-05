@@ -1,0 +1,2444 @@
+{
+  "KAT-3": {
+    "Survey": {
+      "ID": "KAT-3",
+      "Date": "29/09/2026",
+      "InvestigatorID": "KAT",
+      "Latitude": "0.000000, 0.000000",
+      "Longitude": "0.000000, 0.000000",
+      "Status": "Working",
+      "Language": null,
+      "District": "DIST_DAUSA",
+      "Block": "BLK_SIKANDRA",
+      "VillageGP": "Brahman berada",
+      "RespondentName": "pushpa bdhurv",
+      "RespondentPhone": 9680464052,
+      "SHGName": "Shri Vinayak",
+      "VOName": "Shri Ganesh",
+      "CLFName": "Prakash",
+      "SHGMembershipYears": 4,
+      "LeadershipRole": "OPT_YES",
+      "LeadershipYears": 7.0,
+      "RelatedToCRP": "OPT_YES",
+      "EPInterventionType": "INT_SVEP",
+      "EnterpriseName": "Sanvariya Seth Rajputi poshak",
+      "EnterpriseSetupYear": 5,
+      "BusinessType": "BTY_SERVICING",
+      "BusinessActivities": "ACT_TAILORING",
+      "LoanReceivedYear": 5,
+      "MaintainSeparateRecords": "OPT_NO",
+      "RegistrationsDocuments": "DOC_AADHAR , DOC_CASTE , DOC_INCOME",
+      "RespondentAge": "AGE_26_35",
+      "MaritalStatus": "MAR_MARRIED",
+      "SocialCategory": "CST_GEN",
+      "EducationStatus": "EDU_ILLITERATE",
+      "FamilyMemberCount": 4.0,
+      "FamilyIncomeSources": "INC_RESP_ENT",
+      "AnnualHouseholdIncome": "INC_LT_80K",
+      "ReasonsStartingBusiness": "RSN_SETBACK , RSN_RISING_EXP , RSN_OWN_VENTURE , RSN_LEARNT_SKILL , RSN_CLF_ENCOURAGED",
+      "BusinessCycle": "CYC_REGULAR_HOURS",
+      "BusinessPlaceType": "PLC_RENTED",
+      "MonthlyRent": 14000.0,
+      "LocationConvenience": "LOC_CONVENIENT",
+      "Related_Q6_Labor": null,
+      "MarketingMethods": "MKT_SHOP_ONLY , MKT_NAME_BOARD , MKT_SHG_MEETINGS , MKT_INSTA_WHATSAPP , MKT_WAIT_ENQUIRIES",
+      "SeasonalSalesMethod": "SEL_PRIOR_ORDERS , SEL_INSTAGRAM , SEL_WHATSAPP , SEL_ONLINE_MEESHO , SEL_ONLINE_OTHER",
+      "RecordKeepingHabit": "RKH_ALWAYS_DONE",
+      "RecordKeepingMethod": "RKT_RECEIPT_BILLS , RKT_DAILY_DIARY",
+      "SHGAssociationAssistance": "SHG_SKILL_TRAIN , SHG_DOCS_HELP , SHG_CRP_GUIDE",
+      "FundingExperience": "FEX_SHG_SUFFICIENT , FEX_PLOUGH_EARNINGS",
+      "FinancialHelpFromIncome": null,
+      "HusbandFamilyResponse": "HRESP_NEED_HELP , HRESP_FINANCIAL , HRESP_FULL_SUPPORT",
+      "MaterialSourcingComfort": "SRC_NEED_COMPANION",
+      "CustomerPaymentRecovery": "REC_NO_ISSUES",
+      "CurrentChallenges": "CH_TIMELY_FUNDS , CH_SOCIAL_MEDIA_LEARN",
+      "CompetitorAdvantages": "ADV_BETTER_LOC , ADV_VARIETY , ADV_QUALITY , ADV_FAST_DELIVERY , ADV_SOCIAL_MEDIA",
+      "FutureExpansionPlans": "EXP_ATTRACTIVE_SHOP , EXP_OPEN_BRANCH , EXP_FORMALISE , EXP_ONLINE_MARKETS",
+      "AspirationBottlenecks": "BOT_CAPITAL , BOT_FAMILY_SUPPORT , BOT_NOTHING_WORKING",
+      "FutureFundsRequired": "FND_1L_3L",
+      "AttendedTraining": "OPT_NO",
+      "TrainingDetails": null,
+      "UsedTrainingComponent": null,
+      "UsedTrainingDetails": null,
+      "MonthlyIncomeIncreaseByOSFSVEP": "INC_2K_4K",
+      "CRPContributions": "CRP_DOCS , CRP_BANK_LOAN , CRP_MARKETING , CRP_INSTAGRAM",
+      "ExpectationsFromScheme": "EXP_BIGGER_LOAN , EXP_CRP_GUIDANCE , EXP_ONLINE_PURCHASE , EXP_INSTA_HELP",
+      "SmartphoneOwnership": "PHN_OWN",
+      "UseQRUPI": "OPT_YES",
+      "QRDailyTransactions": "QR_10_20",
+      "QRNonUseReason": null,
+      "SocialMediaForMarketing": "SMM_WHATSAPP_ORDERS",
+      "SocialPlatformsUsed": "SMP_WHATSAPP , SMP_INSTAGRAM",
+      "SocialPlatformUsageMode": "SMU_PRICE_ORDERS , SMU_SHARE_IMAGES , SMU_NEW_IDEAS",
+      "SocialMediaFrequency": "SMF_2_3_WEEK",
+      "OSFInterventionYear": null,
+      "BusinessOperationalStatus": null,
+      "ScalingDownClosingReasons": null,
+      "SupportNeededForSustenance": null,
+      "CreatedOn": "29/09/2026 11:50:00",
+      "CreatedBy": "KAT",
+      "LastEditOn": "29/09/2026 14:21:15",
+      "LastEditBy": "KAT",
+      "SurvayNo": 3.0,
+      "Survey_Anul_Bill_Hired": "Survey_001"
+    },
+    "SubTable": {
+      "SubTable_MaterialSourcing": {
+        "SubTable_MaterialSourcing_Nearby": {
+          "num": null,
+          "enum": "Percent_0",
+          "resolved_enum": "0%"
+        },
+        "SubTable_MaterialSourcing_Wholesale": {
+          "num": null,
+          "enum": "Percent_100",
+          "resolved_enum": "100%"
+        },
+        "SubTable_MaterialSourcing_OutState": {
+          "num": null,
+          "enum": "Percent_0",
+          "resolved_enum": "0%"
+        },
+        "SubTable_MaterialSourcing_Online": {
+          "num": null,
+          "enum": "Percent_0",
+          "resolved_enum": "0%"
+        }
+      },
+      "SubTable_CapitalLoanUsage": {
+        "SubTable_LoanUsage_Gold": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_FamilyLoan": {
+          "num": "SubTable_LoanUsage_Opt_f",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_MoneyLender": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_SHG": {
+          "num": "SubTable_LoanUsage_Opt_b",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_OSFLoan": {
+          "num": "Percent_50-75",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_OSFGrant": {
+          "num": "SubTable_LoanUsage_Opt_c",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_LoanPrivate": {
+          "num": "SubTable_LoanUsage_Opt_k",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_LoanNBFC": {
+          "num": "SubTable_LoanUsage_Opt_h",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_Mudra": {
+          "num": "SubTable_LoanUsage_Opt_h",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_Bank": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_ChangeInMonthlyIncome": {
+        "SubTable_ChangeInMonthlyIncome_Before": {
+          "num": "SubTable_LoanUsage_Opt_c",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_ChangeInMonthlyIncome_After": {
+          "num": "SubTable_LoanUsage_Opt_f",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges": {
+        "SubTable_BusinessChanges_AvSales": {
+          "num": "SubTable_LoanUsage_Opt_k",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_ProductsServices": {
+        "SubTable_ProductsServices_OnlinePlatforms": {
+          "num": null,
+          "enum": "Percent_15",
+          "resolved_enum": "upto 15%"
+        },
+        "SubTable_ProductsServices_Whatsapp": {
+          "num": null,
+          "enum": "Percent_15",
+          "resolved_enum": "upto 15%"
+        },
+        "SubTable_ProductsServices_Instagram": {
+          "num": null,
+          "enum": "Percent_15",
+          "resolved_enum": "upto 15%"
+        },
+        "SubTable_ProductsServices_YourPremise": {
+          "num": null,
+          "enum": "Percent_75",
+          "resolved_enum": "upto 75%"
+        },
+        "SubTable_ProductsServices_LocalTradersShopkeepers": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_ProductsServices_LocalHaatMarket": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_ProductsServices_SarasFair": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        }
+      },
+      "SubTable_BuisenesHelp": {
+        "SubTable_NoHubbyMony": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        },
+        "SubTable_FamlyMainEncm": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        },
+        "SubTable_ANyOthr": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        }
+      }
+    },
+    "SubSubTable": {
+      "SubTable_Involvement_PurchaseMaterial": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Regular",
+          "resolved_enum": "Regular"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Production": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Regular",
+          "resolved_enum": "Regular"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Servicing": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Regular",
+          "resolved_enum": "Regular"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Social_media": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_NA",
+          "resolved_enum": "Not relevant"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Sales": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_RecordKeeping": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Peak": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 9.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 75000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Average": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 24.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 30000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Lean": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 12.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 30000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_AvSales": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 60000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 55000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_AvIncome": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 5000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 5600.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_Value": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 75000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 900000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_Assets": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 40000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 45000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_LoanUsage_Own": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 500000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 500000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Family": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 100000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Profit": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 100000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_b",
+          "resolved_enum": "Buy new machine to increase the production capacity ( eg: sewing machine)"
+        }
+      },
+      "SubTable_LoanUsage_Mortgaged": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Gold": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_k",
+          "resolved_enum": "Not used the source"
+        }
+      },
+      "SubTable_LoanUsage_FamilyLoan": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_j",
+          "resolved_enum": "Any other, specify………."
+        }
+      },
+      "SubTable_LoanUsage_MoneyLender": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_k",
+          "resolved_enum": "Not used the source"
+        }
+      },
+      "SubTable_LoanUsage_SHG": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 100000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_OSFLoan": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 100000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_f",
+          "resolved_enum": "Buy more material/inputs to increase scale of business/production"
+        }
+      },
+      "SubTable_LoanUsage_OSFGrant": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 100000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_f",
+          "resolved_enum": "Buy more material/inputs to increase scale of business/production"
+        }
+      },
+      "SubTable_LoanUsage_LoanPrivate": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_LoanNBFC": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_b",
+          "resolved_enum": "Buy new machine to increase the production capacity ( eg: sewing machine)"
+        }
+      },
+      "SubTable_LoanUsage_Mudra": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Bank": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      }
+    }
+  },
+  "KUM-6": {
+    "Survey": {
+      "ID": "KUM-6",
+      "Date": "30/09/2026",
+      "InvestigatorID": "KUM",
+      "Latitude": "26.953599, 76.632788",
+      "Longitude": "26.953599, 76.632788",
+      "Status": "Working",
+      "Language": null,
+      "District": "DIST_DAUSA",
+      "Block": "BLK_SIKANDRA",
+      "VillageGP": "Maryada",
+      "RespondentName": "Sunita Sharma",
+      "RespondentPhone": 9875209360,
+      "SHGName": "Jovnir Mata",
+      "VOName": "Sobhnath Rajivika",
+      "CLFName": "Prakash",
+      "SHGMembershipYears": 5,
+      "LeadershipRole": "OPT_YES",
+      "LeadershipYears": 4.0,
+      "RelatedToCRP": "OPT_YES",
+      "EPInterventionType": "INT_SVEP",
+      "EnterpriseName": "General store",
+      "EnterpriseSetupYear": 4,
+      "BusinessType": "BTY_TRADING",
+      "BusinessActivities": "ACT_GROCERY",
+      "LoanReceivedYear": 4,
+      "MaintainSeparateRecords": "OPT_YES",
+      "RegistrationsDocuments": "DOC_PAN , DOC_AADHAR , DOC_CASTE",
+      "RespondentAge": "AGE_26_35",
+      "MaritalStatus": "MAR_MARRIED",
+      "SocialCategory": "CST_GEN",
+      "EducationStatus": "EDU_12TH",
+      "FamilyMemberCount": 4.0,
+      "FamilyIncomeSources": "INC_SELF_EMP , INC_RESP_ENT",
+      "AnnualHouseholdIncome": "INC_360K_400K",
+      "ReasonsStartingBusiness": "RSN_SETBACK , RSN_RISING_EXP , RSN_OWN_VENTURE",
+      "BusinessCycle": "CYC_REGULAR_HOURS",
+      "BusinessPlaceType": "PLC_OWN",
+      "MonthlyRent": 0.0,
+      "LocationConvenience": "LOC_CONVENIENT",
+      "Related_Q6_Labor": null,
+      "MarketingMethods": "MKT_SHG_MEETINGS , MKT_TRADERS_SAMPLES , MKT_INSTA_WHATSAPP , MKT_WAIT_ENQUIRIES",
+      "SeasonalSalesMethod": "SEL_DOOR_TO_DOOR , SEL_PRIOR_ORDERS , SEL_SARAS_FAIR , SEL_WHATSAPP",
+      "RecordKeepingHabit": "RKH_NOT_REGULAR",
+      "RecordKeepingMethod": "RKT_NOT_REGULAR",
+      "SHGAssociationAssistance": "SHG_BIZ_INFO , SHG_SEED_LOAN",
+      "FundingExperience": "FEX_PLOUGH_EARNINGS , FEX_SHG_SMALLER",
+      "FinancialHelpFromIncome": null,
+      "HusbandFamilyResponse": "HRESP_FINANCIAL",
+      "MaterialSourcingComfort": "SRC_NEED_COMPANION",
+      "CustomerPaymentRecovery": "REC_NO_ISSUES",
+      "CurrentChallenges": "CH_BIGGER_MARKET , CH_SELLING_INVENTORY , CH_SOCIAL_MEDIA_LEARN",
+      "CompetitorAdvantages": "ADV_SHOP_VS_HOME , ADV_QUALITY , ADV_FAST_DELIVERY",
+      "FutureExpansionPlans": "EXP_ATTRACTIVE_SHOP , EXP_SAME_LOC_SCALE , EXP_DIVERSIFY , EXP_ONLINE_MARKETS",
+      "AspirationBottlenecks": "BOT_CAPITAL",
+      "FutureFundsRequired": "FND_UPTO_1L",
+      "AttendedTraining": "OPT_NO",
+      "TrainingDetails": null,
+      "UsedTrainingComponent": null,
+      "UsedTrainingDetails": null,
+      "MonthlyIncomeIncreaseByOSFSVEP": "INC_CANT_SAY",
+      "CRPContributions": "CRP_BIZ_PLAN , CRP_PROFIT_IDEAS , CRP_RECORDS , CRP_COMM_SKILLS",
+      "ExpectationsFromScheme": "EXP_BIGGER_LOAN , EXP_MUDRA_HELP",
+      "SmartphoneOwnership": "PHN_OWN",
+      "UseQRUPI": "OPT_YES",
+      "QRDailyTransactions": "QR_5_10",
+      "QRNonUseReason": null,
+      "SocialMediaForMarketing": "SMM_WHATSAPP_ORDERS",
+      "SocialPlatformsUsed": "SMP_WHATSAPP",
+      "SocialPlatformUsageMode": "SMU_PRICE_ORDERS , SMU_VENDOR_ENQUIRY",
+      "SocialMediaFrequency": "SMF_2_3_WEEK",
+      "OSFInterventionYear": null,
+      "BusinessOperationalStatus": null,
+      "ScalingDownClosingReasons": null,
+      "SupportNeededForSustenance": null,
+      "CreatedOn": "30/09/2026 10:23:00",
+      "CreatedBy": "KUM",
+      "LastEditOn": "30/09/2026 11:13:36",
+      "LastEditBy": "KUM",
+      "SurvayNo": 6.0,
+      "Survey_Anul_Bill_Hired": "Survey_001"
+    },
+    "SubTable": {
+      "SubTable_MaterialSourcing": {
+        "SubTable_MaterialSourcing_Nearby": {
+          "num": null,
+          "enum": "Percent_100",
+          "resolved_enum": "100%"
+        },
+        "SubTable_MaterialSourcing_Wholesale": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_MaterialSourcing_OutState": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_MaterialSourcing_Online": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        }
+      },
+      "SubTable_CapitalLoanUsage": {
+        "SubTable_LoanUsage_Gold": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_FamilyLoan": {
+          "num": "SubTable_LoanUsage_Opt_f",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_MoneyLender": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_SHG": {
+          "num": "SubTable_LoanUsage_Opt_b",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_OSFLoan": {
+          "num": "Percent_50-75",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_OSFGrant": {
+          "num": "SubTable_LoanUsage_Opt_c",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_LoanPrivate": {
+          "num": "SubTable_LoanUsage_Opt_k",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_LoanNBFC": {
+          "num": "SubTable_LoanUsage_Opt_h",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_Mudra": {
+          "num": "SubTable_LoanUsage_Opt_h",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_Bank": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_ChangeInMonthlyIncome": {
+        "SubTable_ChangeInMonthlyIncome_Before": {
+          "num": "SubTable_LoanUsage_Opt_c",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_ChangeInMonthlyIncome_After": {
+          "num": "SubTable_LoanUsage_Opt_f",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges": {
+        "SubTable_BusinessChanges_AvSales": {
+          "num": "SubTable_LoanUsage_Opt_k",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_ProductsServices": {
+        "SubTable_ProductsServices_OnlinePlatforms": {
+          "num": null,
+          "enum": "Percent_30",
+          "resolved_enum": "upto 30%"
+        },
+        "SubTable_ProductsServices_Whatsapp": {
+          "num": null,
+          "enum": "Percent_30",
+          "resolved_enum": "upto 30%"
+        },
+        "SubTable_ProductsServices_Instagram": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_ProductsServices_YourPremise": {
+          "num": null,
+          "enum": "Percent_75",
+          "resolved_enum": "upto 75%"
+        },
+        "SubTable_ProductsServices_LocalTradersShopkeepers": {
+          "num": null,
+          "enum": "Percent_30",
+          "resolved_enum": "upto 30%"
+        },
+        "SubTable_ProductsServices_LocalHaatMarket": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_ProductsServices_SarasFair": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        }
+      },
+      "SubTable_BuisenesHelp": {
+        "SubTable_NoHubbyMony": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        },
+        "SubTable_FamlyMainEncm": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        },
+        "SubTable_ANyOthr": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        }
+      }
+    },
+    "SubSubTable": {
+      "SubTable_Involvement_PurchaseMaterial": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 1.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Production": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 1.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Servicing": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 1.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Social_media": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 1.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Sales": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_RecordKeeping": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Peak": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 8.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 150000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 18000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Average": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 3.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 150000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 18000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Lean": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 4.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 75000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 12000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_AvSales": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 70000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 150000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_AvIncome": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 12000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 18000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_Value": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 200000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_Assets": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 25000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_LoanUsage_Own": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 10000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 20000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 40000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_f",
+          "resolved_enum": "Buy more material/inputs to increase scale of business/production"
+        }
+      },
+      "SubTable_LoanUsage_Family": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 10000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 20000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 20000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_f",
+          "resolved_enum": "Buy more material/inputs to increase scale of business/production"
+        }
+      },
+      "SubTable_LoanUsage_Profit": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Mortgaged": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Gold": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_FamilyLoan": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_MoneyLender": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_SHG": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 15000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 30000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_OSFLoan": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 40000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_OSFGrant": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_LoanPrivate": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_LoanNBFC": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Mudra": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Bank": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      }
+    }
+  },
+  "KUM-7": {
+    "Survey": {
+      "ID": "KUM-7",
+      "Date": "30/09/2026",
+      "InvestigatorID": "KUM",
+      "Latitude": "26.953891, 76.632065",
+      "Longitude": "26.953891, 76.632065",
+      "Status": "Working",
+      "Language": null,
+      "District": "DIST_DAUSA",
+      "Block": "BLK_SIKANDRA",
+      "VillageGP": "Bawanpara",
+      "RespondentName": "Geeta Devi",
+      "RespondentPhone": 6377192670,
+      "SHGName": "Vaishno Mata",
+      "VOName": "Sawariya Seth",
+      "CLFName": "Prakash",
+      "SHGMembershipYears": 4,
+      "LeadershipRole": "OPT_YES",
+      "LeadershipYears": 3.0,
+      "RelatedToCRP": "OPT_NO",
+      "EPInterventionType": "INT_SVEP",
+      "EnterpriseName": "Taloring and cloth Shop",
+      "EnterpriseSetupYear": 3,
+      "BusinessType": "BTY_SERVICING , BTY_MANUFACTURING",
+      "BusinessActivities": "ACT_TAILORING",
+      "LoanReceivedYear": 6,
+      "MaintainSeparateRecords": "OPT_YES",
+      "RegistrationsDocuments": "DOC_PAN , DOC_AADHAR , DOC_CASTE",
+      "RespondentAge": "AGE_36_45",
+      "MaritalStatus": "MAR_MARRIED",
+      "SocialCategory": "CST_SC",
+      "EducationStatus": "EDU_12TH",
+      "FamilyMemberCount": 4.0,
+      "FamilyIncomeSources": "INC_AGRI , INC_SELF_EMP , INC_DAIRY , INC_RESP_ENT",
+      "AnnualHouseholdIncome": "INC_440K-480K",
+      "ReasonsStartingBusiness": "RSN_SETBACK , RSN_RISING_EXP , RSN_OWN_VENTURE , RSN_LEARNT_SKILL",
+      "BusinessCycle": "CYC_REGULAR_HOURS",
+      "BusinessPlaceType": "PLC_RENTED",
+      "MonthlyRent": 4000.0,
+      "LocationConvenience": "LOC_CHANGED_LOC",
+      "Related_Q6_Labor": null,
+      "MarketingMethods": "MKT_SHOP_ONLY , MKT_SHG_MEETINGS , MKT_TRADERS_SAMPLES , MKT_INSTA_WHATSAPP",
+      "SeasonalSalesMethod": "SEL_DOOR_TO_DOOR , SEL_WHATSAPP",
+      "RecordKeepingHabit": "RKH_NOT_REGULAR",
+      "RecordKeepingMethod": "RKT_PURCHASE_SALE_REG",
+      "SHGAssociationAssistance": "SHG_BIZ_INFO , SHG_DOCS_HELP , SHG_SEED_LOAN",
+      "FundingExperience": "FEX_PLOUGH_EARNINGS , FEX_SHG_SMALLER",
+      "FinancialHelpFromIncome": null,
+      "HusbandFamilyResponse": "HRESP_LATER_SUPPORT , HRESP_FINANCIAL",
+      "MaterialSourcingComfort": "SRC_TRAVEL_ALONE",
+      "CustomerPaymentRecovery": "REC_NO_ISSUES",
+      "CurrentChallenges": "CH_TIMELY_FUNDS",
+      "CompetitorAdvantages": "ADV_BETTER_LOC",
+      "FutureExpansionPlans": "EXP_ATTRACTIVE_SHOP , EXP_SAME_LOC_SCALE",
+      "AspirationBottlenecks": "BOT_CAPITAL",
+      "FutureFundsRequired": "FND_UPTO_1L",
+      "AttendedTraining": "OPT_NO",
+      "TrainingDetails": null,
+      "UsedTrainingComponent": null,
+      "UsedTrainingDetails": null,
+      "MonthlyIncomeIncreaseByOSFSVEP": "INC_18K_20K",
+      "CRPContributions": "CRP_BIZ_PLAN , CRP_PROFIT_IDEAS , CRP_RECORDS , CRP_COMM_SKILLS",
+      "ExpectationsFromScheme": "EXP_BIGGER_LOAN , EXP_BIGGER_MARKETS",
+      "SmartphoneOwnership": "PHN_OWN",
+      "UseQRUPI": "OPT_YES",
+      "QRDailyTransactions": "QR_10_20",
+      "QRNonUseReason": null,
+      "SocialMediaForMarketing": "SMM_WHATSAPP_ORDERS",
+      "SocialPlatformsUsed": "SMP_WHATSAPP",
+      "SocialPlatformUsageMode": "SMU_PRICE_ORDERS",
+      "SocialMediaFrequency": "SMF_DAILY",
+      "OSFInterventionYear": null,
+      "BusinessOperationalStatus": null,
+      "ScalingDownClosingReasons": null,
+      "SupportNeededForSustenance": null,
+      "CreatedOn": "30/09/2026 11:15:00",
+      "CreatedBy": "KUM",
+      "LastEditOn": "30/09/2026 11:51:17",
+      "LastEditBy": "KUM",
+      "SurvayNo": 7.0,
+      "Survey_Anul_Bill_Hired": "Survey_001"
+    },
+    "SubTable": {
+      "SubTable_MaterialSourcing": {
+        "SubTable_MaterialSourcing_Nearby": {
+          "num": null,
+          "enum": "Percent_100",
+          "resolved_enum": "100%"
+        },
+        "SubTable_MaterialSourcing_Wholesale": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_MaterialSourcing_OutState": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_MaterialSourcing_Online": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        }
+      },
+      "SubTable_CapitalLoanUsage": {
+        "SubTable_LoanUsage_Gold": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_FamilyLoan": {
+          "num": "SubTable_LoanUsage_Opt_f",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_MoneyLender": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_SHG": {
+          "num": "SubTable_LoanUsage_Opt_b",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_OSFLoan": {
+          "num": "Percent_50-75",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_OSFGrant": {
+          "num": "SubTable_LoanUsage_Opt_c",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_LoanPrivate": {
+          "num": "SubTable_LoanUsage_Opt_k",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_LoanNBFC": {
+          "num": "SubTable_LoanUsage_Opt_h",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_Mudra": {
+          "num": "SubTable_LoanUsage_Opt_h",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_LoanUsage_Bank": {
+          "num": "SubTable_LoanUsage_Opt_e",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_ChangeInMonthlyIncome": {
+        "SubTable_ChangeInMonthlyIncome_Before": {
+          "num": "SubTable_LoanUsage_Opt_c",
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_ChangeInMonthlyIncome_After": {
+          "num": "SubTable_LoanUsage_Opt_f",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges": {
+        "SubTable_BusinessChanges_AvSales": {
+          "num": "SubTable_LoanUsage_Opt_k",
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_ProductsServices": {
+        "SubTable_ProductsServices_OnlinePlatforms": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_ProductsServices_Whatsapp": {
+          "num": null,
+          "enum": "Percent_15",
+          "resolved_enum": "upto 15%"
+        },
+        "SubTable_ProductsServices_Instagram": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_ProductsServices_YourPremise": {
+          "num": null,
+          "enum": "Percent_75",
+          "resolved_enum": "upto 75%"
+        },
+        "SubTable_ProductsServices_LocalTradersShopkeepers": {
+          "num": null,
+          "enum": "Percent_15",
+          "resolved_enum": "upto 15%"
+        },
+        "SubTable_ProductsServices_LocalHaatMarket": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        },
+        "SubTable_ProductsServices_SarasFair": {
+          "num": null,
+          "enum": "Percent_NA",
+          "resolved_enum": "Not Applicable"
+        }
+      },
+      "SubTable_BuisenesHelp": {
+        "SubTable_NoHubbyMony": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        },
+        "SubTable_FamlyMainEncm": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        },
+        "SubTable_ANyOthr": {
+          "num": null,
+          "enum": "OPT_NO",
+          "resolved_enum": "No"
+        }
+      }
+    },
+    "SubSubTable": {
+      "SubTable_Involvement_PurchaseMaterial": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Production": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Servicing": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Social_media": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_Sales": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Involvement_RecordKeeping": {
+        "SubSubTable_Involvement_Family": {
+          "num": null,
+          "enum": "SubSubTable_Involvement_Family_Rspondant",
+          "resolved_enum": "Only respondent"
+        },
+        "SubSubTable_Involvement_Member": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Involvement_Hired": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Peak": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 8.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 200000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 40000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Average": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_Turnover_Lean": {
+        "SubSubTable_Turnover_Duration": {
+          "num": 3.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Sales": {
+          "num": 100000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_Turnover_Income": {
+          "num": 25000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_AvSales": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 400000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_AvIncome": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 5000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 40000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_Value": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 150000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_BusinessChanges_Assets": {
+        "SubSubTable_BusinessChanges_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_BusinessChanges_CurrentYear": {
+          "num": 150000.0,
+          "enum": null,
+          "resolved_enum": null
+        }
+      },
+      "SubTable_LoanUsage_Own": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 30000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 80000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Family": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 20000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Profit": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 40000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Mortgaged": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Gold": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_FamilyLoan": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 2000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 20000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 50000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_MoneyLender": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_SHG": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 15000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_OSFLoan": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 40000.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_OSFGrant": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_LoanPrivate": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_LoanNBFC": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Mudra": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      },
+      "SubTable_LoanUsage_Bank": {
+        "SubSubTable_CapitalArranged_FirstYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_MidYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisYear": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubSubTable_CapitalArranged_ThisPending": {
+          "num": 0.0,
+          "enum": null,
+          "resolved_enum": null
+        },
+        "SubTable_CapitalLoanUsage_LoanUsage": {
+          "num": null,
+          "enum": "SubTable_LoanUsage_Opt_a",
+          "resolved_enum": "Seed capital to buy material and set up the shop"
+        }
+      }
+    }
+  }
+}
