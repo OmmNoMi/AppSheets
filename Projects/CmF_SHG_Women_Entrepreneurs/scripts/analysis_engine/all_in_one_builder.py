@@ -149,7 +149,11 @@ def build_all_in_one_sheet(
             c_val.font, c_val.number_format = font_regular, FMT_CURRENCY
             c_val.alignment = align_right
 
-        c_u = ws.cell(row=cur_r, column=21, value=cnt)
+        perf_sub = df_subsub[(df_subsub['Survey'].isin(sids)) & (df_subsub['Question_Group'].str.startswith('SubTable_BusinessChanges'))]
+        pos_perf = perf_sub[(perf_sub['Question'] == 'SubSubTable_BusinessChanges_CurrentYear') & (perf_sub['Answer_Number'] > 0)]
+        n_perf = len(pos_perf['Survey'].unique())
+
+        c_u = ws.cell(row=cur_r, column=21, value=n_perf)
         c_u.font, c_u.alignment = font_regular, align_center
         sector_ranges[sector].append(cur_r)
         cur_r += 1
