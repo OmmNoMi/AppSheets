@@ -39,6 +39,57 @@ def export_workbook_to_csv(wb: openpyxl.Workbook, csv_dir: str) -> None:
                     writer.writerow([str(v) if v is not None else "" for v in row])
 
 
+def export_4_standalone_workbooks(
+    df_survey: pd.DataFrame,
+    df_sub: pd.DataFrame,
+    df_subsub: pd.DataFrame,
+    schema,
+    output_dir: str,
+    cohort_name: str = "All Rajasthan"
+) -> list:
+    """Generates 4 separate standalone .xlsx files, one for each analytical sheet."""
+    os.makedirs(output_dir, exist_ok=True)
+    files = []
+
+    # File 1: Finance & Capital Mobilization
+    wb1 = openpyxl.Workbook()
+    ws1 = wb1.active
+    ws1.title = "Finance & Capital"
+    build_finance_sheet(ws1, df_survey, df_subsub, schema)
+    p1 = os.path.join(output_dir, "1_Finance_and_Capital_Mobilization.xlsx")
+    wb1.save(p1)
+    files.append(p1)
+
+    # File 2: Social Category Matrix
+    wb2 = openpyxl.Workbook()
+    ws2 = wb2.active
+    ws2.title = "Social Category Matrix"
+    build_social_matrix_sheet(ws2, df_survey, schema, cohort_name)
+    p2 = os.path.join(output_dir, "2_Social_Category_Matrix.xlsx")
+    wb2.save(p2)
+    files.append(p2)
+
+    # File 3: Agency & Sourcing Independence
+    wb3 = openpyxl.Workbook()
+    ws3 = wb3.active
+    ws3.title = "Agency & Sourcing"
+    build_agency_sourcing_sheet(ws3, df_survey, schema, cohort_name)
+    p3 = os.path.join(output_dir, "3_Agency_and_Sourcing_Independence.xlsx")
+    wb3.save(p3)
+    files.append(p3)
+
+    # File 4: Demographics & Survey Indicators
+    wb4 = openpyxl.Workbook()
+    ws4 = wb4.active
+    ws4.title = "Demographics & Indicators"
+    build_indicators_sheet(ws4, df_survey, df_sub, df_subsub, schema, cohort_name)
+    p4 = os.path.join(output_dir, "4_Demographics_and_Survey_Indicators.xlsx")
+    wb4.save(p4)
+    files.append(p4)
+
+    return files
+
+
 def run_district_analysis(
     district: str = "Dausa",
     data_dir: str = None,
@@ -143,6 +194,12 @@ def run_full_pipeline(
     wb_all.save(all_excel_path)
     export_workbook_to_csv(wb_all, os.path.join(all_dir, "csv"))
     print(f"[OK] All Rajasthan: {len(df_survey)} WE -> Consolidated State Master Workbook saved.")
+
+    # 3. Build 4 Standalone .xlsx Workbooks for Client Deliverables
+    export_dir = os.path.join(output_base, "excel_exports")
+    f4 = export_4_standalone_workbooks(df_survey, df_sub, df_subsub, schema, export_dir, "All Rajasthan")
+    export_4_standalone_workbooks(df_survey, df_sub, df_subsub, schema, os.path.join(all_dir, "excel"), "All Rajasthan")
+    print(f"[OK] 4 Standalone Client .xlsx Workbooks generated in: {export_dir}")
 
     # 3. Build District Archives
     raw_districts = df_survey['District'].dropna().unique()
