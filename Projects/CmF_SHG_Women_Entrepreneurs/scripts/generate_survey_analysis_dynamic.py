@@ -106,7 +106,10 @@ def run_district_analysis(
     else:
         files = resolve_all_files(data_dir=data_dir, custom_paths=custom_paths)
         schema = SchemaRegistry(files['appvars'])
-        df_survey = pd.read_csv(files['survey'])
+        df_raw = pd.read_csv(files['survey'])
+        df_survey = df_raw[df_raw['Status'] == 'Working'].copy()
+        if df_survey.empty and not df_raw.empty:
+            df_survey = df_raw[df_raw['Status'] != 'Dummy'].copy()
         df_sub = pd.read_csv(files['sub'])
         df_subsub = pd.read_csv(files['subsub'])
 
@@ -170,7 +173,11 @@ def run_full_pipeline(
 
     files = resolve_all_files(data_dir=data_dir, custom_paths=custom_paths)
     schema = SchemaRegistry(files['appvars'])
-    df_survey = pd.read_csv(files['survey'])
+    df_raw = pd.read_csv(files['survey'])
+    # Clean and filter only Working status records
+    df_survey = df_raw[df_raw['Status'] == 'Working'].copy()
+    if df_survey.empty and not df_raw.empty:
+        df_survey = df_raw[df_raw['Status'] != 'Dummy'].copy()
     df_sub = pd.read_csv(files['sub'])
     df_subsub = pd.read_csv(files['subsub'])
     loaded_data = (df_survey, df_sub, df_subsub, schema)
@@ -195,13 +202,18 @@ def run_full_pipeline(
     export_workbook_to_csv(wb_all, os.path.join(all_dir, "csv"))
     print(f"[OK] All Rajasthan: {len(df_survey)} WE -> Consolidated State Master Workbook saved.")
 
-    # 3. Build 4 Standalone .xlsx Workbooks for Client Deliverables
+    # 3. Build 4 Standalone .xlsx Workbooks for Client Deliverables (Dausa & All Rajasthan)
     export_dir = os.path.join(output_base, "excel_exports")
-    f4 = export_4_standalone_workbooks(df_survey, df_sub, df_subsub, schema, export_dir, "All Rajasthan")
-    export_4_standalone_workbooks(df_survey, df_sub, df_subsub, schema, os.path.join(all_dir, "excel"), "All Rajasthan")
-    print(f"[OK] 4 Standalone Client .xlsx Workbooks generated in: {export_dir}")
+    df_dausa = df_survey[df_survey['District'].astype(str).str.contains('DAUSA', case=False, na=False)].copy()
+    sids_dausa = set(df_dausa['ID'])
+    df_dausa_sub = df_sub[df_sub['Survey'].isin(sids_dausa)].copy()
+    df_dausa_subsub = df_subsub[df_subsub['Survey'].isin(sids_dausa)].copy()
+    
+    # Export Dausa standalone workbooks (primary client request)
+    export_4_standalone_workbooks(df_dausa, df_dausa_sub, df_dausa_subsub, schema, export_dir, "Dausa")
+    print(f"[OK] 4 Standalone Client .xlsx Workbooks generated for Dausa (N={len(df_dausa)}) in: {export_dir}")
 
-    # 3. Build District Archives
+    # 4. Build District Archives
     raw_districts = df_survey['District'].dropna().unique()
     dist_results = {}
     if target_district.lower() == "all":
