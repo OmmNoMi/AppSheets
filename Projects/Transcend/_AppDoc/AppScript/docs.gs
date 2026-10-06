@@ -135,6 +135,9 @@ function createGoogleDoc(fileObj, paramObj, conditionsObj) {
     }
     log('INFO', ctx, `Replaced ${replacementCount} placeholder keys.`);
 
+    // --- Clean up Blank Pages & Orphaned Page Breaks ---
+    cleanUpBlankPages(body);
+
     doc.saveAndClose();
 
     let finalFile = newFile;
@@ -209,11 +212,25 @@ function removeOrKeepSection(body, startTag, endTag, shouldShow) {
     body.replaceText(escapeRegex(endTag), '');
   } else {
     log('INFO', ctx, `HIDE section: Deleting all content between "${startTag}" and "${endTag}".`);
-    const startIndex = parent.getChildIndex(startPara);
-    const endIndex   = parent.getChildIndex(endPara);
+    let startIndex = parent.getChildIndex(startPara);
+    let endIndex   = parent.getChildIndex(endPara);
+
+    // Also check if the previous element is an orphaned PageBreak / empty paragraph
+    if (startIndex > 0) {
+      const prevChild = parent.getChild(startIndex - 1);
+      const prevType  = prevChild.getType();
+      if (prevType === DocumentApp.ElementType.PAGE_BREAK) {
+        startIndex--;
+      } else if (prevType === DocumentApp.ElementType.PARAGRAPH) {
+        const text = prevChild.asParagraph().getText().trim();
+        const numBreak = prevChild.asParagraph().findElement(DocumentApp.ElementType.PAGE_BREAK);
+        if (text === '' && numBreak) {
+          startIndex--;
+        }
+      }
+    }
 
     // Google Docs requires at least one element in the Body at all times.
-    // If deleting up to the very end of the document, append a temporary paragraph first.
     if (endIndex >= parent.getNumChildren() - 1) {
       body.appendParagraph('');
     }
@@ -226,5 +243,78 @@ function removeOrKeepSection(body, startTag, endTag, shouldShow) {
         if (remainingChild.clear) remainingChild.clear();
       }
     }
+  }
+}
+
+/**
+ * Clean up consecutive page breaks and trailing empty paragraphs that produce blank pages in PDF exports.
+ * @param {DocumentApp.Body} body
+ */
+function cleanUpBlankPages(body) {
+  const ctx = 'cleanUpBlankPages';
+  try {
+    const numChildren = body.getNumChildren();
+    let prevHadPageBreak = false;
+
+    for (let i = numChildren - 1; i >= 0; i--) {
+      const child = body.getChild(i);
+      const childType = child.getType();
+
+      if (childType === DocumentApp.ElementType.PAGE_BREAK) {
+        if (prevHadPageBreak && body.getNumChildren() > 1) {
+          log('INFO', ctx, `Removing duplicate consecutive PageBreak at index ${i}`);
+          body.removeChild(child);
+        } else {
+          prevHadPageBreak = true;
+        }
+      } else if (childType === DocumentApp.ElementType.PARAGRAPH) {
+        const para = child.asParagraph();
+        const text = para.getText().trim();
+        const hasBreak = Boolean(para.findElement(DocumentApp.ElementType.PAGE_BREAK));
+
+        if (hasBreak) {
+          if (prevHadPageBreak && text === '' && body.getNumChildren() > 1) {
+            log('INFO', ctx, `Removing empty paragraph containing duplicate PageBreak at index ${i}`);
+            body.removeChild(child);
+          } else {
+            prevHadPageBreak = true;
+          }
+        } else if (text === '') {
+          // Empty paragraph between page breaks
+          if (prevHadPageBreak && body.getNumChildren() > 1) {
+            // Check next element
+            if (i > 0) {
+              const prevElem = body.getChild(i - 1);
+              const prevIsBreak = prevElem.getType() === DocumentApp.ElementType.PAGE_BREAK ||
+                (prevElem.getType() === DocumentApp.ElementType.PARAGRAPH &&
+                 Boolean(prevElem.asParagraph().findElement(DocumentApp.ElementType.PAGE_BREAK)));
+              if (prevIsBreak) {
+                log('INFO', ctx, `Removing empty spacer paragraph between breaks at index ${i}`);
+                body.removeChild(child);
+              }
+            }
+          }
+        } else {
+          prevHadPageBreak = false;
+        }
+      } else {
+        prevHadPageBreak = false;
+      }
+    }
+
+    // Clean up trailing page break at the very end of document
+    if (body.getNumChildren() > 1) {
+      const lastChild = body.getChild(body.getNumChildren() - 1);
+      if (lastChild.getType() === DocumentApp.ElementType.PAGE_BREAK) {
+        body.removeChild(lastChild);
+      } else if (lastChild.getType() === DocumentApp.ElementType.PARAGRAPH) {
+        const lastPara = lastChild.asParagraph();
+        if (lastPara.getText().trim() === '' && lastPara.findElement(DocumentApp.ElementType.PAGE_BREAK)) {
+          body.removeChild(lastChild);
+        }
+      }
+    }
+  } catch (err) {
+    log('WARN', ctx, `PageBreak cleaner non-fatal warning: ${err.message}`);
   }
 }
