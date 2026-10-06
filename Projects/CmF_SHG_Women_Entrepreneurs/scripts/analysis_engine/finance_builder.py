@@ -7,7 +7,7 @@ and Part B (Loan Usage Purpose x Capital Source Matrix).
 from typing import Dict, List, Set, Any
 import pandas as pd
 from openpyxl.utils import get_column_letter
-from .data_evaluator import matches_activity
+from .data_evaluator import matches_activity, get_primary_activity
 from .excel_styler import (
     font_head, font_subhead, font_bold, font_regular,
     fill_header, fill_subhead, fill_total, fill_highlight,
@@ -27,13 +27,14 @@ def build_finance_sheet(
     activities = schema.get_business_activities()
     capital_sources = schema.get_capital_sources()
     loan_usages = schema.get_loan_usages()
+    df_eval = df_survey.copy()
+    if 'PrimaryActivity' not in df_eval.columns:
+        df_eval['PrimaryActivity'] = df_eval.apply(get_primary_activity, axis=1)
 
     # Pre-index respondents per activity
     activity_map = {}
     for sector, num, title, codes in activities:
-        matching = df_survey[df_survey['BusinessActivities'].apply(
-            lambda x, c=codes: matches_activity(x, c)
-        )]
+        matching = df_eval[df_eval['PrimaryActivity'].isin(codes)]
         activity_map[num] = matching
 
     # Part A Top Headers (Row 1)

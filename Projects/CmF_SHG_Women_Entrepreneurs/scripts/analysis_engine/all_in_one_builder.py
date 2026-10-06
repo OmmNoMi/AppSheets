@@ -12,7 +12,7 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-from .data_evaluator import matches_activity, compute_frequency
+from .data_evaluator import matches_activity, compute_frequency, get_primary_activity
 from .excel_styler import (
     font_title, font_head, font_subhead, font_bold, font_regular, font_italic,
     fill_header, fill_subhead, fill_total, fill_highlight,
@@ -57,6 +57,9 @@ def build_all_in_one_sheet(
     n_resp = len(df_survey)
     activities = schema.get_business_activities()
     cap_sources = schema.get_capital_sources()
+    df_eval = df_survey.copy()
+    if 'PrimaryActivity' not in df_eval.columns:
+        df_eval['PrimaryActivity'] = df_eval.apply(get_primary_activity, axis=1)
 
     # Master Title Block
     ws.row_dimensions[1].height = 30
@@ -106,7 +109,7 @@ def build_all_in_one_sheet(
     for i, (sector, num, title, codes) in enumerate(activities):
         if sector not in sector_ranges:
             sector_ranges[sector] = []
-        r_matches = df_survey[df_survey['BusinessActivities'].apply(lambda x, c=codes: matches_activity(x, c))]
+        r_matches = df_eval[df_eval['PrimaryActivity'].isin(codes)]
         cnt = len(r_matches)
         sids = set(r_matches['ID'])
 
@@ -196,7 +199,7 @@ def build_all_in_one_sheet(
     for i, (sector, num, title, codes) in enumerate(activities):
         if sector not in s_ranges_m:
             s_ranges_m[sector] = []
-        r_matches = df_survey[df_survey['BusinessActivities'].apply(lambda x, c=codes: matches_activity(x, c))]
+        r_matches = df_eval[df_eval['PrimaryActivity'].isin(codes)]
         sc_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_SC'])
         st_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_ST'])
         obc_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_OBC'])

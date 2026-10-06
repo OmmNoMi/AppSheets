@@ -9,6 +9,26 @@ from typing import List, Tuple, Dict, Any, Set
 import pandas as pd
 
 
+def get_primary_activity(row: Any) -> str:
+    """Assigns each respondent 1:1 to their primary business activity."""
+    if isinstance(row, (dict, pd.Series)):
+        act_str = str(row.get('BusinessActivities', ''))
+        ent_name = str(row.get('EnterpriseName', '')).lower()
+    else:
+        act_str = str(row)
+        ent_name = ""
+    acts = [c.strip() for c in act_str.split(',') if c.strip() and c != 'nan']
+    if not acts:
+        return ""
+    if len(acts) == 1:
+        return acts[0]
+    if 'ACT_FANCY_STORE' in acts and any(k in ent_name for k in ['general', 'store', 'kirana', 'fancy']):
+        return 'ACT_FANCY_STORE'
+    if 'ACT_TAILORING' in acts and any(k in ent_name for k in ['tailor', 'silai', 'cloth', 'boutique']):
+        return 'ACT_TAILORING'
+    return acts[0]
+
+
 def matches_activity(resp_act_str: Any, act_codes: List[str]) -> bool:
     """Parses comma-separated AppSheet EnumLists and checks for code matching."""
     if pd.isna(resp_act_str):
@@ -247,6 +267,7 @@ def extract_respondent_records(
             't28_setup': _num(row.get('EnterpriseSetupYear')),
             't28_loan': _num(row.get('LoanReceivedYear')),
             't28_shg': _num(row.get('SHGMembershipYears')),
+            'primary_activity': get_primary_activity(row),
             'activities': [c.strip() for c in str(row.get('BusinessActivities', '')).split(',') if c.strip()],
             'family_support': [c.strip() for c in str(row.get('HusbandFamilyResponse', '')).split(',') if c.strip()],
             'sourcing_comfort': [c.strip() for c in str(row.get('MaterialSourcingComfort', '')).split(',') if c.strip()],

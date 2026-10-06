@@ -6,7 +6,7 @@ Builds the Social Category Matrix sheet and the Agency & Sourcing sheet.
 from typing import Dict, List, Any
 import pandas as pd
 from openpyxl.utils import get_column_letter
-from .data_evaluator import matches_activity
+from .data_evaluator import matches_activity, get_primary_activity
 from .excel_styler import (
     font_title, font_head, font_subhead, font_bold, font_regular,
     fill_header, fill_subhead, fill_total, fill_highlight,
@@ -19,6 +19,9 @@ def build_social_matrix_sheet(ws, df_survey: pd.DataFrame, schema, district_name
     """Builds the Business Activities x Social Category cross-tabulation worksheet."""
     ws.views.sheetView[0].showGridLines = True
     activities = schema.get_business_activities()
+    df_eval = df_survey.copy()
+    if 'PrimaryActivity' not in df_eval.columns:
+        df_eval['PrimaryActivity'] = df_eval.apply(get_primary_activity, axis=1)
 
     # Title block
     ws.merge_cells("A1:H1")
@@ -46,7 +49,7 @@ def build_social_matrix_sheet(ws, df_survey: pd.DataFrame, schema, district_name
     for i, (sector, num, title, codes) in enumerate(activities):
         if sector not in sector_ranges:
             sector_ranges[sector] = []
-        r_matches = df_survey[df_survey['BusinessActivities'].apply(lambda x, c=codes: matches_activity(x, c))]
+        r_matches = df_eval[df_eval['PrimaryActivity'].isin(codes)]
 
         sc_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_SC'])
         st_cnt = len(r_matches[r_matches['SocialCategory'] == 'CST_ST'])

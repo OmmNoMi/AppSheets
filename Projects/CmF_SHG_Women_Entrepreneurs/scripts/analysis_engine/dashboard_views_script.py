@@ -49,7 +49,7 @@ def get_views_client_script() -> str:
         }
 
         curSector = act.sector;
-        const matching = rows.filter(r => (r.activities || []).some(c => act.codes.includes(c)));
+        const matching = rows.filter(r => act.codes.includes(r.primary_activity || (r.activities && r.activities[0])));
         const sc = matching.filter(r => r.q7 === 'CST_SC').length, st = matching.filter(r => r.q7 === 'CST_ST').length;
         const obc = matching.filter(r => r.q7 === 'CST_OBC').length, gen = matching.filter(r => r.q7 === 'CST_GEN').length;
         const tot = sc + st + obc + gen;
