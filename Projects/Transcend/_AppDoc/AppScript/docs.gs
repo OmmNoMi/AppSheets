@@ -78,6 +78,25 @@ function createGoogleDoc(fileObj, paramObj, conditionsObj) {
         'TELEHEALTH_CONSENT':  isAff(paramObj.ConsentTelehealth) || paramObj.ShowTelehealthConsent === true || paramObj.ShowTelehealthConsent === 'true',
         'REGINA_SUPERVISION':  (paramObj.ProviderPreference && String(paramObj.ProviderPreference).includes('Regina')) || paramObj.ShowReginaSupervision === true || paramObj.ShowReginaSupervision === 'true',
         'SHANNON_SUPERVISION': (paramObj.ProviderPreference && String(paramObj.ProviderPreference).includes('Shannon')) || paramObj.ShowShannonSupervision === true || paramObj.ShowShannonSupervision === 'true',
+        'INSURANCE_FORM':      Boolean(
+          paramObj.ShowInsuranceForm === true ||
+          paramObj.ShowInsuranceForm === 'true' ||
+          (
+            !(String(paramObj.UseInsurance || '').toLowerCase().includes('self-pay') ||
+              String(paramObj.UseInsurance || '').toLowerCase().includes('out-of-pocket') ||
+              String(paramObj.UseInsurance || '').toLowerCase().includes('referral')) &&
+            (String(paramObj.UseInsurance || '').trim().toLowerCase().startsWith('yes') ||
+             Boolean((paramObj.PrimaryInsuranceCompany || paramObj['{{InsuranceCompany}}']) && String(paramObj.PrimaryInsuranceCompany || paramObj['{{InsuranceCompany}}']).trim() !== ''))
+          )
+        ),
+        'SECONDARY_INSURANCE_FORM': Boolean(
+          paramObj.AdditionalInsuranceCompany ||
+          paramObj['{{AdditionalInsuranceCompany}}'] ||
+          paramObj.ShowSecondaryInsuranceForm === true ||
+          paramObj.ShowSecondaryInsuranceForm === 'true' ||
+          (paramObj.OnlyInsurancePlan && String(paramObj.OnlyInsurancePlan).trim().toLowerCase().startsWith('no')) ||
+          (paramObj.UseInsurance && String(paramObj.UseInsurance).toLowerCase().includes('secondary'))
+        ),
         'COB_FORM':            Boolean(
           paramObj.AdditionalInsuranceCompany ||
           paramObj['{{AdditionalInsuranceCompany}}'] ||

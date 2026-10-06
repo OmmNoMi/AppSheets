@@ -179,7 +179,15 @@ When generating executive dashboards or analytical reports with client copy feat
 - **Dual-MIME Clipboard Engine**: Dispatch both `text/html` (clean table with borders, padding, headers) and `text/plain` (TSV with `\t` and `\n`). This guarantees cell-by-cell pasting in Google Sheets / Excel, and formatted visual tables in Docs / Word / PDF drafts.
 - **Mandatory Provenance Header**: Every copied payload MUST embed metadata rows: Table Number & Title, original Google Sheet / AppSheet source column, Master Excel sheet name, and active filter scope (selected districts/blocks and sample $N$).
 - **Zero Inline Quote Interpolation**: Never interpolate string literals into event handlers (`onchange="toggleDistrict(\'' + code + '\')"`); always pass `this.value` or bind event listeners to eliminate escaping syntax errors.
-- **Strict <= 300 Lines Limit**: Decouple clipboard formatters, provenance registries, and script engines into dedicated modules (`dashboard_provenance.py`, `dashboard_copy_script.py`, etc.) so no file exceeds 300 lines.
+### A10. Antigravity Chrome Access Protocol (Nomeshwer Profile 1)
+Whenever instructed to access Chrome or interact with live user browser sessions:
+- **Zero Temporary Chrome Spawns**: NEVER attempt to spawn isolated temporary Chrome profiles, kill existing browsers, or prompt the user to re-enter Google credentials.
+- **Dedicated User Profile**: The active authenticated profile is ALWAYS **Nomeshwer Sharma (`Profile 1` - `nomeshwer@ommnomi.in`)**.
+- **Antigravity Extension Bridge**: The user's Chrome runs the **Antigravity Browser Extension** (`eeijfnjmjelapkebgockoeaadonbchdd`) in `Profile 1`.
+- **Standard Access Procedure**:
+  1. Open target workspace URLs (Sheets, AppSheet, Forms, Scripts) in Chrome using `--profile-directory="Profile 1"`.
+  2. Open the Antigravity extension landing page (`chrome-extension://eeijfnjmjelapkebgockoeaadonbchdd/static/browserLanding.html`).
+  3. Invoke or direct the `/browser` subagent (`TypeName: "browser"`), which connects directly via the Antigravity Extension WebSocket bridge to control active tabs without session interruptions.
 
 ---
 
