@@ -17,6 +17,7 @@ from analysis_engine import (
     build_social_matrix_sheet,
     build_agency_sourcing_sheet,
     build_indicators_sheet,
+    build_all_in_one_sheet,
     build_district_html_report,
     build_master_dashboard_html
 )
@@ -39,13 +40,57 @@ def export_workbook_to_csv(wb: openpyxl.Workbook, csv_dir: str) -> None:
                     writer.writerow([str(v) if v is not None else "" for v in row])
 
 
+def export_all_in_one_workbooks(
+    df_survey: pd.DataFrame,
+    df_sub: pd.DataFrame,
+    df_subsub: pd.DataFrame,
+    schema,
+    output_dir: str,
+    cohort_name: str = "Dausa"
+) -> dict:
+    """Generates consolidated all-in-one workbooks (single stacked sheet and combined 5-tab master)."""
+    os.makedirs(output_dir, exist_ok=True)
+
+    # 1. Single Stacked Sheet Workbook (All 4 in 1 sheet)
+    wb_single = openpyxl.Workbook()
+    ws_single = wb_single.active
+    ws_single.title = "All In One Analysis"
+    build_all_in_one_sheet(ws_single, df_survey, df_sub, df_subsub, schema, cohort_name)
+    p_single = os.path.join(output_dir, f"{cohort_name}_Survey_Analysis_Single_Sheet.xlsx")
+    wb_single.save(p_single)
+
+    # 2. Comprehensive Master Workbook (Stacked Sheet + 4 Individual Tabs)
+    wb_master = openpyxl.Workbook()
+    wb_master.remove(wb_master.active)
+    
+    ws_m_all = wb_master.create_sheet(title="All In One Master")
+    build_all_in_one_sheet(ws_m_all, df_survey, df_sub, df_subsub, schema, cohort_name)
+    
+    ws_m_fin = wb_master.create_sheet(title="1. Finance & Capital")
+    build_finance_sheet(ws_m_fin, df_survey, df_subsub, schema)
+    
+    ws_m_soc = wb_master.create_sheet(title="2. Social Category Matrix")
+    build_social_matrix_sheet(ws_m_soc, df_survey, schema, cohort_name)
+    
+    ws_m_agc = wb_master.create_sheet(title="3. Agency & Sourcing")
+    build_agency_sourcing_sheet(ws_m_agc, df_survey, schema, cohort_name)
+    
+    ws_m_ind = wb_master.create_sheet(title="4. Demographics & Indicators")
+    build_indicators_sheet(ws_m_ind, df_survey, df_sub, df_subsub, schema, cohort_name)
+    
+    p_master = os.path.join(output_dir, f"{cohort_name}_Survey_Analysis_All_In_One_Master.xlsx")
+    wb_master.save(p_master)
+
+    return {'single_sheet': p_single, 'master_workbook': p_master}
+
+
 def export_4_standalone_workbooks(
     df_survey: pd.DataFrame,
     df_sub: pd.DataFrame,
     df_subsub: pd.DataFrame,
     schema,
     output_dir: str,
-    cohort_name: str = "All Rajasthan"
+    cohort_name: str = "Dausa"
 ) -> list:
     """Generates 4 separate standalone .xlsx files, one for each analytical sheet."""
     os.makedirs(output_dir, exist_ok=True)
@@ -202,16 +247,16 @@ def run_full_pipeline(
     export_workbook_to_csv(wb_all, os.path.join(all_dir, "csv"))
     print(f"[OK] All Rajasthan: {len(df_survey)} WE -> Consolidated State Master Workbook saved.")
 
-    # 3. Build 4 Standalone .xlsx Workbooks for Client Deliverables (Dausa & All Rajasthan)
+    # 3. Build Standalone & All-in-One .xlsx Workbooks for Client Deliverables
     export_dir = os.path.join(output_base, "excel_exports")
     df_dausa = df_survey[df_survey['District'].astype(str).str.contains('DAUSA', case=False, na=False)].copy()
     sids_dausa = set(df_dausa['ID'])
     df_dausa_sub = df_sub[df_sub['Survey'].isin(sids_dausa)].copy()
     df_dausa_subsub = df_subsub[df_subsub['Survey'].isin(sids_dausa)].copy()
     
-    # Export Dausa standalone workbooks (primary client request)
     export_4_standalone_workbooks(df_dausa, df_dausa_sub, df_dausa_subsub, schema, export_dir, "Dausa")
-    print(f"[OK] 4 Standalone Client .xlsx Workbooks generated for Dausa (N={len(df_dausa)}) in: {export_dir}")
+    export_all_in_one_workbooks(df_dausa, df_dausa_sub, df_dausa_subsub, schema, export_dir, "Dausa")
+    print(f"[OK] 4 Standalone & All-In-One .xlsx Workbooks generated for Dausa (N={len(df_dausa)}) in: {export_dir}")
 
     # 4. Build District Archives
     raw_districts = df_survey['District'].dropna().unique()

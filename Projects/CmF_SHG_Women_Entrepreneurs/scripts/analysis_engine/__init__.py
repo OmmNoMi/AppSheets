@@ -12,6 +12,7 @@ from .excel_styler import render_table_block, autofit_columns, FMT_CURRENCY, FMT
 from .finance_builder import build_finance_sheet
 from .matrix_builder import build_social_matrix_sheet, build_agency_sourcing_sheet
 from .indicators_builder import build_indicators_sheet
+from .all_in_one_builder import build_all_in_one_sheet
 from .html_report_builder import build_district_html_report
 from .dashboard_builder import build_master_dashboard_html
 from .dashboard_questions import render_all_question_cards_html
@@ -44,6 +45,7 @@ __all__ = [
     "build_agency_sourcing_sheet",
     "build_agency_sheet",
     "build_indicators_sheet",
+    "build_all_in_one_sheet",
     "build_district_html_report",
     "build_html_report",
     "build_master_dashboard_html",
