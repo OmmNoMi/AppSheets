@@ -72,11 +72,16 @@ class TestSurveyAnalysisEngine(unittest.TestCase):
         # Verify Consolidated State Master Workbook
         self.assertTrue(os.path.exists(res['state_master']), "State master workbook missing.")
 
-        # Verify Dausa District Deliverables
+        # Verify Dausa & Baran District Deliverables
         dausa_res = res['districts']['Dausa']
-        self.assertEqual(dausa_res['respondents'], 53)
+        self.assertEqual(dausa_res['respondents'], 50)
         self.assertTrue(os.path.exists(dausa_res['excel_path']))
         self.assertTrue(os.path.exists(dausa_res['html_path']))
+        
+        baran_res = res['districts']['Baran']
+        self.assertEqual(baran_res['respondents'], 16)
+        self.assertTrue(os.path.exists(baran_res['excel_path']))
+        self.assertTrue(os.path.exists(baran_res['html_path']))
 
         # Verify Excel Sheets & Integrity
         wb = openpyxl.load_workbook(dausa_res['excel_path'])
