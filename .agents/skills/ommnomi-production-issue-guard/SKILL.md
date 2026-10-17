@@ -186,7 +186,10 @@ Compile `docs/reports/issue-<number>/RESOLUTION_REPORT.md` (and compiled PDF per
      - Use `## 3. Mistake-Proofing (Action Items to Prevent Recurrence)` instead of standalone jargon like `Poka-Yoke`.
      - Testers and reviewers must immediately comprehend every section heading.
    - **Direct Engineering & Visual Proofs**: Retain Dual-Viewport Visual Proofs (Before vs After photos rendered with absolute raw GitHub image URLs), Surgical Code Anatomy, TDD++ Terminal Verification Logs, and 4-Tier Zero-Regression CI Verification Table.
-5. Assign QA Lead `nomeshwer` for staging verification.
+5. **Mandatory GitHub PR Sidebar Metadata Configuration**:
+   - **Reviewers**: Immediately request review from QA Lead (`nomeshwer`).
+   - **Assignees**: Assign both QA Lead (`nomeshwer`) and Lead Resolver (`whardiksharma`).
+   - **Labels**: Tag matching issue badges (`bug`, `enhancement`), readiness status (`ready-for-review`), and urgency (`critical` for high-severity blockers) so that status and urgency are immediately visible in the PR list.
 6. Ingest the learning into the permanent skill knowledge base.
 
 
