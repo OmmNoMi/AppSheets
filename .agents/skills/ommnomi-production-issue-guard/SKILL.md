@@ -175,11 +175,17 @@ Compile `docs/reports/issue-<number>/RESOLUTION_REPORT.md` (and compiled PDF per
 1. Commit with Conventional Commits: `fix(<scope>): <description> (closes #<number>)`.
 2. Push to `origin fix/issue-<number>-<slug>`.
 3. Open GitHub PR targeting `develop` referencing `Fixes #<number>`.
-4. **🚫 Strict Zero-Corporate-Boilerplate Rule for GitHub PR Descriptions**:
-   - **Zero Company Logo / Wordmark**: NEVER place `ommnomi_logo.png` or company wordmark in GitHub PR descriptions. Teammates and reviewers already know they work for OmmNoMi.
+4. **🚫 Strict Zero-Corporate-Boilerplate & Human-Readable PR Protocol**:
+   - **Exact Issue-Specific Main Heading (Zero Generic Boilerplate Titles)**: The top heading must NEVER be generic boilerplate like `# Engineering Handover & Resolution Report` or `# Resolution Report`. It MUST directly and specifically state what the PR accomplishes in plain words (e.g., `# Manager Review Queue & Role-Aware Field App`) so that any reviewer or tester instantly understands what this PR delivers. Immediately follow with `Fixes #<number>`.
+   - **Zero Company Logo / Wordmark**: NEVER place `ommnomi_logo.png` or company wordmarks in GitHub PR descriptions. Teammates and reviewers already know they work for OmmNoMi.
    - **Zero Classification & Metadata Tables**: Do NOT clutter PRs with `Document Ref: OQ-RES-XX`, `Classification: Production Quality Release...`, or reporter/resolver metadata tables. GitHub natively tracks PR author, reviewers, target branch, date, and commit history.
    - **Zero Footers & Corporate Taglines**: NEVER include physical address footers (`Karsog, Mandi...`), legal entity disclaimers, or social media links in GitHub PR descriptions.
-   - **Direct Engineering Structure**: PR body must start directly with `# <Clear Technical Title>` followed by `Fixes #<number>`. Retain only the essential technical content: Executive Summary & Persona Impact, SRE 5-Whys, Poka-Yoke Action Items, Dual-Viewport Visual Proofs (Before vs After photos rendered with absolute raw GitHub image URLs), Surgical Code Anatomy, and 4-Tier CI Test Results.
+   - **Human-Readable Executive Summary (Minimal Developer Jargon)**: In `## 1. Executive Summary & Persona Impact`, write in simple, clear, everyday language. A QA tester or product manager must easily understand who was hurt, what the bug did, and how it was fixed without wading through dense engineering terminology. Retain the core structure (`Executive Summary`, `Persona Hurt`, `Business Severity`, `Production Invariant Protected`) in clean prose.
+   - **Tester-Friendly Section Headings (Zero Confusing Acronyms)**:
+     - Use `## 2. Root Cause Analysis (Why This Happened - 5 Whys)` instead of confusing corporate jargon like `Google SRE Blameless Root Cause Analysis`.
+     - Use `## 3. Mistake-Proofing (Action Items to Prevent Recurrence)` instead of standalone jargon like `Poka-Yoke`.
+     - Testers and reviewers must immediately comprehend every section heading.
+   - **Direct Engineering & Visual Proofs**: Retain Dual-Viewport Visual Proofs (Before vs After photos rendered with absolute raw GitHub image URLs), Surgical Code Anatomy, TDD++ Terminal Verification Logs, and 4-Tier Zero-Regression CI Verification Table.
 5. Assign QA Lead `nomeshwer` for staging verification.
 6. Ingest the learning into the permanent skill knowledge base.
 

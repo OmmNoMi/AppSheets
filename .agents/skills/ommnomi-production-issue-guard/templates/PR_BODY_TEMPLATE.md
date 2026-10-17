@@ -1,18 +1,18 @@
-# {{FEATURE_OR_FIX_TITLE}}
+# {{EXACT_CLEAR_ISSUE_TITLE}}
 
 Fixes #{{ISSUE_NUMBER}}
 
 ---
 
 ## 1. Executive Summary & Persona Impact
-* **Executive Summary**: {{EXECUTIVE_SUMMARY}}
-* **Persona Hurt**: {{PERSONA_HURT}}
+* **Executive Summary**: {{EXECUTIVE_SUMMARY_HUMAN_READABLE}}
+* **Persona Hurt**: {{PERSONA_HURT_IN_SIMPLE_WORDS}}
 * **Business Severity**: {{SEVERITY}}
 * **Production Invariant Protected**: {{INVARIANT_PROTECTED}}
 
 ---
 
-## 2. Google SRE Blameless Root Cause Analysis (5-Whys)
+## 2. Root Cause Analysis (Why This Happened - 5 Whys)
 
 ### 2.1 Trigger vs. Underlying Systemic Cause
 * **Immediate Trigger**: {{IMMEDIATE_TRIGGER}}
@@ -27,7 +27,7 @@ Fixes #{{ISSUE_NUMBER}}
 
 ---
 
-## 3. Poka-Yoke (Mistake-Proofing) Action Items
+## 3. Mistake-Proofing (Action Items to Prevent Recurrence)
 
 | Action Item | Classification | Owner | Tracking Link | Status |
 | :--- | :--- | :--- | :--- | :--- |
